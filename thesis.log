@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  1 NOV 2021 17:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  1 NOV 2021 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1053,7 +1053,7 @@ Chapter 1.
 
 
 ] [2] [3]
-<images/counterexample.png, id=885, 1163.34625pt x 659.46375pt>
+<images/counterexample.png, id=880, 1163.34625pt x 659.46375pt>
 File: images/counterexample.png Graphic file (type png)
 
 <use images/counterexample.png>
@@ -1064,30 +1064,25 @@ Package pdftex.def Info: images/counterexample.png used on input line 175.
 
 ]
 Chapter 2.
-(./rep/main.tex (./rep/abstract.tex [7] [8
-
-
-] [9]) (./rep/intro.tex [10
-
-] [11]
+(./rep/main.tex (./rep/abstract.tex) (./rep/intro.tex [7] [8] [9]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <12> not available
 (Font)              Font shape `T1/ptm/b/it' tried instead on input line 69.
-
-[12] [13] [14] [15]) (./rep/tech.tex [16]
+ [10] [11]
+[12] [13]) (./rep/tech.tex
 Overfull \hbox (9.20712pt too wide) in paragraph at lines 20--21
 [][]\T1/ptm/b/n/12 Lemma 2.2.3 \T1/ptm/m/n/12 (Rep-re-sen-ta-tion The-ory of th
 e Real Hy-per-rect-an-gle, in-for-mal ver-sion of Lemma []F.2[])\T1/ptm/b/n/12 
 .
  []
 
-[17]
+[14] [15]
 Overfull \hbox (1.77785pt too wide) in paragraph at lines 89--90
 \T1/ptm/m/n/12 physics to cal-cu-late the spec-tra of Hamil-to-ni-ans and com-p
 ute molec-u-lar and atomic or-bitals [[]]. 
  []
 
-[18] [19]) [20] [21] (./rep/preli.texpdfTeX warning (ext4): destination with th
-e same identifier (name{section.2.1}) has been already used, duplicate ignored
+[16] [17]) [18] (./rep/preli.texpdfTeX warning (ext4): destination with the sam
+e identifier (name{section.2.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.6 \section{Preliminaries}
@@ -1103,7 +1098,7 @@ d, duplicate ignored
 <to be read again> 
                    \relax 
 l.24 \subsection{Definitions}
-                             \label{sec:preli:definition} [22]pdfTeX warning (e
+                             \label{sec:preli:definition} [19]pdfTeX warning (e
 xt4): destination with the same identifier (name{subsection.2.1.3}) has been al
 ready used, duplicate ignored
 <to be read again> 
@@ -1128,7 +1123,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.2
                    \relax 
 l.72 F
       or a function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$ with $f(0)=0...
-[23]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
+[20]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
 .1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1170,7 +1165,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.8
                    \relax 
 l.146 C
        onsider $x_1,\ldots, x_n$ where $d_{i,j}$ is the distance between $x_...
-[24]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
+[21]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
 .1.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1193,7 +1188,7 @@ fTeX warning (ext4): destination with the same identifier (name{subsection.2.2.
 <to be read again> 
                    \relax 
 l.14 \subsection{Preliminaries}
-                               \label{sec:poly_preli} [25]pdfTeX warning (ext4)
+                               \label{sec:poly_preli} [22]pdfTeX warning (ext4)
 : destination with the same identifier (name{theorem.2.2.1}) has been already u
 sed, duplicate ignored
 <to be read again> 
@@ -1212,7 +1207,7 @@ been already used, duplicate ignored
                    \relax 
 l.36 F
       or any Taylor expandable function $f$, any $n$, and $d:= \log n+1$: we...
-[26]pdfTeX warning (ext4): destination with the same identifier (name{subsectio
+[23]pdfTeX warning (ext4): destination with the same identifier (name{subsectio
 n.2.2.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1234,59 +1229,57 @@ stination with the same identifier (name{theorem.2.2.4}) has been already used,
 <to be read again> 
                    \relax 
 l.118 \begin{align*}
-                     [27] [28]) (./rep/metric.tex [29]
+                     [24] [25]) (./rep/metric.tex [26]
 Underfull \hbox (badness 10000) in paragraph at lines 39--41
 
  []
 
-[30] [31] [32] [33]) (./rep/repeat.tex [34]) (./rep/key.tex [35])) [36]
+[27] [28] [29] [30]) (./rep/repeat.tex [31]) (./rep/key.tex [32])) [33]
+[34
+
+
+]
 Chapter 3.
-(./screw/main.tex (./screw/abstract.tex [37
-
-
-] [38
-
-
-] [39])
-(./screw/introduction.tex
+(./screw/main.tex (./screw/abstract.tex) (./screw/introduction.tex
 Overfull \hbox (1.86269pt too wide) in paragraph at lines 3--11
 \T1/ptm/m/n/12 The pro-found suc-cess of non-lin-ear meth-ods in ma-chine learn
 -ing such as ker-nels meth-ods, density-
  []
 
-[40
-
-] <screw/Figures/example.pdf, id=1609, 418.3221pt x 281.85422pt>
+[35] <screw/Figures/example.pdf, id=1577, 418.3221pt x 281.85422pt>
 File: screw/Figures/example.pdf Graphic file (type pdf)
 
 <use screw/Figures/example.pdf>
 Package pdftex.def Info: screw/Figures/example.pdf used on input line 72.
 (pdftex.def)             Requested size: 138.21777pt x 93.1283pt.
- [41 <./screw/Figures/example.pdf>]
-<screw/Figures/example1.pdf, id=1732, 482.76181pt x 304.88123pt>
+ [36] [37 <./screw/Figures/example.pdf>]
+<screw/Figures/example1.pdf, id=1710, 482.76181pt x 304.88123pt>
 File: screw/Figures/example1.pdf Graphic file (type pdf)
 
 <use screw/Figures/example1.pdf>
 Package pdftex.def Info: screw/Figures/example1.pdf used on input line 193.
 (pdftex.def)             Requested size: 138.21777pt x 87.28748pt.
- [42]) (./screw/contributions.tex [43 <./screw/Figures/example1.pdf>] (./screw/
-spanner-theorems.tex)) (./screw/definitions.tex [44]) (./screw/outline.tex) (./
-screw/NN-soda.tex [45] (./screw/proof-soda.tex
-(./screw/boxes-soda.tex [46]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [47])
-(./screw/lifting-soda.tex [48] [49]) (./screw/lip_extension-soda.tex [50])))
-(./screw/persistence-soda.tex [51] [52]) (./screw/edge-power.tex [53]
+ [38]) (./screw/contributions.tex
+(./screw/spanner-theorems.tex [39 <./screw/Figures/example1.pdf>]))
+(./screw/definitions.tex [40]) (./screw/outline.tex) (./screw/NN-soda.tex
+[41] (./screw/proof-soda.tex (./screw/boxes-soda.tex [42])
+(./screw/lifting-soda.tex [43] [44]) (./screw/lip_extension-soda.tex [45])))
+(./screw/persistence-soda.tex [46] [47]) (./screw/edge-power.tex [48] [49]
 Overfull \hbox (3.96141pt too wide) in paragraph at lines 84--84
 []\T1/ptm/b/n/14.4 Generalizing Sin-gle Link-age Clus-ter-ing, Level Sets, and 
 k-Centers clus-
  []
 
-[54]) (./screw/spanner-soda.tex (./screw/distribution-spanner.tex)
-(./screw/general-spanner.tex [55])) (./screw/conclusions.tex)
-(./screw/appendix.tex (./screw/appendix-clustering-link.tex [56])
-(./screw/appendix-general-spanner.tex
+) (./screw/spanner-soda.tex (./screw/distribution-spanner.tex [50])
+(./screw/general-spanner.tex)) (./screw/conclusions.tex [51])
+(./screw/appendix.tex (./screw/appendix-clustering-link.texpdfTeX warning (ext4
+): destination with the same identifier (name{section.3.7}) has been already us
+ed, duplicate ignored
+<to be read again> 
+                   \relax 
+l.2   clustering}
+                 \label{ap:clustering-link})
+(./screw/appendix-general-spanner.tex [52]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 8.
@@ -1315,36 +1308,24 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 8.
 
+[53]) (./screw/appendix-distribution-spanner.tex [54] [55]))) [56]
+Chapter 4.
+(./spectralcluster/main.tex (./spectralcluster/abstract.tex)
+(./spectralcluster/introduction/introduction.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Underfull \vbox (badness 3128) has occurred while \output is active []
-
- [57pdfTeX warning (ext4): destination with the same identifier (name{section.3
-.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.13 \end{definition}
-                     ] [58]) (./screw/appendix-distribution-spanner.tex
-[59])) [60]) [61] [62
+ [57
 
 
 ]
-Chapter 4.
-(./spectralcluster/main.tex (./spectralcluster/abstract.tex [63] [64
-
-
-] [65])
-(./spectralcluster/introduction/introduction.tex
 (./spectralcluster/introduction/definitions.tex
 Underfull \vbox (badness 1377) has occurred while \output is active []
 
- [66
-
-])
-(./spectralcluster/introduction/contributions.tex [67])
-(./spectralcluster/introduction/past-work.tex [68])
-(./spectralcluster/introduction/technical-contribution.tex [69]))
-(./spectralcluster/road-map.tex [70]) (./spectralcluster/examples.tex
+ [58])
+(./spectralcluster/introduction/contributions.tex [59])
+(./spectralcluster/introduction/past-work.tex [60])
+(./spectralcluster/introduction/technical-contribution.tex [61]))
+(./spectralcluster/road-map.tex [62]) (./spectralcluster/examples.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 4.
@@ -1366,7 +1347,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 4.
 
 
-<spectralcluster/images/cheeger-counterexample.png, id=2370, 926.46124pt x 572.
+<spectralcluster/images/cheeger-counterexample.png, id=2331, 926.46124pt x 572.
 1375pt>
 File: spectralcluster/images/cheeger-counterexample.png Graphic file (type png)
 
@@ -1375,15 +1356,15 @@ Package pdftex.def Info: spectralcluster/images/cheeger-counterexample.png used
  on input line 29.
 (pdftex.def)             Requested size: 180.67499pt x 111.57072pt.
 
-<spectralcluster/images/buser-counterexample.png, id=2371, 864.22874pt x 539.01
+<spectralcluster/images/buser-counterexample.png, id=2332, 864.22874pt x 539.01
 375pt>
 File: spectralcluster/images/buser-counterexample.png Graphic file (type png)
  <use spectralcluster/images/buser-counterexample.png>
 Package pdftex.def Info: spectralcluster/images/buser-counterexample.png used o
 n input line 42.
 (pdftex.def)             Requested size: 180.67499pt x 112.6863pt.
- [71 <./spectralcluster/images/cheeger-counterexample.png> <./spectralcluster/i
-mages/buser-counterexample.png>]) (./spectralcluster/buser/buser.tex [72]
+ [63 <./spectralcluster/images/cheeger-counterexample.png> <./spectralcluster/i
+mages/buser-counterexample.png>]) (./spectralcluster/buser/buser.tex [64]
 (./spectralcluster/buser/utheta-construction.tex)
 (./spectralcluster/buser/key-lemma.tex
 
@@ -1410,7 +1391,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 3.
 
-[73]
+[65]
 Overfull \hbox (15.35515pt too wide) detected at line 55
 [] [][] \OMS/cmsy/m/n/12 ^^T [][] [][] \OML/cmm/m/it/12 ^^Z[]\OT1/cmr/m/n/12 (\
 OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^R^^Z\OT1/cmr/m/n/12 (
@@ -1434,7 +1415,7 @@ T1/cmr/m/n/12 (\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 ) \OML/cmm/m/it/12 dy dx \OMS/
 cmsy/m/n/12 ^^T [] [][]
  []
 
-[74]) (./spectralcluster/buser/numerator.tex [75]
+[66]) (./spectralcluster/buser/numerator.tex [67]
 Overfull \hbox (26.40039pt too wide) in paragraph at lines 34--34
 [] 
  []
@@ -1444,22 +1425,22 @@ Overfull \hbox (68.1227pt too wide) in paragraph at lines 48--48
 [] 
  []
 
-[76]
+[68]
 Overfull \hbox (41.22523pt too wide) in paragraph at lines 171--171
 [] 
  []
 
-[77] [78]
+[69] [70]
 Overfull \hbox (14.479pt too wide) in paragraph at lines 281--281
 [] 
  []
 
-) (./spectralcluster/buser/denominator.tex [79] [80]
+) (./spectralcluster/buser/denominator.tex [71] [72]
 Overfull \hbox (29.34032pt too wide) in paragraph at lines 146--146
 [] 
  []
 
-) (./spectralcluster/buser/mollifier.tex [81] [82]
+) (./spectralcluster/buser/mollifier.tex [73] [74]
 Overfull \hbox (11.9566pt too wide) detected at line 71
 [][] [][] \OMS/cmsy/m/n/12 jr\OML/cmm/m/it/12 ^^^\OT1/cmr/m/n/12 (\OML/cmm/m/it
 /12 x\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j \OML/cmm/m/it/12 dx \OMS/cmsy/m/n/12 ^
@@ -1469,10 +1450,10 @@ Overfull \hbox (11.9566pt too wide) detected at line 71
 mr/m/n/12 1)\OML/cmm/m/it/12 :
  []
 
-)) (./spectralcluster/scaling.tex [83] [84]) (./spectralcluster/cheeger.tex
-[85] [86]) (./spectralcluster/spectral-sweep.tex)
+)) (./spectralcluster/scaling.tex [75] [76]) (./spectralcluster/cheeger.tex
+[77] [78]) (./spectralcluster/spectral-sweep.tex)
 (./spectralcluster/counterexample/counterexample.tex
-<spectralcluster/images/counterexample.png, id=2588, 1163.34625pt x 659.46375pt
+<spectralcluster/images/counterexample.png, id=2550, 1163.34625pt x 659.46375pt
 >
 File: spectralcluster/images/counterexample.png Graphic file (type png)
  <use spectralcluster/images/counterexample.png>
@@ -1482,8 +1463,8 @@ t line 14.
 
 Underfull \vbox (badness 1997) has occurred while \output is active []
 
- [87]
-[88 <./spectralcluster/images/counterexample.png>]
+ [79]
+[80 <./spectralcluster/images/counterexample.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 87.
@@ -1512,7 +1493,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 135.
 
-[89] [90]) (./spectralcluster/conclusion.tex [91])
+[81] [82]) (./spectralcluster/conclusion.tex [83])
 (./spectralcluster/appendix/examples.texpdfTeX warning (ext4): destination with
  the same identifier (name{section.4.7}) has been already used, duplicate ignor
 ed
@@ -1538,32 +1519,28 @@ l.14 \subsection{A Lipschitz weight}
                                     
 Underfull \vbox (badness 1024) has occurred while \output is active []
 
- [92])
+ [84])
 (./spectralcluster/appendix/notgraph.texpdfTeX warning (ext4): destination with
  the same identifier (name{section.4.8}) has been already used, duplicate ignor
 ed
 <to be read again> 
                    \relax 
 l.2   from Graph or Manifold Cheeger and Buser}
-                                               \label{app:notgraph} [93])
-(./spectralcluster/1d.tex [94] [95] [96])) [97] [98
+                                               \label{app:notgraph} [85])
+(./spectralcluster/1d.tex [86] [87] [88])) [89] [90
 
 
 ]
 Chapter 5.
-(./geo/main.tex [99] [100
-
-
-] (./geo/abstract.tex) [101] [102
-
+(./geo/main.tex (./geo/abstract.tex) [91] [92
 
 
 ] (./thesis.toc)
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
-
-[103] (./geo/intro.tex [104] [105]
+ [93]
+(./geo/intro.tex [94] [95]
 Overfull \hbox (27.55223pt too wide) in paragraph at lines 91--97
 \T1/ptm/m/n/12 We be-gin in this sub-sec-tion by stat-ing our re-sults about wh
 ich func-tions have $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; []\OT1/cmr/m/n/12 (
@@ -1580,21 +1557,21 @@ OML/cmm/m/it/12 ="\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^A \OML/cmm/m/it/12 n[]$\
 T1/ptm/m/n/12 -
  []
 
-[106]
+[96]
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 107.
- [107] [108]
+ [97] [98]
 Underfull \vbox (badness 3118) has occurred while \output is active []
 
- [109]
-[110] [111]
+ [99]
+[100] [101]
 Overfull \hbox (19.27971pt too wide) in paragraph at lines 281--282
  []\T1/ptm/b/n/12 Algorithmic tech-niques \T1/ptm/m/n/12 Our al-go-rithm for co
 n-struct-ing high-dimensional spar-si-fiers for $\OT1/cmss/m/n/12 K\OT1/cmr/m/n
 /12 (\OML/cmm/m/it/12 x; y\OT1/cmr/m/n/12 ) =
  []
 
-[112] [113]
+[102] [103]
 Overfull \hbox (18.34076pt too wide) in paragraph at lines 343--345
 []\T1/ptm/m/n/12 Sparsification. In both set-tings, $\OML/cmm/m/it/12 p[]$ \T1/
 ptm/m/n/12 is the min-i-mum value for which $\OML/cmm/m/it/12 f$ \T1/ptm/m/n/12
@@ -1602,25 +1579,25 @@ ptm/m/n/12 is the min-i-mum value for which $\OML/cmm/m/it/12 f$ \T1/ptm/m/n/12
 multiplicatively
  []
 
-[114] [115]) (./geo/result.tex [116] [117]) (./geo/preli.tex
+[104] [105]) (./geo/result.tex [106] [107]) (./geo/preli.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [118]
-[119] [120]
+ [108]
+[109] [110]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 115.
- [121]
+ [111]
 Overfull \hbox (2.23499pt too wide) in paragraph at lines 195--196
 \T1/ptm/m/n/12 We make use of the fol-low-ing bi-nary ver-sion of the Johnson-L
 indenstrauss lemma due to Achliop-
  []
 
-[122] [123]
+[112] [113]
 LaTeX Font Info:    Try loading font information for T1+phv on input line 270.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 ))
-(./geo/equiv.tex [124] [125]
+(./geo/equiv.tex [114] [115]
 Overfull \hbox (16.30283pt too wide) in paragraph at lines 104--104
 [][]\T1/ptm/b/n/12 Lemma 4.3. []\T1/ptm/m/it/12 Con-sider an $\OML/cmm/m/it/12 
 n$\T1/ptm/m/it/12 -vertex $\OML/cmm/m/it/12 w$\T1/ptm/m/it/12 -weighted graph $
@@ -1638,7 +1615,7 @@ it/12 -time al-go-rithm $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 b; ^^N\OT1/cmr/m/n
 /12 )$
  []
 
-[126] [127]
+[116] [117]
 Overfull \hbox (43.55571pt too wide) in paragraph at lines 187--188
 []\T1/ptm/b/n/12 Error\T1/ptm/m/n/12 : We start by bound-ing er-ror in the $\OM
 L/cmm/m/it/12 L[]$ \T1/ptm/m/n/12 norm. Let $\OML/cmm/m/it/12 b$ \T1/ptm/m/n/12
@@ -1646,13 +1623,13 @@ L/cmm/m/it/12 L[]$ \T1/ptm/m/n/12 norm. Let $\OML/cmm/m/it/12 b$ \T1/ptm/m/n/12
 $
  []
 
-[128]
+[118]
 Overfull \hbox (50.91495pt too wide) in paragraph at lines 215--216
 []\T1/ptm/b/n/12 Runtime\T1/ptm/m/n/12 : There is one call to $[]$ and one mul-
 ti-pli-ca-tion by $\OML/cmm/m/it/12 L[]$ \T1/ptm/m/n/12 per call to $[]$
  []
 
-[129]) (./geo/hardness.tex [130] [131] [132]
+[119]) (./geo/hardness.tex [120] [121] [122]
 Overfull \hbox (6.77483pt too wide) in paragraph at lines 128--129
 \T1/ptm/m/it/12 ti-mal if we must ap-prox-i-mate $\OML/cmm/m/it/12 f\OT1/cmr/m/
 n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )$ \T1/ptm/m/it/12 on the slightly larg
@@ -1661,11 +1638,11 @@ cmm/m/it/12 ="\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 = [][] []\OT1/cmr/m/n/12 (1\OML
 /cmm/m/it/12 ="\OT1/cmr/m/n/12 )]$ \T1/ptm/m/it/12 [[],
  []
 
-[133]
+[123]
 Underfull \vbox (badness 2469) has occurred while \output is active []
 
- [134]
-[135]
+ [124]
+[125]
 Overfull \hbox (30.40265pt too wide) in paragraph at lines 243--245
 \T1/ptm/m/it/12 where $\OML/cmm/m/it/12 A\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 `[];
  `[]; []  ; `[]\OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12 2 \U/msb/m/n/12 R[]$ \T1/ptm/
@@ -1674,7 +1651,7 @@ ry is given by $\OML/cmm/m/it/12 A[]$ \T1/ptm/m/it/12 and $\OML/cmm/m/it/12 B\O
 T1/cmr/m/n/12 [\OML/cmm/m/it/12 `[]; `[]; []  ; `[]\OT1/cmr/m/n/12 ]$
  []
 
-[136] [137]
+[126] [127]
 Overfull \hbox (12.11543pt too wide) in paragraph at lines 302--303
 \T1/ptm/m/n/12 far from a de-gree $\OML/cmm/m/it/12 k$ \T1/ptm/m/n/12 poly-no-m
 ial, Lemma []5.13[] im-plies the ex-is-tance of an $\OML/cmm/m/it/12 x[]$ \T1/p
@@ -1682,7 +1659,7 @@ tm/m/n/12 for which $\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OM
 L/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j \OML/cmm/m/it/12 >
  []
 
-[138] [139] [140] [141] [142] [143]
+[128] [129] [130] [131] [132] [133]
 Overfull \hbox (14.81723pt too wide) in paragraph at lines 498--499
 \T1/ptm/m/it/12 dimensional vec-tors of in-te-ger en-tries of bit length $\OML/
 cmm/m/it/12 O\OT1/cmr/m/n/12 ([] \OML/cmm/m/it/12 n\OT1/cmr/m/n/12 )$ \T1/ptm/m
@@ -1700,7 +1677,7 @@ m/n/12 . Since each $\OML/cmm/m/it/12 s[]$ \T1/ptm/m/n/12 and $\OML/cmm/m/it/12
  s[]$ \T1/ptm/m/n/12 is a polynomially-
  []
 
-[144] [145]
+[134] [135]
 Overfull \hbox (36.94334pt too wide) detected at line 597
 []\OT1/cmr/m/n/12 ((\OML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 
 J[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^B \OML/cmm/m/it/12 K[] \OMS/cmsy/m/n/12
@@ -1713,7 +1690,7 @@ ML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 J[]\OT1/cmr/m/n/12 ))
 2 S\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 K[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =n;
  []
 
-) (./geo/sparsifier_lip.tex [146]
+) (./geo/sparsifier_lip.tex [136]
 Overfull \hbox (7.73776pt too wide) in paragraph at lines 59--60
 [][]\T1/ptm/b/n/12 Corollary 6.3.1. []\T1/ptm/m/it/12 Con-sider a $\OT1/cmss/m/
 n/12 K$ \T1/ptm/m/it/12 graph where $\OT1/cmss/m/n/12 K\OT1/cmr/m/n/12 (\OML/cm
@@ -1735,37 +1712,37 @@ m/m/it/12 o\OT1/cmr/m/n/12 ([] \OML/cmm/m/it/12 n=\OT1/cmr/m/n/12 ([] [] \OML/c
 mm/m/it/12 n\OT1/cmr/m/n/12 )[])$\T1/ptm/m/it/12 ,
  []
 
-[147]
+[137]
 Overfull \hbox (1.57925pt too wide) in paragraph at lines 156--157
 [][]\T1/ptm/b/n/12 Lemma 6.7 \T1/ptm/m/n/12 ($\OT1/cmr/m/n/12 (\OML/cmm/m/it/12
  C; L\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 mul-ti-plica-tive Lip-s-chitz func-tions
  don't dis-tort a graph's edge weights much)\T1/ptm/b/n/12 .
  []
 
-[148]
+[138]
 Underfull \vbox (badness 4316) has occurred while \output is active []
 
- [149]
-[150]) (./geo/sparsifier_ip.tex [151]
+ [139]
+[140]) (./geo/sparsifier_ip.tex [141]
 Overfull \hbox (9.35437pt too wide) in paragraph at lines 38--39
 []\T1/ptm/m/n/12 Assume to the con-trary that $\OML/cmm/m/it/12 M$ \T1/ptm/m/n/
 12 does not have full rank. Thus, there are val-ues $\OML/cmm/m/it/12 c[]; [] ;
  c[] \OMS/cmsy/m/n/12 2
  []
 
-[152] [153] [154]
+[142] [143] [144]
 Overfull \hbox (5.82697pt too wide) in paragraph at lines 162--163
 \T1/ptm/m/n/12 graphs of $\OML/cmm/m/it/12 G$ \T1/ptm/m/n/12 and builds an ef-f
 ec-tive re-sis-tance data struc-ture for each one us-ing [[]]. $[]$
  []
 
-[155]
+[145]
 Overfull \hbox (1.16003pt too wide) in paragraph at lines 240--241
 []\T1/ptm/b/n/12 Runtime. \T1/ptm/m/n/12 We start with pre-pro-cess-ing. Sam-pl
 ing $\OML/cmm/m/it/12 C[]n$ \T1/ptm/m/n/12 pairs and check-
  []
 
-[156] [157]
+[146] [147]
 Overfull \hbox (4.99496pt too wide) in paragraph at lines 296--298
 \T1/ptm/m/n/12 so the al-go-rithm picks a $\OML/cmm/m/it/12 v$ \T1/ptm/m/n/12 i
 n $\OML/cmm/m/it/12 S$ \T1/ptm/m/n/12 with prob-a-bil-ity at least $\OT1/cmr/m/
@@ -1783,7 +1760,7 @@ mr/m/n/12 (\OML/cmm/m/it/12 d; [] n\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 n$\T1/ptm/
 m/n/12 ,
  []
 
-[158]
+[148]
 Overfull \hbox (25.28188pt too wide) in paragraph at lines 334--335
 \T1/ptm/m/it/12 with ver-tex set $\OML/cmm/m/it/12 X$ \T1/ptm/m/it/12 and $\OML
 /cmm/m/it/12 n \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 X\OMS/cmsy/
@@ -1793,7 +1770,7 @@ t/12 R[] \OT1/cmr/m/n/12 = [][] [][](\OML/cmm/m/it/12 u; v\OT1/cmr/m/n/12 )$\T1
 /ptm/m/it/12 ,
  []
 
-[159] [160]
+[149] [150]
 Overfull \hbox (15.06985pt too wide) in paragraph at lines 441--442
 []\T1/ptm/m/n/12 Use the Corol-lary []7.14.1[] data struc-ture to $\OT1/cmr/m/n
 /12 (1 \OMS/cmsy/m/n/12 ^^F \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 
@@ -1801,7 +1778,7 @@ Overfull \hbox (15.06985pt too wide) in paragraph at lines 441--442
 \OMS/cmsy/m/n/12 jh\OML/cmm/m/it/12 u; v\OMS/cmsy/m/n/12 ij$
  []
 
-[161] [162]
+[151] [152]
 Overfull \hbox (34.03664pt too wide) in paragraph at lines 488--490
 \T1/ptm/m/it/12 is a 2-approximation to $\OML/cmm/m/it/12 p[]$\T1/ptm/m/it/12 .
  Fur-ther-more, it is pos-si-ble to query the num-ber $\OML/cmm/m/it/12 p[]$ \T
@@ -1809,7 +1786,7 @@ Overfull \hbox (34.03664pt too wide) in paragraph at lines 488--490
 (\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 S[]\OMS/cmsy/m/n/12 j \OT1/cmr/m/n/12 +
  []
 
-[163] [164] [165]
+[153] [154] [155]
 Overfull \hbox (26.7641pt too wide) in paragraph at lines 588--589
 []\T1/ptm/m/n/12 Sample a pair $\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 G\OML/cmm/m/i
 t/12 ; S[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2 F$ \T1/ptm/m/n/12 with prob-a-bi
@@ -1825,14 +1802,14 @@ f-fices to con-struct an $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; [] n\OT1/cmr/m
 /n/12 )\OML/cmm/m/it/12 n$\T1/ptm/m/n/12 -
  []
 
-[166]
+[156]
 Overfull \hbox (13.12863pt too wide) in paragraph at lines 658--659
 []\T1/ptm/b/n/12 Sparsity bound\T1/ptm/m/n/12 . We bound the de-sired quan-tity
  di-rectly us-ing the fact that $\OMS/cmsy/m/n/12 jUj ^^T []\OT1/cmr/m/n/12 (\O
 ML/cmm/m/it/12 d; [] n\OT1/cmr/m/n/12 )$\T1/ptm/m/n/12 : 
  []
 
-[167] [168]
+[157] [158]
 Overfull \hbox (71.85997pt too wide) in paragraph at lines 736--737
 \T1/ptm/m/n/12 Propo-si-tion []7.8[]. Let $\OML/cmm/m/it/12 w[] \OT1/cmr/m/n/12
  = \OMS/cmsy/m/n/12 jh\OML/cmm/m/it/12 u; v\OMS/cmsy/m/n/12 ij$ \T1/ptm/m/n/12 
@@ -1844,7 +1821,7 @@ m/n/12 F \OT1/cmr/m/n/12 = [](\OML/cmm/m/it/12 X\OT1/cmr/m/n/12 )$
 
 Underfull \vbox (badness 1253) has occurred while \output is active []
 
- [169]
+ [159]
 Overfull \hbox (14.60281pt too wide) in paragraph at lines 761--762
 []\T1/ptm/b/n/12 Runtime\T1/ptm/m/n/12 . Fol-lows im-me-di-ately from the run-t
 ime bounds of $[]$, $[]$,
@@ -1861,11 +1838,11 @@ on of $\OML/cmm/m/it/12 X[]$\T1/ptm/m/n/12 , there is a unique pair $\OT1/cmr/m
 
 Underfull \vbox (badness 3525) has occurred while \output is active []
 
- [170]
+ [160]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[171] [172] [173]
+[161] [162] [163]
 Overfull \hbox (30.16962pt too wide) detected at line 941
 \OML/cmm/m/it/12 ^^P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S[]; S[]\OT1/cmr/m/n/12 )
  = []
@@ -1877,18 +1854,18 @@ Overfull \hbox (33.68924pt too wide) detected at line 951
  = []
  []
 
-[174] [175] [176]) (./geo/lapl_hard.tex [177]
+[164] [165] [166]) (./geo/lapl_hard.tex [167]
 Overfull \hbox (8.21693pt too wide) in paragraph at lines 46--47
 []\T1/ptm/m/n/12 Consider the fol-low-ing al-go-rithm, \T1/ptm/m/sc/12 Bichro-m
 at-ic-N-ear-est-Neigh-bor \T1/ptm/m/n/12 (Al-
  []
 
-[178] [179]
+[168] [169]
 Overfull \hbox (40.21529pt too wide) in paragraph at lines 132--137
  [][] 
  []
 
-[180] [181] [182]
+[170] [171] [172]
 Overfull \hbox (20.07205pt too wide) in paragraph at lines 295--297
 \T1/ptm/m/n/12 where the first step fol-lows from $[][] \OML/cmm/m/it/12 b[]\OT
 1/cmr/m/n/12 (\OML/cmm/m/it/12 L[]\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 b[] \OT1/
@@ -1900,19 +1877,19 @@ cmr/m/n/12 = [][] \OMS/cmsy/m/n/12 k\OML/cmm/m/it/12 L[]b[]\OMS/cmsy/m/n/12 k[]
 
 Underfull \vbox (badness 1622) has occurred while \output is active []
 
- [183]
+ [173]
 Overfull \hbox (14.4091pt too wide) in paragraph at lines 316--355
 []\T1/ptm/m/n/12 Consider the fol-low-ing al-go-rithm \T1/ptm/m/sc/12 Bichro-ma
 t-ic-N-ear-est-Neigh-bor\T1/ptm/m/n/12 , given
  []
 
-[184] [185]
+[174] [175]
 Overfull \hbox (1.98741pt too wide) in paragraph at lines 432--432
 [] 
  []
 
-[186]) (./geo/fastmm.tex [187] [188] [189] [190] [191] [192] [193] [194]
-[195] [196]
+[176]) (./geo/fastmm.tex [177] [178] [179] [180] [181] [182] [183] [184]
+[185] [186]
 Overfull \hbox (22.7074pt too wide) in paragraph at lines 411--413
 [][]\T1/ptm/b/n/12 Theorem 9.13 \T1/ptm/m/n/12 (fast Gaus-sian trans-form)\T1/p
 tm/b/n/12 . []\T1/ptm/m/it/12 Given $\OML/cmm/m/it/12 N$ \T1/ptm/m/it/12 vec-to
@@ -1921,19 +1898,11 @@ m/m/it/12 , $\OML/cmm/m/it/12 M$ \T1/ptm/m/it/12 vec-tors $\OML/cmm/m/it/12 t[]
 ; t[]; []  ; t[]$
  []
 
-[197]) (./geo/ntk.tex [198] [199])) [200]
-Chapter 6.
-(./conclusion.tex) (./thesis.bbl (./thesis.brf)
+[187]) (./geo/ntk.tex [188] [189])) (./thesis.bbl (./thesis.brf)
 \tf@brf=\write10
 \openout10 = `thesis.brf'.
 
- [201
-
-
-] [202
-
-
-]
+ [190]
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 42.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
@@ -1941,7 +1910,64 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [191
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [192]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [193]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [194]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [195]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [196]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [197]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [198]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [199]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [200]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [201]
+Underfull \hbox (badness 4001) in paragraph at lines 1104--1104
+[]\T1/ptm/m/n/12 Shunhua Jiang, Yunze Man, Zhao Song, and Danyang Zhuo.  Graph 
+neu-
+ []
+
+
+Underfull \hbox (badness 8019) in paragraph at lines 1104--1104
+\T1/ptm/m/n/12 ral net-work ac-cel-er-a-tion via ma-trix di-men-sion re-duc-tio
+n.  In \T1/ptm/m/it/12 Open-re-view\T1/ptm/m/n/12 .
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [202]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [203]
+Underfull \hbox (badness 7151) in paragraph at lines 1224--1224
+[]\T1/ptm/m/n/12 Ria Kul-shrestha.  Trans-form-ers.  https://towardsdatascience
+.com/transformers-
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [204]
@@ -1957,60 +1983,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [208]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [209]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [210]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [211]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [212]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [213]
-Underfull \hbox (badness 4001) in paragraph at lines 1104--1104
-[]\T1/ptm/m/n/12 Shunhua Jiang, Yunze Man, Zhao Song, and Danyang Zhuo.  Graph 
-neu-
- []
-
-
-Underfull \hbox (badness 8019) in paragraph at lines 1104--1104
-\T1/ptm/m/n/12 ral net-work ac-cel-er-a-tion via ma-trix di-men-sion re-duc-tio
-n.  In \T1/ptm/m/it/12 Open-re-view\T1/ptm/m/n/12 .
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [214]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [215]
-Underfull \hbox (badness 7151) in paragraph at lines 1224--1224
-[]\T1/ptm/m/n/12 Ria Kul-shrestha.  Trans-form-ers.  https://towardsdatascience
-.com/transformers-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [216]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [217]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [218]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [219]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [220]
 Underfull \hbox (badness 1721) in paragraph at lines 1704--1704
 []\T1/ptm/m/n/12 Jonathon Shlens.  A tu-to-rial on prin-ci-pal com-po-nent anal
 -y-sis.  \T1/ptm/m/it/12 arXiv preprint
@@ -2019,40 +1991,34 @@ Underfull \hbox (badness 1721) in paragraph at lines 1704--1704
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [221]
+ [209]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [222]
+ [210]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [223])
-[224]
+ [211])
+[212]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 243.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 243.
  (./thesis.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 243.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 243.
-
-
-Package rerunfilecheck Warning: File `thesis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `thesis.out':
-(rerunfilecheck)             Before: 8412A6F8AEDF14242C33EEF98E03C329;12842
-(rerunfilecheck)             After:  084BF0478A1156C1AFF3011363ABA16B;12864.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: 2DF767B4FB24D9EF9D9A52EF7144AE28;12813.
 Package rerunfilecheck Info: File `thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 9AF38DF83442C019AE0CE00BD3DE95FB;25731.
+(rerunfilecheck)             Checksum: 8C1189971E5B16C297F2A4BADE10B157;25664.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 243.
  ) 
 Here is how much of TeX's memory you used:
- 26412 strings out of 494497
- 459427 string characters out of 6172400
- 533473 words of memory out of 5000000
- 27908 multiletter control sequences out of 15000+600000
+ 26393 strings out of 494497
+ 459217 string characters out of 6172400
+ 533479 words of memory out of 5000000
+ 27904 multiletter control sequences out of 15000+600000
  93706 words of font info for 131 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  64i,19n,60p,1912b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2084,10 +2050,10 @@ share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
 fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (240 pages, 1479549 bytes).
+Output written on thesis.pdf (228 pages, 1477710 bytes).
 PDF statistics:
- 5213 PDF objects out of 6186 (max. 8388607)
- 4761 compressed objects within 48 object streams
- 1239 named destinations out of 1440 (max. 500000)
- 1203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5156 PDF objects out of 6186 (max. 8388607)
+ 4716 compressed objects within 48 object streams
+ 1226 named destinations out of 1440 (max. 500000)
+ 1195 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,181 +1,180 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Quick Preliminaries (Clustering Definitions and Geometry in ML)}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Paper Overview}{1}{section.1.2}
+\contentsline {section}{\numberline {1.1}Quick Preliminaries: Clustering Definitions and Geometry in ML}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Thesis Overview}{1}{section.1.2}
 \contentsline {section}{\numberline {1.3}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{2}{section.1.3}
 \contentsline {section}{\numberline {1.4}Data-Sensitive Distances in Clustering}{3}{section.1.4}
 \contentsline {section}{\numberline {1.5}Spectral Clustering in Large Datasets}{3}{section.1.5}
 \contentsline {section}{\numberline {1.6}Spectral Graph Theory in Machine Learning}{4}{section.1.6}
 \contentsline {chapter}{\numberline {2}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}Introduction}{10}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Kernel Methods}{10}{subsection.2.1.1}
-\contentsline {subsubsection}{Main Result}{11}{section*.5}
-\contentsline {subsection}{\numberline {2.1.2}Metric Transforms}{12}{subsection.2.1.2}
-\contentsline {subsubsection}{Main Result}{13}{section*.6}
-\contentsline {subsection}{\numberline {2.1.3}Only Polynomials Preserve Low Rank Matrices}{13}{subsection.2.1.3}
-\contentsline {paragraph}{Application to Transformers in NLP}{15}{section*.7}
-\contentsline {subsubsection}{Main Result}{15}{section*.8}
-\contentsline {section}{\numberline {2.2}Technique Overview}{16}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Key Lemma}{16}{subsection.2.2.1}
-\contentsline {paragraph}{Warm-up: $d$-dimension}{17}{section*.9}
-\contentsline {paragraph}{Proof idea: Representation Theory of the Real Hyperrectangle}{18}{section*.10}
-\contentsline {paragraph}{Related Work}{18}{section*.11}
-\contentsline {paragraph}{Use in Applications}{19}{section*.12}
-\contentsline {subsection}{\numberline {2.2.2}Kernel Methods}{19}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Metric Transforms}{19}{subsection.2.2.3}
-\contentsline {paragraph}{Bernstein functions transform Manhattan to squared Euclidean}{19}{section*.13}
-\contentsline {paragraph}{Manhattan to Squared Euclidean $\Leftrightarrow $ Manhattan to Manhattan}{20}{section*.14}
-\contentsline {subsection}{\numberline {2.2.4}Polynomial Method Converse}{20}{subsection.2.2.4}
-\contentsline {paragraph}{Roadmap.}{22}{section*.16}
-\contentsline {section}{\numberline {A}Preliminaries}{22}{section.2.1}
-\contentsline {subsection}{\numberline {A.1}Notations}{22}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {A.2}Definitions}{22}{subsection.2.1.2}
-\contentsline {paragraph}{Hyperrectangles}{23}{section*.17}
-\contentsline {subsection}{\numberline {A.3}Alternate Classifications of Completely Monotone and Bernstein Functions}{23}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {A.4}Metric Hierarchies}{24}{subsection.2.1.4}
-\contentsline {subsection}{\numberline {A.5}Negative Type Metrics and Euclidean Embeddability}{24}{subsection.2.1.5}
-\contentsline {subsection}{\numberline {A.6}Useful Tools}{25}{subsection.2.1.6}
-\contentsline {section}{\numberline {B}Non-Polynomial Functions Blow Up Matrix Rank}{25}{section.2.2}
-\contentsline {subsection}{\numberline {B.1}Preliminaries}{26}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {B.2}One Eigenvalue is Identically Zero}{26}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {B.3}Only Polynomials Have a Zero Eigenvalue}{27}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {B.4}Rewriting the Sum}{28}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {B.5}Calculating the Limit}{28}{subsection.2.2.5}
-\contentsline {subsection}{\numberline {B.6}Main Result}{29}{subsection.2.2.6}
-\contentsline {section}{\numberline {C}Transforming Manhattan to Euclidean}{29}{section.2.3}
-\contentsline {subsection}{\numberline {C.1}Useful Computations}{30}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {C.2}Main Results}{30}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {C.3}Function Should be Bounded}{31}{subsection.2.3.3}
-\contentsline {section}{\numberline {D}Transforming Manhattan to Manhattan}{32}{section.2.4}
-\contentsline {subsection}{\numberline {D.1}Useful Tools}{32}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {D.2}Main Result}{33}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {D.3}Discussion and Extensions}{34}{subsection.2.4.3}
-\contentsline {section}{\numberline {E}Positive Definite Manhattan Kernels}{34}{section.2.5}
-\contentsline {subsection}{\numberline {E.1}A Useful Tool}{34}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {E.2}Main Result}{34}{subsection.2.5.2}
-\contentsline {section}{\numberline {F}Representation Theory of the Real Hyperrectangles}{35}{section.2.6}
-\contentsline {subsection}{\numberline {F.1}Useful Tools}{35}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {F.2}Main Result}{36}{subsection.2.6.2}
-\contentsline {chapter}{\numberline {3}Data-Sensitive Distances}{37}{chapter.3}
-\contentsline {section}{\numberline {1}Introduction}{40}{section.3.1}
-\contentsline {subsection}{\numberline {1.1}Contributions and Past Work}{43}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {1.2}Definitions and Preliminaries}{44}{subsection.3.1.2}
-\contentsline {section}{\numberline {2}Outline}{45}{section.3.2}
-\contentsline {section}{\numberline {3}Exactly Computing the nearest neighbor metric}{46}{section.3.3}
-\contentsline {subsubsection}{Boxes}{47}{section*.20}
-\contentsline {subsubsection}{Lifting the points to $\mathbb {R}^n$}{48}{section*.21}
-\contentsline {subsubsection}{The Lipschitz Extension}{50}{section*.22}
-\contentsline {subsection}{\numberline {3.1}From Finite Sets to Finite Collections of Compact Path-Connected Bodies}{51}{subsection.3.3.1}
-\contentsline {section}{\numberline {4}Persistent Homology of the Nearest-neighbor Geodesic Distance}{51}{section.3.4}
-\contentsline {section}{\numberline {5}Relating the nearest neighbor metric to Euclidean MSTs, Euclidean Spanners, and More}{53}{section.3.5}
-\contentsline {subsection}{\numberline {5.1}Relation to the Euclidean MST problem}{54}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {5.2}Generalizing Single Linkage Clustering, Level Sets, and k-Centers clustering}{54}{subsection.3.5.2}
-\contentsline {section}{\numberline {6}Spanners for the nearest neighbor metric}{55}{section.3.6}
-\contentsline {subsection}{\numberline {6.1}Exact-spanners of nearest neighbor metric in the Probability Density Setting }{55}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {6.2}Fast, Sparse Spanner for the Edge-Squared Metric}{55}{subsection.3.6.2}
-\contentsline {section}{\numberline {7}Conclusions and Open Questions}{56}{section.3.7}
-\contentsline {section}{\numberline {G}Nearest Neighbor Metric and Edge-Power Metrics relate to Single Linkage Clustering, Level Sets, and k-Centers clustering}{57}{section.3.7}
-\contentsline {section}{\numberline {H}Proving Faster and Sparser-than-Euclidean Approximate Spanners}{57}{section.3.8}
-\contentsline {subsection}{\numberline {H.1}$1+O(\delta ^2)$ spanners can be generated from a $1/\delta $ WSPD}{58}{subsection.3.8.1}
-\contentsline {section}{\numberline {I}Spanners in the Probability Density Setting: Full Proof}{59}{section.3.9}
-\contentsline {chapter}{\numberline {4}Spectral Clustering in the Limit}{63}{chapter.4}
-\contentsline {section}{\numberline {A}Introduction}{66}{section.4.1}
-\contentsline {subsubsection}{Applications}{66}{section*.25}
-\contentsline {subsection}{\numberline {A.1}Definitions}{67}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {A.2}Theorems}{68}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {A.3}Past Work}{68}{subsection.4.1.3}
-\contentsline {subsubsection}{Cheeger and Buser Inequalities for Graphs and Manifolds}{68}{section*.26}
-\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{69}{section*.27}
-\contentsline {subsubsection}{Technical Contribution}{69}{section*.28}
-\contentsline {section}{\numberline {B}Paper Organization}{70}{section.4.2}
-\contentsline {section}{\numberline {C}Cheeger-Buser inequalities require carefully chosen $\alpha , \beta , \gamma $}{71}{section.4.3}
-\contentsline {section}{\numberline {D}Buser Inequality for Probability Density Functions}{72}{section.4.4}
-\contentsline {subsection}{\numberline {D.1}Weighted Buser-type Inequality}{73}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {D.2}Proof Strategy: Mollification by Disks of Radius Proportional to $\rho $}{73}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {D.3}Key Technical Lemma: Bounding $L_1$ norm of a function with the $L_1$ norm of its mollification}{73}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {D.4}Upper Bounding the Numerator}{76}{subsection.4.4.4}
-\contentsline {subsection}{\numberline {D.5}Lower Bound on the Denominator}{79}{subsection.4.4.5}
-\contentsline {subsection}{\numberline {D.6}Bounding the Rayleigh Quotient (Proof of Theorem~\ref {thm:buser_n})}{81}{subsection.4.4.6}
-\contentsline {subsection}{\numberline {D.7}Gradient of Mollifier}{82}{subsection.4.4.7}
-\contentsline {subsection}{\numberline {D.8}Scaling}{83}{subsection.4.4.8}
-\contentsline {section}{\numberline {E}Cheeger Inequality for Probability Density Functions}{85}{section.4.5}
-\contentsline {section}{\numberline {F}Spectral Sweep Cuts have Provably Good Sparsity (proof of Theorem~\ref {thm:sweep-cut})}{87}{section.4.6}
-\contentsline {section}{\numberline {G}Problems with Existing Spectral Cut Methods}{87}{section.4.7}
-\contentsline {subsection}{\numberline {G.1}Our density function}{88}{subsection.4.7.1}
-\contentsline {subsection}{\numberline {G.2}Proof Overview}{89}{subsection.4.7.2}
-\contentsline {subsection}{\numberline {G.3}The Zero-set of a principal $(1,2)$ eigenfunction is the line $y = 0$}{89}{subsection.4.7.3}
-\contentsline {subsection}{\numberline {G.4}Any spectral sweep cut has high $(1,\beta )$ sparsity}{90}{subsection.4.7.4}
-\contentsline {section}{\numberline {H}Conclusion and Future Directions}{91}{section.4.8}
-\contentsline {section}{\numberline {G}Calculating Eigenvalues and Isoperimetry constants for Simple Examples}{92}{section.4.7}
-\contentsline {subsection}{\numberline {G.1}Notation}{92}{subsection.4.7.1}
-\contentsline {subsection}{\numberline {G.2}A Lipschitz weight}{92}{subsection.4.7.2}
-\contentsline {section}{\numberline {H}Cheeger and Buser for Density Functions does not easily follow from Graph or Manifold Cheeger and Buser}{93}{section.4.8}
-\contentsline {subsection}{\numberline {H.1}Comments on Graph Cheeger-Buser}{93}{subsection.4.8.1}
-\contentsline {subsection}{\numberline {H.2}Comments on Manifold Cheeger-Buser}{94}{subsection.4.8.2}
-\contentsline {section}{\numberline {I}A weighted Cheeger inequality in one dimension}{94}{section.4.9}
-\contentsline {chapter}{\numberline {5}Geometric Spectral Algorithms and Hardness, with Machine Learning applications}{99}{chapter.5}
-\contentsline {section}{\numberline {1}Introduction}{104}{section.5.1}
-\contentsline {subsection}{\numberline {1.1}High-dimensional results}{106}{subsection.5.1.1}
-\contentsline {subsubsection}{Multiplication}{107}{section*.33}
-\contentsline {subsubsection}{Sparsification}{107}{section*.34}
-\contentsline {subsubsection}{Laplacian solving}{109}{section*.35}
-\contentsline {subsection}{\numberline {1.2}Our Techniques}{110}{subsection.5.1.2}
-\contentsline {subsubsection}{Multiplication}{110}{section*.36}
-\contentsline {subsubsection}{Sparsification}{112}{section*.40}
-\contentsline {subsection}{\numberline {1.3}Brief summary of our results in terms of $p_f$}{114}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {1.4}Summary of our Results on Examples}{115}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {1.5}Other Related Work}{115}{subsection.5.1.5}
-\contentsline {paragraph}{Kernel Functions}{116}{section*.47}
-\contentsline {paragraph}{Acknowledgements}{116}{section*.48}
-\contentsline {section}{\numberline {2}Summary of Low Dimensional Results}{116}{section.5.2}
-\contentsline {subsection}{\numberline {2.1}Multiplication}{117}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {2.2}Sparsification}{117}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {2.3}Laplacian solving}{118}{subsection.5.2.3}
-\contentsline {section}{\numberline {3}Preliminaries}{119}{section.5.3}
-\contentsline {subsection}{\numberline {3.1}Notation}{119}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {3.2}Graph and Laplacian Notation}{119}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {3.3}Spectral Sparsification via Random Sampling}{121}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {3.4}Woodbury Identity}{121}{subsection.5.3.4}
-\contentsline {subsection}{\numberline {3.5}Tail Bounds}{122}{subsection.5.3.5}
-\contentsline {subsection}{\numberline {3.6}Fine-Grained Hypotheses}{122}{subsection.5.3.6}
-\contentsline {subsection}{\numberline {3.7}Dimensionality Reduction}{122}{subsection.5.3.7}
-\contentsline {subsection}{\numberline {3.8}Nearest Neighbor Search}{123}{subsection.5.3.8}
-\contentsline {subsection}{\numberline {3.9}Geometric Laplacian System}{124}{subsection.5.3.9}
-\contentsline {section}{\numberline {4}Equivalence of Matrix-Vector Multiplication and Solving Linear Systems}{124}{section.5.4}
-\contentsline {subsection}{\numberline {4.1}Solving Linear Systems Implies Matrix-Vector Multiplication}{126}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {4.2}Matrix-Vector Multiplication Implies Solving Linear Systems}{129}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {4.3}Lower bound for high-dimensional linear system solving}{129}{subsection.5.4.3}
-\contentsline {section}{\numberline {5}Matrix-Vector Multiplication}{130}{section.5.5}
-\contentsline {subsection}{\numberline {5.1}Equivalence between Adjacency and Laplacian Evaluation}{131}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.2}Approximate Degree}{132}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.3}`Kernel Method' Algorithms}{133}{subsection.5.5.3}
-\contentsline {subsection}{\numberline {5.4}Lower Bound in High Dimensions}{135}{subsection.5.5.4}
-\contentsline {subsection}{\numberline {5.5}Lower Bounds in Low Dimensions}{143}{subsection.5.5.5}
-\contentsline {subsection}{\numberline {5.6}Hardness of the $n$-Body Problem}{145}{subsection.5.5.6}
-\contentsline {subsection}{\numberline {5.7}Hardness of Kernel PCA}{146}{subsection.5.5.7}
-\contentsline {section}{\numberline {6}Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time}{147}{section.5.6}
-\contentsline {subsection}{\numberline {6.1}High Dimensional Sparsification}{148}{subsection.5.6.1}
-\contentsline {subsection}{\numberline {6.2}Low Dimensional Sparsification}{150}{subsection.5.6.2}
-\contentsline {section}{\numberline {7}Sparsifiers for $| \delimiter "426830A x,y \delimiter "526930B |$}{151}{section.5.7}
-\contentsline {subsection}{\numberline {7.1}Existence of large expanders in inner product graphs}{151}{subsection.5.7.1}
-\contentsline {subsection}{\numberline {7.2}Efficient algorithm for finding sets with low effective resistance diameter}{154}{subsection.5.7.2}
-\contentsline {subsection}{\numberline {7.3}Using low-effective-resistance clusters to sparsify the unweighted IP graph}{159}{subsection.5.7.3}
-\contentsline {subsection}{\numberline {7.4}Sampling data structure}{160}{subsection.5.7.4}
-\contentsline {subsection}{\numberline {7.5}Weighted IP graph sparsification}{164}{subsection.5.7.5}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{167}{section*.55}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{168}{section*.56}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{169}{section*.57}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{171}{section*.58}
-\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{172}{section*.59}
-\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{177}{section*.60}
-\contentsline {section}{\numberline {8}Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians}{177}{section.5.8}
-\contentsline {section}{\numberline {9}Fast Multipole Method}{187}{section.5.9}
-\contentsline {subsection}{\numberline {9.1}Overview}{187}{subsection.5.9.1}
-\contentsline {subsection}{\numberline {9.2}$\mathsf {K}(x,y) = \qopname \relax o{exp}( - \delimiter "026B30D x - y \delimiter "026B30D _2^2 ) $, Fast Gaussian transform}{188}{subsection.5.9.2}
-\contentsline {subsubsection}{Estimation}{191}{section*.63}
-\contentsline {subsubsection}{Algorithm}{195}{section*.64}
-\contentsline {subsubsection}{Result}{197}{section*.68}
-\contentsline {subsection}{\numberline {9.3}Generalization}{197}{subsection.5.9.3}
-\contentsline {subsection}{\numberline {9.4}$\mathsf {K}(x,y) = 1 / \delimiter "026B30D x - y \delimiter "026B30D _2^2$}{198}{subsection.5.9.4}
-\contentsline {section}{\numberline {10}Neural Tangent Kernel}{199}{section.5.10}
-\contentsline {chapter}{\numberline {6}Conclusion}{201}{chapter.6}
+\contentsline {section}{\numberline {2.1}Introduction}{7}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Kernel Methods}{8}{subsection.2.1.1}
+\contentsline {subsubsection}{Main Result}{9}{section*.5}
+\contentsline {subsection}{\numberline {2.1.2}Metric Transforms}{10}{subsection.2.1.2}
+\contentsline {subsubsection}{Main Result}{11}{section*.6}
+\contentsline {subsection}{\numberline {2.1.3}Only Polynomials Preserve Low Rank Matrices}{11}{subsection.2.1.3}
+\contentsline {paragraph}{Application to Transformers in NLP}{13}{section*.7}
+\contentsline {subsubsection}{Main Result}{13}{section*.8}
+\contentsline {section}{\numberline {2.2}Technique Overview}{14}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Key Lemma}{14}{subsection.2.2.1}
+\contentsline {paragraph}{Warm-up: $d$-dimension}{15}{section*.9}
+\contentsline {paragraph}{Proof idea: Representation Theory of the Real Hyperrectangle}{16}{section*.10}
+\contentsline {paragraph}{Related Work}{16}{section*.11}
+\contentsline {paragraph}{Use in Applications}{16}{section*.12}
+\contentsline {subsection}{\numberline {2.2.2}Kernel Methods}{17}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Metric Transforms}{17}{subsection.2.2.3}
+\contentsline {paragraph}{Bernstein functions transform Manhattan to squared Euclidean}{17}{section*.13}
+\contentsline {paragraph}{Manhattan to Squared Euclidean $\Leftrightarrow $ Manhattan to Manhattan}{18}{section*.14}
+\contentsline {subsection}{\numberline {2.2.4}Polynomial Method Converse}{18}{subsection.2.2.4}
+\contentsline {paragraph}{Roadmap.}{19}{section*.16}
+\contentsline {section}{\numberline {A}Preliminaries}{19}{section.2.1}
+\contentsline {subsection}{\numberline {A.1}Notations}{19}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {A.2}Definitions}{19}{subsection.2.1.2}
+\contentsline {paragraph}{Hyperrectangles}{20}{section*.17}
+\contentsline {subsection}{\numberline {A.3}Alternate Classifications of Completely Monotone and Bernstein Functions}{20}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {A.4}Metric Hierarchies}{21}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {A.5}Negative Type Metrics and Euclidean Embeddability}{21}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {A.6}Useful Tools}{22}{subsection.2.1.6}
+\contentsline {section}{\numberline {B}Non-Polynomial Functions Blow Up Matrix Rank}{22}{section.2.2}
+\contentsline {subsection}{\numberline {B.1}Preliminaries}{23}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {B.2}One Eigenvalue is Identically Zero}{23}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {B.3}Only Polynomials Have a Zero Eigenvalue}{24}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {B.4}Rewriting the Sum}{25}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {B.5}Calculating the Limit}{25}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {B.6}Main Result}{26}{subsection.2.2.6}
+\contentsline {section}{\numberline {C}Transforming Manhattan to Euclidean}{26}{section.2.3}
+\contentsline {subsection}{\numberline {C.1}Useful Computations}{27}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {C.2}Main Results}{27}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {C.3}Function Should be Bounded}{28}{subsection.2.3.3}
+\contentsline {section}{\numberline {D}Transforming Manhattan to Manhattan}{29}{section.2.4}
+\contentsline {subsection}{\numberline {D.1}Useful Tools}{29}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {D.2}Main Result}{30}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {D.3}Discussion and Extensions}{31}{subsection.2.4.3}
+\contentsline {section}{\numberline {E}Positive Definite Manhattan Kernels}{31}{section.2.5}
+\contentsline {subsection}{\numberline {E.1}A Useful Tool}{31}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {E.2}Main Result}{31}{subsection.2.5.2}
+\contentsline {section}{\numberline {F}Representation Theory of the Real Hyperrectangles}{32}{section.2.6}
+\contentsline {subsection}{\numberline {F.1}Useful Tools}{32}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {F.2}Main Result}{33}{subsection.2.6.2}
+\contentsline {chapter}{\numberline {3}Data-Sensitive Distances}{35}{chapter.3}
+\contentsline {section}{\numberline {1}Introduction}{35}{section.3.1}
+\contentsline {subsection}{\numberline {1.1}Contributions and Past Work}{39}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {1.2}Definitions and Preliminaries}{40}{subsection.3.1.2}
+\contentsline {section}{\numberline {2}Outline}{41}{section.3.2}
+\contentsline {section}{\numberline {3}Exactly Computing the nearest neighbor metric}{41}{section.3.3}
+\contentsline {subsubsection}{Boxes}{42}{section*.20}
+\contentsline {subsubsection}{Lifting the points to $\mathbb {R}^n$}{44}{section*.21}
+\contentsline {subsubsection}{The Lipschitz Extension}{45}{section*.22}
+\contentsline {subsection}{\numberline {3.1}From Finite Sets to Finite Collections of Compact Path-Connected Bodies}{46}{subsection.3.3.1}
+\contentsline {section}{\numberline {4}Persistent Homology of the Nearest-neighbor Geodesic Distance}{47}{section.3.4}
+\contentsline {section}{\numberline {5}Relating the nearest neighbor metric to Euclidean MSTs, Euclidean Spanners, and More}{48}{section.3.5}
+\contentsline {subsection}{\numberline {5.1}Relation to the Euclidean MST problem}{49}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {5.2}Generalizing Single Linkage Clustering, Level Sets, and k-Centers clustering}{50}{subsection.3.5.2}
+\contentsline {section}{\numberline {6}Spanners for the nearest neighbor metric}{50}{section.3.6}
+\contentsline {subsection}{\numberline {6.1}Exact-spanners of nearest neighbor metric in the Probability Density Setting }{50}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {6.2}Fast, Sparse Spanner for the Edge-Squared Metric}{51}{subsection.3.6.2}
+\contentsline {section}{\numberline {7}Conclusions and Open Questions}{51}{section.3.7}
+\contentsline {section}{\numberline {G}Nearest Neighbor Metric and Edge-Power Metrics relate to Single Linkage Clustering, Level Sets, and k-Centers clustering}{52}{section.3.7}
+\contentsline {section}{\numberline {H}Proving Faster and Sparser-than-Euclidean Approximate Spanners}{53}{section.3.8}
+\contentsline {subsection}{\numberline {H.1}$1+O(\delta ^2)$ spanners can be generated from a $1/\delta $ WSPD}{53}{subsection.3.8.1}
+\contentsline {section}{\numberline {I}Spanners in the Probability Density Setting: Full Proof}{54}{section.3.9}
+\contentsline {chapter}{\numberline {4}Spectral Clustering in the Limit}{57}{chapter.4}
+\contentsline {section}{\numberline {A}Introduction}{58}{section.4.1}
+\contentsline {subsubsection}{Applications}{58}{section*.25}
+\contentsline {subsection}{\numberline {A.1}Definitions}{59}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {A.2}Theorems}{60}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {A.3}Past Work}{60}{subsection.4.1.3}
+\contentsline {subsubsection}{Cheeger and Buser Inequalities for Graphs and Manifolds}{60}{section*.26}
+\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{61}{section*.27}
+\contentsline {subsubsection}{Technical Contribution}{61}{section*.28}
+\contentsline {section}{\numberline {B}Paper Organization}{62}{section.4.2}
+\contentsline {section}{\numberline {C}Cheeger-Buser inequalities require carefully chosen $\alpha , \beta , \gamma $}{63}{section.4.3}
+\contentsline {section}{\numberline {D}Buser Inequality for Probability Density Functions}{64}{section.4.4}
+\contentsline {subsection}{\numberline {D.1}Weighted Buser-type Inequality}{65}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {D.2}Proof Strategy: Mollification by Disks of Radius Proportional to $\rho $}{65}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {D.3}Key Technical Lemma: Bounding $L_1$ norm of a function with the $L_1$ norm of its mollification}{65}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {D.4}Upper Bounding the Numerator}{68}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {D.5}Lower Bound on the Denominator}{71}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {D.6}Bounding the Rayleigh Quotient (Proof of Theorem~\ref {thm:buser_n})}{73}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {D.7}Gradient of Mollifier}{74}{subsection.4.4.7}
+\contentsline {subsection}{\numberline {D.8}Scaling}{75}{subsection.4.4.8}
+\contentsline {section}{\numberline {E}Cheeger Inequality for Probability Density Functions}{77}{section.4.5}
+\contentsline {section}{\numberline {F}Spectral Sweep Cuts have Provably Good Sparsity (proof of Theorem~\ref {thm:sweep-cut})}{79}{section.4.6}
+\contentsline {section}{\numberline {G}Problems with Existing Spectral Cut Methods}{79}{section.4.7}
+\contentsline {subsection}{\numberline {G.1}Our density function}{80}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {G.2}Proof Overview}{81}{subsection.4.7.2}
+\contentsline {subsection}{\numberline {G.3}The Zero-set of a principal $(1,2)$ eigenfunction is the line $y = 0$}{81}{subsection.4.7.3}
+\contentsline {subsection}{\numberline {G.4}Any spectral sweep cut has high $(1,\beta )$ sparsity}{82}{subsection.4.7.4}
+\contentsline {section}{\numberline {H}Conclusion and Future Directions}{83}{section.4.8}
+\contentsline {section}{\numberline {G}Calculating Eigenvalues and Isoperimetry constants for Simple Examples}{84}{section.4.7}
+\contentsline {subsection}{\numberline {G.1}Notation}{84}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {G.2}A Lipschitz weight}{84}{subsection.4.7.2}
+\contentsline {section}{\numberline {H}Cheeger and Buser for Density Functions does not easily follow from Graph or Manifold Cheeger and Buser}{85}{section.4.8}
+\contentsline {subsection}{\numberline {H.1}Comments on Graph Cheeger-Buser}{85}{subsection.4.8.1}
+\contentsline {subsection}{\numberline {H.2}Comments on Manifold Cheeger-Buser}{86}{subsection.4.8.2}
+\contentsline {section}{\numberline {I}A weighted Cheeger inequality in one dimension}{86}{section.4.9}
+\contentsline {chapter}{\numberline {5}Geometric Spectral Algorithms and Hardness, with Machine Learning applications}{91}{chapter.5}
+\contentsline {section}{\numberline {1}Introduction}{94}{section.5.1}
+\contentsline {subsection}{\numberline {1.1}High-dimensional results}{96}{subsection.5.1.1}
+\contentsline {subsubsection}{Multiplication}{97}{section*.33}
+\contentsline {subsubsection}{Sparsification}{97}{section*.34}
+\contentsline {subsubsection}{Laplacian solving}{99}{section*.35}
+\contentsline {subsection}{\numberline {1.2}Our Techniques}{100}{subsection.5.1.2}
+\contentsline {subsubsection}{Multiplication}{100}{section*.36}
+\contentsline {subsubsection}{Sparsification}{102}{section*.40}
+\contentsline {subsection}{\numberline {1.3}Brief summary of our results in terms of $p_f$}{104}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {1.4}Summary of our Results on Examples}{105}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {1.5}Other Related Work}{105}{subsection.5.1.5}
+\contentsline {paragraph}{Kernel Functions}{106}{section*.47}
+\contentsline {paragraph}{Acknowledgements}{106}{section*.48}
+\contentsline {section}{\numberline {2}Summary of Low Dimensional Results}{106}{section.5.2}
+\contentsline {subsection}{\numberline {2.1}Multiplication}{107}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {2.2}Sparsification}{107}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {2.3}Laplacian solving}{108}{subsection.5.2.3}
+\contentsline {section}{\numberline {3}Preliminaries}{109}{section.5.3}
+\contentsline {subsection}{\numberline {3.1}Notation}{109}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {3.2}Graph and Laplacian Notation}{109}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {3.3}Spectral Sparsification via Random Sampling}{111}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {3.4}Woodbury Identity}{111}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {3.5}Tail Bounds}{112}{subsection.5.3.5}
+\contentsline {subsection}{\numberline {3.6}Fine-Grained Hypotheses}{112}{subsection.5.3.6}
+\contentsline {subsection}{\numberline {3.7}Dimensionality Reduction}{112}{subsection.5.3.7}
+\contentsline {subsection}{\numberline {3.8}Nearest Neighbor Search}{113}{subsection.5.3.8}
+\contentsline {subsection}{\numberline {3.9}Geometric Laplacian System}{114}{subsection.5.3.9}
+\contentsline {section}{\numberline {4}Equivalence of Matrix-Vector Multiplication and Solving Linear Systems}{114}{section.5.4}
+\contentsline {subsection}{\numberline {4.1}Solving Linear Systems Implies Matrix-Vector Multiplication}{116}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {4.2}Matrix-Vector Multiplication Implies Solving Linear Systems}{119}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {4.3}Lower bound for high-dimensional linear system solving}{119}{subsection.5.4.3}
+\contentsline {section}{\numberline {5}Matrix-Vector Multiplication}{120}{section.5.5}
+\contentsline {subsection}{\numberline {5.1}Equivalence between Adjacency and Laplacian Evaluation}{121}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.2}Approximate Degree}{122}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.3}`Kernel Method' Algorithms}{123}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.4}Lower Bound in High Dimensions}{125}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5}Lower Bounds in Low Dimensions}{133}{subsection.5.5.5}
+\contentsline {subsection}{\numberline {5.6}Hardness of the $n$-Body Problem}{135}{subsection.5.5.6}
+\contentsline {subsection}{\numberline {5.7}Hardness of Kernel PCA}{136}{subsection.5.5.7}
+\contentsline {section}{\numberline {6}Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time}{137}{section.5.6}
+\contentsline {subsection}{\numberline {6.1}High Dimensional Sparsification}{138}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {6.2}Low Dimensional Sparsification}{140}{subsection.5.6.2}
+\contentsline {section}{\numberline {7}Sparsifiers for $| \delimiter "426830A x,y \delimiter "526930B |$}{141}{section.5.7}
+\contentsline {subsection}{\numberline {7.1}Existence of large expanders in inner product graphs}{141}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {7.2}Efficient algorithm for finding sets with low effective resistance diameter}{144}{subsection.5.7.2}
+\contentsline {subsection}{\numberline {7.3}Using low-effective-resistance clusters to sparsify the unweighted IP graph}{149}{subsection.5.7.3}
+\contentsline {subsection}{\numberline {7.4}Sampling data structure}{150}{subsection.5.7.4}
+\contentsline {subsection}{\numberline {7.5}Weighted IP graph sparsification}{154}{subsection.5.7.5}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{157}{section*.55}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{158}{section*.56}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{159}{section*.57}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{161}{section*.58}
+\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{162}{section*.59}
+\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{167}{section*.60}
+\contentsline {section}{\numberline {8}Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians}{167}{section.5.8}
+\contentsline {section}{\numberline {9}Fast Multipole Method}{177}{section.5.9}
+\contentsline {subsection}{\numberline {9.1}Overview}{177}{subsection.5.9.1}
+\contentsline {subsection}{\numberline {9.2}$\mathsf {K}(x,y) = \qopname \relax o{exp}( - \delimiter "026B30D x - y \delimiter "026B30D _2^2 ) $, Fast Gaussian transform}{178}{subsection.5.9.2}
+\contentsline {subsubsection}{Estimation}{181}{section*.63}
+\contentsline {subsubsection}{Algorithm}{185}{section*.64}
+\contentsline {subsubsection}{Result}{187}{section*.68}
+\contentsline {subsection}{\numberline {9.3}Generalization}{187}{subsection.5.9.3}
+\contentsline {subsection}{\numberline {9.4}$\mathsf {K}(x,y) = 1 / \delimiter "026B30D x - y \delimiter "026B30D _2^2$}{188}{subsection.5.9.4}
+\contentsline {section}{\numberline {10}Neural Tangent Kernel}{189}{section.5.10}

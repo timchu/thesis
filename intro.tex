@@ -6,14 +6,13 @@ task of clustering. We
 leverage classical ideas from computational geometry and metric embeddings to gain deeper
 insight into clustering.
 
-\section{Quick Preliminaries (Clustering Definitions and Geometry in ML)}
+\section{Quick Preliminaries: Clustering Definitions and Geometry in ML}
 
 Clustering consists of taking unlabeled data and categorizing it into different
-categories. As an example, imagine that one measures the size and weight
-many different bacteria in a cell culture, and wants to determine (a) how many
-types of bacteria there are, and (b) classify what type of bacteria each
-individual measurement comes from.  The combined task of (a) and (b) is
-known as clustering.
+clusuters. As an example, imagine that one measures the size and weight
+$k$ different types of bacteria in a cell culture, and wants to determine
+what type of bacteria each individual measurement comes from.  This task
+is known as $k$-way clustering. 
 
 One classical insight in machine learning is that data measurements can
 be represented as points in geometric space, and that information about
@@ -22,12 +21,13 @@ resulting data points. For example, if one measures the size and weight
 of a single bacteria in a cell culture, one can plot this as a two
 dimensional point with $x$ coordinate equal to the size, and $y$
 coordinate equal to the weight. The representation of data as points in
-geometric space is a classical one in machine learning, and this
-representation is one reason computational geometry can be expected to
+geometric space is a classical one in machine learning, and is widely
+used for most clustering methods. This geometric
+representation of data is one reason computational geometry can be expected to
 lead to a greater understanding of machine learning methods.
 
 
-\section{Paper Overview}
+\section{Thesis Overview}
 
 In this thesis, we examine metric-based clustering, spectral clustering
 on large data sets, and kernel methods: each of these are widely used in
