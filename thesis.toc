@@ -2,7 +2,7 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Quick Preliminaries (Clustering Definitions and Geometry in ML)}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Paper Overview}{1}{section.1.2}
-\contentsline {section}{\numberline {1.3}Group Theory in Kernels and Natural Language Processing}{2}{section.1.3}
+\contentsline {section}{\numberline {1.3}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{2}{section.1.3}
 \contentsline {section}{\numberline {1.4}Data-Sensitive Distances in Clustering}{3}{section.1.4}
 \contentsline {section}{\numberline {1.5}Spectral Clustering in Large Datasets}{3}{section.1.5}
 \contentsline {section}{\numberline {1.6}Spectral Graph Theory in Machine Learning}{4}{section.1.6}
