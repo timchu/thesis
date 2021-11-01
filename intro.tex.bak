@@ -6,14 +6,13 @@ task of clustering. We
 leverage classical ideas from computational geometry and metric embeddings to gain deeper
 insight into clustering.
 
-\section{Quick Preliminaries (Clustering Definitions and Geometry in ML)}
+\section{Quick Preliminaries: Clustering Definitions and Geometry in ML}
 
 Clustering consists of taking unlabeled data and categorizing it into different
-categories. As an example, imagine that one measures the size and weight
-many different bacteria in a cell culture, and wants to determine (a) how many
-types of bacteria there are, and (b) classify what type of bacteria each
-individual measurement comes from.  The combined task of (a) and (b) is
-known as clustering.
+clusuters. As an example, imagine that one measures the size and weight
+$k$ different types of bacteria in a cell culture, and wants to determine
+what type of bacteria each individual measurement comes from.  This task
+is known as $k$-way clustering. 
 
 One classical insight in machine learning is that data measurements can
 be represented as points in geometric space, and that information about
@@ -22,12 +21,13 @@ resulting data points. For example, if one measures the size and weight
 of a single bacteria in a cell culture, one can plot this as a two
 dimensional point with $x$ coordinate equal to the size, and $y$
 coordinate equal to the weight. The representation of data as points in
-geometric space is a classical one in machine learning, and this
-representation is one reason computational geomety can be expected to
+geometric space is a classical one in machine learning, and is widely
+used for most clustering methods. This geometric
+representation of data is one reason computational geometry can be expected to
 lead to a greater understanding of machine learning methods.
 
 
-\section{Paper Overview}
+\section{Thesis Overview}
 
 In this thesis, we examine metric-based clustering, spectral clustering
 on large data sets, and kernel methods: each of these are widely used in
@@ -35,7 +35,7 @@ practice. We prove theorems about the principles underlying each method.
 Once we have a greater understanding of these principles, we then
 present new machine learning methods based on these principles, where
 these new methods have theoretical guarantees backing them.
-The tools in each of our exploratioons rely heavily on metrics and
+The tools in each of our explorations rely heavily on metrics and
 embeddings.  For some applications, we supplement this with insights
 from spectral graph algorithms and group theory.
 
@@ -133,7 +133,7 @@ this in Section~\ref{sec:ker-main}.
   distance, can be computed in nearly linear time in constant dimension.
   This will allow us to perform clustering using these metrics in a more
   efficient fashion than was previously known.
-  \item The nearest neigbhor metric and edge-squared metric are exactly
+  \item The nearest neighbor metric and edge-squared metric are exactly
   identical in all cases.
   \end{enumerate}
   Prior to these results, it was not known how to compute either metric
@@ -167,7 +167,7 @@ used methods of clustering data. However, it has a major theoretical
 issue. When a large number of points are drawn from a probability
 density, then spectral clustering converges to something called a
 \textbf{spectral sweep cut} of the underlying density.  However, this
-spectral sweeep cut can partition the probability density poorly, and
+spectral sweep cut can partition the probability density poorly, and
 thus spectral clustering can converge to a poor partition of the data.
 
 \begin{figure}[htbp]
@@ -198,7 +198,7 @@ spaces, and thus the use of geometric embeddings features prominently in
 our work. We will prove our variant of spectral clustering has good
 sparsity guarantees through new Cheeger and Buser inequalities on
 probability densities. Cheeger and Buser inequalities are famous
-inequalities traditinoally used in the graph and manifold setting, with
+inequalities traditionally used in the graph and manifold setting, with
 the goal of relating fundamental eigenvalues with sparsest cut in each
 of these settings. We will go into detail about spectral clustering in
 Section~\ref{sec:spec-main}
@@ -253,7 +253,7 @@ Cheeger and Buser inequalities apply.
   the second result shows that the widely used fast-multipole method for
   computing forces between electrostatic charges in physics, has a
   run-time with unavoidable exponential dependence on dimension. We
-  elabroate on these results in Section~\ref{sec:sgt-main}.
+  elaborate on these results in Section~\ref{sec:sgt-main}.
   
 
 \iffalse
@@ -274,7 +274,7 @@ machine learning.
 Manhattan distances to Manhattan distances or squared Euclidean
 distances. This is a Manhattan distance analog of a famous result by
 Schoenberg on metric transforms, which is used in metric embedding
-theroy and has applications in harmonic analysis and sketching/embedding
+theory and has applications in harmonic analysis and sketching/embedding
 of norms. 
 \item Third, we prove that the only functions which always yield a low-rank matrix when applied entry-wise to a low-rank matrix are low-degree polynomials; this is a converse of a key idea behind the polynomial method in algorithm design and in the training of transformers in natural language processing. 
 \end{enumerate}
@@ -310,7 +310,7 @@ used methods of clustering data. However, it has a major theoretical
 issue. When a large number of points are drawn from a probability
 density, then spectral clustering converges to something called a
 \textbf{spectral sweep cut} of the underlying density.  However, this
-spectral sweeep cut can partition the probability density poorly, and
+spectral sweep cut can partition the probability density poorly, and
 thus spectral clustering can converge to a poor partition of the data.
 
 \begin{figure}[htbp]
@@ -404,7 +404,7 @@ wide variety of geometric graphs $G$.
 Our tools are primitives
 spectral graph theory on a special class of dense graphs called
 \emph{geometric graphs}, which can be used to gain new insights in each
-fo the above applications. 
+for the above applications. 
 
 For a function $\k:\mathbb{R}^d\times
 \mathbb{R}^d\rightarrow \mathbb{R}$ and a set of points $X\subseteq
