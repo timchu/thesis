@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  1 NOV 2021 17:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  1 NOV 2021 17:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1057,7 +1057,7 @@ Chapter 1.
 File: images/counterexample.png Graphic file (type png)
 
 <use images/counterexample.png>
-Package pdftex.def Info: images/counterexample.png used on input line 178.
+Package pdftex.def Info: images/counterexample.png used on input line 175.
 (pdftex.def)             Requested size: 276.43555pt x 156.70476pt.
  [4 <./images/counterexample.png>]) [5] [6
 
@@ -2032,11 +2032,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 242.
  (./thesis.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 242.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 242.
-Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 0D7274004F96ECD5E384D4402E793315;12820.
+
+
+Package rerunfilecheck Warning: File `thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `thesis.out':
+(rerunfilecheck)             Before: 0D7274004F96ECD5E384D4402E793315;12820
+(rerunfilecheck)             After:  8412A6F8AEDF14242C33EEF98E03C329;12842.
 Package rerunfilecheck Info: File `thesis.brf' has not changed.
 (rerunfilecheck)             Checksum: 9AF38DF83442C019AE0CE00BD3DE95FB;25731.
-
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -2078,7 +2084,7 @@ share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
 fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (240 pages, 1479386 bytes).
+Output written on thesis.pdf (240 pages, 1479332 bytes).
 PDF statistics:
  5212 PDF objects out of 6186 (max. 8388607)
  4760 compressed objects within 48 object streams
