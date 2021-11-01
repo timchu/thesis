@@ -1,0 +1,322 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ADM{\etalchar{+}}95}
+
+\bibitem[AAF{\etalchar{+}}16]{adamszek16nerve}
+Michal Adamszek, Henry Adams, Florian Frick, Chris Peterson, and Corrine
+  Previte-Johnson.
+\newblock Nerve complexes of circular arcs.
+\newblock {\em Discrete {\&} Computational Geometry}, 56(2):251--273, 2016.
+
+\bibitem[ABKS99]{OPTICS96}
+Mihael Ankerst, Markus~M. Breunig, Hans-Peter Kriegel, and Jorg Sander.
+\newblock Optics: Ordering points to identify cluster structure.
+\newblock In {\em ACM SIGMOD International Conference on Management of Data},
+  1999.
+
+\bibitem[ACC{\etalchar{+}}12]{aanjaneya12metric}
+Mridul Aanjaneya, Fr\'{e}d\'{e}ric Chazal, Daniel Chen, Marc Glisse, Leonidas
+  Guibas, and Dmitriy Morozov.
+\newblock Metric graph reconstruction from noisy data.
+\newblock {\em International Journal of Computational Geometry and Applications
+  (IJCGA)}, 22(04):305--325, 2012.
+
+\bibitem[ADM{\etalchar{+}}95]{arya95euclid}
+Sunil Arya, Gautam Das, David~M. Mount, Jeffrey~S. Salowe, and Michiel Smid.
+\newblock Euclidean spanners: Short, thin, and lanky.
+\newblock In {\em Proceedings of the Twenty-seventh Annual ACM Symposium on
+  Theory of Computing}, STOC '95, pages 489--498, New York, NY, USA, 1995. ACM.
+
+\bibitem[AIL{\etalchar{+}}15]{LSH}
+Alexandr Andoni, Piotr Indyk, Thijs Laarhovn, Ilya Razenshteyn, and Ludwig
+  Schmidt.
+\newblock Practical and optimal lsh for angular distance.
+\newblock In {\em 29th Annual Conference on Neural Information Processing
+  Systems (NIPS)}, 2015.
+
+\bibitem[AM16]{Arya2016}
+Sunil Arya and David~M. Mount.
+\newblock A fast and simple algorithm for computing approximate euclidean
+  minimum spanning trees.
+\newblock In {\em Proceedings of the Twenty-seventh Annual ACM-SIAM Symposium
+  on Discrete Algorithms}, SODA '16, pages 1220--1233, Philadelphia, PA, USA,
+  2016. Society for Industrial and Applied Mathematics.
+
+\bibitem[ANN{\etalchar{+}}18]{Andoni2018}
+Alexandr Andoni, Assaf Naor, Aleksandar Nikolov, Ilya Razenshteyn, and Erik
+  Waingarten.
+\newblock Navigating nets: Simple algorithms for proximity search.
+\newblock In {\em 59th Annual Symposium on Foundations of Computer Science
+  (FOCS)}, 2018.
+
+\bibitem[AvL12]{alamgir12shortest}
+Morteza Alamgir and Ulrike von Luxburg.
+\newblock Shortest path distance in random $k$-nearest neighbor graphs.
+\newblock In {\em Proceedings of the 29th International Conference on Machine
+  Learning}, 2012.
+
+\bibitem[BBSW05]{Balister05}
+Paul Balister, Bela Bollobas, Amites Sarkar, and Mark Walters.
+\newblock Connectivity of random k-nearest-neighbour graphs.
+\newblock {\em Advances in Applied Probability}, 37(1):1--24, 2005.
+
+\bibitem[Ber96]{bernoulli}
+Johann Bernoulli.
+\newblock Brachistochrone problem.
+\newblock {\em Acta Eruditorum}, June 1696.
+
+\bibitem[Bor48]{borsuk48imbedding}
+Karol Borsuk.
+\newblock On the imbedding of systems of compacta in simplicial complexes.
+\newblock {\em Fund. Math.}, 35:217--234, 1948.
+
+\bibitem[Bre81]{brehm1981}
+Ulrich Brehm.
+\newblock Extensions of distance reducing mappings to piecewise congruent
+  mappings on $\ell^m$.
+\newblock {\em Journal of Geometry}, 16(1):187--193, 1981.
+
+\bibitem[BRS11]{bijral11semiSupLearningDBD}
+Avleen~Singh Bijral, Nathan~D. Ratliff, and Nathan Srebro.
+\newblock Semi-supervised learning with density based distances.
+\newblock In Fabio~Gagliardi Cozman and Avi Pfeffer, editors, {\em UAI}, pages
+  43--50. AUAI Press, 2011.
+
+\bibitem[CCSL09]{chazal09sampling}
+Fr{\'e}d{\'e}ric Chazal, David Cohen-Steiner, and Andr{\'e} Lieutier.
+\newblock A sampling theory for compact sets in {E}uclidean space.
+\newblock {\em Discrete \& Computational Geometry}, 41:461--479, 2009.
+
+\bibitem[CEG{\etalchar{+}}94]{chazelle94selecting}
+Bernard Chazelle, Herbert Edelsbrunner, Leonidas~J. Guibas, John~E.
+  Hershberger, Raimund Seidel, and Micha Sharir.
+\newblock Selecting heavily covered points.
+\newblock {\em {SIAM} J. Comput.}, 23(6):1138--1151, 1994.
+
+\bibitem[CFM{\etalchar{+}}15]{cohen15approximating}
+Michael~B. Cohen, Brittany~Terese Fasy, Gary~L. Miller, Amir Nayyeri, Donald~R.
+  Sheehy, and Ameya Velingker.
+\newblock Approximating nearest neighbor distances.
+\newblock In {\em Proceedings of the Algorithms and Data Structures Symposium},
+  2015.
+
+\bibitem[CFS09]{Chen11}
+Jie Chen, Hawren Fang, and Yousef Saad.
+\newblock Fast approximate knn graph construction for high dimensional data via
+  recursive lanczos bisection.
+\newblock {\em Journal of Machine Learning Research}, 10:1989--2012, 2009.
+
+\bibitem[CGOS13]{chazal13persistence}
+Fr{\'e}d{\'e}ric~Chazal Chazal, Leonidas~J. Guibas, Steve~Y. Oudot, and Primoz
+  Skraba.
+\newblock Persistence-based clustering in riemannian manifolds.
+\newblock {\em J. {ACM}}, 60(6:41):97--106, 2013.
+
+\bibitem[CH53]{Courant53}
+Richard Courant and David Hilbert.
+\newblock {\em Methods of Mathematical Physics}.
+\newblock Interscience Publishers, Inc., 1953.
+
+\bibitem[Che86]{Chew1986}
+P~Chew.
+\newblock There is a planar graph almost as good as the complete graph.
+\newblock In {\em Proceedings of the Second Annual Symposium on Computational
+  Geometry}, SCG '86, pages 169--177, New York, NY, USA, 1986. ACM.
+
+\bibitem[CK93]{Callahan1993}
+Paul~B. Callahan and S.~Rao Kosaraju.
+\newblock Faster algorithms for some geometric graph problems in higher
+  dimensions.
+\newblock In {\em Proceedings of the Fourth Annual ACM-SIAM Symposium on
+  Discrete Algorithms}, SODA '93, pages 291--300, Philadelphia, PA, USA, 1993.
+  Society for Industrial and Applied Mathematics.
+
+\bibitem[CK95]{Callahan1995}
+Paul~B. Callahan and S.~Rao Kosaraju.
+\newblock A decomposition of multidimensional point sets with applications to
+  k-nearest-neighbors and n-body potential fields.
+\newblock {\em J. ACM}, 42(1):67--90, January 1995.
+
+\bibitem[CL08]{chazal08smooth}
+Fr{\'e}d{\'e}ric Chazal and Andr{\'e} Lieutier.
+\newblock Smooth manifold reconstruction from noisy and non-uniform
+  approximation with guarantees.
+\newblock {\em Computational Geometry: Theory and Applications}, 40:156--170,
+  2008.
+
+\bibitem[CO08]{chazal08towards}
+Fr{\'e}d{\'{e}}ric Chazal and Steve~Y. Oudot.
+\newblock Towards persistence-based reconstruction in {E}uclidean spaces.
+\newblock In {\em Proceedings of the 24th {ACM} Symposium on Computational
+  Geometry}, pages 232--241, 2008.
+
+\bibitem[DCL11]{Dong11}
+Wei Dong, Moses Charikar, and Kai Li.
+\newblock Efficient k-nearest neighbor graph construction for generic
+  similarity measures.
+\newblock In {\em Proceeding of the International Conference on World Wide Web,
+  pages 577-586}, 2011.
+
+\bibitem[EKSX96]{Ester1996}
+Martin Ester, Hans-Peter Kriegel, Jorg Sander, and Xiaowei Xu.
+\newblock A density-based algorithm for discovering clusters a density-based
+  algorithm for discovering clusters in large spatial databases with noise.
+\newblock In {\em Proceedings of the Second International Conference on
+  Knowledge Discovery and Data Mining}, KDD'96, pages 226--231. AAAI Press,
+  1996.
+
+\bibitem[ELZ02]{edelsbrunner02topological}
+Herbert Edelsbrunner, David Letscher, and Afra Zomorodian.
+\newblock Topological persistence and simplification.
+\newblock {\em Discrete \& Computational Geometry}, 4(28):511--533, 2002.
+
+\bibitem[Fey48]{Feynman48}
+R.~P. Feynman.
+\newblock Space-time approach to non-relativistic quantum mechanics.
+\newblock {\em Rev. Mod. Phys}, 20(367), 1948.
+
+\bibitem[GBQ03]{Gonzales2003}
+Jose~Maria Gonzalez-Barrios and Aldofo~J. Quiroz.
+\newblock A clustering procedure based on the comparison between the k nearest
+  neighbors graph and the minimal spanning tree.
+\newblock {\em Statistics and Probability Letters}, 2003.
+
+\bibitem[GGP{\etalchar{+}}17]{gasparovic17complete}
+Ellen Gasparovic, Maria Gommel, Emilie Purvine, Bei Wang, Yusu Wang, and Lori
+  Ziegelmeier.
+\newblock A complete characterization of the 1-dimensional intrinsic cech
+  persistence diagrams for metric graphs.
+\newblock https://arxiv.org/abs/1702.07379, 2017.
+
+\bibitem[GR69]{Gower1969}
+J.~C. Gower and G.~J.~S. Ross.
+\newblock Minimum spanning trees and single linkage cluster analysis.
+\newblock {\em Journal of the Royal Statistical Society. Series C (Applied
+  Statistics)}, 18(1):54--64, 1969.
+
+\bibitem[Gro93]{grove93critical}
+Karsten Grove.
+\newblock Critical point theory for distance functions.
+\newblock {\em Proceedings of the Symposia in Pure Mathematics},
+  54(3):357--385, 1993.
+
+\bibitem[HDHI16]{hwang2016}
+Sung~Jin Hwang, Steven~B. Damelin, and Alfred~O. Hero~III.
+\newblock Shortest path through random points.
+\newblock {\em Ann. Appl. Probab.}, 26(5):2791--2823, 10 2016.
+
+\bibitem[HPIS13]{HarPeled13}
+Sariel Har-Peled, Piotr Indyk, and Anastasios Sidiropoulos.
+\newblock Euclidean spanners in high dimensions.
+\newblock In {\em SODA}, 2013.
+
+\bibitem[Kir34]{Kirszbraun1934}
+M.~Kirszbraun.
+\newblock {\"U}ber die zusammenziehende und lipschitzsche transformationen.
+\newblock {\em Fundamenta Mathematicae}, 22(1):77--108, 1934.
+
+\bibitem[Laa18]{Laarhoven2018}
+Thijs Laarhoven.
+\newblock Graph-based time-space trade-offs for approximate near neighbors.
+\newblock In {\em Symposium on Computational Geometry}, 2018.
+
+\bibitem[LMGY04]{kNNsurvey}
+Ting Liu, Andrew~W. Moore, Alexander Gray, and Ke~Yang.
+\newblock An investigation of practical approximate nearest neighbor
+  algorithms.
+\newblock In {\em Proceedings of the 17th International Conference on Neural
+  Information Processing Systems}, NIPS'04, pages 825--832, Cambridge, MA, USA,
+  2004. MIT Press.
+
+\bibitem[LS19]{Le19}
+Hung Le and Shay Solomon.
+\newblock Truly optimal euclidean spanners.
+\newblock {\em FOCS}, 2019.
+
+\bibitem[Lux07]{vL09}
+Ulrike~Von Luxburg.
+\newblock Tutorial on spectral clustering.
+\newblock {\em Statistics and Computing}, 17(4), 2007.
+
+\bibitem[LWW01]{LiWan2001}
+Xiang-Yang Li, Peng-Jun Wan, and Yu~Wang.
+\newblock Power efficient and sparse spanner for wireless ad hoc networks.
+\newblock In {\em Proceedings Tenth International Conference on Computer
+  Communications and Networks}, 2001.
+
+\bibitem[NS41]{VonNeumann41}
+J.~Von Neumann and I.~J. Schoenberg.
+\newblock Fourier integrals and metric geometry.
+\newblock {\em Transactions of the American Mathematical Society},
+  50(2):226--251, Sep 1941.
+
+\bibitem[Sch16]{Schwarzschild}
+Karl Schwarzschild.
+\newblock Uber das gravitationsfeld eines massenpunktes nach der einsteinschen
+  theorie.
+\newblock {\em Sitzungsberichte der Deutschen Akademie der Wissenschaften zu
+  Berlin}, 1916.
+
+\bibitem[SO05]{sajama05estimatingDBDM}
+Sajama and Alon Orlitsky.
+\newblock Estimating and computing density based distance metrics.
+\newblock In {\em ICML '05}, pages 760--767, New York, NY, USA, 2005. ACM.
+
+\bibitem[Sri15]{SridharMaster}
+Prashant Sridhar.
+\newblock An experimental study into spectral and geometric approaches to data
+  clustering.
+\newblock Master's thesis, Carnegie Mellon University, October 2015.
+\newblock CMU CS Tech Report CMU-CS-15-149.
+
+\bibitem[Stu03]{Stuetzle2003}
+Werner Stuetzle.
+\newblock Estimating the cluster tree of a density by analyzing the minimal
+  spanning tree of a sample.
+\newblock {\em Journal of Classification}, 20(1):025--047, May 2003.
+
+\bibitem[Stu07]{Stuetzle2007}
+Werner Stuetzle.
+\newblock A generalized single linkage method for estimating the cluster tree
+  of a density.
+\newblock 2007.
+
+\bibitem[SW97]{Sussmann97}
+H.~J. Sussmann and J.~C. Willems.
+\newblock 300 years of optimal control: from the brachystochrone to the maximum
+  principle.
+\newblock {\em IEEE Control Systems Magazine}, 17(3):32--44, June 1997.
+
+\bibitem[TdSL00]{tenenbaum00global}
+Joshua~B. Tenenbaum, Vin de~Silva, and John~C. Langford.
+\newblock A global geometric framework for nonlinear dimensionality reduction.
+\newblock {\em Science}, 290(5500):2319--2323, 2000.
+
+\bibitem[Vai91]{Vaidya1991}
+Pravin~M. Vaidya.
+\newblock A sparse graph almost as good as the complete graph on points in k
+  dimensions.
+\newblock {\em Discrete {\&} Computational Geometry}, 6(3):369--381, Sep 1991.
+
+\bibitem[Val45]{Valentine1945}
+F.~A. Valentine.
+\newblock A lipschitz condition preserving extension for a vector function.
+\newblock {\em American Journal of Mathematics}, 67(1):83--93, 1945.
+
+\bibitem[VB03]{vincent03}
+Pascal Vincent and Yoshua Bengio.
+\newblock Density sensitive metrics and kernels.
+\newblock In {\em Snowbird Workshop}, 2003.
+
+\bibitem[Wis69]{Wishart69}
+D.~Wishart.
+\newblock Mode analysis: A generalization of the nearest neighor which reduces
+  chaining effects.
+\newblock 1969.
+
+\bibitem[YV17]{Yaro2017}
+Grigory Yaroslavtsev and Adithya Vadapalli.
+\newblock Massively parallel algorithms and hardness for single linkage
+  clustering under $l_p$ distances.
+\newblock Arxiv. ACM, 2017.
+
+\end{thebibliography}

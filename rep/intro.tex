@@ -1,0 +1,186 @@
+
+\section{Introduction} 
+
+In this chapter, we introduce a new analytic technique we call `representation theory of the real hyperrectangle'. At a high level, this technique gives simple expressions for computing the eigenvectors and eigenvalues of a large class of matrices which are defined in terms of hyperrectangles (high-dimensional analogues of rectangles). We will see that this class of matrices arises frequently in the study of linear algebraic tools for modern machine learning and algorithm design. As a result, we use our new technique to prove a number of new structural results in these areas.
+
+Before getting into the representation theory of the real hyperrectangle in more detail, we first describe our three main applications. First, in Section~\ref{sec:kernel}, we give a classification of positive definite kernels with Manhattan distance input. Second, in Section~\ref{sec:metric}, we categorize all functions which transform Manhattan distances to Manhattan distances or squared Euclidean distances. Third, in Section~\ref{sec:polymeth}, we prove that the only functions which always yield a low-rank matrix when applied entry-wise to a low-rank matrix are low-degree polynomials; this is a converse of a key idea behind the polynomial method in algorithm design and in the training of transformers in natural language processing. Afterwards, in Section~\ref{sec:techniques}, we describe our new tool, representation theory of the real hyperrectangle, and how we use to to yield these applications.
+
+
+
+\subsection{Kernel Methods}\label{sec:kernel}
+Our first application is to the study of kernel methods in machine learning. Much of the prior work on kernels methods focuses in the Euclidean distance setting. Our new application shows how to classify kernels in the Manhattan distance setting.
+
+%\subsubsection{Related Work}
+We start with defining positive definite kernel under Euclidean space.
+ \begin{definition}[Positive definite Euclidean kernel] \label{def:euclineankernel}A function $f$ is a positive definite Euclidean kernel
+ if, for any $x_1, \ldots x_n \in \R^d$ for any $n$ and $d$, the matrix $M \in \R^{n \times n}$ with
+ 
+ \[ M_{i,j} = f(\|x_i - x_j\|_2) \]
+ is positive semi-definite. Equivalently, $f$ is a positive definite Euclidean kernel if and only if there exists a function $F:\R^d \to \mathcal{H}$\footnote{$\mathcal{H}$ represents Hilbert space.} such that:
+ 
+ \[\langle F(x), F(y) \rangle = f(\|x-y\|_2)\]
+ for all $x, y \in \R^d$ for all $d$.
+ \end{definition}
+ The proof of the equivalence can be found in~\cite{s42}. Positive definite kernels are used in machine learning to separate data embedded in $\R^d$ using linear separator techniques, when the initial data is not linearly separable~\cite{s96, sow01, ss01}. In other words, a positive definite kernel can map points in $\R^d$ which are not linearly separable, to points in potentially higher dimensions which are linearly separable. Finding such an embedding is not an easy task in general, but kernel methods solve this problem~\cite{s96, sow01, ss01}. The key idea is to pick a function $f$ based on the application so that a function $F$ like the one in Definition~\ref{def:euclineankernel} can be found which maps the data points to vectors of possible higher dimensions, after which linear separation can be performed efficiently on these higher dimensional points.
+ 
+Interestingly, linear separator algorithms such as the widely used \emph{Support Vector Machines} (SVMs)~\cite{cv95} can separate the data efficiently as long as $\langle F(x), F(y) \rangle$ is easily computed for any $x, y \in \R^d$, even if $F$ itself cannot be easily computed. By definition of the positive-definite kernel $f$, we know that $\langle F(x), F(y) \rangle = f(\|x - y\|_2)$, which allows us to compute $\langle F(x), F(y) \rangle$ quickly by instead computing $f(\|x - y\|_2)$. In other words, in order to apply linear separator algorithms, it suffices to know that a $F$ \emph{exists}, and not necessarily know what it is or how to compute it.
+
+The core result behind kernel methods is a full classification of all positive-definite Euclidean kernels, showing that a function $f : \R \to \R$ is a positive-definite Euclidean kernel if and only if $f(\sqrt{x})$ is a completely monotone function~\cite{s42, sow01}:  
+
+\begin{definition}[Completely monotone functions~\cite{b29}]\label{def:cm}
+A function $f:\mathbb R^+\to\mathbb R_{\geq 0}$ is completely monotone if 
+  \[(-1)^k f^{(k)}(x) \geq 0\] 
+  for all $k \geq 0, x > 0$. A function $f: \mathbb R_{\geq 0}\to \mathbb R_{\geq 0}$ is completely monotone if $f(0)\geq \lim_{x \to 0^{+}} f(x)$ and $f|_{\mathbb R^+}$ is completely monotone.
+\end{definition}
+An example of a completely monotone function is $f(x) = e^{-x}$. 
+\begin{theorem}[Classification of all positive definite Euclidean kernels~\cite{s42, sow01}]\label{fact:kernel-euc}
+Function $f: \R \to \R$ is a positive-definite Euclidean kernel (Definition~\ref{def:euclineankernel}) if and only if $f(\sqrt{x})$ is a completely monotone function.
+\end{theorem}
+This theorem gives a simple criterion to test whether \emph{any} given function is a positive-definite Euclidean kernel. One famous example of these kernels include The Gaussian kernel: $f_{\sigma}(x) = e^{-\sigma x^2}$ for $\sigma > 0$. Another famous example is called neural tangent kernel: $f(x) = ( \frac{1}{2}- \frac{1 }{2\pi} \arccos ( \frac{1}{2} - \frac{1}{2} x^2 ) ) \cdot (\frac{1}{2} - \frac{1}{2}x^2)$\footnote{This equation is corresponding to the ReLU activation function. For other activation functions, the equation will be different.}, which recently proposed by machine learning community \cite{jgh18} and it plays a crucial role in showing the convergence of deep neural networks with non-linear activation functions \cite{ll18,dzps19,als19_dnn,als19_rnn,sy19,lsswy20,bpsw21}. This theory allows practitioners to describe all positive definite Euclidean kernels.
+
+\subsubsection{Main Result}
+
+In this chapter, we classify all positive-definite Manhattan kernels. These kernels are widely used in machine learning for physical and chemical  applications~\cite{flla15, l18, lrrk15}. A notable example of such a kernel is the Laplace kernel $f_\sigma (x) = e^{-\sigma x}$ which is commonly used in classification tasks~\cite{bmm18}. However, a full description of all positive-definite Manhattan kernels  was not known before our work.
+ \begin{definition}[Positive definite Manhattan kernel]\label{def:manhattan_kernel} 
+ A function $f$ is a \emph{positive definite Manhattan kernel} if, for any $x_1, \ldots x_n \in \R^d$ for any $n$ and $d$, the $n \times n$ matrix $M$ with
+ \begin{align*}
+  M_{i,j} = f(\|x_i - x_j\|_1) 
+ \end{align*}
+ is positive semi-definite. 
+ \end{definition}
+ 
+ Our main result is as follows:
+\begin{theorem}[Main result, informal statement of Theorem~\ref{thm:formal_kernel_manhattan}] \label{thm:informal_kernel_manhattan} 
+$f$ is a positive definite Manhattan kernel (Definition~\ref{def:manhattan_kernel}) if only if $f$ is completely monotone (Definition~\ref{def:cm}).
+\end{theorem}
+
+Theorem~\ref{thm:informal_kernel_manhattan} classifies all positive-definite kernels when the input distance is Manhattan. It was previously known that completely monotone functions are positive definite Manhattan kernels~\cite{s38, a80}, but it was not known these were the only such functions. Interestingly, our new classification is similar to Theorem~\ref{fact:kernel-euc}, but without a square root applied to the input. Prior to our result, one could have imagined that there are other positive definite Manhattan kernels to use in SVMs than were previously known. However, our result shows that there are no other such kernels.
+
+
+
+
+
+\subsection{Metric Transforms} \label{sec:metric}
+
+
+Our second application is to \emph{metric transforms}, a mathematical notion introduced by Schoenberg and Von Neumann~\cite{ns41}. 
+
+\begin{definition}[Metric transform]\label{def:metric-transform}
+Suppose $\X$ and $\Y$ are semi-metric spaces\footnote{A semi-metric satisfies all the axioms for a metric except possibly the triangle inequality; the square of the Euclidean distance gives rise to a semi-metric.}. Function $f$ \textbf{transforms} $\X$ to $\Y$ if, for any finite set $S \subseteq \X$, there is a function $F: \X \to \Y$ such that
+\[f(d_{{\cal X}}(x_1,x_2)) = d_{{\cal Y}}(F(x_1), F(x_2)) ,
+\]
+for all $x_1, x_2 \in S$.
+ \end{definition}
+ Metric transforms arise naturally in many settings where one wants to transform a set of points from a metric space while maintaining some of the metric structure between them. They have proven useful in many areas including 
+ %the analysis of neural networks~\cite{pg89, ccg91, ps91},
+ sketching and embedding norms~\cite{akr15}, algorithms to compute a manifold geodesic~\cite{cms20}, machine learning~\cite{o96, ssb+97}, harmonic analysis~\cite{a50,lllh18,kw71}, complex analysis~\cite{a50}, and PDE theory~\cite{fs98, cfw12}. Typically we have particular metric spaces $\X$ and $\Y$ of interest, as well as certain constraints on the function $f$, and would like to determine whether any function which satisfies those constraints and maps $\X$ to $\Y$. This leads to the key question in metric transforms: 
+ \begin{question}For a given semi-metric space $\X$ and a given semi-metric space $\Y$, what is the full classification of functions $f$ that transform $\X$ to $\Y$?\end{question}
+ 
+Much work has been done on metric transforms in the special case where ${\cal X}$ and ${\cal Y}$ are both Euclidean distances\footnote{When we refer to Euclidean or Manhattan distance in the remainder of this section, we always refer to distances in infinite dimensional Euclidean metric space and infinite dimensional Manhattan metric spaces, respectively.} or close variants.   
+ Building on Schoenberg and Von Neumann's work~\cite{ns41}, Schoenberg~\cite{s38} classified all functions that transform Euclidean distances to Euclidean distances. 
+ %One example is the function $f(x) = x^{0.5}$.
+ Interestingly, it is known that there is a close connection between these metric transforms and positive definite Euclidean kernels~\cite{s42, ss01}
+
+
+ 
+
+
+
+ One natural question arises: what is the theory of metric transforms for non-Euclidean metrics? Surprisingly little attention has been paid to this question.
+ 
+In the case when ${\cal X}$ is Manhattan (or $\ell_1$) distance, and ${\cal Y}$ is Euclidean distance, Schoenberg~\cite{s38} provided a partial categorization of functions that transform Manhattan distance to Euclidean distance. This was followed by Assouad's work in 1980, which provided a partial categorization of functions that transform Manhattan distances to Manhattan distances~\cite{a80}. Our work on metric transforms completes the partial categorizations of Schoenberg and Assouad, and proves their partial categorization is a full categorization. 
+
+
+\subsubsection{Main Result}
+
+Our main result about metric transforms is a complete classification of functions that transform Manhattan distances to Manhattan distances. First, we need to define Bernstein functions: 
+\begin{definition}[Bernstein functions~\cite{b29}]\label{def:bernstein}
+  A function $f:\mathbb R_{\geq 0}\to \mathbb R_{\geq 0}$ is Bernstein if $f(0)=0$ and its derivative $f'$ is completely monotone (see Definition~\ref{def:cm}) when restricted to $\mathbb R^+$. 
+  Equivalently, a function $f$ is Bernstein if:
+\begin{tight_enumerate}
+\item $(-1)^k \frac{\d^k f(x)}{\d x^k} \leq 0$ for all $k \geq 1, x \geq 0$,
+\item $f(x) \geq 0$ for all $x \geq 0$, and
+\item $f(0) = 0$.\footnote{We remark that the special attention on $f(0)$ in the definitions above is a bit non-standard but are convenient for our purposes.}
+\end{tight_enumerate}
+\end{definition}
+Now we are ready to state our main result:
+
+\begin{theorem}[Main result, classifying all Manhattan metric transforms, informal version and combination of Theorem~\ref{thm:formal_manhattan_transform_1_and_2} and \ref{thm:formal_manhattan_transform_2_and_3}] \label{thm:informal_manhattan_transform}
+
+  For a function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$, the following are equivalent:
+
+  \begin{tight_enumerate}
+    \item $f$ is Bernstein.
+    \item $f$ transforms Manhattan distances to
+  Manhattan distances.
+    \item  $f$ transforms Manhattan distances to squared Euclidean distances.
+  \end{tight_enumerate}
+\end{theorem}
+
+It was previously known that Bernstein functions transform Manhattan distances to Manhattan distances~\cite{a80}, and that they transform Manhattan distances to squared Euclidean distances~\cite{s38}, but in both cases, it was not previously known that these were the only such functions. It was previously conceivable that, in situations where one needs a metric transform involving Manhattan spaces, but Bernstein functions do not suffice, one could find other suitable metric transforms; our Theorem~\ref{thm:informal_manhattan_transform} rules out such a possibility. This also has a number of simple consequences, for instance: given any $n$ points $x_1, \ldots x_n$ in the metric space ($\R^d, \ell_1$) for any $d$, one can use our construction in Theorem~\ref{thm:informal_manhattan_transform} to explicitly calculate $F: \R^d \to \ell_1$ such that $\|F(x_i)-F(x_j)\|_1 = f(\|x_i-x_j\|_1)$. 
+
+
+
+\subsection{Only Polynomials Preserve Low Rank Matrices} \label{sec:polymeth}
+
+The \emph{polynomial method} is a powerful technique for designing algorithms and constructing combinatorial objects. A key insight behind many of these results is the following fact, that applying a low-degree polynomial entry-wise to a low-rank matrix yields another low-rank matrix:
+\begin{fact}[The polynomial method, folklore; see e.g.~\cite{clp17}] \label{fact:polymethod}
+  Suppose $f : \R \to \R$ is a polynomial of degree $d$. Then, for any matrix $M \in \R^{n \times n}$ of rank $r$, the matrix $M^f \in \R^{n \times n}$ given by $M^f_{i,j} := f(M_{i,j})$ has $\rank(M^f) \leq 2\binom{r+\lfloor d/2 \rfloor-1}{\lfloor d/2 \rfloor}$. For instance, if $r = \log_2 n$ and $d < o(\log_2 n)$, then $\rank(M^f) < n$.
+\end{fact}
+
+
+For one example, consider the fastest known algorithm for batch Hamming Nearest Neighbor Search due to Alman, Chan, and Williams~\cite{acw16}. In this problem, one is given as input $2n$ vectors $x_1, \ldots, x_n, y_1, \ldots, y_n \in \{0,1\}^d$ for $d = \Theta(\log n)$, and a threshold value $t \in \{0,1,\ldots,d\}$, and one wants to find a pair $(i,j) \in [n] \times [n]$ such that the Hamming distance between $x_i$ and $y_j$ is at most $t$. \cite{acw16} takes an algebraic approach to this problem, by first considering the matrix $M \in \R^{n \times n}$ where $M_{i,j}$ is the Hamming distance between $x_i$ and $y_j$. One can see that $\rank(M) \leq 2d$, and one could use fast matrix multiplication to quickly compute all the entries of $M$\footnote{\label{foot1}We first construct the matrices $X \in \R^{n \times 2d}$ and $Y \in \R^{2d \times n}$ such that $M = X \times Y$. We can then compute the product $X \times Y$ in $\tilde{O}(n^2)$ time using fast rectangular matrix multiplication~\cite{c82,w18} as long as $d < n^{0.1}$.}. However, since $M$ itself has $n^2$ entries, this could not improve much on the straightforward $O(n^2 \log n)$ time algorithm. They instead take the following approach:
+\begin{enumerate}
+    \item Pick a parameter $g = n^\delta$ for a constant $\delta>0$, and a function $f : \R \to \R$ such that $f(x) > g^2$ for all $x \in \{0,1,\ldots,t\}$, and $f(x) \in [0,1]$ for all $x \in \{t+1, t+2, \ldots, d\}$. \cite{acw16} use Chebyshev polynomials to construct such an $f$ which is a low-degree polynomial, so that the matrix $M^f$ has low rank by Fact~\ref{fact:polymethod}.
+    \item Let $S_1, \ldots, S_{n/g}$ be a partition of $[n]$ into $n/g$ groups of size $g$, and consider the matrix $F \in \R^{\frac{n}{g} \times \frac{n}{g}}$ given by $F_{a,b} = \sum_{i \in S_a} \sum_{j \in S_b} M^f_{i,j}$. It is not hard to verify that $\rank(F) \leq \rank(M^f)$. Moreover, by the way $f$ was defined, an entry $F_{a,b}$ is larger than $g^2$ if and only if there is an $(i,j) \in S_a \times S_b$ such that the Hamming distance between $x_i$ and $y_j$ is at most $t$.
+\end{enumerate}
+There is a trade-off between the parameter $\delta$ and the degree of $f$, and hence the rank of $F$. \cite{acw16} balance this trade-off to yield a matrix $F$ of low rank\footnote{They pick rank $\approx n^{0.1}$ in order to apply fast rectangular matrix multiplication as in footnote~\ref{foot1}, although different applications of the polynomial method have aimed for different target ranks.} and dimensions $n^{1-\delta} \times n^{1-\delta}$ for some $\delta>0$. Since $F$ now has a subquadratic total number of entries, fast matrix multiplication can be used to compute all its entries and solve the problem, in roughly $O(n^{2-2\delta})$ time.
+
+The polynomial method in algorithm design is used like this to design the fastest known algorithms for a variety of different, important problems, including: the Orthogonal Vectors problem from fine-grained complexity~\cite{awy14,cw16}, All-Pairs Shortest Paths~\cite{w18,cw16}, the lightbulb problem in which one wants to find a planted pair of correlated vectors among a collection of random vectors~\cite{v12,kkk18,a18}, computational problems related to kernel methods in spectral clustering and semi-supervised learning~\cite{acss20}, and some stable matching problems~\cite{mps16}. In all these works, one starts with a matrix $M$ describing the input data which has low rank, and one transforms it into a matrix like $M^f$ which `amplifies' the key properties of the data while still having low rank. A similar approach has also been used to bound the ranks of matrices which arise in other settings, such as in the recent resolution of the Cap Set Conjecture from extremal combinatorics~\cite{clp17, eg17}, and in recent proofs that Hadamard and Fourier transforms have low Matrix Rigidity~\cite{aw17, dvir2017matrix, dvir2019fourier}.
+
+This motivates the question: 
+\begin{question}\label{question:polys}
+Is it possible to generalize the polynomial method (Fact~\ref{fact:polymethod}) to functions $f$ other than polynomials?
+\end{question}
+In other words, are there functions $f$ which are not polynomials, but such that if one starts with any low-rank matrix $M$, and applies it entry-wise yielding the matrix $M^f$, then $M^f$ also has low rank? This would allow algorithm designers to expand the efficacy and reach of the polynomial method, both by expanding the set of constraints on the function $f$ (such as those in step 1 of the algorithm above) that one could use in the recipe above, and by potentially allowing us to find new functions which satisfy those constraints but lead to lower rank bounds, and hence faster algorithms.
+
+\paragraph{Application to Transformers in NLP} Question~\ref{question:polys} is also important in the study of \emph{transformers} in machine learning. Transformers are a type of neural network structure that has been widely applied to many natural language processing (NLP) tasks \cite{vsp+17}. A common computational task which arises when training transformers is to calculate the `self attention' \cite{transformers}; formally, in this task, we are given three matrices $ A, B , C \in \R^{n \times d}$ where $n \gg d$,\footnote{The matrices $A, B$ and $C$ correspond to the query, key, and value matrices, respectively, when training transformers in NLP applications. For more background, we refer the reader to the post by Kulshrestha~\cite{transformers} and more followups \cite{kkl19,cld+20,fzs21,wlk+20}.} and we would like to compute
+\begin{align}\label{eq:transformer}
+    (A  B^\top)^f \cdot C
+\end{align}
+where $f : \R \rightarrow \R$ is a non-linear function that we apply entry-wise to the matrix $A B^\top \in \R^{n \times n}$, then we multiply the result on the right by $C$. In many applications, $f$ is the soft-max function. %For convenient, let $a_i^\top ,b_i^\top \in \R^d$ denote the $i$-th row of matrix $A$ and $B$. 
+
+Naively evaluating Eq.~\eqref{eq:transformer} takes time $O( n^2 d )$ (without using fast matrix multiplication).  
+However, if we can quickly find matrices $\wt{A}, \wt{B} \in \R^{n \times \wt{d} }$ for some $\wt{d} < n$ such that
+\begin{align*}
+    (AB^\top)^f = \wt{A} \times \wt{B}^\top,
+\end{align*}
+then we can evaluate Eq.~\eqref{eq:transformer} more quickly by first computing $\wt{B}^\top \times C$ and then computing $\wt{A} \times (\wt{B}^\top \times C)$, for a total running time of just $O(n d \wt{d})$.
+
+Since $AB^\top$ can be any rank $d$ matrix, and $\wt{A} \times \wt{B}^\top$ has rank at most $\wt{d}$, it follows that an upper bound on the best $\wt{d}$ we can achieve is the maximum, over all matrices $M$ of rank $d$, of $\rank(M^f)$. Question~\ref{question:polys} asks whether it is possible to achieve $d' < n$ for functions $f$ like the soft-max function which are not a polynomial. If not, then we can only hope to carry out this plan of attack if we can find a low-degree polynomial approximation to our function $f$.
+
+\subsubsection{Main Result}
+
+More formally, the functions $f$ we are interested in are those which preserve low-rank matrices. We first define applying a function to a matrix entry-wise, then the matrices of interest.
+\begin{definition}[Entry-wise application]
+For a function $f : \R \to \R$ and matrix $M \in \R^{a \times b}$, the \emph{entry-wise application of $f$ to $M$} is the matrix $M^f \in \R^{a \times b}$ where $M^f_{i,j} := f(M_{i,j})$, for $(i,j) \in [a] \times [b]$.
+\end{definition}
+%Next, we define the notation of ``preserve low-rank''.
+
+\begin{definition}[Preserve low-rank matrices] \label{def:preservelowrank}
+For a function $f : \R \to \R$ and positive integer $n$, we say $f$ \emph{preserves low-rank $n \times n$ matrices} if, for every matrix $M \in \R^{n \times n}$ with $\rank(M) \leq \lceil \log_2(n) \rceil + 1$, we have $\rank(M^f) < n$.
+\end{definition}
+
+For a function $f$ to be effective in the polynomial method as described above, it is necessary (but usually not sufficient) that $f$ preserves low-rank $n \times n$ matrices in the sense of Definition~\ref{def:preservelowrank}. Indeed, in all the aforementioned applications of the polynomial method, such as the algorithm of~\cite{acw16} and the application to transformers that we described above, the original matrix $M$ describing the data can have rank greater than $\log_2 n$. The details of how low the rank of $M^f$ must be can vary in the different applications, but it is always necessary that $M^f$ has less than \emph{full} rank (i.e., $\rank(M^f) < n$). 
+
+Our main result answers Question~\ref{question:polys} in the negative, showing that Fact~\ref{fact:polymethod} cannot be generalized. 
+
+\begin{theorem}[Main result, informal statement of Theorem~\ref{thm:log_formal}]\label{thm:log}
+For any positive integer $n \geq 2$, if the real analytic function $f : \R \to \R$ preserves low-rank $n \times n$ matrices, then $f$ is a polynomial of degree at most $\lceil \log_2(n) \rceil$.
+\end{theorem}
+
+This shows that real analytic functions $f$ which are not polynomials do not preserve low-rank $n \times n$ matrices, and only polynomials of degree less than $\lceil \log_2(n) \rceil$ can preserve low-rank $n \times n$ matrices.
+Hence, one cannot hope to improve on the polynomial method by extending it to any classes of real analytic functions other than low-degree polynomials. 
+
+We note that there is a small constant-factor gap between the degree which Fact~\ref{fact:polymethod} tells us is sufficient for a polynomial to preserve low-rank $n \times n$ matrices, and the degree that Theorem~\ref{thm:log} says is necessary: for instance, Fact~\ref{fact:polymethod} says that polynomials of degree at most $\frac12 \log_2(n)$ suffice, since $\binom{\frac54 \log_2(n)}{\frac14 \log_2(n)} \ll n$, whereas Theorem~\ref{thm:log} says that degree less than $\log_2(n)$ is necessary. We leave open the question of closing this gap, although we note that the constant factor in front of the polynomial degree does not play a major role in most of the aforementioned applications of Fact~\ref{fact:polymethod}.\footnote{For instance, our running example algorithm of~\cite{acw16} only uses an asymptotic bound on how the degree grows with the dimension of the input points, and the constant factor in front of the polynomial degree is ultimately subsumed by a `$O$' in the running time.}
+  

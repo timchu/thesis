@@ -1,0 +1,2087 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  1 NOV 2021 17:23
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**thesis.tex
+(./thesis.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 12 language(s) loaded.
+(./cmuthesis.cls (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+\@copyrightbox=\box26
+\@measbox=\box27
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 95.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count89
+\float@exts=\toks15
+\float@box=\box28
+\@float@everytoks=\toks16
+\@floatcapt=\box29
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks17
+\c@algorithm=\count90
+)
+(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen105
+\captionmargin@=\dimen106
+\captionwidth=\dimen107
+\caption@tempdima=\dimen108
+\caption@indent=\dimen109
+\caption@parindent=\dimen110
+\caption@hangindent=\dimen111
+)
+\c@ContinuedFloat=\count91
+Package caption Info: float package is loaded.
+)
+\c@KVtest=\count92
+\sf@farskip=\skip43
+\sf@captopadj=\dimen112
+\sf@capskip=\skip44
+\sf@nearskip=\skip45
+\c@subfigure=\count93
+\c@subfigure@save=\count94
+\c@lofdepth=\count95
+\c@subtable=\count96
+\c@subtable@save=\count97
+\c@lotdepth=\count98
+\sf@top=\skip46
+\sf@bottom=\skip47
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2016/02/24 3.9q The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2016/02/24 3.9q Babel common definitions
+\babel@savecnt=\count99
+\U@D=\dimen113
+)
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen114
+\WF@size=\dimen115
+\c@WF@wrappedlines=\count100
+\WF@box=\box30
+\WF@everypar=\toks18
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+\epsfxsize=\dimen116
+\epsfysize=\dimen117
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count101
+\c@ALG@rem=\count102
+\c@ALG@nested=\count103
+\ALG@tlm=\skip48
+\ALG@thistlm=\skip49
+\c@ALG@Lnr=\count104
+\c@ALG@blocknr=\count105
+\c@ALG@storecount=\count106
+\c@ALG@tmpcounter=\count107
+\ALG@tmplength=\skip50
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrextend.sty
+Package: scrextend 2015/10/03 v3.19a KOMA-Script package (extend other classes 
+with features of KOMA-Script classes)
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-dependent 
+basics and keyval usage)
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-independent
+ basics and keyval usage)
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2015/10/03 v3.19a KOMA-Script package (loading files)
+
+Package scrlfile, 2015/10/03 v3.19a KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+)))
+LaTeX Info: Redefining \textsubscript on input line 1277.
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2015/08/19 v1.8n multicolumn formatting (FMi)
+\c@tracingmulticols=\count108
+\mult@box=\box31
+\multicol@leftmargin=\dimen118
+\c@unbalance=\count109
+\c@collectmore=\count110
+\doublecol@number=\count111
+\multicoltolerance=\count112
+\multicolpretolerance=\count113
+\full@width=\dimen119
+\page@free=\dimen120
+\premulticols=\dimen121
+\postmulticols=\dimen122
+\multicolsep=\skip51
+\multicolbaselineskip=\skip52
+\partial@page=\box32
+\last@line=\box33
+\maxbalancingoverflow=\dimen123
+\mult@rightbox=\box34
+\mult@grightbox=\box35
+\mult@gfirstbox=\box36
+\mult@firstbox=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\c@columnbadness=\count114
+\c@finalcolumnbadness=\count115
+\last@try=\dimen124
+\multicolovershoot=\dimen125
+\multicolundershoot=\dimen126
+\mult@nat@firstbox=\box55
+\colbreak@box=\box56
+\mc@col@check@num=\count116
+)
+(/usr/share/texlive/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2015/12/30 v2.5 Extended list environments
+\pltopsep=\skip53
+\plpartopsep=\skip54
+\plitemsep=\skip55
+\plparsep=\skip56
+\pl@lab=\toks19
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks20
+\pgfutil@tempdima=\dimen127
+\pgfutil@tempdimb=\dimen128
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box57
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+Package: pgfrcs 2015/08/07 v3.0.1a (rcs-revision 1.31)
+))
+Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2014/07/09 v3.0.1a (rcs-revision 1.48)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks21
+\pgfkeys@temptoks=\toks22
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
+\pgfkeys@tmptoks=\toks23
+))
+\pgf@x=\dimen129
+\pgf@y=\dimen130
+\pgf@xa=\dimen131
+\pgf@ya=\dimen132
+\pgf@xb=\dimen133
+\pgf@yb=\dimen134
+\pgf@xc=\dimen135
+\pgf@yc=\dimen136
+\w@pgf@writea=\write4
+\r@pgf@reada=\read1
+\c@pgf@counta=\count117
+\c@pgf@countb=\count118
+\c@pgf@countc=\count119
+\c@pgf@countd=\count120
+\t@pgf@toka=\toks24
+\t@pgf@tokb=\toks25
+\t@pgf@tokc=\toks26
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2014/10/11  (rcs-revision 1.35)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
+File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
+File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
+\pgfsyssoftpath@smallbuffer@items=\count121
+\pgfsyssoftpath@bigbuffer@items=\count122
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
+File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen137
+\pgfmath@count=\count123
+\pgfmath@box=\box58
+\pgfmath@toks=\toks27
+\pgfmath@stack@operand=\toks28
+\pgfmath@stack@operation=\toks29
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count124
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
+File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
+\pgf@picminx=\dimen138
+\pgf@picmaxx=\dimen139
+\pgf@picminy=\dimen140
+\pgf@picmaxy=\dimen141
+\pgf@pathminx=\dimen142
+\pgf@pathmaxx=\dimen143
+\pgf@pathminy=\dimen144
+\pgf@pathmaxy=\dimen145
+\pgf@xx=\dimen146
+\pgf@xy=\dimen147
+\pgf@yx=\dimen148
+\pgf@yy=\dimen149
+\pgf@zx=\dimen150
+\pgf@zy=\dimen151
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
+File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
+\pgf@path@lastx=\dimen152
+\pgf@path@lasty=\dimen153
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
+File: pgfcorepathusage.code.tex 2014/11/02  (rcs-revision 1.24)
+\pgf@shorten@end@additional=\dimen154
+\pgf@shorten@start@additional=\dimen155
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
+File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
+\pgfpic=\box59
+\pgf@hbox=\box60
+\pgf@layerbox@main=\box61
+\pgf@picture@serial@count=\count125
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
+File: pgfcoregraphicstate.code.tex 2014/11/02  (rcs-revision 1.12)
+\pgflinewidth=\dimen156
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
+File: pgfcoretransformations.code.tex 2015/08/07  (rcs-revision 1.20)
+\pgf@pt@x=\dimen157
+\pgf@pt@y=\dimen158
+\pgf@pt@temp=\dimen159
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
+File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
+File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
+File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
+\pgfarrowsep=\dimen160
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
+\pgf@max=\dimen161
+\pgf@sys@shading@range@num=\count126
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
+File: pgfcoreexternal.code.tex 2014/07/09  (rcs-revision 1.21)
+\pgfexternal@startupbox=\box62
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
+File: pgfcorelayers.code.tex 2013/07/18  (rcs-revision 1.7)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
+File: pgfcoretransparency.code.tex 2013/09/30  (rcs-revision 1.5)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
+File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
+\pgfnodeparttextbox=\box63
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty
+Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
+\pgf@nodesepstart=\dimen162
+\pgf@nodesepend=\dimen163
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty
+Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
+)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen164
+\pgffor@skip=\dimen165
+\pgffor@stack=\toks30
+\pgffor@toks=\toks31
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex
+File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
+\pgf@plot@mark@count=\count127
+\pgfplotmarksize=\dimen166
+)
+\tikz@lastx=\dimen167
+\tikz@lasty=\dimen168
+\tikz@lastxsaved=\dimen169
+\tikz@lastysaved=\dimen170
+\tikzleveldistance=\dimen171
+\tikzsiblingdistance=\dimen172
+\tikz@figbox=\box64
+\tikz@figbox@bg=\box65
+\tikz@tempbox=\box66
+\tikz@tempbox@bg=\box67
+\tikztreelevel=\count128
+\tikznumberofchildren=\count129
+\tikznumberofcurrentchild=\count130
+\tikz@fig@count=\count131
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
+\pgfmatrixcurrentrow=\count132
+\pgfmatrixcurrentcolumn=\count133
+\pgf@matrix@numberofcolumns=\count134
+)
+\tikz@expandcount=\count135
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.1a (rcs-revision 1.2)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.1a (rcs-revision 1.16)
+\arrowsize=\dimen173
+)) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/share/texlive/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip57
+\L@UnitsRaiseTextstyle=\skip58
+\L@UnitsRaiseScriptstyle=\skip59
+)
+(/usr/share/texlive/texmf-dist/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip60
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/03/03 v2.15a AMS math features
+\@mathmargin=\skip61
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks32
+\ex@=\dimen174
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen175
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count136
+LaTeX Info: Redefining \frac on input line 199.
+\uproot@=\count137
+\leftroot@=\count138
+LaTeX Info: Redefining \overline on input line 297.
+\classnum@=\count139
+\DOTSCASE@=\count140
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
+\Mathstrutbox@=\box68
+\strutbox@=\box69
+\big@size=\dimen176
+LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
+\macc@depth=\count141
+\c@MaxMatrixCols=\count142
+\dotsspace@=\muskip11
+\c@parentequation=\count143
+\dspbrk@lvl=\count144
+\tag@help=\toks33
+\row@=\count145
+\column@=\count146
+\maxfields@=\count147
+\andhelp@=\toks34
+\eqnshift@=\dimen177
+\alignsep@=\dimen178
+\tagshift@=\dimen179
+\tagwidth@=\dimen180
+\totwidth@=\dimen181
+\lineht@=\dimen182
+\@envbody=\toks35
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks36
+LaTeX Info: Redefining \[ on input line 2735.
+LaTeX Info: Redefining \] on input line 2736.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2015/03/04 v2.20.2
+\thm@style=\toks37
+\thm@bodyfont=\toks38
+\thm@headfont=\toks39
+\thm@notefont=\toks40
+\thm@headpunct=\toks41
+\thm@preskip=\skip64
+\thm@postskip=\skip65
+\thm@headsep=\skip66
+\dth@everypar=\toks42
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2015/11/12 v1.18 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count148
+\calc@Bcount=\count149
+\calc@Adimen=\dimen183
+\calc@Bdimen=\dimen184
+\calc@Askip=\skip67
+\calc@Bskip=\skip68
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count150
+\calc@Cskip=\skip69
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count151
+\l_MT_multwidth_dim=\dimen185
+\origjot=\skip70
+\l_MT_shortvdotswithinadjustabove_dim=\dimen186
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen187
+\l_MT_above_intertext_sep=\dimen188
+\l_MT_below_intertext_sep=\dimen189
+\l_MT_above_shortintertext_sep=\dimen190
+\l_MT_below_shortintertext_sep=\dimen191
+)
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip71
+\bibsep=\skip72
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count152
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package hobsub Info: Skipping package `etexcmds' (already loaded).
+Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
+Package hobsub Info: Skipping package `kvdefinekeys' (already loaded).
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package hobsub Info: Skipping package `atbegshi' (already loaded).
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen192
+\Hy@linkcounter=\count153
+\Hy@pagecounter=\count154
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count155
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `pageanchor' set `true' on input line 4319.
+Package hyperref Info: Option `plainpages' set `false' on input line 4319.
+Package hyperref Info: Option `pdfpagelabels' set `true' on input line 4319.
+Package hyperref Info: Option `bookmarks' set `true' on input line 4319.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 4319
+.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing ON on input line 4461.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
+Package: backref 2012/07/25 v1.38 Bibliographical back referencing
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+))
+\c@Hy@tempcnt=\count156
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen193
+\Fld@menulength=\count157
+\Field@Width=\dimen194
+\Fld@charsize=\dimen195
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing ON on input line 6308.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count158
+\c@Item=\count159
+\c@Hfootnote=\count160
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count161
+\c@bookmark@seq@number=\count162
+\Hy@SectionHShift=\skip73
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+\Gm@cnth=\count163
+\Gm@cntv=\count164
+\c@Gm@tempcnt=\count165
+\Gm@bindingoffset=\dimen196
+\Gm@wd@mp=\dimen197
+\Gm@odd@mp=\dimen198
+\Gm@even@mp=\dimen199
+\Gm@layoutwidth=\dimen256
+\Gm@layoutheight=\dimen257
+\Gm@layouthoffset=\dimen258
+\Gm@layoutvoffset=\dimen259
+\Gm@dimlist=\toks43
+) (./macros.tex
+\c@claim=\count166
+\c@observation=\count167
+\c@problem=\count168
+\c@theorem=\count169
+\c@corollary=\count170
+\c@remark=\count171
+\pgmtab=\skip74
+\tpush=\skip75
+\c@fignum=\count172
+\c@savesection=\count173
+\c@apdxsection=\count174
+)
+(./thesis.aux
+
+LaTeX Warning: Label `sec:definitions' multiply defined.
+
+
+LaTeX Warning: Label `fig:buser-counterexample' multiply defined.
+
+
+LaTeX Warning: Label `sec:preli' multiply defined.
+
+)
+\openout1 = `thesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 71.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
+)
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count175
+\scratchdimen=\dimen260
+\scratchbox=\box70
+\nofMPsegments=\count176
+\nofMParguments=\count177
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count178
+\MPscratchDim=\dimen261
+\MPnumerator=\count179
+\makeMPintoPDFobject=\count180
+\everyMPtoPDFconversion=\toks45
+)
+\AtBeginShipoutBox=\box71
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+ ABD: EveryShipout initializing macros
+Package backref Info: ** backref set up for natbib ** on input line 71.
+Package hyperref Info: Link coloring OFF on input line 71.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count181
+)
+LaTeX Info: Redefining \ref on input line 71.
+LaTeX Info: Redefining \pageref on input line 71.
+LaTeX Info: Redefining \nameref on input line 71.
+
+(./thesis.out) (./thesis.out)
+\@outlinefile=\write5
+\openout5 = `thesis.out'.
+
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* hratio: 1:1
+* modes: twoside 
+* h-part:(L,W,R)=(76.78688pt, 460.72124pt, 76.78688pt)
+* v-part:(T,H,B)=(63.59662pt, 635.97841pt, 95.39496pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=460.72124pt
+* \textheight=635.97841pt
+* \oddsidemargin=4.51689pt
+* \evensidemargin=4.51689pt
+* \topmargin=-8.67337pt
+* \headheight=0.0pt
+* \headsep=0.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=0.0pt
+* \marginparsep=0.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\@cutoutvskip=\skip76
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 100.
+LaTeX Font Info:    Try loading font information for U+msa on input line 100.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 100.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 100.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 100.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
+ [1
+
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+] [3
+
+
+
+
+] [4
+
+
+
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 110.
+ [5] [6
+
+
+
+] [7] [8
+
+
+
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 181.
+ (./thesis.toc
+[9] [10] [11])
+\tf@toc=\write6
+\openout6 = `thesis.toc'.
+
+ [12] (./thesis.lof)
+\tf@lof=\write7
+\openout7 = `thesis.lof'.
+
+ [13
+
+
+] [14
+
+
+] (./thesis.lot)
+\tf@lot=\write8
+\openout8 = `thesis.lot'.
+
+ [15] [16
+
+
+]
+Chapter 1.
+(./intro.tex [1
+
+
+] [2] [3]
+<images/counterexample.png, id=884, 1163.34625pt x 659.46375pt>
+File: images/counterexample.png Graphic file (type png)
+
+<use images/counterexample.png>
+Package pdftex.def Info: images/counterexample.png used on input line 178.
+(pdftex.def)             Requested size: 276.43555pt x 156.70476pt.
+ [4 <./images/counterexample.png>]) [5] [6
+
+
+]
+Chapter 2.
+(./rep/main.tex (./rep/abstract.tex [7] [8
+
+
+] [9]) (./rep/intro.tex [10
+
+] [11]
+LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 69.
+
+[12] [13] [14] [15]) (./rep/tech.tex [16]
+Overfull \hbox (9.20712pt too wide) in paragraph at lines 20--21
+[][]\T1/ptm/b/n/12 Lemma 2.2.3 \T1/ptm/m/n/12 (Rep-re-sen-ta-tion The-ory of th
+e Real Hy-per-rect-an-gle, in-for-mal ver-sion of Lemma []F.2[])\T1/ptm/b/n/12 
+.
+ []
+
+[17]
+Overfull \hbox (1.77785pt too wide) in paragraph at lines 89--90
+\T1/ptm/m/n/12 physics to cal-cu-late the spec-tra of Hamil-to-ni-ans and com-p
+ute molec-u-lar and atomic or-bitals [[]]. 
+ []
+
+[18] [19]) [20] [21] (./rep/preli.texpdfTeX warning (ext4): destination with th
+e same identifier (name{section.2.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.6 \section{Preliminaries}
+                           \label{sec:preli}pdfTeX warning (ext4): destination 
+with the same identifier (name{subsection.2.1.1}) has been already used, duplic
+ate ignored
+<to be read again> 
+                   \relax 
+l.21 \subsection{Notations}
+                           \label{sec:preli:notation}pdfTeX warning (ext4): des
+tination with the same identifier (name{subsection.2.1.2}) has been already use
+d, duplicate ignored
+<to be read again> 
+                   \relax 
+l.24 \subsection{Definitions}
+                             \label{sec:preli:definition} [22]pdfTeX warning (e
+xt4): destination with the same identifier (name{subsection.2.1.3}) has been al
+ready used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.42 ...mpletely Monotone and Bernstein Functions}
+                                                  \label{sec:preli:classific...
+
+Overfull \hbox (3.17029pt too wide) in paragraph at lines 42--42
+[]\T1/ptm/b/n/14.4 Alternate Clas-si-fi-ca-tions of Com-pletely Mono-tone and B
+ern-stein Func-
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.1
+}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.47 F
+      or a function $f:\mathbb R_{> 0}\to\mathbb R_{\geq 0}$, the following ...
+pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.2
+}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.72 F
+      or a function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$ with $f(0)=0...
+[23]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
+.1.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.98 ...egin{lemma}\label{lem:l1-hyperrectangle} F
+                                                  or any $n$ points $x_1, \l...
+
+Overfull \hbox (2.8389pt too wide) in paragraph at lines 104--106
+[]\T1/ptm/m/n/12 This fol-lows from the equiv-a-lence of the cut cone and $\OML
+/cmm/m/it/12 `[]$ \T1/ptm/m/n/12 dis-tance (The-o-rem 4.2.2 in [[]]).
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.4
+}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.108 T
+       he squared Euclidean distance between points in the corners of a hype...
+pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.5
+}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.118   M
+         anhattan distances embed isometrically into squared EuclideanpdfTeX wa
+rning (ext4): destination with the same identifier (name{theorem.2.1.6}) has be
+en already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.132 \begin{definition}[negative type] A
+                                          matrix $D$ is  iff $x^{\top} D xpdfTe
+X warning (ext4): destination with the same identifier (name{theorem.2.1.7}) ha
+s been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.137 C
+       onsider $x_1,\ldots, x_n$ where $d_{i,j}$ is the distance between $x_...
+pdfTeX warning (ext4): destination with the same identifier (name{theorem.2.1.8
+}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.146 C
+       onsider $x_1,\ldots, x_n$ where $d_{i,j}$ is the distance between $x_...
+[24]pdfTeX warning (ext4): destination with the same identifier (name{theorem.2
+.1.9}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.158 \begin{lemma}\label{lem:emb} C
+                                    onsider $x_1, \ldotspdfTeX warning (ext4): 
+destination with the same identifier (name{theorem.2.1.10}) has been already us
+ed, duplicate ignored
+<to be read again> 
+                   \relax 
+l.183 ...elian groups]\label{lem:known-abelian}  I
+                                                  f $G$ is a finite Abelian ...
+) (./rep/lowrank.texpdfTeX warning (ext4): destination with the same identifier
+ (name{section.2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 ...n-Polynomial Functions Blow Up Matrix Rank}
+                                                  \label{sec:non_polynoimial}pd
+fTeX warning (ext4): destination with the same identifier (name{subsection.2.2.
+1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.14 \subsection{Preliminaries}
+                               \label{sec:poly_preli} [25]pdfTeX warning (ext4)
+: destination with the same identifier (name{theorem.2.2.1}) has been already u
+sed, duplicate ignored
+<to be read again> 
+                   \relax 
+l.19 I
+      f $g_1, \ldots g_n: \mathbb{R}^d \rightarrow \mathbb{R}$ are all Taylo...
+pdfTeX warning (ext4): destination with the same identifier (name{subsection.2.
+2.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.33 ...ection{One Eigenvalue is Identically Zero}
+                                                  \label{sec:poly_imply}pdfTeX 
+warning (ext4): destination with the same identifier (name{theorem.2.2.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.36 F
+      or any Taylor expandable function $f$, any $n$, and $d:= \log n+1$: we...
+[26]pdfTeX warning (ext4): destination with the same identifier (name{subsectio
+n.2.2.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.87 ...n{Only Polynomials Have a Zero Eigenvalue}
+                                                  \label{sec:zero_eig}pdfTeX wa
+rning (ext4): destination with the same identifier (name{theorem.2.2.3}) has be
+en already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.91 G
+      iven:pdfTeX warning (ext4): destination with the same identifier (name{su
+bsection.2.2.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.113 \subsection{Rewriting the Sum}
+                                    \label{sec:eigsum}pdfTeX warning (ext4): de
+stination with the same identifier (name{theorem.2.2.4}) has been already used,
+ duplicate ignored
+<to be read again> 
+                   \relax 
+l.118 \begin{align*}
+                     [27] [28]) (./rep/metric.tex [29]
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+
+ []
+
+[30] [31] [32] [33]) (./rep/repeat.tex [34]) (./rep/key.tex [35])) [36]
+Chapter 3.
+(./screw/main.tex (./screw/abstract.tex [37
+
+
+] [38
+
+
+] [39])
+(./screw/introduction.tex
+Overfull \hbox (1.86269pt too wide) in paragraph at lines 3--11
+\T1/ptm/m/n/12 The pro-found suc-cess of non-lin-ear meth-ods in ma-chine learn
+-ing such as ker-nels meth-ods, density-
+ []
+
+[40
+
+] <screw/Figures/example.pdf, id=1608, 418.3221pt x 281.85422pt>
+File: screw/Figures/example.pdf Graphic file (type pdf)
+
+<use screw/Figures/example.pdf>
+Package pdftex.def Info: screw/Figures/example.pdf used on input line 72.
+(pdftex.def)             Requested size: 138.21777pt x 93.1283pt.
+ [41 <./screw/Figures/example.pdf>]
+<screw/Figures/example1.pdf, id=1731, 482.76181pt x 304.88123pt>
+File: screw/Figures/example1.pdf Graphic file (type pdf)
+
+<use screw/Figures/example1.pdf>
+Package pdftex.def Info: screw/Figures/example1.pdf used on input line 193.
+(pdftex.def)             Requested size: 138.21777pt x 87.28748pt.
+ [42]) (./screw/contributions.tex [43 <./screw/Figures/example1.pdf>] (./screw/
+spanner-theorems.tex)) (./screw/definitions.tex [44]) (./screw/outline.tex) (./
+screw/NN-soda.tex [45] (./screw/proof-soda.tex
+(./screw/boxes-soda.tex [46]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [47])
+(./screw/lifting-soda.tex [48] [49]) (./screw/lip_extension-soda.tex [50])))
+(./screw/persistence-soda.tex [51] [52]) (./screw/edge-power.tex [53]
+Overfull \hbox (3.96141pt too wide) in paragraph at lines 84--84
+[]\T1/ptm/b/n/14.4 Generalizing Sin-gle Link-age Clus-ter-ing, Level Sets, and 
+k-Centers clus-
+ []
+
+[54]) (./screw/spanner-soda.tex (./screw/distribution-spanner.tex)
+(./screw/general-spanner.tex [55])) (./screw/conclusions.tex)
+(./screw/appendix.tex (./screw/appendix-clustering-link.tex [56])
+(./screw/appendix-general-spanner.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\delta' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\delta' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 8.
+
+
+Underfull \vbox (badness 3128) has occurred while \output is active []
+
+ [57pdfTeX warning (ext4): destination with the same identifier (name{section.3
+.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.13 \end{definition}
+                     ] [58]) (./screw/appendix-distribution-spanner.tex
+[59])) [60]) [61] [62
+
+
+]
+Chapter 4.
+(./spectralcluster/main.tex (./spectralcluster/abstract.tex [63] [64
+
+
+] [65])
+(./spectralcluster/introduction/introduction.tex
+(./spectralcluster/introduction/definitions.tex
+Underfull \vbox (badness 1377) has occurred while \output is active []
+
+ [66
+
+])
+(./spectralcluster/introduction/contributions.tex [67])
+(./spectralcluster/introduction/past-work.tex [68])
+(./spectralcluster/introduction/technical-contribution.tex [69]))
+(./spectralcluster/road-map.tex [70]) (./spectralcluster/examples.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\alpha' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\beta' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\gamma' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 4.
+
+
+<spectralcluster/images/cheeger-counterexample.png, id=2369, 926.46124pt x 572.
+1375pt>
+File: spectralcluster/images/cheeger-counterexample.png Graphic file (type png)
+
+ <use spectralcluster/images/cheeger-counterexample.png>
+Package pdftex.def Info: spectralcluster/images/cheeger-counterexample.png used
+ on input line 29.
+(pdftex.def)             Requested size: 180.67499pt x 111.57072pt.
+
+<spectralcluster/images/buser-counterexample.png, id=2370, 864.22874pt x 539.01
+375pt>
+File: spectralcluster/images/buser-counterexample.png Graphic file (type png)
+ <use spectralcluster/images/buser-counterexample.png>
+Package pdftex.def Info: spectralcluster/images/buser-counterexample.png used o
+n input line 42.
+(pdftex.def)             Requested size: 180.67499pt x 112.6863pt.
+ [71 <./spectralcluster/images/cheeger-counterexample.png> <./spectralcluster/i
+mages/buser-counterexample.png>]) (./spectralcluster/buser/buser.tex [72]
+(./spectralcluster/buser/utheta-construction.tex)
+(./spectralcluster/buser/key-lemma.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 3.
+
+[73]
+Overfull \hbox (15.35515pt too wide) detected at line 55
+[] [][] \OMS/cmsy/m/n/12 ^^T [][] [][] \OML/cmm/m/it/12 ^^Z[]\OT1/cmr/m/n/12 (\
+OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^R^^Z\OT1/cmr/m/n/12 (
+\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 )\OMS/cmsy
+/m/n/12 jr\OML/cmm/m/it/12 u\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/1
+2 ^^@ \OML/cmm/m/it/12 ^^R^^Z\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12
+ )\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 ^^^\OT1
+/cmr/m/n/12 (\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 ) \OML/cmm/m/it/12 dy dx \OMS/cm
+sy/m/n/12 ^^T [] [][] \OML/cmm/m/it/12 ;
+ []
+
+
+Overfull \hbox (18.57735pt too wide) detected at line 90
+[] [][] \OMS/cmsy/m/n/12 ^^T [][] [][] \OML/cmm/m/it/12 ^^Z[]\OT1/cmr/m/n/12 (\
+OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Rt^^Z\OT1/cmr/m/n/12 
+(\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 )\OMS/cms
+y/m/n/12 jr\OML/cmm/m/it/12 u\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/
+12 ^^@ \OML/cmm/m/it/12 ^^Rt^^Z\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/
+12 )\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 ^^^\O
+T1/cmr/m/n/12 (\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 ) \OML/cmm/m/it/12 dy dx \OMS/
+cmsy/m/n/12 ^^T [] [][]
+ []
+
+[74]) (./spectralcluster/buser/numerator.tex [75]
+Overfull \hbox (26.40039pt too wide) in paragraph at lines 34--34
+[] 
+ []
+
+
+Overfull \hbox (68.1227pt too wide) in paragraph at lines 48--48
+[] 
+ []
+
+[76]
+Overfull \hbox (41.22523pt too wide) in paragraph at lines 171--171
+[] 
+ []
+
+[77] [78]
+Overfull \hbox (14.479pt too wide) in paragraph at lines 281--281
+[] 
+ []
+
+) (./spectralcluster/buser/denominator.tex [79] [80]
+Overfull \hbox (29.34032pt too wide) in paragraph at lines 146--146
+[] 
+ []
+
+) (./spectralcluster/buser/mollifier.tex [81] [82]
+Overfull \hbox (11.9566pt too wide) detected at line 71
+[][] [][] \OMS/cmsy/m/n/12 jr\OML/cmm/m/it/12 ^^^\OT1/cmr/m/n/12 (\OML/cmm/m/it
+/12 x\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j \OML/cmm/m/it/12 dx \OMS/cmsy/m/n/12 ^
+^T \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1) 
+[][] \OMS/cmsy/m/n/12 ^^T \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d \OMS/cmsy/m/n/12 
+^^@ \OT1/cmr/m/n/12 1) [][] [] 2(\OML/cmm/m/it/12 d \OMS/cmsy/m/n/12 ^^@ \OT1/c
+mr/m/n/12 1)\OML/cmm/m/it/12 :
+ []
+
+)) (./spectralcluster/scaling.tex [83] [84]) (./spectralcluster/cheeger.tex
+[85] [86]) (./spectralcluster/spectral-sweep.tex)
+(./spectralcluster/counterexample/counterexample.tex
+<spectralcluster/images/counterexample.png, id=2587, 1163.34625pt x 659.46375pt
+>
+File: spectralcluster/images/counterexample.png Graphic file (type png)
+ <use spectralcluster/images/counterexample.png>
+Package pdftex.def Info: spectralcluster/images/counterexample.png used on inpu
+t line 14.
+(pdftex.def)             Requested size: 325.215pt x 184.35677pt.
+
+Underfull \vbox (badness 1997) has occurred while \output is active []
+
+ [87]
+[88 <./spectralcluster/images/counterexample.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 87.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 87.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 87.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 87.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 135.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\beta' on input line 135.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 135.
+
+[89] [90]) (./spectralcluster/conclusion.tex [91])
+(./spectralcluster/appendix/examples.texpdfTeX warning (ext4): destination with
+ the same identifier (name{section.4.7}) has been already used, duplicate ignor
+ed
+<to be read again> 
+                   \relax 
+l.2   Examples}
+               \label{app:examples}
+Overfull \hbox (11.76096pt too wide) in paragraph at lines 2--2
+[]\T1/ptm/b/n/17.28 Calculating Eigen-val-ues and Isoperime-try con-stants for 
+Sim-
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{subsection.4.
+7.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.11 \subsection{Notation}
+                          pdfTeX warning (ext4): destination with the same iden
+tifier (name{subsection.4.7.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.14 \subsection{A Lipschitz weight}
+                                    
+Underfull \vbox (badness 1024) has occurred while \output is active []
+
+ [92])
+(./spectralcluster/appendix/notgraph.texpdfTeX warning (ext4): destination with
+ the same identifier (name{section.4.8}) has been already used, duplicate ignor
+ed
+<to be read again> 
+                   \relax 
+l.2   from Graph or Manifold Cheeger and Buser}
+                                               \label{app:notgraph} [93])
+(./spectralcluster/1d.tex [94] [95] [96])) [97] [98
+
+
+]
+Chapter 5.
+(./geo/main.tex [99] [100
+
+
+] (./geo/abstract.tex) [101] [102
+
+
+
+] (./thesis.toc)
+\tf@toc=\write9
+\openout9 = `thesis.toc'.
+
+
+[103] (./geo/intro.tex [104] [105]
+Overfull \hbox (27.55223pt too wide) in paragraph at lines 91--97
+\T1/ptm/m/n/12 We be-gin in this sub-sec-tion by stat-ing our re-sults about wh
+ich func-tions have $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; []\OT1/cmr/m/n/12 (
+\OML/cmm/m/it/12 \OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ; []\OT1/cmr/m/n/12 (1\OML/
+cmm/m/it/12 ="\OT1/cmr/m/n/12 ))\OMS/cmsy/m/n/12 ^^A$
+ []
+
+
+Overfull \hbox (4.0937pt too wide) in paragraph at lines 91--97
+\OML/cmm/m/it/12 n[]$\T1/ptm/m/n/12 -time al-go-rithms for mul-ti-pli-ca-tion a
+nd Lapla-cian solv-ing and $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; []\OT1/cmr/m
+/n/12 (\OML/cmm/m/it/12 \OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\
+OML/cmm/m/it/12 ="\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^A \OML/cmm/m/it/12 n[]$\
+T1/ptm/m/n/12 -
+ []
+
+[106]
+LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 107.
+ [107] [108]
+Underfull \vbox (badness 3118) has occurred while \output is active []
+
+ [109]
+[110] [111]
+Overfull \hbox (19.27971pt too wide) in paragraph at lines 281--282
+ []\T1/ptm/b/n/12 Algorithmic tech-niques \T1/ptm/m/n/12 Our al-go-rithm for co
+n-struct-ing high-dimensional spar-si-fiers for $\OT1/cmss/m/n/12 K\OT1/cmr/m/n
+/12 (\OML/cmm/m/it/12 x; y\OT1/cmr/m/n/12 ) =
+ []
+
+[112] [113]
+Overfull \hbox (18.34076pt too wide) in paragraph at lines 343--345
+[]\T1/ptm/m/n/12 Sparsification. In both set-tings, $\OML/cmm/m/it/12 p[]$ \T1/
+ptm/m/n/12 is the min-i-mum value for which $\OML/cmm/m/it/12 f$ \T1/ptm/m/n/12
+ is $\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 C; p[]\OT1/cmr/m/n/12 )$\T1/ptm/m/n/12 -
+multiplicatively
+ []
+
+[114] [115]) (./geo/result.tex [116] [117]) (./geo/preli.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [118]
+[119] [120]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 115.
+ [121]
+Overfull \hbox (2.23499pt too wide) in paragraph at lines 195--196
+\T1/ptm/m/n/12 We make use of the fol-low-ing bi-nary ver-sion of the Johnson-L
+indenstrauss lemma due to Achliop-
+ []
+
+[122] [123]
+LaTeX Font Info:    Try loading font information for T1+phv on input line 270.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+))
+(./geo/equiv.tex [124] [125]
+Overfull \hbox (16.30283pt too wide) in paragraph at lines 104--104
+[][]\T1/ptm/b/n/12 Lemma 4.3. []\T1/ptm/m/it/12 Con-sider an $\OML/cmm/m/it/12 
+n$\T1/ptm/m/it/12 -vertex $\OML/cmm/m/it/12 w$\T1/ptm/m/it/12 -weighted graph $
+\OML/cmm/m/it/12 G$\T1/ptm/m/it/12 , let $\OML/cmm/m/it/12 w[] \OT1/cmr/m/n/12 
+= [][] \OML/cmm/m/it/12 w[]$\T1/ptm/m/it/12 , $\OML/cmm/m/it/12 w[] \OT1/cmr/m/
+n/12 = [][] \OML/cmm/m/it/12 w[]$\T1/ptm/m/it/12 ,
+ []
+
+
+Overfull \hbox (20.65445pt too wide) in paragraph at lines 110--111
+\T1/ptm/m/it/12 Suppose that $\OML/cmm/m/it/12 H$ \T1/ptm/m/it/12 has at most $
+\OML/cmm/m/it/12 Z$ \T1/ptm/m/it/12 edges and sup-pose that there is a $\OMS/cm
+sy/m/n/12 T\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 n; ^^N\OT1/cmr/m/n/12 )$\T1/ptm/m/
+it/12 -time al-go-rithm $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 b; ^^N\OT1/cmr/m/n
+/12 )$
+ []
+
+[126] [127]
+Overfull \hbox (43.55571pt too wide) in paragraph at lines 187--188
+[]\T1/ptm/b/n/12 Error\T1/ptm/m/n/12 : We start by bound-ing er-ror in the $\OM
+L/cmm/m/it/12 L[]$ \T1/ptm/m/n/12 norm. Let $\OML/cmm/m/it/12 b$ \T1/ptm/m/n/12
+ be the out-put of $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; ^^\\OT1/cmr/m/n/12 )
+$
+ []
+
+[128]
+Overfull \hbox (50.91495pt too wide) in paragraph at lines 215--216
+[]\T1/ptm/b/n/12 Runtime\T1/ptm/m/n/12 : There is one call to $[]$ and one mul-
+ti-pli-ca-tion by $\OML/cmm/m/it/12 L[]$ \T1/ptm/m/n/12 per call to $[]$
+ []
+
+[129]) (./geo/hardness.tex [130] [131] [132]
+Overfull \hbox (6.77483pt too wide) in paragraph at lines 128--129
+\T1/ptm/m/it/12 ti-mal if we must ap-prox-i-mate $\OML/cmm/m/it/12 f\OT1/cmr/m/
+n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )$ \T1/ptm/m/it/12 on the slightly larg
+er in-ter-val $\OT1/cmr/m/n/12 [0\OML/cmm/m/it/12 ; [][]\OT1/cmr/m/n/12 (1\OML/
+cmm/m/it/12 ="\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 = [][] []\OT1/cmr/m/n/12 (1\OML
+/cmm/m/it/12 ="\OT1/cmr/m/n/12 )]$ \T1/ptm/m/it/12 [[],
+ []
+
+[133]
+Underfull \vbox (badness 2469) has occurred while \output is active []
+
+ [134]
+[135]
+Overfull \hbox (30.40265pt too wide) in paragraph at lines 243--245
+\T1/ptm/m/it/12 where $\OML/cmm/m/it/12 A\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 `[];
+ `[]; []  ; `[]\OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12 2 \U/msb/m/n/12 R[]$ \T1/ptm/
+m/it/12 de-notes the ma-trix whose $\OML/cmm/m/it/12 i; j$ \T1/ptm/m/it/12 en-t
+ry is given by $\OML/cmm/m/it/12 A[]$ \T1/ptm/m/it/12 and $\OML/cmm/m/it/12 B\O
+T1/cmr/m/n/12 [\OML/cmm/m/it/12 `[]; `[]; []  ; `[]\OT1/cmr/m/n/12 ]$
+ []
+
+[136] [137]
+Overfull \hbox (12.11543pt too wide) in paragraph at lines 302--303
+\T1/ptm/m/n/12 far from a de-gree $\OML/cmm/m/it/12 k$ \T1/ptm/m/n/12 poly-no-m
+ial, Lemma []5.13[] im-plies the ex-is-tance of an $\OML/cmm/m/it/12 x[]$ \T1/p
+tm/m/n/12 for which $\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OM
+L/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j \OML/cmm/m/it/12 >
+ []
+
+[138] [139] [140] [141] [142] [143]
+Overfull \hbox (14.81723pt too wide) in paragraph at lines 498--499
+\T1/ptm/m/it/12 dimensional vec-tors of in-te-ger en-tries of bit length $\OML/
+cmm/m/it/12 O\OT1/cmr/m/n/12 ([] \OML/cmm/m/it/12 n\OT1/cmr/m/n/12 )$ \T1/ptm/m
+/it/12 can be solved in time $\OML/cmm/m/it/12 O\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/
+12 T\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 n; d\OT1/cmr/m/n/12 ) [][] \OML/cmm/m/it/
+12 n \OT1/cmr/m/n/12 +
+ []
+
+
+Overfull \hbox (5.56506pt too wide) in paragraph at lines 515--517
+\T1/ptm/m/n/12 in time $\OML/cmm/m/it/12 O\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 nd\
+OT1/cmr/m/n/12 )$\T1/ptm/m/n/12 . Our goal is to de-ter-mine whether $\OML/cmm/
+m/it/12 s[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 s[]$\T1/ptm/
+m/n/12 . Since each $\OML/cmm/m/it/12 s[]$ \T1/ptm/m/n/12 and $\OML/cmm/m/it/12
+ s[]$ \T1/ptm/m/n/12 is a polynomially-
+ []
+
+[144] [145]
+Overfull \hbox (36.94334pt too wide) detected at line 597
+[]\OT1/cmr/m/n/12 ((\OML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 
+J[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^B \OML/cmm/m/it/12 K[] \OMS/cmsy/m/n/12
+ ^^B \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/1
+2 J[]\OT1/cmr/m/n/12 )) = [](\OML/cmm/m/it/12 K[] \OMS/cmsy/m/n/12 ^^B \OT1/cmr
+/m/n/12 (\OML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 J[]\OT1/cmr
+/m/n/12 )[]) = [](\OML/cmm/m/it/12 K[] \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/12 (\O
+ML/cmm/m/it/12 I[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 J[]\OT1/cmr/m/n/12 )) 
+= [](\OML/cmm/m/it/12 K[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/1
+2 S\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 K[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =n;
+ []
+
+) (./geo/sparsifier_lip.tex [146]
+Overfull \hbox (7.73776pt too wide) in paragraph at lines 59--60
+[][]\T1/ptm/b/n/12 Corollary 6.3.1. []\T1/ptm/m/it/12 Con-sider a $\OT1/cmss/m/
+n/12 K$ \T1/ptm/m/it/12 graph where $\OT1/cmss/m/n/12 K\OT1/cmr/m/n/12 (\OML/cm
+m/m/it/12 x; y\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OMS/cmsy/
+m/n/12 k\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 y\OMS/cmsy/m/n
+/12 k[]\OT1/cmr/m/n/12 )$\T1/ptm/m/it/12 , and $\OML/cmm/m/it/12 f$ \T1/ptm/m/i
+t/12 is $\OT1/cmr/m/n/12 (2\OML/cmm/m/it/12 ; L\OT1/cmr/m/n/12 )$\T1/ptm/m/it/1
+2 -multiplicatively
+ []
+
+
+Overfull \hbox (18.31664pt too wide) in paragraph at lines 62--65
+\T1/ptm/m/it/12 and out-puts an $\OML/cmm/m/it/12 "$\T1/ptm/m/it/12 -spectral s
+par-si-fier $\OML/cmm/m/it/12 H$ \T1/ptm/m/it/12 of $\OML/cmm/m/it/12 G$ \T1/pt
+m/m/it/12 with $\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 E[]\OMS/cmsy/m/n/12 j \OT1/c
+mr/m/n/12 = \OML/cmm/m/it/12 O\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 n [] n="[]\OT1/
+cmr/m/n/12 )$\T1/ptm/m/it/12 . If $\OML/cmm/m/it/12 L \OT1/cmr/m/n/12 = \OML/cm
+m/m/it/12 o\OT1/cmr/m/n/12 ([] \OML/cmm/m/it/12 n=\OT1/cmr/m/n/12 ([] [] \OML/c
+mm/m/it/12 n\OT1/cmr/m/n/12 )[])$\T1/ptm/m/it/12 ,
+ []
+
+[147]
+Overfull \hbox (1.57925pt too wide) in paragraph at lines 156--157
+[][]\T1/ptm/b/n/12 Lemma 6.7 \T1/ptm/m/n/12 ($\OT1/cmr/m/n/12 (\OML/cmm/m/it/12
+ C; L\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 mul-ti-plica-tive Lip-s-chitz func-tions
+ don't dis-tort a graph's edge weights much)\T1/ptm/b/n/12 .
+ []
+
+[148]
+Underfull \vbox (badness 4316) has occurred while \output is active []
+
+ [149]
+[150]) (./geo/sparsifier_ip.tex [151]
+Overfull \hbox (9.35437pt too wide) in paragraph at lines 38--39
+[]\T1/ptm/m/n/12 Assume to the con-trary that $\OML/cmm/m/it/12 M$ \T1/ptm/m/n/
+12 does not have full rank. Thus, there are val-ues $\OML/cmm/m/it/12 c[]; [] ;
+ c[] \OMS/cmsy/m/n/12 2
+ []
+
+[152] [153] [154]
+Overfull \hbox (5.82697pt too wide) in paragraph at lines 162--163
+\T1/ptm/m/n/12 graphs of $\OML/cmm/m/it/12 G$ \T1/ptm/m/n/12 and builds an ef-f
+ec-tive re-sis-tance data struc-ture for each one us-ing [[]]. $[]$
+ []
+
+[155]
+Overfull \hbox (1.16003pt too wide) in paragraph at lines 240--241
+[]\T1/ptm/b/n/12 Runtime. \T1/ptm/m/n/12 We start with pre-pro-cess-ing. Sam-pl
+ing $\OML/cmm/m/it/12 C[]n$ \T1/ptm/m/n/12 pairs and check-
+ []
+
+[156] [157]
+Overfull \hbox (4.99496pt too wide) in paragraph at lines 296--298
+\T1/ptm/m/n/12 so the al-go-rithm picks a $\OML/cmm/m/it/12 v$ \T1/ptm/m/n/12 i
+n $\OML/cmm/m/it/12 S$ \T1/ptm/m/n/12 with prob-a-bil-ity at least $\OT1/cmr/m/
+n/12 1 \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =[]\OT1/cmr/m/n/1
+2 (\OML/cmm/m/it/12 n\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 af-ter at most $\OT1/cmr
+/m/n/12 32000\OML/cmm/m/it/12 d[] [] n \OMS/cmsy/m/n/12 ^^T
+ []
+
+
+Overfull \hbox (28.99355pt too wide) in paragraph at lines 308--309
+[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X\OT1/cmr/m/n/12 )$ \T1/ptm/m/n/12 takes $[
+]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; [] n\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 n$ 
+\T1/ptm/m/n/12 by Propo-si-tion []7.9[]. Thus, the to-tal run-time is $[]\OT1/c
+mr/m/n/12 (\OML/cmm/m/it/12 d; [] n\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 n$\T1/ptm/
+m/n/12 ,
+ []
+
+[158]
+Overfull \hbox (25.28188pt too wide) in paragraph at lines 334--335
+\T1/ptm/m/it/12 with ver-tex set $\OML/cmm/m/it/12 X$ \T1/ptm/m/it/12 and $\OML
+/cmm/m/it/12 n \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 X\OMS/cmsy/
+m/n/12 j$\T1/ptm/m/it/12 , let $\OML/cmm/m/it/12 S[]; S[] \OMS/cmsy/m/n/12 ^^R 
+\OML/cmm/m/it/12 X$ \T1/ptm/m/it/12 be two sets of ver-tices, let $\OML/cmm/m/i
+t/12 R[] \OT1/cmr/m/n/12 = [][] [][](\OML/cmm/m/it/12 u; v\OT1/cmr/m/n/12 )$\T1
+/ptm/m/it/12 ,
+ []
+
+[159] [160]
+Overfull \hbox (15.06985pt too wide) in paragraph at lines 441--442
+[]\T1/ptm/m/n/12 Use the Corol-lary []7.14.1[] data struc-ture to $\OT1/cmr/m/n
+/12 (1 \OMS/cmsy/m/n/12 ^^F \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 
+(100 [] \OML/cmm/m/it/12 n\OT1/cmr/m/n/12 ))$\T1/ptm/m/n/12 -approximate $[][] 
+\OMS/cmsy/m/n/12 jh\OML/cmm/m/it/12 u; v\OMS/cmsy/m/n/12 ij$
+ []
+
+[161] [162]
+Overfull \hbox (34.03664pt too wide) in paragraph at lines 488--490
+\T1/ptm/m/it/12 is a 2-approximation to $\OML/cmm/m/it/12 p[]$\T1/ptm/m/it/12 .
+ Fur-ther-more, it is pos-si-ble to query the num-ber $\OML/cmm/m/it/12 p[]$ \T
+1/ptm/m/it/12 in time $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d []\OT1/cmr/m/n/12 
+(\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 S[]\OMS/cmsy/m/n/12 j \OT1/cmr/m/n/12 +
+ []
+
+[163] [164] [165]
+Overfull \hbox (26.7641pt too wide) in paragraph at lines 588--589
+[]\T1/ptm/m/n/12 Sample a pair $\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 G\OML/cmm/m/i
+t/12 ; S[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2 F$ \T1/ptm/m/n/12 with prob-a-bi
+l-ity pro-por-tional to $[][] \OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 S[]\OMS/cmsy/m
+/n/12 jj\OML/cmm/m/it/12 S[]\OMS/cmsy/m/n/12 j\OT1/cmr/m/n/12 (\OML/cmm/m/it/12
+ ^^N\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S[]; S[]\OT1/cmr/m/n/12 ) +
+ []
+
+
+Overfull \hbox (8.23822pt too wide) in paragraph at lines 611--612
+[]\T1/ptm/m/n/12 Therefore, to spar-sify weighted in-ner prod-uct graphs, it su
+f-fices to con-struct an $[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d; [] n\OT1/cmr/m
+/n/12 )\OML/cmm/m/it/12 n$\T1/ptm/m/n/12 -
+ []
+
+[166]
+Overfull \hbox (13.12863pt too wide) in paragraph at lines 658--659
+[]\T1/ptm/b/n/12 Sparsity bound\T1/ptm/m/n/12 . We bound the de-sired quan-tity
+ di-rectly us-ing the fact that $\OMS/cmsy/m/n/12 jUj ^^T []\OT1/cmr/m/n/12 (\O
+ML/cmm/m/it/12 d; [] n\OT1/cmr/m/n/12 )$\T1/ptm/m/n/12 : 
+ []
+
+[167] [168]
+Overfull \hbox (71.85997pt too wide) in paragraph at lines 736--737
+\T1/ptm/m/n/12 Propo-si-tion []7.8[]. Let $\OML/cmm/m/it/12 w[] \OT1/cmr/m/n/12
+ = \OMS/cmsy/m/n/12 jh\OML/cmm/m/it/12 u; v\OMS/cmsy/m/n/12 ij$ \T1/ptm/m/n/12 
+de-note the weight of the $\OML/cmm/m/it/12 u$\T1/ptm/m/n/12 -$\OML/cmm/m/it/12
+ v$ \T1/ptm/m/n/12 edge in $\OML/cmm/m/it/12 G$\T1/ptm/m/n/12 . Let $\OMS/cmsy/
+m/n/12 F \OT1/cmr/m/n/12 = [](\OML/cmm/m/it/12 X\OT1/cmr/m/n/12 )$
+ []
+
+
+Underfull \vbox (badness 1253) has occurred while \output is active []
+
+ [169]
+Overfull \hbox (14.60281pt too wide) in paragraph at lines 761--762
+[]\T1/ptm/b/n/12 Runtime\T1/ptm/m/n/12 . Fol-lows im-me-di-ately from the run-t
+ime bounds of $[]$, $[]$,
+ []
+
+
+Overfull \hbox (3.29921pt too wide) in paragraph at lines 769--770
+[]$[]$\T1/ptm/m/n/12 . Since $\OMS/cmsy/m/n/12 U$ \T1/ptm/m/n/12 is a par-ti-ti
+on of $\OML/cmm/m/it/12 X[]$\T1/ptm/m/n/12 , there is a unique pair $\OT1/cmr/m
+/n/12 (\OMS/cmsy/m/n/12 G\OML/cmm/m/it/12 ; S[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/
+12 2
+ []
+
+
+Underfull \vbox (badness 3525) has occurred while \output is active []
+
+ [170]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[171] [172] [173]
+Overfull \hbox (30.16962pt too wide) detected at line 941
+\OML/cmm/m/it/12 ^^P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S[]; S[]\OT1/cmr/m/n/12 )
+ = []
+ []
+
+
+Overfull \hbox (33.68924pt too wide) detected at line 951
+\OML/cmm/m/it/12 ^^T\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 S[]; S[]\OT1/cmr/m/n/12 )
+ = []
+ []
+
+[174] [175] [176]) (./geo/lapl_hard.tex [177]
+Overfull \hbox (8.21693pt too wide) in paragraph at lines 46--47
+[]\T1/ptm/m/n/12 Consider the fol-low-ing al-go-rithm, \T1/ptm/m/sc/12 Bichro-m
+at-ic-N-ear-est-Neigh-bor \T1/ptm/m/n/12 (Al-
+ []
+
+[178] [179]
+Overfull \hbox (40.21529pt too wide) in paragraph at lines 132--137
+ [][] 
+ []
+
+[180] [181] [182]
+Overfull \hbox (20.07205pt too wide) in paragraph at lines 295--297
+\T1/ptm/m/n/12 where the first step fol-lows from $[][] \OML/cmm/m/it/12 b[]\OT
+1/cmr/m/n/12 (\OML/cmm/m/it/12 L[]\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 b[] \OT1/
+cmr/m/n/12 = [][] \OMS/cmsy/m/n/12 k\OML/cmm/m/it/12 L[]b[]\OMS/cmsy/m/n/12 k[]
+ ^^T \OML/cmm/m/it/12 n [][] \OMS/cmsy/m/n/12 k\OML/cmm/m/it/12 L[]b[]\OMS/cmsy
+/m/n/12 k[] ^^T
+ []
+
+
+Underfull \vbox (badness 1622) has occurred while \output is active []
+
+ [183]
+Overfull \hbox (14.4091pt too wide) in paragraph at lines 316--355
+[]\T1/ptm/m/n/12 Consider the fol-low-ing al-go-rithm \T1/ptm/m/sc/12 Bichro-ma
+t-ic-N-ear-est-Neigh-bor\T1/ptm/m/n/12 , given
+ []
+
+[184] [185]
+Overfull \hbox (1.98741pt too wide) in paragraph at lines 432--432
+[] 
+ []
+
+[186]) (./geo/fastmm.tex [187] [188] [189] [190] [191] [192] [193] [194]
+[195] [196]
+Overfull \hbox (22.7074pt too wide) in paragraph at lines 411--413
+[][]\T1/ptm/b/n/12 Theorem 9.13 \T1/ptm/m/n/12 (fast Gaus-sian trans-form)\T1/p
+tm/b/n/12 . []\T1/ptm/m/it/12 Given $\OML/cmm/m/it/12 N$ \T1/ptm/m/it/12 vec-to
+rs $\OML/cmm/m/it/12 s[]; []  ; s[] \OMS/cmsy/m/n/12 2 \U/msb/m/n/12 R[]$\T1/pt
+m/m/it/12 , $\OML/cmm/m/it/12 M$ \T1/ptm/m/it/12 vec-tors $\OML/cmm/m/it/12 t[]
+; t[]; []  ; t[]$
+ []
+
+[197]) (./geo/ntk.tex [198] [199])) [200]
+Chapter 6.
+(./thesis.bbl (./thesis.brf)
+\tf@brf=\write10
+\openout10 = `thesis.brf'.
+
+ [201
+
+
+] [202
+
+
+]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 42.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [203]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [204]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [205]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [206]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [207]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [208]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [209]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [210]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [211]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [212]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [213]
+Underfull \hbox (badness 4001) in paragraph at lines 1104--1104
+[]\T1/ptm/m/n/12 Shunhua Jiang, Yunze Man, Zhao Song, and Danyang Zhuo.  Graph 
+neu-
+ []
+
+
+Underfull \hbox (badness 8019) in paragraph at lines 1104--1104
+\T1/ptm/m/n/12 ral net-work ac-cel-er-a-tion via ma-trix di-men-sion re-duc-tio
+n.  In \T1/ptm/m/it/12 Open-re-view\T1/ptm/m/n/12 .
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [214]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [215]
+Underfull \hbox (badness 7151) in paragraph at lines 1224--1224
+[]\T1/ptm/m/n/12 Ria Kul-shrestha.  Trans-form-ers.  https://towardsdatascience
+.com/transformers-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [216]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [217]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [218]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [219]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [220]
+Underfull \hbox (badness 1721) in paragraph at lines 1704--1704
+[]\T1/ptm/m/n/12 Jonathon Shlens.  A tu-to-rial on prin-ci-pal com-po-nent anal
+-y-sis.  \T1/ptm/m/it/12 arXiv preprint
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [221]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [222]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [223])
+[224]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 242.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 242.
+ (./thesis.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 242.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 242.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: 0D7274004F96ECD5E384D4402E793315;12820.
+Package rerunfilecheck Info: File `thesis.brf' has not changed.
+(rerunfilecheck)             Checksum: 9AF38DF83442C019AE0CE00BD3DE95FB;25731.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 242.
+ ) 
+Here is how much of TeX's memory you used:
+ 26407 strings out of 494497
+ 459333 string characters out of 6172400
+ 533451 words of memory out of 5000000
+ 27905 multiletter control sequences out of 15000+600000
+ 93706 words of font info for 131 fonts, out of 8000000 for 9000
+ 264 hyphenation exceptions out of 8191
+ 64i,19n,60p,1912b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cmextra/cmex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
+/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (240 pages, 1479386 bytes).
+PDF statistics:
+ 5212 PDF objects out of 6186 (max. 8388607)
+ 4760 compressed objects within 48 object streams
+ 1239 named destinations out of 1440 (max. 500000)
+ 1203 words of extra memory for PDF output out of 10000 (max. 10000000)
+

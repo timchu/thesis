@@ -1,0 +1,188 @@
+
+\paragraph{Roadmap.}
+In Section~\ref{sec:preli}, we define notations, provide several basic definitions and fundamental tools. In Section~\ref{sec:non_polynoimial}, we prove that non-polynomial function blows up the matrix rank. It proves Theorem~\ref{thm:informal_kernel_manhattan}. In Section~\ref{sec:manhattan_transform12}, we prove condition 1 and condition 2 in Theorem~\ref{thm:informal_manhattan_transform} are equivalent. In Section~\ref{sec:manhattan_transform23}, we prove condition 2 and condition 3 in Theorem~\ref{thm:informal_manhattan_transform} are equivalent. Overall, Section~\ref{sec:manhattan_transform12} and Section~\ref{sec:manhattan_transform23} together prove Theorem~\ref{thm:informal_manhattan_transform}. In Section~\ref{sec:bern}, we have a proof of Theorem~\ref{thm:informal_kernel_manhattan}.
+In Section~\ref{sec:key}, we prove our result about representation theory of real hyperrectangles.
+
+\section{Preliminaries}\label{sec:preli}
+
+
+
+This section is organized as follows:
+
+\begin{itemize}
+    \item In Section~\ref{sec:preli:notation}, we define several basic notations.
+    \item In Section~\ref{sec:preli:definition}, we provide some definitions about Hadamard matrix, high-dimensional hyperrectangle.
+    \item In Section~\ref{sec:preli:classification}, we provide some previous work about the classifications of completely monotone and Bernstein function.
+    \item In Section~\ref{sec:preli:metric}, we state well-known results about metric hierarchies.
+    \item In Section~\ref{sec:preli:negative}, we define negative metrics and euclidean embeddability.
+    \item In Section~\ref{sec:preli:representation}, we present previous work about representation theory tools.
+\end{itemize}
+
+\subsection{Notations}\label{sec:preli:notation}
+For a vector $x$, we use $\| x \|_1$ to denote the entry-wise $\ell_1$ norm of $x$. We use $\| x \|_2$ to denote the entry-wise $\ell_2$ norm of $x$. For two vectors $a,b$, we use $\langle a, b \rangle$ to denote the inner product between $a$ and $b$. For a vector $x$, we use $x^\top$ to denote the transpose of $x$.
+
+\subsection{Definitions}\label{sec:preli:definition}
+We provide an alternate but equivalent definition of $H_d$ as the square Hadamard matrix with $2^d$ rows. These matrices consist of $\pm 1$-valued entries and are defined recursively via:
+
+\begin{align*}
+H_0&=[1]\\
+H_{k+1}&=\begin{bmatrix}H_k&H_k\\ H_k& -H_k\end{bmatrix}, \quad k\geq 0.
+\end{align*}
+ For a review of Hadamard matrices, see~\cite{hadamard}.
+ 
+ 
+\paragraph{Hyperrectangles} Often times in our proof, we may say things like ``let $x_1, \ldots
+x_{2^d}$ be the corners of a $d$ dimensional hyperrectangle''. For these statements
+to make sense, we must specify which corner $x_i$ refers
+to. Scale the $d$ dimensional hyperrectangle to be an axis-aligned hypercube, and place
+one of the hypercube corners at the origin. Each corner then has a binary number $b$ as its coordinate bit string. We let $x_{b+1}$ refer to the original hyperrectangle
+corner corresponding to $b$.
+
+
+\subsection{Alternate Classifications of Completely Monotone and Bernstein Functions}\label{sec:preli:classification}
+
+Here we recall the classical Bernstein Theorem from analysis constructively classifying completely monotone (Definition~\ref{def:cm}) and Bernstein functions (Definition~\ref{def:bernstein}).
+\begin{prop}[Chapter 14, Theorems 3 and 6 in \cite{lax}]\label{prop:cm}
+
+For a function $f:\mathbb R_{> 0}\to\mathbb R_{\geq 0}$, the following are equivalent:
+
+\begin{enumerate}
+  \item $f$ is completely monotone.
+  \item Letting $(D_af)(x)=f(x+a)-f(x)$, for any $(a_1,\dots,a_n)$ non-negative we have 
+
+  \[(-1)^n \left(\prod_{i=1}^n D_{a_i}\right)f(x)\geq 0\]
+
+  for all $x>0$.
+  \item There exists a positive finite measure $\mu$ on $\mathbb R_{\geq 0}$ such that 
+
+  \[f(x)=\int_0^{\infty} e^{-tx}\d \mu(t),\quad x>0.\]
+\end{enumerate}
+
+\end{prop}
+
+The part 2 of Proposition~\ref{prop:cm} is essentially the definition we gave for completely monotone, except that it does not assume any smoothness or even continuity a priori. The third shows that all completely monotone functions are in fact mixtures of decaying exponentials. From the above one easily derives a corresponding classification of Bernstein functions. If $f$ also has $0$ in its domain, then the above result applies the same way, however (with the same measure $\mu$ as in part $3$ of Proposition~\ref{prop:cm}) we have 
+\begin{align*}
+f(0)\geq \mu(\mathbb R_{\geq 0})
+\end{align*}
+
+since we did not require any continuity at $0$. 
+
+\begin{prop}[Theorem 6.7 in \cite{harmonic}]
+\label{prop:bern}
+For a function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$ with $f(0)=0$, the following are equivalent:
+
+\begin{enumerate}
+  \item $f$ is Bernstein.
+  \item Letting $(D_af)(x)=f(x+a)-f(x)$, for any $(a_1,\dots,a_n)$ non-negative we have 
+
+  \[(-1)^n \left(\prod_{i=1}^n D_{a_i}\right)f(x)\leq 0,\quad x>0.\]
+
+  \item There exists a positive measure $\mu$ on $\mathbb R^+$ and $a,b\geq 0$ such that 
+
+  \[f(x)=a+bx+\int_{\mathbb R^+} (1-e^{-tx}) \d \mu(t),\quad x>0.\]
+
+  Here $\mu$ must satisfy $\int_{\mathbb{R}_+} \min\{1,t\} \d \mu(t)<\infty.$
+\end{enumerate}
+
+
+\end{prop}
+
+Due to the second criterion just above, Bernstein functions are also sometimes called \emph{completely alternating}. We remark that these results apply more generally in the setting of abelian semigroups, where the integral is taken over a measure on the space of positive characters. This general point of view is explained in~\cite[Chapter 6]{harmonic}, and applies, for instance, to the semigroup of compact subsets of $\mathbb R$ under union.
+
+
+
+
+\subsection{Metric Hierarchies}\label{sec:preli:metric}
+Here are well-known facts we will use throughout our proof:
+
+    \begin{lemma}\label{lem:l1-hyperrectangle} For any $n$ points $x_1, \ldots x_n$ in $\ell_1$,
+      there exist $n$ points $y_1, \ldots y_n$ such that $\|x_i-
+      x_j\|_1 = \|y_i - y_j\|_1$, and $y_1, \ldots y_n$ are a subset of corners of a
+      $d$ dimensional hyperrectangle for some $d$. 
+    \end{lemma}
+    \begin{proof} 
+      This follows from the equivalence of the cut cone and $\ell_1$
+      distance (Theorem 4.2.2 in~\cite{dl09}).
+    \end{proof}
+    \begin{lemma}\label{lem:l2-hyperrectangle}
+The squared Euclidean distance between points in the corners of a hyperrectangle
+    isometrically embeds into Manhattan distance.
+    \end{lemma}
+    \begin{proof} 
+      This follows from the Pythagorean theorem.
+    \end{proof}
+
+
+
+\begin{lemma} \label{lem:l1-iso}
+  Manhattan distances embed isometrically into squared Euclidean
+  distances.
+\end{lemma}
+\begin{proof} This follows from Corollary 6.1.4 and Lemma 6.1.7
+in~\cite{dl09}. \end{proof}
+
+\subsection{Negative Type Metrics and Euclidean Embeddability}\label{sec:preli:negative}
+We now present a criterion by Schoenberg~\cite{s35} on when
+a metric is isometrically embeddable into squared Euclidean
+distances\footnote{
+We note that Schoenberg's criteria has a beautiful proof, which one can
+find one direction of in \cite{note}.
+}.
+
+\begin{definition}[negative type] A matrix $D$ is  iff $x^{\top} D x
+  \leq 0$ for all $x \bot 1$.
+\end{definition}
+
+\begin{lemma}[Schoenberg~\cite{s35}]\label{lem:euc}  
+Consider $x_1,\ldots, x_n$ where $d_{i,j}$ is the distance between $x_i$ and $x_j$.  Let $D$ be an $n$ by $n$
+  matrix where $D_{i,j} = d_{i,j}^2$.  The distances $d_{i,j}$ are
+  isometrically embeddable into Euclidean space iff the matrix $D$ is
+  negative type.
+\end{lemma}
+
+We note that if $D$ happens to have the all ones vector $\textbf{1}$ as an eigenvector, we have a simpler criterion for testing if $D$ is negative type:
+
+\begin{lemma}[Schoenberg Variant]\label{lem:euc-variant}  
+Consider $x_1,\ldots, x_n$ where $d_{i,j}$ is the distance between $x_i$ and $x_j$.  Let $D$ be an $n$ by $n$
+  matrix where $D_{i,j} = d_{i,j}^2$.  
+  
+  If the all ones vector is an eigenvector of $D$, then the $d_{i,j}$ are
+  isometrically embeddable into Euclidean space iff every eigenvalue of $D$, excluding the eigenvalue correseponding to the all ones vector, is non-positive.
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lem:euc-variant} follows from Lemma~\ref{lem:euc} and the fact that every symmetric matrix has an orthonormal set of eigenvectors.
+\end{proof}
+If $d_{ij}$ is isometrically embeddable into Euclidean space, we can find an
+explicit embedding:
+
+\begin{lemma}\label{lem:emb} Consider $x_1, \ldots
+  x_n$ where $d_{i,j}$ is the distance between $x_i$ and $x_j$.  Let $D$ be the matrix where $D_{i,j} =
+  d^2_{i,j}$. Let $\Pi$ be the projection matrix off the all ones
+  vector, i.e., $\Pi$ can be expressed explicitly as $I-J/n$, where $J$ is the $n \times n$ all-ones matrix, and $I$ is
+  identity matrix. 
+  
+  Let $M:=-\frac{1}{2}\Pi D \Pi$.
+  
+  If $y_1, \ldots y_n$ are such that $\|y_i - y_j\|_2 = d_{i,j}$ and
+  $\sum_{i=1}^n y_i = 0$, then $M_{i,j} = \langle y_i, y_j \rangle$.
+  Moreover, if $M = U^{\top}U$ for some $U$, then the
+  columns of $U$ are an embedding of $x_1, \ldots x_n$ into Euclidean
+  space.
+\end{lemma}
+This follows from Eq.~2 in~\cite{critchley}.  A longer exposition of the link
+between distance matrices and inner product matrices can be found
+in~\cite{critchley}.
+
+
+
+\subsection{Useful Tools}\label{sec:preli:representation}
+
+We present Schur's lemma for Abelian groups $G$. Schur's lemma is one of
+the cornerstones of representation theory~\cite{etingof}.
+
+\begin{lemma}[Schur's lemma for Abelian groups]\label{lem:known-abelian}  If $G$ is a finite Abelian group of $n \times n$ matrices
+  under multiplication, and $M$ is an $n \times n$ diagonalizable matrix
+  satisfying $Mg = gM$, for all $g \in G$, then there exists a set of linearly independent vectors $v_1, \ldots v_n$ that are eigenvectors of $M$ and all $g \in G$. In other words, $M$ and $G$ are simultaneously diagonalizable.
+\end{lemma}
+Schur's Lemma will be useful in proving our key result about representation theory of the real hyperrectangle, or Lemma~\ref{lem:fourier_informal}.
+

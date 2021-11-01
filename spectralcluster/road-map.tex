@@ -1,0 +1,47 @@
+\section{Paper Organization}
+
+In Section~\ref{sec:examples}, we go over example $1$-D
+distributions that show that either Cheeger or Buser inequality
+must fail for past definitions of sparsity and eigenfunctions.
+These examples motivate our new definitions.  We will prove Lemma~\ref{lem:cheeger-converse} and
+Lemma~\ref{lem:buser-converse} in this section.  
+
+We prove the Buser inequality in Section~\ref{sec:buser},
+   via a rather extensive series of calculus computations.
+Our proof relies on a key technical lemma, which is presented in
+Section~\ref{sec:key_lemma}.  The Buser inequality is by far the most difficult part of
+our proof. 
+
+We prove the Cheeger inequality in Section~\ref{sec:cheeger}.
+The proof in this section implies that the $(\alpha, \alpha+1)$
+sparsity of the $(\alpha, \alpha+2)$ spectral sweep cut of a
+probability density function $\rho$ is provably close to the
+$(\alpha, \alpha+2)$ principal eigenvalue of $\rho$.  We note
+that this inequality does not depend on the Lipschitz nature of
+the probability density function.
+
+In Section~\ref{sec:sweep_cut}, we prove
+Theorem~\ref{thm:sweep-cut}, which shows that a $(\alpha,
+    \alpha+2)$ spectral sweep cut has $(\alpha, \alpha+1)$
+sparsity which provably approximates the optimal $(\alpha,
+    \alpha+1)$ sparsity.
+
+
+In Section~\ref{sec:counterexample}, we show an example Lipschitz
+probability density where the $(\alpha = 1, \gamma=2)$ spectral sweep
+cut has bad $(1,\beta)$ sparsity for any $\beta < 10$, and will
+lead to an undesirable cut (from a clustering point of view) on this density function.
+This is important since the spectral clustering
+algorithm of Ng et al~\cite{NgSpectral01} is known to converge
+to a $(\alpha=1, \gamma=2)$ spectral sweep cut on the underlying
+probability density function, as the number of
+samples grows large~\cite{TrillosVariational15}. 
+
+Finally, we state conclusions and open problems in Section~\ref{sec:conclusion}.
+
+In the appendix, we note that the Cheeger and Buser inequalities for probability
+densities are not easily implied by graph or manifold
+Cheeger-Buser. We also provide a simplified version of Cheeger's and
+Buser's inequality for probability densities, in the $1$-dimensional case. This
+may make easier reading for those unfamiliar with technical
+multivariable mollification.

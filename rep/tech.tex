@@ -1,0 +1,145 @@
+
+\section{Technique Overview} \label{sec:techniques}
+
+\subsection{Key Lemma}
+In this section, we introduce our key new technical idea, representation theory of the real hyperrectangle. This technique computes eigenvectors and eigenvalues of a large class of matrices which are defined in terms of hyperrectangles. We first describe and provide intuition about this technique, then we will explain how it leads to our applications by demonstrating why these matrices and their eigenvalues are relevant to kernel methods, metric transforms, and the converse of the polynomial method.
+
+Our new technique concerns matrices defined in terms of a real hyperrectangle. 
+\begin{definition} [Real hyperrectangle]\label{def:hyperrectangle}
+The $d$-dimensional real hyperrectangle parameterized by $d$ variables $a_1, \ldots a_d > 0$ is the convex hull of the $2^d$ points $\{\pm a_1/2, \ldots \pm a_d/2 \}$.
+\end{definition}
+
+The eigenvectors of the family of matrices we define shortly will come from columns of Walsh-Hadamard matrices.
+\begin{definition} [Walsh-Hadamard matrices]
+For a positive integer $d$, let $v_1, \ldots v_{2^d} \in \{0,1\}^d$ be the enumeration of all $n$-bit vectors in lexicographical order. The \emph{Walsh-Hadamard} matrix $H_d$ is the $2^d \times 2^d$ matrix defined by $H_d(v_i, v_j) := (-1)^{\langle v_i, v_j \rangle }$, where $\langle v_i, v_j \rangle$ is the inner product between $v_i$ and $v_j$.
+\end{definition}
+
+We now introduce our key new technical lemma:
+
+\begin{lemma} [Representation Theory of the Real Hyperrectangle, informal version of Lemma~\ref{lem:fourier_formal}]\label{lem:fourier_informal} 
+Consider a $d$-dimensional hyperrectangle (Definition~\ref{def:hyperrectangle}) parameterized by $a_1, \ldots a_d > 0$. Enumerate the vertices in lexicographical ordering as $p_1, \ldots p_{2^d}$.
+ 
+For any $f: \R \to \R$, let $D$ be the $2^d$ by $2^d$ matrix given by $D_{i,j} =f(\| p_i - p_j \|_1)$. Then:
+ \begin{enumerate}
+     \item $\Sigma := H_d D H_d$ is a diagonal matrix whose entries are the eigenvalues of $D$ multiplied by $2^d$, and $D = 4^{-d} \cdot H_d \Sigma H_d $.
+     \item Let $v_1, \ldots v_{2^d}$ be the columns of the Hadamard matrix $H_d$. Then $v_1, \ldots v_{2^d}$ are the eigenvectors of $D$. For $i \in [2^d]$, let $B(i) \in \{0,1\}^d$ be the binary representation of $i$. Then, the eigenvalue corresponding to $v_i$ is: 
+\begin{align}\label{eq:eigenvalue_formula}
+\lambda_i = \sum_{b \in \{0,1\}^d} (-1)^{\langle B(i), b \rangle} \cdot f(\langle b, a \rangle). 
+\end{align}
+\end{enumerate}
+\end{lemma}
+
+
+We will see shortly that this expression for the eigenvalue $\lambda_i$ can also be rewritten in terms of integrals and derivatives of the function $f$, allowing us to use analytic techniques when computing or applying these eigenvalues.
+
+
+\paragraph{Warm-up: $d$-dimension}  
+To illustrate Lemma~\ref{lem:fourier_informal}, consider the case when the dimension of the hyperrectangle is $d=2$, and the hyperrectangle is parameterized by $a,b>0$. 
+
+Let 
+\begin{align*}
+p_1 = (+a/2,+b/2), ~ 
+p_2 = (-a/2,+b/2), ~ 
+p_3 = (+a/2,-b/2), ~ 
+p_4 = (-a/2,-b/2)
+\end{align*}
+be the vertices of the hyperrectangle. 
+
+The matrix $D \in \R^{4 \times 4}$ we consider is defined by $D_{i,j} = f(\|p_i - p_j\|_1)$, and is thus given by:
+\begin{align}\label{eq:matrix}
+D = \begin{bmatrix} 
+f(0) & f(a) & f(b) & f(a+b) \\
+f(a) & f(0) & f(a+b) & f(b) \\
+f(b) & f(a+b) & f(0) & f(a) \\
+f(a+b) & f(b) & f(a) & f(0)
+\end{bmatrix}.
+\end{align}
+Lemma~\ref{lem:fourier_informal} says that $D$'s eigenvectors are the columns of the $4$ by $4$ Hadamard matrix $H_2$:
+\begin{align*}
+v_1= \begin{bmatrix} +1 \\ +1 \\ +1 \\ +1 \end{bmatrix}, 
+  v_2 = \begin{bmatrix} +1 \\ -1 \\ +1 \\ -1 \end{bmatrix}, 
+  v_3 = \begin{bmatrix} +1 \\ +1 \\ -1 \\ -1 \end{bmatrix}, 
+  v_4 = \begin{bmatrix} +1 \\ -1 \\ -1 \\ +1 \end{bmatrix}.
+\end{align*}
+
+
+
+We can verify that these are the eigenvectors, and compute the corresponding eigenvalues 
+$\lambda_1, \lambda_2, \lambda_3, \lambda_4$, by multiplying the first row of $D$ by
+$v_1, v_2, v_3, v_4$:
+\begin{align}\label{eq:eigval}
+\nonumber&\lambda_1 = f(0) + f(a) + f(b) + f(a+b),\\
+\nonumber&\lambda_2 = f(0) - f(a) + f(b) - f(a+b),\\
+&\lambda_3 = f(0) +f(a) - f(b) - f(a+b),\\
+\nonumber & \lambda_4 = f(0) - f(a) - f(b) + f(a+b).
+\end{align}
+This is the $d=2$ version of Eq.~\eqref{eq:eigenvalue_formula}.
+
+A key remark in some of our proofs is that, if $f$ is smooth, then $\lambda_2, \lambda_3, \lambda_4$ can also be written in terms of integrals using the fundamental theorem of calculus:
+\begin{align}\label{eq:int}
+\nonumber & \lambda_2 = -\int_0^a f'(x) dx - \int_b^{a+b} f'(x) \d x, \\
+ & \lambda_3 = -\int_0^b f'(x) \d x - \int_a^{a+b} f'(x) \d x, \\
+\nonumber & \lambda_4 = \int_0^a \int_0^b f''(x+y) \d x \d y. 
+\end{align}
+Expressions similar to Eq.~(\ref{eq:int}) hold for the general, $d$-dimensional setting as well.
+
+\paragraph{Proof idea: Representation Theory of the Real Hyperrectangle} We call our technique `representation theory of the real hyperrectangle' since it is proved by using representation theory to calculate the eigenvalues of a large class of matrices. Representation theory in general is used to calculate eigenvalues of matrices associated with objects that have group symmetry~\cite{fh91, etingof}. The $d$-dimensional real hyperrectangle has reflection symmetry about each of its $d$ axes, and Lemma~\ref{lem:fourier_informal} follows from analyzing this symmetry using Schur's Lemma from representation theory. In other words, Lemma~\ref{lem:fourier_informal} can be seen as a use of representation theory of the symmetry group of the real hyperrectangle. For more details on representation theory, see Lemma~\ref{lem:known-abelian} in Appendix~\ref{sec:preli:representation}. For a proof of Lemma~\ref{lem:fourier_informal}, see Appendix~\ref{sec:key}.
+
+\paragraph{Related Work}
+Representation Theory is a mathematical field dating back a hundred years, with many applications in physics and computer science. Representation theory is used in physics to calculate the spectra of Hamiltonians and compute molecular and atomic orbitals~\cite{feynman}. 
+
+In computer science, representation theory is used to compute the vibrational spectra of graph Laplacians where the underlying graph has vertex-transitive group symmetry, a case which covers the boolean cube, cycle, buckyball, and other molecular structures~\cite{GS92, ODonnell14, spielman-notes}. Guattery and Miller implicitly used representation theory to give structure to the spectra of graphs where there exists a vertex automorphism of order two ~\cite{GM98}.  Representation theory is also central to the study of quantum tomography~\cite{OW16}, Boolean function analysis~\cite{ODonnell14}, low-sparsity expander construction~\cite{M88, LPS88}, random walk theory~\cite{Diaconis02, Saloff04, FOW18}, and more. %For example, it has been used to compute the vibrational spectra of Laplacians arising from symmetric systems~\cite{gs92, GM98}. It was also used in the earliest expander constructions~\cite{lps88,m88}. The represeFast multiplication by Toe
+
+Representation Theory is closely related to Fourier transforms \cite{t10}, which have been extensively studied in theoretical computer science \cite{hikp12a,hikp12b,ikp14,ik14,m15,ps15,ckps16,k16,k17,nsw19,jls20,cm21}.
+
+\paragraph{Use in Applications}
+
+
+We next give an overview of how we use Lemma~\ref{lem:fourier_informal} to derive our three applications. We focus on explaining how the matrices described by Lemma~\ref{lem:fourier_informal} and their eigenvalues arise in each setting. At a high level, the class of matrices described by Lemma~\ref{lem:fourier_informal} is sufficiently general that we are able to show it is `complete' for the matrices or distance functions arising in our applications. At the same time, Lemma~\ref{lem:fourier_informal} allows us to easily compute the eigenvalues of these matrices. To our knowledge, a general enough class of matrices which capture our applications but whose eigenvalues are understood was previously not known, and this is what allows us to prove that previous partial categorizations (of positive definite kernels (Definition~\ref{def:euclineankernel}, \ref{def:manhattan_kernel}), metric transforms (Definition~\ref{def:metric-transform}), and functions which preserve low-rank (Definition~\ref{def:preservelowrank})) are in fact complete classifications.
+
+
+\subsection{Kernel Methods}\label{sec:tech_kernel}
+
+
+We begin with an overview of our proof of Theorem~\ref{thm:informal_kernel_manhattan}. Given any $n$ points in $d$-dimensional Manhattan space, it is known they can be isometrically embedded into $\ell_1$ restricted to the corners of some (possibly high dimensional) hyperrectangle~\cite{dl09}. Therefore, to prove Theorem~\ref{thm:informal_kernel_manhattan}, it suffices to find all functions $f$ such that the matrix $M \in \R^{2^d} \times \R^{2^d}$ defined as:
+ \begin{align*}
+  M_{i,j} = f(\|p_i - p_j\|_1) 
+ \end{align*}
+  is positive semi-definite whenever $p_1, \ldots p_{2^d}$ are the vertices of some hyperrectangle.
+
+Fortunately, Lemma~\ref{lem:fourier_informal} gives us a closed form expression for the eigenvalues of $M$. For $M$ to be positive semi-definite, the eigenvalues of $M$ must all be nonnegative. We exploit a connection between eigenvalues of $M$ (which are computed by Eq.~(\ref{eq:eigenvalue_formula})) and discrete derivatives of $f$ to prove that $f$ must be completely monotone (Definition~\ref{def:cm}). The details are quite technical; for more details, see Appendix~\ref{sec:bern}. 
+\subsection{Metric Transforms}
+
+We next sketch the proof of Theorem~\ref{thm:informal_manhattan_transform}. Schoenberg~\cite{s38} previously showed that Bernstein functions transform Manhattan distances to squared Euclidean distances, and Assouad~\cite{a80} previously showed that Bernstein functions transform Manhattan distances to Manhattan distances. It thus suffices to prove that any function that transforms Manhattan to squared Euclidean must be Bernstein, and similarly for any function that transforms Manhattan to Manhattan.
+
+
+\paragraph{Bernstein functions transform Manhattan to squared Euclidean}
+Our starting point is a classical criterion for determining whether a set of distances is a squared Euclidean distance due to Schoenberg~\cite{s35}:
+
+\begin{lemma} [Squared Euclidean distance criterion~\cite{s35}]
+Given a set of distances $d_{i,j}$ for all $(i,j) \in [n] \times [n]$ satisfying $d_{i,j} = d_{j,i}$ and $d_{i,i} = 0$, then $d_{i,j}$ can be embedded into squared Euclidean distance if and only if matrix $D$ with $D_{i,j} = d_{i,j}$ satisfies $x^{\top} D x \leq 0$ for all $x \bot 1$.
+\end{lemma}
+This criterion $D$ must satisfy is known as the \emph{negative type condition}~\cite{dl09}. As in Section~\ref{sec:tech_kernel} above, we also know that any Manhattan distance can be isometrically embedded into Manhattan distances between a subset of the corners of a (possibly high) dimensional real hyperrectangle. Therefore, by carefully considering the definition of Bernstein functions, one can show: to prove that only Bernstein functions transform Manhattan to squared Euclidean, it suffices to show that the matrix $D$ where
+ \begin{align*}
+  D_{i,j} = f(\|p_i - p_j\|_1) 
+ \end{align*}
+ satisfies $x^{\top} D x \leq 0 $ for all $x \bot 1$, whenever $p_1, \ldots p_{2^d}$ are vertices of some hyperrectangle. 
+ 
+ Lemma~\ref{lem:fourier_informal} tells us that that the all ones vector $v_1$ is an eigenvector of $D$, since $v_1$ is the first column of the Hadamard matrix. Therefore, it suffices to show that the eigenvalues of $D$ except for $\lambda_1$ are negative. We once again exploit a connection between eigenvalues of $D$ and discrete derivatives of $f$ to prove that $f$ must be Bernstein (Definition~\ref{def:bernstein}). For more details, see  Theorem~\ref{thm:formal_manhattan_transform_1_and_2} in Appendix~\ref{sec:manhattan_transform12}.
+
+ 
+\paragraph{Manhattan to Squared Euclidean $\Leftrightarrow$ Manhattan to Manhattan}
+We next show that functions that transform Manhattan to squared Euclidean must transform Manhattan to Manhattan, and vice versa. It is known that Manhattan distances isometrically embed into squared Euclidean distances~\cite{s38, dl09}, which implies that functions that transform Manhattan to Manhattan must transform Manhattan to squared Euclidean. 
+
+To prove the other direction, suppose function $f$ transforms Manhattan to squared Euclidean. Consider as before the $2^d \times 2^d$ matrix $D$ where $D_{i, j} = f(\|p_i - p_j\|_1)$, where $p_1, \ldots p_{2^d}$ are vertices in lexicographical order of some real hyperrectangle (Definition~\ref{def:hyperrectangle}). 
+
+Using the fact that $D$ contains squared Euclidean distances, we can explicitly find $2^d$ points whose pairwise squared Euclidean distances are the entries in $D$ (by combining Lemma~\ref{lem:fourier_informal} and methods of Schoenberg~\cite{s35}). We show that these $2^d$ points, themselves, lie on another $2^d$-dimensional real hyperrectangle! One can see using the Pythagorean theorem that squared Euclidean distances on the real hyperrectangle can be realized as Manhattan distances, so this shows that $f$ transforms Manhattan to Manhattan as well. For more details, see Appendix~\ref{sec:manhattan_transform23}.
+
+\subsection{Polynomial Method Converse}
+In this section, we sketch our techniques for Theorem~\ref{thm:log}. We also explain how the matrices from hyperrectangles in Lemma~\ref{lem:fourier_informal} arise in our methods.
+
+Let $d = \lceil \log_2 n \rceil $. Suppose $M: \R^d \to \R^{2^d \times 2^d}$ is a family of matrices defined by $M(a) = \|p_i - p_j\|_1$ where $p_1, \ldots p_{2^d}$ are vertices in lexicographical order of the hyperrectangle paramaterized by $a_1, \ldots a_d$. We show that these matrices have rank at most $d+1$. Therefore if $f$ preserves low rank $n \times n$ matrices, then $M(a)^f$ must have rank $< n$ for all $a \in \R^d$.   
+
+Recall that representation theory of the real hyperrectangle (Lemma~\ref{lem:fourier_informal}) gives an algebraic formula for the eigenvalues $\lambda_1^f(a), \ldots \lambda_{2^d}^f(a)$ of $M(a)^f$ in terms of $a$ and $f$. The fact that $M(a)^f$ does not have full rank for any $a$ means that, for every $a$, there is an $i$ such that $\lambda_{i}^f(a) = 0$. However, using Lemma~\ref{lem:fourier_informal}, we prove the stronger statement that there exists an $i$ such that for all $a$, we have $\lambda_{i}^f(a) = 0$.
+
+Next, we show that if $\lambda_{i}^f(a) = 0$ for all $a$, then $f^{(d)}(x)=0$ for all $x \in \R$, where $f^{(d)}$ represents the $d^{th}$ derivative of $f$. We do this by writing $f^{(d)}$ as a linear combination of $\lambda^f_{i}(a)$ for various settings of $a$, making use of our integral expressions similar to Eq.~(\ref{eq:int}) above. This implies that $f$ is a degree $d=\lceil \log_2 n \rceil$ polynomial if it preserves low rank.

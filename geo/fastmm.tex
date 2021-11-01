@@ -1,0 +1,498 @@
+
+\section{Fast Multipole Method}\label{sec:fastmm}
+The fast multipole method (FMM) was described as one of the top-10 most important algorithms of the 20th century \cite{dongarra2000guest}. It is a numerical technique that was developed to speed up calculations of long-range forces in the $n$-body problem in physics. In 1987, FMM was first introduced by Greengard and Rokhlin \cite{gr87}, based on the multipole expansion of the vector Helmholtz equation. By treating the interactions between far-away basis functions using the FMM, the corresponding matrix elements do not need to be explicitly computed or stored. This is technique allows us to improve the naive $O(n^2)$ matrix-vector multiplication time to $o(n^2)$.
+
+Since Greengard and Rokhlin invented FMM, the topic has attracted researchers from many different fields, including physics, math, and computer science  \cite{gr87,g88,gr88,gr89,g90,gs91,emrv92,g94,gr96,bg97,d00,ydgd03,ydd04,m12}.
+
+We first give a quick overview of the high-level ideas of FMM in Section~\ref{sec:fastmm_overview}. In Section~\ref{sec:fastmm_gaussian_kernel}, we provide a complete description and proof of correctness for the fast Gaussian transform, where the kernel function is the Gaussian kernel. Although a number of researchers have used FMM in the past, most of the previous papers about FMM either focus on the low-dimensional or low-error cases. We therefore focus on the superconstant-error, high dimensional case, and carefully analyze the joint dependence on $\eps$ and $d$. We believe that our presentation of the original proof in Section~\ref{sec:fastmm_gaussian_kernel} is thus of independent interest to the community. In Section~\ref{sec:fastmm_other}, we give the analogous results for other kernel functions used in this paper.
+
+%\cite{gr87,gr89}, \cite{g88,g90,g94}
+
+\subsection{Overview}\label{sec:fastmm_overview}
+We begin with a description of high-level ideas of the Fast Multipole Method (FMM). Let $\k : \R^d \times \R^d \rightarrow \R$ denote a kernel function. The inputs to the FMM are $N$ sources $s_1, s_2, \cdots, s_N \in \R^d$  and $M$ targets $t_1, t_2, \cdots, t_M$. For each $i \in [N]$, the source $s_i$ has a strength $q_i$. Suppose all sources are in a `box' ${\cal B}$ and all the targets are in a `box' ${\cal C}$. The goal is to evaluate
+\begin{align*}
+u_j = \sum_{i=1}^N \k (s_i, t_j ) q_i, ~~~ \forall j \in [M]
+\end{align*}
+Intuitively, if $\k$ has some nice property (e.g. smooth), we can hope to approximate $\k$ in the following sense
+\begin{align*}
+\k(s,t) \approx \sum_{p=0}^{P-1} B_p(s) \cdot C_p(t), ~~~ s \in {\cal B} , t \in {\cal C}
+\end{align*}
+where $P$ is a small positive integer, usually called the \emph{interaction rank} in the literature.
+
+Now, we can construct $u_i$ in two steps:
+\begin{align*}
+v_p = \sum_{i \in {\cal B}}  B_p (s_i) q_i, ~~~ \forall p = 0,1, \cdots, P-1,
+\end{align*}
+and
+\begin{align*}
+\wt{u}_j = \sum_{p=0}^{P-1} C_p (t_j) v_p, ~~~ \forall i \in [M].
+\end{align*}
+
+Intuitively, as long as ${\cal B}$ and ${\cal C}$ are well-separated, then $\wt{u}_j$ is very good estimation to $u_j$ even for small $P$, i.e., $|\wt{u}_j - u_j | < \epsilon$.
+
+Recall that, at the beginning of this section, we assumed that all the sources are in the the same box ${\cal B}$ and ${\cal C}$. This is not true in general. To deal with this, we can discretize the continuous space into a batch of boxes ${\cal B}_1, {\cal B}_2, \cdots $ and ${\cal C}_1, {\cal C}_2, \cdots $. For a box ${\cal B}_{l_1}$ and a box ${\cal C}_{l_2}$, if they are very far apart, then the interaction between points within them is small, and we can ignore it. If the two boxes are close, then we deal wit them efficiently by truncating the high order expansion terms in $\k$ (only keeping the first $\log^{O(d)}(1/\epsilon)$). For each box, we will see that the number of nearby relevant boxes is at most $\log^{O(d)}(1/\epsilon)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{\texorpdfstring{$\k (x,y) = \exp ( -  \| x - y \|_2^2 ) $}{}, Fast Gaussian transform}\label{sec:fastmm_gaussian_kernel}
+
+Given $N$ vectors $s_1, \cdots s_N \in \R^d$, $M$ vectors $t_1, \cdots, t_M \in \R^d$ and a strength vector $q \in \R^n$, Greengard and Strain \cite{gs91} provided a fast algorithm for evaluating discrete Gauss transform
+\begin{align*}
+G(t_i) = \sum_{j=1}^N q_j e^{ - \| t_i - s_j \|^2 / \delta }
+\end{align*}
+for $i \in [M]$ in $O(M+N)$ time. In this section, we re-prove the algorithm described in \cite{gs91}, and determine the exact dependences on $\epsilon$ and $d$ in the running time.
+
+
+
+By shifting the origin and rescaling $\delta$, we can assume that the sources $s_j$ and targets $t_i$ all lie in the unit box ${\cal B}_0 = [0,1]^d$. 
+
+Let $t$ and $s$ lie in $d$-dimensional Euclidean space $\R^d$, and consider the Gaussian 
+\begin{align*}
+e^{- \| t - s \|_2^2 } = e^{ - \sum_{i=1}^d (t_i - s_i)^2  }
+\end{align*}
+
+
+We begin with some definitions.
+\begin{definition}[one-dimensional Hermite polynomial]
+The Hermite polynomials $\wt{h}_n : \R \rightarrow \R$ is defined as follows
+\begin{align*}
+\wt{h}_n(t) = (-1)^n e^{t^2} \frac{ \mathrm{d}^n }{ \mathrm{d} t } e^{-t^2}
+\end{align*}
+\end{definition}
+
+\begin{definition}[one-dimensional Hermite function]
+The Hermite functions $h_n : \R \rightarrow \R$ is defined as follows
+\begin{align*}
+h_n(t) = e^{-t^2} \wt{h}_n(t)
+\end{align*}
+\end{definition}
+
+We use the following Fact to simplify $e^{-(t-s)^2/\delta}$.
+\begin{fact}
+For $s_0 \in \R$ and $\delta > 0$, we have
+\begin{align*}
+e^{ - (t-s)^2 / \delta } = \sum_{n=0}^{\infty} \frac{1}{n !} \cdot \left( \frac{ s - s_0 }{ \sqrt{\delta} } \right)^n \cdot h_n \left( \frac{ t - s_0 }{ \sqrt{\delta} } \right)
+\end{align*}
+and
+\begin{align*}
+e^{ - (t-s)^2 / \delta } =  e^{ - (t - s_0)^2 / \delta } \sum_{n=0}^{\infty} \frac{1}{n !} \cdot \left( \frac{ s - s_0 }{ \sqrt{\delta} } \right)^n \cdot \wt{h}_n \left( \frac{t - s_0}{ \sqrt{\delta} } \right) .
+\end{align*}
+\end{fact}
+\begin{proof}
+
+\begin{align*}
+e^{ - (t-s)^2 / \delta } 
+= & ~ e^{ - ( t - s_0 - (s - s_0) )^2 / \delta } \\
+= & ~ \sum_{n=0}^{\infty} \frac{1}{n !} \left( \frac{ s - s_0 }{ \sqrt{\delta} } \right)^n h_n \left( \frac{ t - s_0 }{ \sqrt{\delta} } \right) \\
+= & ~ e^{ - (t - s_0)^2 / \delta } \sum_{n=0}^{\infty} \frac{1}{n !} \left( \frac{ s - s_0 }{ \sqrt{\delta} } \right)^n \wt{h}_n \left( \frac{t - s_0}{ \sqrt{\delta} } \right). 
+\end{align*}
+
+\end{proof}
+
+Using Cramer's inequality, we have the following standard bound.
+\begin{lemma}
+For any constant $K \leq 1.09$, we have
+\begin{align*}
+|\wt{h}_n(t) | \leq K \cdot 2^{n/2} \cdot \sqrt{ n !} \cdot e^{t^2 /2}
+\end{align*}
+and
+\begin{align*}
+| h_n(t) | \leq K \cdot 2^{n/2} \cdot \sqrt{n !} \cdot e^{-t^2/2} .
+\end{align*}
+\end{lemma}
+
+Next, we will extend the above definitions and observations to the high dimensional case. To simplify the discussion, we define multi-index notation. A multi-index $\alpha = (\alpha_1,\alpha_2, \cdots, \alpha_d)$ is a $d$-tuple of nonnegative integers, playing the role of a multi-dimensional index. For any multi-index $\alpha \in \R^d$ and any $t\in \R^t$, we write
+\begin{align*}
+\alpha ! = ~ \prod_{i=1}^d (\alpha_i ! ), ~~~~
+t^{\alpha} = ~ \prod_{i=1}^d t_i^{\alpha_i} , ~~~~
+D^{\alpha} = ~ \partial_1^{\alpha_1} \partial_2^{\alpha_2} \cdots \partial_d^{\alpha_d} .
+\end{align*}
+where $\partial_i$ is the differentiatial operator with respect to the $i$-th coordinate in $\R^d$. For integer $p$, we say $\alpha \geq p$ if $\alpha_i \geq p, \forall i \in [d]$.
+
+We can now define:
+\begin{definition}[multi-dimensional Hermite polynomial]
+We define function $\wt{H}_{\alpha} : \R^d \rightarrow \R$ as follows:
+\begin{align*}
+\wt{H}_{\alpha}(t) = \prod_{i=1}^d \wt{h}_{\alpha_i} (t_i) .
+\end{align*}
+\end{definition}
+
+
+\begin{definition}[multi-dimensional Hermite function]
+We define function $H_{\alpha} : \R^d \rightarrow \R$ as follows:
+\begin{align*}
+H_{\alpha}(t) = \prod_{i=1}^d h_{\alpha_i}(t_i). 
+\end{align*}
+It is easy to see that $ H_{\alpha}(t) = e^{ - \| t \|_2^2 } \cdot \wt{H}_{\alpha}(t)$
+\end{definition}
+
+The Hermite expansion of a Gaussian in $\R^d$ is
+\begin{align}\label{eq:hermite_expansion_of_gaussian}
+e^{- \| t - s \|_2^2 } = \sum_{ \alpha \geq 0 } \frac{ ( t - s_0 )^{\alpha} }{ \alpha ! } h_{\alpha} ( s - s_0 ).
+\end{align}
+Cramer's inequality generalizes to
+\begin{lemma}[Cramer's inequality]\label{lem:cramer_inequality}
+Let $K<(1.09)^d$, then
+\begin{align*}
+ | \wt{H}_{\alpha} (t) | \leq K \cdot e^{ \| t \|_2^2 / 2 } \cdot 2^{ \| \alpha \|_1 /2 } \cdot \sqrt{ \alpha ! } 
+\end{align*}
+and 
+\begin{align*}
+ | H_{\alpha} (t) | \leq K \cdot e^{ - \| t \|_2^2 / 2 } \cdot 2^{ \| \alpha \|_1 /2 } \cdot \sqrt{ \alpha ! } 
+\end{align*}
+\end{lemma}
+
+The Taylor series of $H_{\alpha}$ is
+\begin{align}\label{eq:taylor_series_of_H_t}
+H_{\alpha}(t) = \sum_{\beta \geq 0} \frac{ (t-t_0)^{\beta} }{ \beta ! } (-1)^{\| \beta \|_1} H_{\alpha + \beta} (t_0)
+\end{align}
+
+
+
+
+\subsubsection{Estimation}
+
+We first give a definition
+\begin{definition}\label{def:G_t}
+Let ${\cal B}$ denote a box with center $s_{\cal B}$ and side length $r \sqrt{2\delta}$ with $r < 1$.
+If source $s_j$ is in box ${\cal B}$, we say $j \in {\cal B}$. Then the Gaussian evaluation from the sources in box ${\cal B}$ is,
+\begin{align*}
+G(t) = \sum_{j \in {\cal B}} q_j \cdot e^{ - \| t - s_j \|_2^2 /\delta  }.  
+\end{align*}
+The Hermite expansion of $G(t)$ is 
+\begin{align}\label{eq:hermite_expansion_of_G_t}
+G(t) = \sum_{\alpha \geq 0} A_{\alpha} \cdot h_{\alpha} \left( \frac{ t - s_{\cal B} }{ \sqrt{\delta} } \right),  
+\end{align}
+where the coefficients $A_{\alpha}$ are defined by
+\begin{align}\label{eq:def_A_alpha}
+A_{\alpha} = \frac{1}{\alpha !} \sum_{j \in {\cal B}} q_j \cdot \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} 
+\end{align}
+\end{definition}
+
+The rest of this section will present a batch of Lemmas that bound the error of the function truncated at certain degree of Taylor and Hermite expansion.
+\begin{lemma}\label{lem:fast_gaussian_lemma_1}
+Let $p$ denote an integer, let $\Err_H(p)$ denote the error after truncating the series $G(t)$ (as defined in Def.~\ref{def:G_t}) after $p^d$ terms, i.e.,
+\begin{align*}
+\Err_H(p) = \sum_{\alpha \geq p} A_{\alpha} \cdot H_{\alpha} \left( \frac{t - s_{\cal B}}{ \sqrt{\delta} } \right).
+\end{align*}
+ Then we have
+\begin{align*}
+| \Err_H(p) | \leq K \cdot \sum_{j \in {\cal B}} |q_j| \cdot \left( \frac{1}{p !} \right)^{d/2} \cdot \left( \frac{ r^{ p + 1 } }{ 1 - r } \right)^d,
+\end{align*}
+where $K = (1.09)^d$.
+\end{lemma}
+\begin{proof}
+Using Eq.~\eqref{eq:hermite_expansion_of_gaussian} to expand each Gaussian (see Definition~\ref{def:G_t}) in the 
+\begin{align*}
+G(t) = \sum_{j \in {\cal B}} q_j \cdot e^{ - \| t - s_j \|_2^2 / \delta }
+\end{align*}
+into a Hermite series about $s_{\cal B}$
+\begin{align*}
+\sum_{\alpha \geq 0} \left( \frac{1}{\alpha !} \sum_{j \in {\cal B}} q_j \cdot \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \right) H_{\alpha} \left( \frac{t - s_{\cal B}}{ \sqrt{\delta} } \right)
+\end{align*}
+and swap the summation over $\alpha$ and $j$ to obtain
+\begin{align*}
+ \sum_{j \in {\cal B}} q_j \sum_{\alpha \geq 0}  \frac{1}{\alpha !} \cdot \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \cdot H_{\alpha} \left( \frac{t - s_{\cal B}}{ \sqrt{\delta} } \right)
+\end{align*}
+The truncation error bound follows from Cramer's inequality (Lemma~\ref{lem:cramer_inequality}) and the formula for the tail of a geometric series.
+
+
+\end{proof}
+
+
+The next Lemma shows how to convert a Hermite expansion about $s_{\cal B}$ into a Taylor expansion about $t_{\cal C}$. The Taylor series converges rapidly in a box of side length $r \sqrt{2 \delta}$ about $t_{\cal C}$, where $r < 1$.
+\begin{lemma}\label{lem:fast_gaussian_lemma_2}
+The Hermite expansion of $G(t)$ is
+\begin{align*}
+G(t) = \sum_{\alpha \geq 0} A_{\alpha} \cdot H_{\alpha} \left( \frac{ t - s_{\cal B} }{ \sqrt{\delta} } \right)
+\end{align*}
+has the following Taylor expansion, at an arbitrary point $t_0$ :
+\begin{align}\label{eq:taylor_expansion_of_G_t}
+G(t) = \sum_{\beta \geq 0} B_{\beta} \left( \frac{ t - t_0 }{ \sqrt{\delta} } \right)^{\beta} .
+\end{align}
+where the coefficients $B_{\beta}$ are defined as 
+\begin{align}\label{eq:def_B_beta}
+B_{\beta} = \frac{ (-1)^{ | \beta | } }{ \beta ! } \sum_{\alpha \geq 0} A_{\alpha} \cdot H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_0 }{ \sqrt{\delta} } \right).
+\end{align}
+Let $\Err_T(p)$ denote the error by truncating the Taylor series after $p^d$ terms, in the box ${\cal C}$ with center $t_{\cal C}$ and side length $r \sqrt{2\delta}$, i.e.,
+\begin{align*}
+\Err_T(p) = \sum_{\beta \geq p} B_{\beta} \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta}
+\end{align*}
+Then 
+\begin{align*} 
+| \Err_T(p) | \leq K \cdot Q_B \cdot \left( \frac{1}{p!} \right)^{d/2} \left( \frac{ r^{p+1} }{1-r} \right)^d .
+\end{align*}
+\end{lemma}
+\begin{proof}
+Each Hermite function in Eq.~\eqref{eq:hermite_expansion_of_G_t} can be expanded into a Taylor series by means of Eq.~\eqref{eq:taylor_series_of_H_t}. The expansion in Eq.~\eqref{eq:taylor_expansion_of_G_t} is obtained by swapping the order of summation. 
+
+The truncation error bound can be proved as follows. Using Eq.~\eqref{eq:def_A_alpha} for $A_{\alpha}$, we can rewrite $B_{\beta}$:
+\begin{align*}
+B_{\beta} = & ~ \frac{ (-1)^{|\beta|} }{ \beta ! } \sum_{\alpha \geq 0} A_{\alpha} H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right) \\
+= & ~ \frac{ (-1)^{|\beta|} }{ \beta ! } \sum_{\alpha \geq 0} \left( \frac{1}{ \alpha ! } \sum_{j \in {\cal B} } q_j \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \right) H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right) \\
+= & ~ \frac{ (-1)^{|\beta|} }{ \beta ! } \sum_{j \in {\cal B} } q_j \sum_{\alpha \geq 0 } \frac{1}{ \alpha !} \left( \frac{s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \cdot H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right)
+\end{align*}
+By Eq.~\eqref{eq:taylor_series_of_H_t}, the inner sum is the Taylor expansion of $H_{\beta} ( (s_j - t_{\cal C}) / \sqrt{\delta} )$. Thus
+\begin{align*}
+B_{\beta} = \frac{ (-1)^{\|\beta\|_1} }{ \beta ! } \sum_{j \in {\cal B} } q_j \cdot H_{\beta} \left( \frac{ s_j - t_{\cal C} }{ \sqrt{\delta} } \right)
+\end{align*}
+and Cramer's inequality implies
+\begin{align*}
+| B_{\beta} | \leq \frac{1}{\beta !} K \cdot Q_B 2^{\|\beta\|_1/2} \sqrt{\beta !} \leq K Q_B \frac{ 2^{ \| \beta \|_1 / 2 } }{ \sqrt{\beta !} }
+\end{align*}
+The truncation error follows from summation the tail of a geometric series.
+\end{proof}
+
+For the purpose of designing our algorithm, we'd like to make a variant of Lemma~\ref{lem:fast_gaussian_lemma_2} in which the Hermite series is truncated before converting it to a Taylor series. This means that in addition to truncating the Taylor series itself, we are also truncating the finite sum formula in Eq.~\eqref{eq:def_B_beta} for the coefficients. 
+
+\begin{lemma}\label{lem:fast_gaussian_lemma_3}
+Let $G(t)$ be defined as Def~\ref{def:G_t}. For an integer $p$, let $G_{p}(t)$ denote the Hermite expansion of $G(t)$ truncated at $p$,
+\begin{align*}
+G_p(t) = \sum_{\alpha \leq p} A_{\alpha} H_{\alpha} \left( \frac{ t - s_{\cal B} }{ \sqrt{\delta} } \right).
+\end{align*}
+The function $G_p(t)$ has the following Taylor expansion about an arbitrary point $t_0$:
+\begin{align*}
+G_p(t) = \sum_{\beta \geq 0} C_{\beta} \cdot \left( \frac{ t - t_0 }{ \sqrt{\delta} } \right)^{\beta},
+\end{align*}
+where the the coefficients $C_{\beta}$ are defined as
+\begin{align}\label{eq:def_C_beta}
+C_{\beta}= \frac{ (-1)^{\| \beta \|_1} }{ \beta ! } \sum_{\alpha \leq p} A_{\alpha} \cdot H_{\alpha + \beta} \left( \frac{s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right).
+\end{align}
+Let $\Err_T(p)$ denote the error in truncating the Taylor series after $p^d$ terms, in the box ${\cal C}$ with center $t_{\cal C}$ and side length $r \sqrt{2\delta} $, i.e.,
+\begin{align*}
+\Err_T(p ) = \sum_{\beta \geq p} C_{\beta} \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta}.
+\end{align*}
+Then, we have
+\begin{align*}
+| \Err_T(p) | \leq K' \cdot Q_B \left( \frac{1}{p !} \right)^{d/2} \left( \frac{r^{p+1}}{1-r} \right)^d
+\end{align*}
+where $K' \leq 2K$ and $r \leq 1/2$. 
+\end{lemma}
+\begin{proof}
+
+We can write $C_{\beta}$ in the following way:
+\begin{align*}
+C_{\beta} = & ~ \frac{ (-1)^{ \| \beta \|_1 } }{ \beta ! } \sum_{j \in {\cal B}} q_j \sum_{\alpha \leq p} \frac{1}{ \alpha ! } \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \cdot H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right) \\
+= & ~ \frac{ (-1)^{\| \beta \|_1} }{ \beta ! } \sum_{j \in {\cal B}} q_j \left( \sum_{\alpha \geq 0} - \sum_{\alpha > p} \right) \frac{1}{ \alpha ! } \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \cdot H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right) \\
+= & ~ B_{\beta} - \frac{ (-1)^{ \| \beta \|_1 } }{ \beta ! } \sum_{j \in {\cal B}} q_j \sum_{\alpha > p} \frac{1}{ \alpha ! } \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} \cdot H_{\alpha + \beta} \left( \frac{ s_{\cal B} - t_{\cal C} }{ \sqrt{\delta} } \right) \\
+= & ~ B_{\beta} + (C_{\beta} - B_{\beta})
+\end{align*}
+Next, we have
+\begin{align}\label{eq:split_Err_T_p_into_two_terms}
+| \Err_T(p) | \leq \left| \sum_{\beta \geq p} B_{\beta} \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta} \right| + \left| \sum_{\beta \geq p} (C_{\beta} - B_{\beta}) \cdot \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta} \right|
+\end{align}
+Using Lemma~\ref{lem:fast_gaussian_lemma_2}, we can upper bound the first term in the Eq.~\eqref{eq:split_Err_T_p_into_two_terms} by,
+\begin{align*}
+K \cdot Q_B \left( \frac{1}{ p ! } \right)^{d/2} \cdot \left( \frac{ r^{p+1} }{1-r} \right)^d
+\end{align*}
+To bound the second term in Eq.~\eqref{eq:split_Err_T_p_into_two_terms}, we can do the following
+\begin{align*}
+ & ~ \left| \sum_{\beta \geq p} (C_{\beta} - B_{\beta}) \cdot \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta} \right| \\
+\leq & ~ Q_B \cdot \sum_{\beta \geq p} \left| \Big( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \Big)^{\beta} \right| \cdot \frac{1}{\beta !} \sum_{\alpha > p} \frac{1}{\alpha !} \left| \Big( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \Big)^{\alpha} \right| \cdot \left| H_{\alpha + \beta} \left( \frac{s_{\cal B} -  t_{\cal C} } { \sqrt{\delta} } \right) \right| \\
+\leq & ~ K Q_{B} \sum_{\alpha > p} \sum_{\beta > p} \frac{ r^{\| \alpha \|_1 } }{  \sqrt{ \alpha ! }} \cdot \sqrt{ \frac{ (\alpha +\beta) ! }{ \alpha ! \beta ! } } \cdot \frac{ r^{\| \beta \|_1 } }{  \sqrt{ \beta ! }}
+\end{align*}
+Finally, the proof is complete since we know that
+\begin{align*}
+\frac{ (\alpha + \beta) ! }{  \alpha ! \beta ! } \leq 2^{ \| \alpha + \beta \|_1 }.
+\end{align*}
+\end{proof}
+
+The proof of the following Lemma is almost identical. We omit the details here.
+\begin{lemma}\label{lem:fast_gaussian_lemma_4}
+Let $G_{s_j} (t)$ be defined as
+\begin{align*}
+G_{s_j}(t) = q_j \cdot e^{- \| t - s_j \|_2^2 / \delta}
+\end{align*}
+has the following Taylor expansion at $t_{\cal C}$
+\begin{align*}
+G_{s_j}(t) = \sum_{\beta \geq 0} {\cal B}_{\beta} \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta},
+\end{align*}
+where the coefficients $B_{\beta}$ is defined as
+\begin{align*}
+B_{\beta} = q_j \cdot \frac{ (-1)^{ \| \beta\|_1 } }{ \beta ! } \cdot H_{\beta} \left( \frac{ s_j - t_{\cal C} }{ \sqrt{\delta} } \right)
+\end{align*}
+and the error in truncation after $p^d$ terms is
+\begin{align*}
+| \Err_T(p) | = \left| \sum_{\beta \geq p} B_{\beta} \left( \frac{t - t_{\cal C}}{ \sqrt{\delta}}  \right)^{\beta} \right| \leq K \cdot q_j \cdot \left( \frac{1}{p!} \right)^{d/2} \cdot \left( \frac{ r^{p+1} }{ 1 -r } \right)^d
+\end{align*}
+for $r < 1$.
+\end{lemma}
+
+\subsubsection{Algorithm}
+
+The algorithm is based on subdividing $B_0$ into smaller boxes with sides of length $r \sqrt{2\delta}$ parallel to the axes, for a fixed $r \leq 1/2$. We can then assign each source $s_j$ to the box ${\cal B}$ in which it lies and each target $t$, to the box ${\cal C}$ in which it lies. 
+
+For each target box ${\cal C}$, we need to evaluate the total field due to sources in all boxes. Since boxed ${\cal B}$ have side lengths $r \sqrt{2\delta}$, only a fixed number of source boxes ${\cal B}$ can contribute more than $Q \epsilon$ to the field in a given target box ${\cal C}$, where $Q = \| q\|_1$ and $\epsilon$ is the precision parameter. If we cut off the sum over all ${\cal B}$ after including the $(2k+1)^d$ nearest boxes to ${\cal C}$, it incurs an error which can be upper bounded as follows 
+\begin{align}\label{eq:box_error}
+\sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta} } |q_j| \cdot e^{-\| t - s_j \|_2^2 / \delta} 
+\leq & ~ \sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta} } |q_j| \cdot e^{-\| t - s_j \|_{\infty}^2 / \delta} \notag\\
+\leq & ~  \sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta}} |q_j| \cdot e^{ - ( k \cdot r \sqrt{2\delta} )^2 / \delta } \notag \\
+\leq & ~ Q \cdot e^{ - 2r^2 k^2}
+\end{align}
+where the first step follows from $\| \cdot \|_2 \geq \| \cdot \|_{\infty}$, the second step follows from $\| t - s_j\|_{\infty} \geq k r \sqrt{2\delta}$, and the last step follows from a straightforward calculation.
+
+For a box ${\cal B}$ and a box ${\cal C}$, there are several possible ways to evaluate the interaction between ${\cal B}$ and ${\cal C}$. We mainly need the following three techniques:
+\begin{enumerate}
+	%\item $N_B$ Gaussians, directly evaluated 
+	\item $N_{\cal B}$ Gaussians, accumulated in Taylor series via definition $B_{\beta}$ in Lemma~\ref{lem:fast_gaussian_lemma_4}
+	\item Hermite series, directly evaluated
+	\item Hermite series, accumulated in Taylor series in Lemma~\ref{lem:fast_gaussian_lemma_3} % via (18) 
+\end{enumerate}
+Essentially, having any two of the above three techniques is sufficient to give an algorithm that runs in $(M+N) \log^{O(d)} (\| q\|_1 /\epsilon)$ time.
+
+In the next a few paragraphs, we explain the details of the three techniques.
+
+\paragraph*{Technique 1.} Consider a fixed source box ${\cal B}$. For each target box ${\cal C}$ within range, we must compute $p^d$ Taylor series coefficients
+\begin{align*}
+C_{\beta} ( {\cal B} ) = \frac{ (-1)^{|\beta|} }{ \beta ! } \sum_{ j \in {\cal B} } H_{\beta} \left( \frac{ s_j - t_C }{ \sqrt{\delta} } \right).
+\end{align*}
+Each coefficient requires $O(N_{\cal B})$ work to evaluate, resulting in a net cost $O(p^d N_{\cal B})$. Since there are at most $(2k+1)^d$ boxes within range, the total work for forming all the Taylor series is $O( (2k+1)^d p^d N )$. Now, for each target $t_i$, one must evaluate the $p^d$-term Taylor series corresponding to the box in which $t_i$ lies. The total running time of algorithm is thus
+\begin{align*}
+O( (2k+1)^d p^2 N ) + O(p^d M).
+\end{align*}
+
+
+\paragraph*{Technique 2.} We form a Hermite series for each box ${\cal B}$ and evaluate it at all targets. Using Lemma~\ref{lem:fast_gaussian_lemma_1}, we can rewrite $G(t)$ as
+\begin{align*}
+G(t) = & ~ \sum_{ {\cal B} } \sum_{ j \in {\cal B} } q_j \cdot e^{ - \| t - s_j \|_2^2 / \delta } \\ 
+= & ~ \sum_{ {\cal B} } \sum_{ \alpha \geq 0 } A_{\alpha} (B) H_{\alpha} \left( \frac{ t - s_{\cal B} }{ \sqrt{\delta} } \right) + \Err_H(p)
+\end{align*}
+where $|\Err_H(p)| \leq \epsilon$ and
+\begin{align}\label{def:A_alpha_cal_B}
+A_{\alpha}  ( {\cal B} ) = \frac{1}{\alpha !} \sum_{j \in {\cal B}} q_j \cdot \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha}.
+\end{align}
+To compute each $A_{\alpha}( {\cal B})$ costs $O(N_{\cal B})$ time, so forming all the Hermite expansions takes $O(p^d N)$ time. Evaluating at most $(2k + 1)^d$ expansions at each target $t_i$ costs $O( (2k+1)^d p^d )$ time per target, so this approach takes
+\begin{align*}
+O(p^d N) + O(  (2k+1)^d p^d M )
+\end{align*}
+time in total.
+
+\paragraph*{Technique 3.} Let $N(B)$ denote the number of boxes. Note that $N(B) \leq \min ( ( r \sqrt{2\delta} )^{-d/2} , M )$.
+
+ Suppose we accumulate all sources into truncated Hermite expansions and transform all Hermite expansions into Taylor expansions via Lemma~\ref{lem:fast_gaussian_lemma_3}. Then we can approximate the function $G(t)$ by
+\begin{align*}
+G(t) = & ~ \sum_{{\cal B}} \sum_{j \in {\cal B}} q_j \cdot e^{ - \| t - s_j \|_2^2 / \delta } \\
+= & ~ \sum_{\beta \leq p} C_{\beta} \left( \frac{ t - t_{\cal C} }{ \sqrt{\delta} } \right)^{\beta} + \Err_T(p) + \Err_H(p)
+\end{align*}
+where $|\Err_H(p)| + |\Err_T(p)| \leq Q \cdot \epsilon$,
+\begin{align*}
+C_{\beta} = \frac{ (-1)^{\| \beta \|_1 } }{ \beta ! } \sum_{{\cal B}} \sum_{\alpha \leq p} A_{\alpha} ({\cal B}) H_{\alpha + \beta} \left( \frac{ s_{ {\cal B } } - t_{ {\cal C} } }{ \sqrt{\delta} } \right)
+\end{align*}
+and the coefficients $A_{\alpha}({\cal B})$ are defined as Eq.~\eqref{def:A_alpha_cal_B}. Recall in Part 2, it takes $O(p^d N)$ time to compute all the Hermite expansions, i.e., to compute the coefficients $A_{\alpha} ({\cal B})$ for all $\alpha \leq p$ and all sources boxes ${\cal B}$.
+
+Making use of the large product in the definition of $H_{\alpha+\beta}$, we see that the time to compute the $p^d$ coefficients of $C_{\beta}$ is only $O(d p^{d+1})$ for each box ${\cal B}$ in the range. Thus, we know for each target box ${\cal C}$, the running time is
+\begin{align*}
+O( (2k +1)^d d p^{d+1} ).
+\end{align*} 
+
+Finally we need to evaluate the appropriate Taylor series for each target $t_i$, which can be done in $O(p^d M)$ time. Putting it all together, this technique 3 takes time
+\begin{align*}
+O( (2k+1)^d d p^{d+1} N(B) ) + O(p^d N) + O(p^d M).
+\end{align*}
+
+
+\subsubsection{Result}
+
+Finally, in order to get $\epsilon$ additive error for each coordinate, we will choose $k = O(\log (\| q \|_1 /\epsilon))$ and $p = O(\log( \| q \|_1 / \epsilon ))$.
+
+\begin{theorem}[fast Gaussian transform]\label{thm:fast_gaussian_transform}
+Given $N$ vectors $s_1, \cdots, s_N \in \R^d$, $M$ vectors $t_1, t_2, \cdots, t_M$ $ \in \R^d$, a number $\delta > 0$, and a vector $q \in \R^n$, let function $G : \R^d \rightarrow \R$ be defined as $G(t) = \sum_{i=1}^N q_i \cdot e^{ -\| t - s_i \|_2^2/\delta }$. 
+There is an algorithm that runs in 
+\begin{align*}
+O \left( (M + N) \log^{O(d)} ( \| q \|_1 / \epsilon ) \right)
+\end{align*}
+time, and outputs $M$ numbers $x_1, \cdots, x_M$ such that for each $j \in [M]$
+\begin{align*}
+ G(t_j) - \epsilon \leq x_j \leq G(t_j) +\epsilon .
+\end{align*}
+\end{theorem}
+
+The proof of fast Gaussian transform also implies a result for the online version:
+\begin{theorem}[online version]\label{thm:fast_gaussian_transform_online}
+Given $N$ vectors $s_1, \cdots, s_N \in \R^d$, a number $\delta > 0$, and a vector $q \in \R^n$, let function $G : \R^d \rightarrow \R$ be defined as $G(t) = \sum_{i=1}^N q_i \cdot e^{ -\| t - s_i \|_2^2/\delta }$. 
+There is an algorithm that takes 
+\begin{align*}
+O \left( N \log^{O(d)} ( \| q \|_1 / \epsilon ) \right)
+\end{align*}
+time to do preprocessing, and then for each $t \in \R^d$, takes $O(\log^{O(d)} ( \| q \|_1 / \epsilon ))$ time to output a number $x$ such that 
+\begin{align*}
+ G(t) - \epsilon \leq x \leq G(t) +\epsilon .
+\end{align*}
+\end{theorem}
+
+
+\subsection{Generalization}\label{sec:fastmm_general}
+
+The fast multipole method described in the previous section works not only for the Gaussian kernel, but also for $\k(u,v) = f(\|u,v\|_2^2)$ for many other functions $f$. As long as $f$ has the following properties, the result of Theorem~\ref{thm:fast_gaussian_transform} also holds for $f$:
+\begin{itemize}
+    \item $f : \R \rightarrow \R_{+}$.
+    \item $f$ is non-increasing, i.e., if $x \geq y \geq 0$, then $f(x) \leq f(y)$.
+    \item $f$ is decreasing fast, i.e., for any $\epsilon \in (0,1)$, we have $f( \Theta(\log (1/\epsilon) ) ) \leq \epsilon$.
+    \item $f$'s Hermite expansion and Taylor expansions are truncateable: If we only keep $\log^d(1/\epsilon)$ terms of the polynomial for $\k$, then the error is at most $\epsilon$.
+\end{itemize}
+
+Let us now sketch how each of these properties is used in discritizing the continuous domain into a finite number of boxes. First, note that Eq.\eqref{eq:box_error} holds more generally for any function $f$ with these properties. Indeed, we can bound the error as follows (note that $Q = \| q \|_1$):
+\begin{align}\label{eq:box_error_general}
+\sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta} } |q_j| \cdot f( \| t - s_j \|_2 / \sqrt{\delta} ) 
+\leq & ~ \sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta} } |q_j| \cdot f( \| t - s_j \|_{\infty}/ \sqrt{\delta} ) \notag\\
+\leq & ~  \sum_{j : \| t - s_j \|_{\infty} \geq k r \sqrt{2\delta}} |q_j| \cdot f( \sqrt{2} k r ) \notag \\
+\leq & ~ Q \cdot f( \sqrt{2} k r ) \notag \\
+\leq & ~ \epsilon
+\end{align}
+where the first step follows from $\| \cdot \|_2 \geq \| \cdot \|_{\infty}$ and that $f$ is non-increasing, the second step follows from $\| t - s_j\|_{\infty} \geq k r \sqrt{2\delta}$ and that  $f$ is non-increasing, and the last step follows from the fact that $f$ is decreasing fast, and choosing $k = O(\log (Q/\epsilon) / r)$.
+
+We next give an example of how the truncatable expansions property is used. Here we only show to generalize Definition~\ref{def:G_t} to Definition~\ref{def:G_t_general} and generalize Lemma~\ref{lem:fast_gaussian_lemma_1} to Definition~\ref{lem:fast_gaussian_lemma_1_general}; the other Lemmas in the proof can be extended in a similar way.
+
+\begin{definition}\label{def:G_t_general}
+Let ${\cal B}$ denote a box with center $s_{\cal B}$ and side length $r \sqrt{2\delta}$ with $r < 1$.
+If source $s_j$ is in box ${\cal B}$, we say $j \in {\cal B}$. Then the Gaussian evaluation from the sources in box ${\cal B}$ is,
+\begin{align*}
+G(t) = \sum_{j \in {\cal B}} q_j \cdot f( \| t - s_j \|_2 / \sqrt{\delta} ).
+\end{align*}
+The Hermite expansion of $G(t)$ is 
+\begin{align}\label{eq:hermite_expansion_of_G_t_general}
+G(t) = \sum_{\alpha \geq 0} A_{\alpha} \cdot h_{\alpha} \left( \frac{ t - s_{\cal B} }{ \sqrt{\delta} } \right),  
+\end{align}
+where the coefficients $A_{\alpha}$ are defined by
+\begin{align}\label{eq:def_A_alpha_general}
+A_{\alpha} = \frac{1}{\alpha !} \sum_{j \in {\cal B}} q_j \cdot \left( \frac{ s_j - s_{\cal B} }{ \sqrt{\delta} } \right)^{\alpha} 
+\end{align}
+\end{definition}
+
+\begin{definition}\label{lem:fast_gaussian_lemma_1_general}
+Let $p$ denote an integer, let $\Err_H(p)$ denote the error after truncating the series $G(t)$ (as defined in Def.~\ref{def:G_t_general}) after $p^d$ terms, i.e.,
+\begin{align*}
+\Err_H(p) = \sum_{\alpha \geq p} A_{\alpha} \cdot H_{\alpha} \left( \frac{t - s_{\cal B}}{ \sqrt{\delta} } \right).
+\end{align*}
+We say $f$ is Hermite truncateable, if 
+ Then we have
+\begin{align*}
+| \Err_H(p) | \leq p^{-\Omega(pd)}
+\end{align*}
+where $K = (1.09)^d$.
+\end{definition}
+
+
+\subsection{\texorpdfstring{$\k (x,y) = 1 / \| x - y \|_2^2$}{}}\label{sec:fastmm_other}
+
+Similar ideas yield the following algorithm:
+\begin{theorem}[FMM, \cite{bg97,m12}]\label{thm:fmminverse}
+Given $n$ vectors $x_1, x_2, \cdots, x_n \in \R^d$, let matrix $A \in \R^{n \times n}$ be defined as $A_{i,j} = 1 / \| x_i - x_j \|_2^2$. For any vector $h \in \R^n$, in time $O( n \log^{O(d)}( \| u \|_1 /\epsilon) )$, we can output a vector $u$ such that
+\begin{align*}
+ (A h)_i - \epsilon \leq  u_i \leq  (A h)_i + \epsilon.
+\end{align*}
+\end{theorem}
+
+

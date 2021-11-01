@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm, algorithm}
+%% \usepackage{hyperref}
+
+\usepackage{color}
+\usepackage[pagebackref]{hyperref}
+\hypersetup{colorlinks=true,citecolor=red,linkcolor=blue}
+
+\newcommand{\defeq}{\stackrel{\textup{def}}{=}}
+\newtheorem{problem}{Problem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{conjecture}{Conjecture}[theorem]
+
+\newtheorem{remark}{Remark}[theorem]
+\newtheorem{question}[theorem]{Question}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{hole}{Hole}[theorem]
+
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+\newcommand\R{\mathbb{R}}
+
+\newcommand{\tr}{\mbox{Trace}}
+\newcommand\prob[2]{\mbox{Pr}_{#1}\left[ #2 \right]}
+\newcommand\expec[2]{{\mathbb{E}}_{#1}\left[ #2 \right]}
+\newcommand\var[2]{\mbox{\bf Var}_{#1}\left[ #2 \right]}
+
+
+\newcommand\Ctil{\widetilde{\mathit{C}}}
+\newcommand\f{\tilde{f}}
+
+\newcommand\Otil{\widetilde{\mathit{O}}}
+
+\newcommand\Ccal{\mathcal{C}}
+\newcommand\Hcal{\mathcal{H}}
+
+\newcommand\dtdiff{\delta_{t_1}(x) - \delta_{t_2}(x)}
+\renewcommand\AA{\boldsymbol{\mathit{A}}}
+\newcommand\DD{\boldsymbol{\mathit{D}}}
+\newcommand\MM{\boldsymbol{\mathit{M}}}
+\newcommand\MMcal{\boldsymbol{\mathcal{M}}}
+\newcommand\MMbar{\boldsymbol{\overline{\mathit{M}}}}
+\newcommand\MMhat{\boldsymbol{\widehat{\mathit{M}}}}
+\newcommand\II{\boldsymbol{\mathit{I}}}
+\newcommand\LL{\boldsymbol{\mathit{L}}}
+\newcommand\LLtil{\widetilde{\boldsymbol{L}}}
+\newcommand\PP{\boldsymbol{\mathit{P}}}
+\newcommand\UU{\boldsymbol{\mathit{U}}}
+\newcommand\XX{\boldsymbol{\mathit{X}}}
+\newcommand\XXcal{\boldsymbol{\mathcal{X}}}
+\newcommand\XXJcal{\boldsymbol{\mathcal{X}}\mathcal{J}}
+%\newcommand\YY{\boldsymbol{\mathit{Y}}}
+%\newcommand\YYcal{\mathcal{Y}}
+\newcommand\ZZ{\boldsymbol{\mathit{Z}}}
+\newcommand\ZZhat{\boldsymbol{\widehat{\mathit{Z}}}}
+
+\newcommand\cchi{\boldsymbol{\chi}}
+
+\newcommand\simuniform{{\sim_{{\rm uniform}}}}
+
+\newcommand\Ical{\mathcal{I}}
+
+\newcommand\yhat{\widehat{y}}
+
+\newcommand\AbsMatrix[1]{\mbox{Abs}_{2}\left| #1 \right|}
+
+
+\newcommand\dd{\boldsymbol{\mathit{d}}}
+\newcommand\rr{\boldsymbol{\mathit{r}}}
+\newcommand\ww{\boldsymbol{\mathit{w}}}
+\newcommand\xx{\boldsymbol{\mathit{x}}}
+\newcommand\yy{\boldsymbol{\mathit{y}}}
+\newcommand\eps{\varepsilon}
+
+
+
+\newcommand\BB{\boldsymbol{\mathit{B}}}
+
+\newcommand\cc{\boldsymbol{\mathit{c}}}
+\newcommand\ff{\boldsymbol{\mathit{f}}}
+
+
+\newcommand\mmu{\boldsymbol{\mathit{\mu}}}
+\newcommand\ffhat{\boldsymbol{\mathit{\widehat{f}}}}
+
+\newcommand\one{\vec{\boldsymbol{\mathit{1}}}}
+
+\def\norm#1{\left\| #1 \right\|}
+
+
+\newcommand\PPi{\boldsymbol{\mathit{\Pi}}}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\usepackage{xcolor}
+\usepackage[title]{appendix}
+\usepackage{subfig}
+
+\usepackage{algorithm}
+
+%\usepackage[ style=alphabetic ]{biblatex} \bibliography{123}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+% \usepackage[backref=true]{biblatex}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}	
+
+\newcommand{\gary}[1]{{\color{red}[[\textbf{GARY: }#1]]}}
+\newcommand{\noel}[1]{{\color{red}[[\textbf{NOEL: }#1]]}}
+\newcommand{\alex}[1]{{\color{red}[[\textbf{ALEX: }#1]]}}
+%\newcommand{\tim}[1]{{\color{red}[[\textbf{TIM: }#1]]}}
+\newcommand{\tim}[1]{}
+
+

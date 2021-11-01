@@ -1,0 +1,88 @@
+
+\section{Neural Tangent Kernel} \label{sec:ntk}
+
+In this section, we show that the popular Neural Tangent Kernel $\k$
+from theoretical Deep Learning can be rearranged into the form $\k(x,y)
+  = f(\|x-y\|_2^2)$ for an appropriate analytic function $f$, so our
+  results in this chapter apply to it.
+We first define the kernel. 
+\begin{definition}[Neural Tangent Kernel, \cite{jgh18}]\label{def:neural_tangent_kernel}
+Given $n$ points $x_1, x_2, \cdots, x_n \in \R^d$, and any activation function $\sigma : \R \rightarrow \R$, the neural tangent kernel matrix $\k \in \R^{n \times n}$ can be defined as follows, where $\mathcal{N}(0,I_d)$ denotes the Gaussian distribution:
+\begin{align*}
+\k_{i,j}:= \int_{\mathcal{N}(0,I_d)} \sigma'(w^\top x_i)\sigma'(w^\top x_j) x_i^\top x_j \d w .
+\end{align*}
+\end{definition}
+
+In the literature of convergence results for deep neural networks \cite{ll18,dzps19,als18,als19,sy19,bpsw20,lsswy20}, it is natural to assume that all the data points are on the unit sphere, i.e., for all $i \in [n]$ we have $\| x_i \|_2 = 1$ and datas are separable i.e., for all $i\neq j$, $\| x_i - x_j \|_2 \geq \delta$. One of the most standard and common used activation functions in neural network training is ReLU activation, which is $\sigma(x) = \max\{x,0\}$. Using Lemma~\ref{lem:ntk_relu}, we can figure out the corresponding kernel function. By Theorem~\ref{thm:hardnessapprox}, the multiplication task for neural tangent kernels is hard. In neural network training, the multiplication can potentially being used to speed the neural network training procedure(See \cite{sy19}).
+
+
+
+
+
+In the following lemma, we compute the kernel function for ReLU activation function.
+\begin{lemma}\label{lem:ntk_relu}
+If $\sigma(x) = \max\{x,0\}$, then the Neural Tangent Kernel can be written as $\k(x,y) = f(\|x-y\|_2^2)$ for
+\begin{align*}
+f(x) = \frac{1}{\pi} ( \pi - \cos^{-1} ( 1 - 0.5 x ) ) \cdot (1 - 0.5 x)
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+First, since $\| x_i \|_2 = \|x_j\|_2$, we know that
+\begin{align*}
+\| x_i - x_j \|_2^2 = \| x_i \|_2^2 - 2 \langle x_i , x_j \rangle + \| x_j \|_2^2 = 2 - 2\langle x_i, x_j \rangle.
+\end{align*}
+
+By definition of $\sigma$, we know 
+\begin{align*}
+\sigma(x) =  
+\begin{cases}
+1, & \text{~if~} x > 0; \\
+0, & \text{~otherwise.}
+\end{cases}
+\end{align*}
+Using properties of the Gaussian distribution ${\cal N}(0,I_d)$, we have
+\begin{align*}
+\int_{\mathcal{N}(0,I_d)} \sigma'(w^\top x_i)\sigma'(w^\top x_j) \d w 
+= & ~ \frac{1}{\pi} (\pi - \cos^{-1} ( x_i x_j ) ) \\
+= & ~ \frac{1}{\pi} (\pi - \cos^{-1} ( 1 - 0.5 \| x_i - x_j \|_2^2 ) )
+\end{align*}
+
+
+We can rewrite $\k_{i,j}$ as follows:
+\begin{align*}
+\k_{i,j} 
+= & ~ \int_{\mathcal{N}(0,I_d)} \sigma'(w^\top x_i)\sigma'(w^\top x_j) x_i^\top x_j \d w \\
+= & ~ (1-0.5 \| x_i - x_j \|_2^2) \cdot \int_{\mathcal{N}(0,I_d)} \sigma'(w^\top x_i)\sigma'(w^\top x_j) \d w \\
+= & ~ (1-0.5 \| x_i - x_j \|_2^2) \cdot \frac{1}{\pi} ( \pi - \cos^{-1} ( 1 - 0.5 x ) )\\
+= & ~ f( \| x_i - x_j \|_2^2 ) .
+\end{align*}
+
+\end{proof}
+
+
+\begin{lemma}
+Given $n$ data points $x_1, \dots, x_n \in \R^d$ on unit sphere. For any activation function $\sigma : \R \rightarrow \R$, the corresponding Neural Tangent Kernel $\k(x_i,x_j)$ is a function of $\| x_i - x_j \|_2^2$.
+\end{lemma}
+\begin{proof}
+Note that $w\sim \mathcal{N}(0,I_d)$, so we know $(x_i^\top w,x_j^\top w)\sim\mathcal{N}(0, \Sigma_{i,j})$, where the covariance matrix 
+\begin{align*}
+\Sigma_{i,j}=\begin{bmatrix}
+	x_i^\top x_i & x_i^\top x_j\\
+	x_j^\top x_i & x_j^\top x_j
+\end{bmatrix} = \begin{bmatrix}
+	1 & x_i^\top x_j\\
+	x_i^\top x_j & 1
+\end{bmatrix} \in \R^{2 \times 2},
+\end{align*}
+since $\|x_i\|_2=\|x_j\|_2 = 1$. 
+Thus, 
+\begin{align*}
+\k(x_i,x_j) = \E_{(a,b)\sim\mathcal{N}(0,\Sigma_{i,j})}[\sigma'(a)\sigma'(b)]x_i^\top x_j = g(x_i^\top x_j)
+\end{align*}
+for some function $g$.
+
+ Note $x_i^\top x_j = -\frac{1}{2}\|x_i-x_j\|^2 + 1$, so $\k(x_i,x_j)=f( \| x_i-x_j \|_2^2 )$ for some function $f$, which completes the proof.
+\end{proof}
+
+

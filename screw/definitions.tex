@@ -1,0 +1,49 @@
+% !TeX root = main.tex
+
+\subsection{Definitions and Preliminaries} % (fold)
+\label{sec:definitions}
+In this section, we establish additional definitions for this chapter. These
+are mostly of interest for our spanner and persistent homology results, and are not strictly
+necessary for Theorem~\ref{thm:NN}.
+
+%  \tim{Anything on wireless networks here? Or other prelims?}
+\vspace{3 mm}
+
+\noindent \textbf{Spanners:} For real value $t \geq 1$, a $t$-spanner of
+a weighted graph $G$ is a subgraph $S$ such that $d_G(x,y) \leq d_S(x,y)
+\leq t\cdot d_G(x,y)$ where $d_G$ and $d_S$ represent the shortest path
+distance functions between vertex pairs in $G$ and $S$. Spanners
+of Euclidean distances, and general graph distances, have been
+studied extensively, and their importance as a data structure is
+well established.
+~\cite{Chew1986, Vaidya1991, Callahan1993,HarPeled13}.
+
+\vspace{3 mm}
+\noindent \textbf{$k$-nearest neighbor graphs:} The $k$-nearest neighbor graph
+($k$-NN graph) for a set of objects $V$ is a graph with vertex set $V$
+and an edge from $v\in V$ to its $k$ most similar objects in $V$, under
+a given distance measure. In this chapter, the underlying distance
+measure is Euclidean, and the edge weights are Euclidean distance
+squared.
+$k$-NN
+graph constructions are a key data structure in machine
+learning~\cite{Dong11, Chen11}, clustering~\cite{vL09}, and manifold learning~\cite{tenenbaum00global}.
+
+\vspace{3 mm}
+\noindent \textbf{Gabriel Graphs:} The Gabriel graph is a graph where
+two vertices $p$ and $q$ are joined by an edge if and only if the disk
+with diameter $pq$ has no other points of $S$ in the interior. The
+Gabriel graph is a subgraph of the Delaunay
+triangulation~\cite{SridharMaster}, and a
+$1$-spanner of the edge-squared metric~\cite{SridharMaster}. Gabriel
+graphs will be used in the proof of
+Theorem~\ref{thm:distribution-spanner}.
+
+\vspace{3 mm}
+\noindent \textbf{Persistent Homology:}
+  Persistent homology is a popular tool in computational geometry and topology to ascribe quantitative topological invariants to spaces that are stable with respect to perturbation of the input.
+  In particular, it's possible to compare the so-called persistence diagram of a function defined on a sample to that of the complete space~\cite{chazal08towards}.
+  These two aspects of persistence theory---the intrinsic nature of topological invariants and the ability to rigorously compare the discrete and the continuous---are both also present in our theory of nearest neighbor metrics.
+  Indeed, our primary motivation for studying these metrics was to use them as inputs to persistence computations for problems such as persistence-based clustering~\cite{chazal13persistence} or metric graph reconstruction~\cite{aanjaneya12metric}.
+
+% section definitions (end)

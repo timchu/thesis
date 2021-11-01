@@ -1,0 +1,200 @@
+\section{Non-Polynomial Functions Blow Up Matrix Rank}\label{sec:non_polynoimial}
+
+The major goal of this section is to prove Theorem~\ref{thm:log_formal}. This section is organized as follows
+\begin{itemize}
+    \item In Section~\ref{sec:poly_preli}, we show some basic facts.
+    \item In Section~\ref{sec:poly_imply}, we show that one eigenvalue is identically zero.
+    \item In Section~\ref{sec:zero_eig}, we prove that only polynomials have a zero eigenvalue.
+    \item In Section~\ref{sec:eigsum}, we rewrite the sum of eigenvalues.
+    \item In Section~\ref{sec:converge}, we show the convergence via calculating the limit.
+    \item In Section~\ref{sec:poly_main}, we state and prove our main result.
+\end{itemize}
+
+
+\subsection{Preliminaries}\label{sec:poly_preli}
+
+
+We start with defining a useful tool.
+\begin{lemma}\label{lem:zeroset}
+If $g_1, \ldots g_n: \mathbb{R}^d \rightarrow \mathbb{R}$ are all Taylor expandable, and the union of the zero-sets of $g_i$ is all of $\mathbb{R}^d$, then one of $g_1, \ldots g_n$ is identically zero.
+\end{lemma}
+\begin{proof}
+
+Firstly, if $g:\mathbb{R}^d \rightarrow \mathbb{R}$ is Taylor expandable, then the zero-set of $g$ has a well-defined measure.  
+
+Secondly, if the measure of the zero-set is non-zero, there must exist an open ball in which $g$ is $0$. If this is the case, every higher order derivative at the center of the ball must be $0$, meaning the Taylor series for that function is identically zero.  
+
+
+Finally, since the union of the zero-sets of $g_i$ is the entire plane, one of their zero-sets has non-zero measure. Thus,  
+it must be identically zero. 
+\end{proof}
+
+
+\subsection{One Eigenvalue is Identically Zero}\label{sec:poly_imply}
+The goal of this section is prove Lemma~\ref{lem:poly_imply}.
+\begin{lemma}[One eigenvalue is identically zero] \label{lem:poly_imply}
+For any Taylor expandable function $f$, any $n$, and $d:= \log n+1$: we can find $M:\mathbb{R}^d \rightarrow \mathbb{R}^{n \times n}$ and Taylor expandable $\lambda^f_i:\mathbb{R}^d \rightarrow \mathbb{R}$ satisfying:
+\begin{enumerate} 
+\item $M(a)$ has rank $\leq d$ for all $a \in \mathbb{R}^d$
+\item $\lambda^f_1(a) \ldots \lambda^f_n(a)$ is the full set of eigenvalues of $f(M(a))$, for all $a \in \R^d$.
+\item If there exists $i \in [n]$ such that $\lambda^f_i(a) = 0$ for all $a \in \mathbb{R}^d$, then $f$ is a degree $d \leq \log n + 1$ polynomial. 
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} 
+
+{\bf Constructing $M$.}
+Consider a mapping $B : \{0, 1, \ldots 2^{d}-1\} \rightarrow \{0,1\}^d$ corresponding to the conversion of integers into $d$-digit binary strings, which we interpret as $d$ dimensional $0-1$ vectors. We set
+\begin{align*}
+M(a)_{i,j} = \langle a, B(|i-j|) \rangle
+\end{align*}
+where $a \in \R^d$. 
+
+{\bf Constructing $\lambda^f_i$.}
+For each matrix $M(a) \in \R^{n \times n}$, we established previously that $f(M(a)) \in \R^{n \times n}$ has eigenvectors equal to the Hadamard matrix columns, and the corresponding eigenvalues are:  
+\begin{align*}%\label{eq:eigform}
+\lambda^f_i(a) = \sum_{b \in \{0,1\}^d} (-1)^{\langle B(i), b \rangle} \cdot f(\langle b, a \rangle) 
+\end{align*}
+We note that if $f$ is Taylor expandable, then so is $\lambda_i^f$ for all $i$ and $f$.
+
+ 
+As noted before, $\lambda^f_i$ is Taylor expandable if $f$ is Taylor expandable. Also, $\lambda^f_i(a)$ forms the full set of eigenvalues for $M(a)$. Therefore, all that's left to prove is that if any $\lambda^f_i$ is $0$, then so is $f^{(d)}$.
+
+If $\lambda^f_i$ is $0$, then 
+\[
+ (-1)^{\langle B(i), 1 \rangle} \sum_{b \in \{0,1\}^d} (-1)^{\|b\|_1} \cdot \lambda^f_i(  a+\epsilon b  ) = 0
+\]
+since it is the sum and difference of $\lambda^f_i$ evaluated at various points. Now:
+\begin{align*}
+& ~ (-1)^{\langle B(i), 1 \rangle} \sum_{b \in \{0,1\}^d} (-1)^{\|b\|_1} \cdot \lambda^f_i(  a+\epsilon b  ) \\
+= & ~ 
+(-1)^{\langle B(i), 1 \rangle} \sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} \cdot \left(\sum_{b_2 \in \{0, 1\}^d} (-1)^{\langle B(i), b_2 \rangle} f(\langle b_2, a + \epsilon b_1 \rangle) \right)\\
+= & ~ (-1)^{2 \langle B(i), 1 \rangle} \sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle)\\
+= & ~ \sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle
+\end{align*}
+where the first equality follows from the definition of $\lambda_i^f$ and the second equality follows from Lemma~\ref{lem:eigsum}. It follows that if $\lambda_i^f = 0$, then
+\[
+\sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle = 0
+\] 
+for all $\epsilon$ and $a$. By taking the limit as $\epsilon \to 0$ and dividing by $\epsilon^d$, we have for all $a$:
+\begin{align}\label{eq:final}
+\lim_{\epsilon \rightarrow 0} \frac{1}{ \epsilon^d}\sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle) = 0
+\end{align}
+By Lemma~\ref{lem:converge}, the LHS of Eq.~\eqref{eq:final} is $f^{(d)}(a)$, so $f^{(d)}(a) = 0$ for all $a$. Therefore, $f$ is at most a degree $d$ polynomial as desired. Thus, we complete the proof.
+\end{proof}
+
+
+\subsection{Only Polynomials Have a Zero Eigenvalue}\label{sec:zero_eig}
+
+The goal of this section is to prove Lemma~\ref{lem:zero_eig}.
+\begin{lemma}[Only polynomials have a zero eigenvalue]\label{lem:zero_eig}
+Given:
+\begin{enumerate} 
+\item A function $f : \R \rightarrow \R$ 
+\item A function $M: \mathbb{R}^d \rightarrow \mathbb{R}^{n \times n}$, mapping $d$ dimensional vectors to $n$ dimensional matrices.
+\item A set of $n$ functions $\lambda^f_1, \lambda^f_2, \cdots, \lambda^f_n$
+such that each $\lambda^f_i : \R^d \rightarrow \R$ is Taylor expandable, and $\lambda^f_1(a) \ldots \lambda^f_n(a)$ is the full set of eigenvalues of $f$ applied entry-wise to $M(a)$ for all $a \in \mathbb{R}^d$,
+\end{enumerate}
+
+Then if $f$ transforms matrices $M(a)$ to rank $< n$ for all $a \in \mathbb{R}^d$, then there exists $i \in [n]$ where function $\lambda^f_i = 0$.
+\end{lemma}
+
+\begin{proof} 
+If $f$ transforms matrix $M(a)$ to rank $<n$, then for any $a$,  there exists an $i$ where $\lambda^f_i(a)=0$. Thus the union (over $i$) of the zero sets of $\lambda^f_i$ is $\mathbb{R}^d$. We can then apply Lemma~\ref{lem:zeroset} to show that one of $\lambda^f_i$ is identically $0$ as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+\subsection{Rewriting the Sum}\label{sec:eigsum}
+
+The goal of this section is to prove \ref{lem:eigsum}. 
+
+\begin{lemma}[Rewriting the sum]\label{lem:eigsum}
+\begin{align*}
+& ~ \sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} \left(\sum_{b_2 \in \{0, 1\}^d} (-1)^{\langle B(i), b_2 \rangle} f(\langle b_2, a + \epsilon b_1 \rangle) \right)\\
+= & ~ (-1)^{\langle B(i), {\bf 1} \rangle} \sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle  )
+\end{align*}
+where $a$ and $b$ are $d$-dimensional vectors.
+\end{lemma}
+\begin{proof}
+
+
+First, we can show: 
+If $b_2$ is a $d$ dimensional vector with any $0$s in its vector notation, we know
+\begin{align}\label{eq:sum0}
+\sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} f(\langle b_2, a + \epsilon b_1 \rangle )  = 0
+\end{align}
+for any $\epsilon$, and any constant $d$ dimensional vector $a$. The reason is if $b_2$ has any $0$'s in its vector notation, then flipping the corresponding bit in $b_1$ causes $(-1)^{\|b_1\|_1}$ to change sign, while leaving $\langle b_2, a+\epsilon b_1 \rangle$ unchanged.
+
+Now, we know that: 
+\begin{align*}%\label{eq:switchsum}
+& ~ \sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} \left(\sum_{b_2 \in \{0, 1\}^d} (-1)^{\langle B(i), b_2 \rangle} f(\langle b_2, a + \epsilon b_1 \rangle) \right) \notag\\
+= & ~ \nonumber
+\sum_{b_2 \in \{0, 1\}^d} (-1)^{\langle B(i), b_2 \rangle}
+ \left(\sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} f(\langle b_2, a + \epsilon b_1 \rangle) \right)\\
+= & ~ (-1)^{\langle B(i), {\bf 1} \rangle}
+ \left(\sum_{b_1 \in \{0,1\}^d} (-1)^{\|b_1\|_1} f(\langle {\bf 1}, a + \epsilon b_1 \rangle) \right).
+\end{align*}
+where the first equality follows by rearranging sums, and the second equality follows from Eq.~\eqref{eq:sum0}. This completes the proof. 
+
+\end{proof}
+
+
+
+\subsection{Calculating the Limit}\label{sec:converge}
+
+The goal of this section is to prove Lemma~\ref{lem:converge}.
+\begin{lemma}[Calculating the limit]\label{lem:converge}
+
+Suppose the $d^{th}$ derivative of $f$, denoted as $f^{(d)}$, is continuous. Then:
+\begin{align*}
+\lim_{\epsilon \rightarrow 0} \epsilon^{-d}  \sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle  ) = f^{(d)}( \langle a , {\bf 1} \rangle ).
+\end{align*}
+\end{lemma}
+\begin{proof}
+
+
+We have:
+\begin{align} \label{eq:simplified}
+\sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle  ) 
+= & ~  \sum_{s=0}^d (-1)^s \binom{d}{s} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle  ) \notag \\
+= & ~  \sum_{s=0}^d (-1)^s \binom{d}{s} \cdot f( \langle a , {\bf 1} \rangle + s \epsilon )  \notag \\
+= & ~ \int_0^\epsilon \int_0^\epsilon \ldots \int_0^\epsilon f^{(d)}( \langle a+ x, {\bf 1}\rangle ) \d x_1 \ldots \d x_d 
+\end{align}
+which we note, is independent of $i$.  The first and second equality follow from grouping $b$ by the number of ones it has, which we denote as $s$. The last equality follows from the fundamental theorem of calculus.
+
+Thus:
+\begin{align} 
+& \lim_{\epsilon \rightarrow 0} \epsilon^{-d}  \sum_{b \in \{0, 1\}^d} (-1)^{\|b\|_1} \cdot f ( \langle a + \epsilon b, {\bf 1} \rangle  ) \notag \\
+ = & ~ \lim_{\epsilon \rightarrow 0} \epsilon^{-d} \int_0^\epsilon \int_0^\epsilon \ldots \int_0^\epsilon f^{(d)}( \langle a+ x, {\bf 1}\rangle ) \d x_1 \ldots \d x_d \notag \\
+ = & ~ 
+f^{(d)} (\langle a, \bf{1} \rangle ) \notag
+\end{align}
+where the first equality follows from Eq.~\eqref{eq:simplified} and the last equality follows from the continuity of $f^{(d)}$ This completes the proof of Lemma~\ref{lem:converge}.
+\end{proof}
+
+
+
+
+
+\subsection{Main Result}\label{sec:poly_main}
+
+In this section, we prove main result Theorem~\ref{thm:log_formal} using Lemma~\ref{lem:poly_imply} and Lemma~\ref{lem:zero_eig}.
+
+\begin{theorem}[Formal statement of Theorem~\ref{thm:log}]\label{thm:log_formal}
+For any positive integer $n \geq 2$, the function $f : \R \to \R$ preserves low rank matrices if and only if $f$ is a polynomial of degree less than $\lceil \log_2(n) \rceil$.
+\end{theorem} 
+
+
+
+\begin{proof} 
+Suppose $f$ is a Taylor expandable function. By Lemma~\ref{lem:poly_imply}, we can find $M:\mathbb{R}^d \rightarrow \mathbb{R}^{n \times n}$ and a Taylor expandable $\lambda_i^f:\mathbb{R}^{\log n + 1} \rightarrow \R$ such that the image of $M$ has rank $\leq \log n + 1$, and $\{\lambda_i^f(a)\}_{i \in [n]}$ is the full set of eigenvalues of $M(a)$. Further, if there exists $i \in [n]$ with function $\lambda_i^f = 0$, then $f$ is a degree $d \leq \log n + 1$ polynomial.
+
+Now, suppose that $f$ is a function that transforms all rank $\log n +1$ matrices to rank $<n$ matrices. Then it must transform all matrices $M(a)$ to rank $< n$ matrices. By Lemma~\ref{lem:zero_eig}, it must follow that $\lambda_i^f = 0$ for some $i$. However, we just established via Lemma~\ref{lem:poly_imply} that if $\lambda_i^f = 0$, then $f$ is a degree $d \leq \log n +1$ polynomial. This completes the proof of Theorem~\ref{thm:log_formal}.
+\end{proof}
+

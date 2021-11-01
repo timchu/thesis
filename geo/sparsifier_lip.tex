@@ -1,0 +1,221 @@
+\section{Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time}\label{sec:sparsify-lipschitz}
+
+
+\iffalse
+Given $n$ points, let $\kappa$ denote the value of the maximum distance between any pair, divided by the minimum distance, i.e.,
+\begin{align*}
+    \kappa = \frac{ \max_{u, v \in P} \|u-v\|_2 }{ \min_{u, v \in P} \|u-v\|_2 }.
+\end{align*}
+Throughout this section, we state our bounds in terms of $\kappa$, since this quantity fits nicely into our proofs. We will soon see how $\kappa$ relates to $\alpha$, where $\alpha$ is defined in the introduction (Section~\ref{sec:intro}) as 
+\begin{align*}
+\alpha = \frac{\max_{u, v \in P} f(\|u-v\|_2^2)}{\min_{u, v \in P} f(\|u-v\|_2^2)}.
+\end{align*}
+
+\paragraph{$\kappa$ vs $\alpha$. }  If $f(x) = 1$ for all $x$, then $\kappa$ can be arbitrarily large, while $\alpha$ is $1$. In this case, sparsifying the $f$ graph is easy, but there may be cases where $\alpha$ is bounded but $\kappa$ is not, where sparsifying $f$ graph could still be hard.
+\fi
+
+
+Given $n$ points, let $\alpha$ denote 
+\begin{align*}
+\alpha = \frac{\max_{u, v \in P} (\|u-v\|_2^2)}{\min_{u, v \in P} (\|u-v\|_2^2)}.
+\end{align*}
+
+In this section, we give an algorithm to compute sparsifiers for a large class of kernels $\k$ in almost linear time in $nd$, with logarithmic dependency on $\alpha$ and $1/\eps^2$ dependence on $\eps$. When $d = \log n$, our algorithm runs in almost linear time in $n$.  
+To formally state our main theorem, we define multiplicatively Lipschitz functions:
+\begin{definition}\label{def:mult-lip}
+Let $C \geq 1$ and $L \geq 1$. A function $f: \mathbb{R}_{\geq 0} \rightarrow \mathbb{R}_{\geq 0}$ is $(C, L)$-multiplicatively Lipschitz iff for all $c \in [1/C, C]$, we have:
+  \begin{align*}
+  \frac{1}{C^L} < \frac{f(cx)}{f(x)} < C^L, \forall x \in \mathbb{R}_{\geq 0}.
+  \end{align*}
+\end{definition}
+
+\textbf{Examples:} Any polynomial with non-negative coefficients and maximum degree $q$ is $(1+\eps, q)$ multiplicatively Lipschitz for any $\eps > 0$. The function $f(x) = 1$ when $x < 1$ and $f(x) = 2$ when $x \geq 1$ is $(2, 1)$ multiplicatively Lipschitz.
+
+
+The following lemma is a simple consequence of our definition of multiplicatively Lipschitz functions:
+\begin{lemma}\label{lem:lip} 
+Let $C \geq 1$ and $L > 0$. Any function $f : \R_{\geq 0} \rightarrow \R_{\geq 0}$ that is $(C, L)$-multiplicatively Lipschitz satisfies for all $c \in (0,1/C) \cup [C, +\infty)$ :
+\begin{align*}
+\frac{1}{c^{2L}} < \frac{f(cx)}{f(x)} < c^{2L} .
+\end{align*}
+\end{lemma}
+
+
+
+We now state the core theorem of this section: 
+\begin{theorem}\label{thm:sparsify-lipschitz}
+Let $C\geq 1$ and $L \geq 1$. 
+  Consider any $(C, L)$-multiplicatively
+  Lipschitz function $f : \R \rightarrow \R$, and let $\k(x,y)=f(\|x-y\|_2^2)$. Let $P$ be a set of $n$ points in $\mathbb{R}^d$. For any $k \in [\Omega(1) , O(\log n)]$  
+  such that $C = n^{O(1/k)}$, there exists an algorithm ~\textsc{sparsify-$\k$-graph}$(P,n,d, \k, k, L)$ (Algorithm~\ref{alg:sparsify-lipschitz}) that runs in time: 
+  \begin{align*}
+  O( ndk )  + 
+  \eps^{-2} \cdot n^{1+O(L/k)} 2^{O(k)} \log n \cdot \log \alpha 
+  \end{align*}
+  and outputs an $\eps$-spectral sparsifier $H$ of the $\k$ graph with $|E_H| = O(n \log n /\eps^2)$.
+\end{theorem}
+ We give a corollary of this theorem.
+\begin{corollary}\label{cor:poly-sparse}
+Consider a $\k$ graph where $\k(x,y) = f(\|x-y\|_2^2)$, and $f$ is $(2, L)$-multiplicatively Lipschitz. Let $G$ denote the $\k$ graph from $n$ points in $\mathbb{R}^d$. There is an algorithm that takes in time
+\begin{align*}
+O(n d \sqrt{L \log n} ) + \eps^{-2} \cdot n \cdot 2^{O(\sqrt{L \log n} \log\log n )} \cdot \log \alpha  
+\end{align*}
+and outputs an $\eps$-spectral sparsifier $H$ of $G$ with $|E_H| = O( n \log n / \eps^2)$. 
+If $L = o( \log n/ (\log \log n)^2)$, this runs in time 
+\begin{align*}
+o(nd \log n) + \eps^{-2}  n^{1+o(1)} \log \alpha.
+\end{align*}
+\end{corollary}
+\begin{proof} 
+Set $k = \sqrt{L \log n}$, and the corollary follows from Theorem~\ref{thm:sparsify-lipschitz}.
+\end{proof}
+
+This implies that if $f$ is a polynomial with non-negative coefficients, then sparsifiers of the corresponding $\k$-graph can be found in almost linear time. The same result holds if $f$ is the reciprocal of a polynomial with non-negative coefficients.
+
+
+We will need a few geometric preliminaries in order to present our core algorithm of this section,~\textsc{Sparsify-$\k$-graph}.
+
+\begin{definition}[$\epsilon$-well separated pair]\label{def:wsp}
+Given two sets of points $A$ and $B$. We say $A,B$ is an $\epsilon$-well separated pair if the diameter of $A_i$ and $B_i$ are at most $\epsilon$ times the distance between $A_i$ and $B_i$.
+\end{definition}
+
+\begin{definition}[$\epsilon$-well separated pair decomposition \cite{ck95}]\label{def:wspd}
+An $\eps$-well separated pair decomposition ($\eps$-$\WSPD$) of a given point set $P$ is a family of pairs $\mathcal{F} = \{(A_1, B_1), \ldots (A_s, B_s)\}$ with $A_i, B_i \subset P$ such that:
+\begin{itemize}
+    \item $\forall i \in [s]$, $A_i$, $B_i$ are $\eps$-well separated pair (Definition~\ref{def:wsp}) 
+    \item For any pair $p, q \in P$, there is a unique $i \in [s]$ such that $p \in A_i$ and $q \in B_i$
+\end{itemize}
+\end{definition}
+A famous theorem of Callahan and Kosaraju \cite{ck95} states:
+\begin{theorem}[Callahan and Kosaraju \cite{ck95}]\label{thm:wspd}
+Given any point set $P \subset \mathbb{R}^d$ and $0 \leq \eps \leq 9/10$, an $\eps$-$\WSPD$ (Definition~\ref{def:wspd}) of size $O(n /\eps^d)$ can be found in $2^{O(d)} \cdot ( n \log n + n / \eps^d ) $ time. Moreover, each vertex participates in at most $2^{O(d)} \cdot \log \alpha$ $\epsilon$-well separated pairs.
+\end{theorem}
+Well-separated pairs can be interpreted as complete bipartite graphs on the vertex set, or \textbf{bicliques}. The biclique associated with a well-separated pair is the bipartite graph connecting all vertices on one side of the pair to another. 
+
+This concludes our definitions on well-separated pairs. We now give names to some algorithms in past work, which will be used in our algorithm \textsc{sparsify-$k$-graph}. We define the algorithm $\textsc{GenerateWSPD}(P, \eps)$ to output an $\eps$-WSPD (Definition~\ref{def:wspd}) of $P$. We define the algorithm $\textsc{RandomProject}(P, k)$ to be a random projection of $P$ onto $k$ dimensions. 
+
+Let $\textsc{Biclique}(\k, P, A, B)$ be the complete biclique on the $\k$-graph of $P$ with one side of the biclique having verticese corresponding to points in $A$, and the other side having vertices corresponding to points in $B$. We store this biclique implicitly as $(A, B)$ rather than as a collection of edges. 
+
+Let $\textsc{RandSample}(G, s)$ be an algorithm uniformly at random sampling $O(s)$ edges from $G$, where the big $O$ is the same constant as the big $O$ in the $n^{O(1/k)}$ from Lemma~\ref{lem:low-dim-jl}.
+
+Let $\textsc{SpectralSparsify}(G, \eps)$ be any nearly linear time
+spectral sparsification algorithm that outputs a $(1+\eps)$ spectral
+sparsifier with $O(n \log n / \eps^2)$ edges, such as that in
+Theorem~\ref{thm:ss11} from~\cite{ss11}.
+\begin{algorithm}[!ht]\caption{}\label{alg:sparsify-lipschitz}
+\begin{algorithmic}[1]
+\Procedure{\textsc{Sparsify-$\k$-Graph}}{$P, n, d, \k, k, L, \eps$} \Comment{Theorem~\ref{thm:sparsify-lipschitz}}
+
+    \State \textbf{Input}: A point set $P$ with $n$ points in dimension $d$, a kernel function $\k(x,y) = f(\|x-y\|_2^2)$, an integer variable $\Omega(1) \leq k \leq O(\log n)$, and a variable $L$, and error $\eps$.
+    
+    \State \textbf{Output:} A candidate sparsifier of the $\k$-graph on $P$.
+    
+    \State
+    $P' \gets \textsc{RandomProject}(P, k)$
+    
+    \State $H \gets $ empty graph with $n$ vertices.
+    \State $\{(A_1', B_1'), \ldots (A_t', B_t')\} \gets \textsc{GenerateWSPD}(P', n , d, 1/2)$ \Comment{$t = n \cdot 2^d$}
+    \For{$ i = 1 \to t$}
+        \State Find $(A_i, B_i)$ corresponding to $(A_i', B_i')$, where $A_i, B_i \subset P$.
+        \State $Q \gets \textsc{BiClique}(\k, P, A_i, B_i)$.
+        \State $s \leftarrow \eps^{-2} n^{O(L/k)} (|A_i|+|B_i|) \log (|A_i|+|B_i|)$
+        \State $\overline{Q} \gets \textsc{RandSample}(Q, s)$
+        \State $\overline{Q} \gets \overline{Q}$ with each edge scaled by $ |A_i||B_i| / s $.
+        \State $H \gets H + \overline{Q}$
+    \EndFor
+    \State $H \gets \textsc{SpectralSparsify}( H , \epsilon )$ \Comment{Corollary \ref{cor:ss11}}
+    \State Return $H$
+\EndProcedure
+\Procedure{\textsc{GenerateWSPD}}{$P,n,d,\epsilon$} \Comment{Theorem~\ref{thm:wspd}}
+    \State ... \Comment{See details in \cite{ck95}}
+\EndProcedure
+\Procedure{\textsc{RandSample}}{$G,s$}
+    \State Sample $O(s)$ edges from $G$ and generate a new graph $\ov{G}$
+    \State \Return $\ov{G}$
+\EndProcedure
+\Procedure{\text{RandomProject}}{$P,d,k$}
+    \State $P' \leftarrow \emptyset$
+    \State Choose a JL matrix $S \in \R^{k \times d}$
+    \For{$x \in P$}
+        \State $x'\leftarrow S \cdot x $ 
+        \State $P' \leftarrow P' \cup x'$
+    \EndFor
+    \State \Return $P'$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+The rest of this section is devoted to proving Theorem~\ref{thm:sparsify-lipschitz}.
+\subsection{High Dimensional Sparsification}
+
+We are nearly ready to prove Theorem~\ref{thm:sparsify-lipschitz}. We start with a Lemma:
+
+
+
+\begin{lemma}[$(C, L)$ multiplicative Lipschitz functions don't distort a graph's edge weights much]\label{lem:lipschitz-distortion} 
+Consider a complete graph $G$, and a complete graph $G'$, where vertices of $G$ are identified with vertices of $G'$ (which induces an identification between edges). Let $K \geq 1$. Suppose each edge in $G$ satisfies:
+\begin{align*} 
+\frac{1}{K} \cdot w_{G'}(e) \leq w_G(e) \leq K \cdot w_{G'}(e) 
+\end{align*}
+If $f$ is a $(C, L)$ multiplicative Lipschitz function, and $f(G)$ refers to the graph $G$ where $f$ is applied to each edge length, and $C < K$ then: 
+\begin{align*}
+\frac{1}{K^{2L}} \cdot w_{G'}(e) \leq w_{f(G)}(e) \leq K^{2L} \cdot w_{G'}(e).
+\end{align*}
+\end{lemma}
+\begin{proof} 
+This follows from Lemma~\ref{lem:lip}.
+\end{proof}
+
+
+
+\begin{proof} (of Theorem~\ref{thm:sparsify-lipschitz}):
+The Algorithm~\textsc{sparsify-$\k$-graph} starts by performing a random projection of point set $P$ into $k$ dimensions. Call the new point set $P'$. This runs in time $O(ndk)$, and incurs distortion $n^{O(1/k)}$, as seen in Lemma~\ref{lem:low-dim-jl}. 
+Next, our algorithm performs a $1/2$-$\WSPD$ on $P'$. As seen in Theorem~\ref{thm:wspd}, this runs in time 
+    \begin{align*}
+    O(n \log n + n2^{O(k)} )
+    \end{align*}  
+    We view each well-separated pair $(A_i', B_i')$ on $P'$ as a biclique, where the edge length between any two points in $P'$ corresponds to the edge length between those two points in the original $\k$-graph.
+    By the guarantees of Theorem~\ref{thm:wspd},
+    the longest edge divided by the shortest edge between two sides of a well-separated pair in $P'$ is at most $2$. Thus, the longest edge divided by the shortest edge within any induced bipartite graph on the $\k$-graph is $2 \cdot n^{O(1/k)}$, by Lemma~\ref{lem:lipschitz-distortion}.
+    
+    
+    
+    For each such biclique, the leverage score for each edge is overestimated by 
+  \begin{align*}
+  n^{O(L/k)} \cdot (|A_i'|+|B_i'|) / (|A_i'||B_i'|).
+  \end{align*} 
+  This comes from first applying Lemma~\ref{lem:lipschitz-distortion} to upper bound the ratio of the longest edge in a biclique divided by the shortest edge.  This ratio comes out to be $2 n^{O(L/k)}$.  Now recall the definition of leverage score on graphs as $w_e R_e$, where $R_e$ is the effective resistance assuming conductances of $w_e$ on the graph, and $w_e$ is the edge weight. Here, $w_e$ is upper bounded by the longest edge length, and $R_e$ is upper bounded by the leverage score of a biclique supported on the same edges, where all edges lengths are equal to the shortest edge length (this is an underestimate of effective resistance due to Rayleigh monotonicity, see~\cite{c97} for details). Therefore, a leverage score overestimate of the graph can be obtained by $n^{O(L/k)} \cdot (|A_i'|+|B_i'|) / (|A_i'||B_i'|)$, as claimed. The union of these graphs is a spectral sparsifier of our $\k$-graph.
+  
+  Finally, our algorithm samples
+  $n^{O(L/k)}(|A_i'|+|B_i'|)\log(|A_i'|+|B_i'|)$ edges uniformly at random from each biclique, scaling each sampled edge's weight so that the expected value of the sampled graph is equal to the original biclique. Each vertex participates in at most $\log \alpha 2^{O(k)}$ bicliques (see Theorem~~\ref{thm:wspd}). Thus, this uniform sampling procedures' run time is bounded above by 
+  \[ 
+  n^{1+O(L/k)}2^{O(k)} \log n \cdot \log \alpha.
+  \]
+  
+  Finally, our algorithm runs a sparsification algorithm on our graph after uniform sampling, which gets the edge count of the final graph down to $O(n \log n / \eps^2)$.
+This completes our proof of Theorem~\ref{thm:sparsify-lipschitz}.
+\end{proof}
+  
+
+\subsection{Low Dimensional Sparsification}
+
+We now present a result on sparsification in low dimensions, when $d$ is assumed to be small or constant. 
+
+\begin{theorem}\label{thm:low-sparsify-lipschitz}
+Let $L \geq 1$. Consider a $\k$-graph with $n$ vertices arising from a point set in $d$ dimensions, and let $\alpha$ be the ratio of the maximum Euclidean distance to the minimum Euclidean distance in the point set . Let $f$ be a $(1+1/L, L)$ multiplicatively Lipschitz function. Then an $\eps$ spectral sparsifier of the $\k$-graph can be found in time
+\begin{align*}
+    \eps^{-2} \cdot n  \cdot \log n \cdot \log \alpha   \cdot (2L)^{O(d)} 
+\end{align*}
+\end{theorem}
+\begin{proof} We roughly follow the proof of Theorem~\ref{thm:sparsify-lipschitz}, except without the projection onto low dimensions. Now, on the $d$ dimensional data, we create a $1/L$-$\WSPD$. This takes time 
+\begin{align*}
+O( n \log n ) + n \cdot (2L)^{O(d)}.
+\end{align*}
+Since $f$ is $(1+1/L,L)$-multiplicatively Lipschitz, it follows that within each biclique of the $\k$-graph induced by the $\WSPD$ (Definition~\ref{def:wspd}), the maximum edge length divided by the minimum edge length is bounded above by $(1+1/L)^{O(L)} = O(1)$. Therefore, performing scaled and reweighted uniform sampling on each biclique takes $O(s \log s)$ time if there are $s$ vertices in the biclique, and gives a sparsified biclique with $O(s \log s)$ edges. 
+
+Taking the union of this number over all bicliques gives an algorithm that runs in time
+\begin{align*}
+ \eps^{-2} \cdot n \cdot \log n \cdot \log \alpha \cdot (2L)^{O(d)} 
+\end{align*}
+as desired.
+\end{proof}

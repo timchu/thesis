@@ -1,0 +1,338 @@
+
+\section{Transforming Manhattan to Euclidean}\label{sec:manhattan_transform12}
+
+
+
+In this section, we prove Theorem~\ref{thm:formal_manhattan_transform_1_and_2}, which states that
+functions $f$ that transform Manhattan distances to squared Euclidean
+distances are Bernstein.  This section is organized as follows
+
+\begin{itemize}
+   \item In Section~\ref{sec:manhattan_transform12:converse},  we show that any function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$ transforming
+Manhattan to squared Euclidean is increasing. This serves as a warm-up for the general result which involves higher difference operations.
+    \item In Section~\ref{sec:manhattan_transform12:main}, we prove the main result of this section, Theorem~\ref{thm:formal_manhattan_transform_1_and_2}.
+    \item In Section~\ref{sec:manhattan_transform12:boundcont}, Lemma~\ref{lem:bound-cont} shows $f$ must be bounded and
+continuous. This lemma is used in the proof of our main result.
+\end{itemize}
+
+\subsection{Useful Computations}\label{sec:manhattan_transform12:converse}
+
+\begin{lemma}\label{lem:1deriv} 
+If $f$ transforms Manhattan to squared Euclidean, then $f$ is increasing on $\mathbb R_+$. 
+\end{lemma}
+
+\begin{proof}
+We fix $c>0$ and show $f'(c)\geq 0$. Consider $\chi:[d] \rightarrow
+\{0, 1\}$ which transforms $1$ to $1$ and everything else to $0$. Let
+$a_1 = \epsilon$ and $a_2, \ldots a_d = \frac{2c}{d}$. Here, $\epsilon$
+is a constant which we will adjust later. 
+
+The eigenvalue corresponding to $\chi$ (by Lemma~\ref{lem:fourier_formal}) is, by straightforward calculation:
+
+\begin{align} \label{eq:binom}
+\sum_{s = 0}^{d-1} \binom{d-1}{s} \left(f\left(\frac{2cs}{d}\right)-
+    f\left(\frac{2cs}{d}+\epsilon\right)\right) 
+\end{align} 
+
+If we divide by $2^{d-1}$ and take $d$ to to infinity, the quantity in
+Eq.~\eqref{eq:binom} becomes
+\[ f(c) - f(c+\epsilon) \]
+for continuous functions $f$. Indeed, nearly all of the probability mass in the binomial coefficients concentrates around $s=d/2$ by the law of large numbers and the limit follows from continuity of $f$ and the boundedness of $f$ on bounded sets established below in Lemma~\ref{lem:bound-cont}.\\
+
+Applying Lemma~\ref{lem:euc-variant}, we see that if $f$ transforms Manhattan to squared Euclidean distances, then $f(c)- f(c+\epsilon)\leq 0$ for    any $\varepsilon>0$. This implies the desired result.
+\end{proof}
+
+
+\subsection{Main Results}\label{sec:manhattan_transform12:main}
+
+
+\iffalse
+\subsection{Forward Direction}\label{sec:finite_hyperrectangle}
+In this section, we give a self-contained proof of
+Lemma~\ref{lem:l1-schoenberg}, which states that Bernstein functions
+transform Manhattan distances to squared Euclidean distances. Past proofs of
+this lemma depended on Schoenberg's theorem~\cite{s38}, which we do not use.
+
+\begin{lemma}[Theorem 5
+  in~\cite{s38}] \label{lem:l1-schoenberg} 
+Any Bernstein function transforms Manhattan distances to squared Euclidean distances.
+\end{lemma}
+
+
+
+
+\begin{proof}
+  
+Let $\chi: [d] \rightarrow \{0,1\}$ and $Q = \{q_1, \ldots q_k \}=\chi^{-1}(0)$.  
+By Lemma~\ref{lem:hyperrectangle-int} and Lemma~\ref{lem:hyperrectangle_eig}, $f$ transforms
+Manhattan distances to squared Euclidean distances if and only if for all $\chi:
+[d] \rightarrow \{0,1\}$ not identically equal to $0$ we have:
+\[
+  \sum_{T \subseteq [d] - Q}
+  \int_{\sum_{t \in T} a_t}^{a_{q_1}+\sum_{t \in T} a_t} \ldots
+  \int_{\sum_{t \in T} a_t}^{a_{q_k}+\sum_{t \in T} a_k}
+  (-1)^kf^{(k)}\left( \sum_{q \in Q} s_q \right) ds_1 \ldots ds_k \leq
+  0
+\]
+However if $f$ is Bernstein, then we have
+  $(-1)^k f^{(k)}(x)\leq 0$ for all $k\geq 0,x>0$. The desired
+  inequality follows.
+\end{proof}
+\fi
+
+The goal of this section is to prove Theorem~\ref{thm:formal_manhattan_transform_1_and_2}.
+\begin{theorem} [Manhattan to squared Euclidean, formal version of part (1) $\Leftrightarrow$ part (3) of Theorem~\ref{thm:informal_manhattan_transform}]\label{thm:formal_manhattan_transform_1_and_2}
+If $f$ transforms
+Manhattan distances to squared Euclidean distances, it must be Bernstein. 
+\end{theorem}
+
+\begin{proof}
+Fix a $k$-tuple $\epsilon=(\epsilon_1,\dots,\epsilon_k)$ of positive real numbers and define
+\[ 
+\Delta_{\epsilon}^k (f, t) := f(t) - \sum_{i_1\in [k]} f(t+\epsilon_{i_1})
+    + \sum_{i_1<i_2\in [k]} f(t+\epsilon_{i_1}+\epsilon_{i+2})  +
+    \ldots + (-1)^k f\left(t+\sum_{i=1}^k \epsilon_i\right). 
+    \]
+
+Consider $\chi$ that transforms $1, 2, \ldots k$ to $1$ and everything else
+    to $0$. 
+    Let $a_i= \epsilon_i$ for $ i \in [k]  $ and $a_{k+1} \ldots a_d =
+    \frac{2c}{d}$ where $c$, $k$ and $\epsilon$ are fixed.
+    
+The eigenvalue corresponding to $\chi$ is, by direct
+calculation using Lemma~\ref{lem:fourier_formal}:
+\begin{align}\label{eq:k_binom}
+\lambda_{\chi}=\sum_{s = 0}^{d-k} \binom{d-k}{s} \Delta_\epsilon^k(f, 2sc/d).
+\end{align}
+Eq.~\eqref{eq:k_binom} is the $d$-dimensional analog of Eq.~\eqref{eq:binom}, and this eigenvalue must satisfy $\lambda_{\chi}\leq 0$ by Lemma~\ref{lem:euc-variant}.  
+Dividing by $2^{d-k}$ and taking $d$ to infinity, we obtain:
+\begin{align*}
+\Delta_{\epsilon}^k(f, c)\leq 0. 
+\end{align*}
+
+This is because again the probability mass in the binomial coefficients
+in Eq.~\eqref{eq:k_binom} concentrates around the
+$s=d/2$ coefficient, where we use continuity and boundedness of
+$f$ for any compact set (guaranteed by Lemma~\ref{lem:bound-cont}). By Proposition~\ref{prop:bern} this implies $f$ is Bernstein (Definition~\ref{def:bernstein}) since $k,c$ were arbitrary. This completes the proof.
+  \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Function Should be Bounded}\label{sec:manhattan_transform12:boundcont}
+  The goal of this section is to prove Lemma~\ref{lem:bound-cont}.
+  
+  
+  
+  \begin{lemma} \label{lem:bound-cont} Any function $f:\mathbb R_{\geq 0}\to\mathbb R_{\geq 0}$ that transforms
+  Manhattan to squared Euclidean is bounded on bounded sets and
+  continuous on $(0, \infty)$.
+  \end{lemma} 
+  \begin{proof} 
+  By the triangle inequality, $f(x) \le f(1/2)+f(1/2)$ for all $0 \le x \le 1,$ so $f$ is bounded on $[0,1]$.
+  By scaling, from now on we assume $f$ is bounded by $1$ on $[0, 1]$.
+
+\iffalse
+  Next, we show that $f$ must be
+  nondecreasing on the range $[0, 1]$.
+
+
+  Assume otherwise. Suppose $a < b$ but $f(a) > f(b)$. Now, we choose
+  $n=2k$ and points $x_1, \ldots x_n$ partitioned into sets $A = x_1,
+  \ldots, x_k$ and $B= x_{k+1}, \ldots, x_n$. Define the metric 
+  \[d(x_i, x_j) :=
+    \begin{cases}
+    0 & i = j \\
+    a & i,j\in A\text{ or }i, j \in B\\
+    b & i \in A\text{ and }j \in B\text{, or vice versa}\\
+    \end{cases}
+  \]
+  Note that this is embeddable into $\ell_1$: start by picking uniform
+  distance metric on $\ell_1$, and then add an extra dimension
+  separating points in $A$ and $B$ by $b-a$.
+
+  Now apply $f$: we want some metric $d'(x_i, x_j)$ such that
+  \[d'(x_i, x_j) :=
+    \begin{cases}
+    0 & i = j \\
+    f(a) & i,j\in A\text{ or }i, j \in B\\
+    f(b) & i \in A\text{ and }j \in B\text{, or vice versa}\\
+    \end{cases}
+  \]
+  We will now show that matrix $D'_{i, j}$ is not negative type.
+  Consider the vector 
+  \[ v = (1, 1, \ldots 1, -1, -1, \ldots -1) \]
+  with $k$ $1's$ and $k$ $-1's$. This is orthogonal to the all ones
+  vector, but $v^T D' v = 2k(k-1)f(a) - 2k^2f(b)$. Since $f(a) > f(b)$
+  by assumption, this is $>0$ for large $k$. This is a contradiction, so
+  $f$ must be nondecreasing on [0, 1].
+\fi
+
+  Now, we show $f$ is continuous on $(0, 1)$. Suppose there is a discontinuity at some point $0 < p < 1$. This means that there exists some $\varepsilon$ such that for all $\delta > 0,$ there are $a, b \in [p-\delta, p+\delta]$ such that $f(a)-f(b) \ge \varepsilon.$ Since $f(x) \le 1$ for all $x \in [0, 1],$ this means that for all $\delta < \min \{ p, 1-p\},$ we have that $\frac{f(a)}{f(b)} > 1+\varepsilon.$
+  
+  Now, fix some $\varepsilon$ satisfying the above, and some $n = 2k$. Consider points $x_1, \dots, x_n$ partitioned into sets $A = x_1, \ldots, x_k$ and $B= x_{k+1}, \ldots, x_n$. For some small $\delta$ that we will choose later, pick $a, b \in [p-\delta, p+\delta]$ such that $\frac{f(a)}{f(b)} > 1+\varepsilon,$ and define the metric
+  \[d(x_i, x_j) :=
+    \begin{cases}
+    0 & i = j \\
+    a & i,j\in A, i \neq j\\
+    b & i \text{ or } j \text{ is in } B, i \neq j\\
+    \end{cases}
+  \]
+  
+    Now apply $f$: this gives us some metric $d'(x_i, x_j)$ such that
+  \[d'(x_i, x_j) :=
+    \begin{cases}
+    0 & i = j \\
+    f(a) & i,j\in A, i \neq j\\
+    f(b) & i \text{ or } j \text{ is in } B, i \neq j\\
+    \end{cases}
+  \]
+  
+  We show that matrix $D'_{i, j} := d'(x_i, x_j)$ is not negative type if $n$ is sufficiently large (as a function of $\varepsilon$).
+  Consider the vector 
+  \begin{align*}
+   v = (1, 1, \ldots 1, -1, -1, \ldots -1) 
+  \end{align*}
+  with the first $k$ coordinates are ones and the last $k$ coordinates are negative ones. This is orthogonal to the all ones
+  vector, but 
+  \begin{align*}
+    v^{\top} D' v 
+    = & ~ k(k-1)f(a) - 2k^2f(b) + k(k-1) f(b) \\
+    = & ~ k(k-1) f(a) - k(k+1) f(b).
+ \end{align*}
+  Since $\frac{f(a)}{f(b)} > 1+\varepsilon,$ if we choose $n > 100/\varepsilon,$ we will have that
+  \begin{align*}
+  k(k-1) \cdot f(a) - k(k+1) \cdot f(b) > 0.
+  \end{align*}
+  
+  Therefore, by Lemma \ref{lem:euc}, $d'$ does not embed into $\ell_2^2,$ Squared Euclidean space.
+  
+  However, we show that if $\delta$ is sufficiently small (in terms of $n, p$), then $d(x_i, x_j)$ is embeddable into $\ell_1$. First note that the metric $d_1(i, j)$ which equals $0$ if $i = j$ and $c$ for some constant $c > 0$ is embeddable into $\ell_1,$ by transforming $i$ to $x_i = \frac{c}{2} \cdot e_i$ for all $i$, where $e_i$ is the $i$th unit vector. Likewise, the metric $d_{k, \ell}(i, j)$ which equals $0$ if $i = j$ or if $i = k, j = \ell$ or $i = \ell, j = k$ and $c$ otherwise is also embeddable into $\ell_1,$ by transforming $i$ to $x_i = \frac{c}{2} \cdot e_i,$ except $\ell$ which is sent to $x_\ell = x_k = \frac{c}{2} \cdot e_k$. Now, it is trivial to see that by adding a finite number of these metrics, we still get a metric that is embeddable into $\ell_1$. 
+  
+  But, if $\frac{a}{b} \in \left[1 - \frac{1}{10 n^2}, 1 + \frac{1}{10 n^2}\right],$ then any metric such that $d(i, j) \in \{a, b\}$  
+  for all $a, b$ can be written as some positive finite combination of $d_1$ and $d_{k, \ell}$ over all $1 \le k < \ell \le n$.
+  
+  Therefore, if $f$ is discontinuous at $p$, we can set $n = \frac{100}{\varepsilon}$, $\delta = \frac{\min(p, 1-p)}{100 n^2}$, and the metric on $x_1, \dots, x_n$ as defined previously. We will have that 
+  \begin{align*}
+  \frac{a}{b} \in \left[1 - \frac{1}{10 n^2}, 1 + \frac{1}{10 n^2}\right] 
+  \end{align*}
+  whereas $\frac{f(a)}{f(b)} > 1+\varepsilon,$ which means that while $d$ is embeddable into $\ell_1,$ $d' = f(d)$ is not embeddable into $\ell_2^2$. Thus, if $f$ is discontinuous at $p$, we have that $f$ cannot transform Manhattan Distances to Squared Euclidean distances.
+  
+  By scaling the $x$-axis, we have that $f$ is bounded on any interval $[0, a]$ and that $f$ is continuous at all $x > 0$.
+  \end{proof}
+
+
+\section{Transforming Manhattan to Manhattan}\label{sec:manhattan_transform23}
+
+This section is organized as follows:
+\begin{itemize}
+    \item Section~\ref{sec:manhattan_transform23:tools} provides some useful tools that are related to $\ell_1$ distance, $\ell_2$ distance and Hadamard transform.
+    \item In Section~\ref{sec:manhattan_transform23:main}, we prove Theorem~\ref{thm:formal_manhattan_transform_2_and_3} which is the main result.
+    \item Section~\ref{sec:manhattan_transform23:discussion} provide some discussions.
+\end{itemize}
+
+\subsection{Useful Tools}\label{sec:manhattan_transform23:tools}
+Suppose $f$ transforms Manhattan distance to squared Euclidean distance. By definition, $f$ satisfies the following: for any $n$ and any $x_1, \ldots x_n \in
+(\mathbb{R}^{\mathbb{N}}, \ell_1)$, 
+there exist $p_1, \ldots p_n \in (\mathbb{R}^{\mathbb{N}}, \ell_2)$ such that $f(\|x_i -
+    x_j\|_1) = \|p_i - p_j\|_2^2$.  We can assume
+without loss of generality that points $x_1, x_2, \ldots x_n$ are distinct corners of a $d$ dimensional
+hyperrectangle (Definition~\ref{def:hyperrectangle}), and $n = 2^d$. This is because any point set in $\ell_1$ can be
+embedded isometrically into $\ell_1$ on corners of a hyperrectangle
+(Lemma~\ref{lem:l1-hyperrectangle}).
+
+\begin{lemma}\label{lem:had}
+Let $f:\mathbb{R}\rightarrow \mathbb{R}$. If $x_1, \ldots x_{2^d}$ are corners of a hyperrectangle (Definition~\ref{def:hyperrectangle}),
+  the matrix $D$ where $D_{i,j} = f(\|x_i-x_j\|_1)$  must have
+ eigenvectors which are the columns of $H_d$, where $H_d$ is the
+  Hadamard matrix of size $2^d$ by $2^d$.
+\end{lemma}
+ \begin{proof} 
+   This follows from Lemma~\ref{lem:key}.
+ We note that this lemma does not rely on any assumptions on $f$.
+ \end{proof}
+
+
+
+ \begin{lemma}\label{lem:eig3} Let $D$ be the matrix where $D_{i,j} =
+   f(\|x_i - x_j\|_1)$, and let $M:= -\frac{1}{2} \Pi D \Pi$. Then $M$ has eigenvectors $H_d$.
+\end{lemma}
+\begin{proof} This follows from Lemma~\ref{lem:had} and the definition
+of $M$. It is critically important that the columns of $H_d$ are
+orthogonal to the all ones vector (with the exception of the all ones
+  column in $H_d$).
+\end{proof}
+\begin{lemma}\label{lem:p}
+ Let $M = H_d \Sigma H_d$ be an eigendecomposition of
+ $M$, where $M$ is defined as in Lemma~\ref{lem:eig3}. If $f$ transforms
+  $\ell_1$ to $\ell_2^2$,  then $\Sigma$ has entirely non-negative
+  entries.
+
+For each $i$, we use  $p_i$ to denote the $i$-th column of $P = \sqrt{\Sigma} H_d$, we have
+ $\langle p_i, p_j \rangle = M_{i,j}$ and $f(\|x_i - x_j\|_1) =
+ \|p_i-p_j\|_2^2$.
+ \end{lemma}
+ \begin{proof} This follows from Lemma~\ref{lem:emb} and
+   Lemma~\ref{lem:eig3}.
+ \end{proof}
+
+
+\subsection{Main Result}\label{sec:manhattan_transform23:main}
+
+The goal of this section is to prove Theorem~\ref{thm:formal_manhattan_transform_2_and_3}.
+\begin{theorem} [Manhattan to squared Euclidean, formal version of part (2) $\Leftrightarrow$ part (3) of Theorem~\ref{thm:informal_manhattan_transform}]\label{thm:formal_manhattan_transform_2_and_3} Any function that transforms Manhattan distances to squared
+Euclidean distances must transform Manhattan distances to Manhattan distances, and vice versa. 
+\end{theorem}
+
+\begin{proof}  
+  Let $p_i$ be defined as in Lemma~\ref{lem:p}.  By construction, the
+  vectors $p_i$ are a subset of the corners of a $2^d$-dimensional hyperrectangle, with side
+ lengths $\sqrt{\Sigma_{i,i}}$. Thus, the
+ pairwise squared Euclidean distances between $p_i$ are isometrically
+ embeddable into $\ell_1$ by Lemma~\ref{lem:l2-hyperrectangle}. In other words, $f(\|x_i - x_j\|_1) = \|p_i -
+ p_j \|_2^2 = \|q_i -
+ q_j\|_1$ for some $q_i \in \ell_1$ for all $i, j$. This shows that any $f$ that transforms $\ell_1$ to
+ $\ell_2^2$ transforms $\ell_1$ to $\ell_1$ as
+ desired.
+ \end{proof}
+
+
+Note that for any $x_i$, the vectors $q_i$ are finite dimensional and
+can be explicitly written down in closed form.
+
+
+
+
+
+
+
+
+
+
+\subsection{Discussion and Extensions}\label{sec:manhattan_transform23:discussion}
+In our proof of Theorem~\ref{thm:formal_manhattan_transform_2_and_3}, we exploited that our points $x_1, \ldots x_n$ are points
+in a hyperrectangle, which has a vertex transitive group symmetry. Similar theories
+can be generated when the point set lives on any object with a
+vertex-transitive group symmetry, and the distance measure between
+points is some function of the Euclidean distance. Such objects include higher dimensional
+platonic solids, spheres, equilateral triangular prisms, and more.
+
+We remark that the group symmetry must be vertex-transitive to ensure the matrix $D$ in Lemma~\ref{lem:had} has an eigenvector equal to the all ones vector. If
+this were not the case, Lemma~\ref{lem:eig3} would no longer hold. 
+
+
+
+
+

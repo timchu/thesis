@@ -1,0 +1,38 @@
+\section{Exactly Computing the nearest neighbor metric}
+\label{sec:NN}
+In this section, we prove Theorem~\ref{thm:NN} on finite point sets, and
+explain in Section~\ref{sec:bodies} that our proof strategy applies to
+finite collections of path-connected compact bodies.
+
+  First, lets observe what happens when $P$ has only two points $a$ and
+$b$, $\dist_2(a,b) = \dist_N(a,b)$.  This reduces to a high school calculus
+exercise as the minimum path $\gamma$ will be a straight line between the
+points and the nearest neighbor metric is
+\begin{align*}
+  \dist_N(a,b) &= 4\int_0^1 \distto_P(\gamma(t))\|\gamma'(t)\|dt \\
+  & = 8\int_0^{\frac{1}{2}} t \|a - b\|^2 dt = \|a - b\|^2 = \dist_2(a,b).
+\end{align*}
+  Now it is easy to observe that the
+  nearest neighbor metric is never greater than the
+  edge-squared distance, as proven in the following lemma.
+
+  \begin{lemma}\label{lem:dist_N_le_dist}
+    For all $s,p\in P$, we have $\dist_N(s,p)\le \dist_2(s,p)$.
+  \end{lemma}
+  \begin{proof}
+    Fix any points $s,p\in P$.
+    Let $q_0,\ldots, q_k \in P$ be such that $q_0 = s$, $q_k = p$ and
+    \[
+      \dist_2(s,p) = \sum_{i=1}^k \|q_i - q_{i-1}\|^2.
+    \]
+    Let $\psi_i(t) = tq_i + (1-t)q_{i-1}$ be the straight line segment from $q_{i-1}$ to $q_i$.
+    Observe that $\len(\psi_i) = \|q_i - q_{i-1}\|^2 / 4$, by the same argument as in the two point case.
+    Then, let $\psi$ be the concatenation of the $\psi_i$ and it follows that
+    \[
+      \dist_2(s,p) = 4 \len(\psi) \ge 4 \inf_{\gamma\in \ourpath(s,p)} \len(\gamma) = \dist_N(s,p).
+    \]
+  \end{proof}
+
+  By Lemma~\ref{lem:dist_N_le_dist}, it suffices to show that $\dist_N(a, b) \geq \dist_2(a,b)$ for all $a, b \in P$.
+% This allows us to compute of the nearest neighbor metric exactly by instead computing the edge-squared metric.
+\input{screw/proof-soda}

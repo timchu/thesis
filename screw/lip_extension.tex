@@ -1,0 +1,53 @@
+\subsubsection{The Lipschitz Extension} % (fold)
+\label{sec:lip_extension}
+
+  Proposition~\ref{prop:m_is_good} and the Kirszbraun theorem on Lipschitz extensions imply that we can extend $m$ to a $1$-Lipschitz function $f: \R^d\to \R^n$ such that $f(p) = m(p)$ for all $p\in P$ \cite{Kirszbraun1934,Valentine1945,brehm1981}.
+
+  \begin{lemma}\label{lem:dist_N_lipschitz}
+    The function $f$ is also $1$-Lipschitz as mapping from $\R^d\to \R^n$ with both spaces endowed with the nearest neighbor metric.
+  \end{lemma}
+  \begin{proof}
+    We are interested in two distance functions $\distto_P:\R^d \to \R$ and $\distto_{f(P)}: \R^n\to \R$.
+    Recall that each is the distance to the nearest point in $P$ or $f(P)$ respectively.
+    \begin{align*}
+      \distto_{f(P)}(f(x)) 
+        &= \min_{q\in f(P)} \|q - f(x)\| \because{by definition}\\
+        &= \min_{p\in P} \|f(p) - f(x)\| \because{$q = f(p)$ for some $p$}\\
+        &\le \min_{p\in P} \|p - x\| \because{$f$ is $1$-Lipschitz}\\ 
+        &= \distto_P(x). \because{by definition}
+    \end{align*}
+    For any curve $\gamma:[0,1]\to \R^d$ and for all $t\in [0,1]$, we have $\|(f\circ \gamma)'(t)\| \le \|\gamma'(t)\|$.
+    It then follows that
+    \begin{equation}\label{eq:curves_shorten}
+      \len'(f\circ \gamma) = \int_0^1 \distto_{f(P)}(f(\gamma(t)))\|(f\circ\gamma)'(t)\|dt \le \int_0^1 \distto_{P}(\gamma(t))\|\gamma'(t)\|dt = \len(\gamma),
+    \end{equation}
+    where $\len'$ denotes the length with respect to $\distto_{f(P)}$.
+    Thus, for all $a,b\in P$,
+    \begin{align*}
+      \dist_N(a,b)
+        &= 4 \inf_{\gamma\in \ourpath(a,b)} \len(\gamma) \because{by definition}\\
+        &\ge 4 \inf_{\gamma\in \ourpath(a,b)} \len'(f\circ\gamma) \because{by \eqref{eq:curves_shorten}}\\
+        &\ge 4 \inf_{\gamma'\in \ourpath(f(a),f(b))} \len'(\gamma') \because{because $f\circ\gamma\in \ourpath(f(a), f(b))$}\\
+        &= \dist_N(f(a), f(b)). \because{by definition}
+    \end{align*}
+  \end{proof}
+  
+  We now restate Theorem~\ref{thm:NN} for convenience, and prove
+  it.
+  \begin{theorem}\label{thm:equality}
+    For any point set $P\subset\R^d$, the edge squared metric $\dist$ and the nearest neighbor metric $\dist_N$ are identical.
+  \end{theorem}
+  \begin{proof}
+    Fix any pair of points $s$ and $p$ in $P$.
+    Define the Lipschitz mapping $m$ and its extension $f$ as in \eqref{eq:defn_of_m}.
+    Let $\dist'$ and $\dist_N'$ denote the edge-squared and nearest neighbor metrics on $f(P)$ in $\R^n$.
+    \begin{align*}
+      \dist_2(s,p) 
+        &= \dist'(m(s), m(p)) \because{Proposition~\ref{prop:m_is_good}(iii)}\\
+        &= \dist_N'(m(s), m(p)) \because{$f(P)$ are vertices of a box}\\
+        &\le \dist_N(s, p) \because{Lemma~\ref{lem:dist_N_lipschitz}}
+    \end{align*}
+    We have just shown that $\dist\le \dist_N$ and Lemma~\ref{lem:dist_N_le_dist} states that $\dist\ge \dist_N$, so we conclude that $\dist = \dist_N$ as desired.
+  \end{proof}
+
+% section lip_extension (end)

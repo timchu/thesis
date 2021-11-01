@@ -1,0 +1,61 @@
+In this section we are given three positive constants
+$\alpha,\beta,\gamma$ and an $L$-Lipschitz density function 
+$\rho:\RR^d \to \RR_+$ that in $\alpha$-integrable over all of $\RR^d$.
+Further we have a partition $A,B$ of $\RR^d$ into two measurable sets.
+
+\begin{definition}
+For a measurable set $A\subseteq \bbR^d$, define
+\begin{align*}
+\abs{A}_\alpha \coloneqq \int_A \rho^\alpha(x)\,dx.
+\end{align*}
+\end{definition}
+
+We define the weight of the boundary distributionally~\cite{betta2008weighted,parini2011introduction}.
+\begin{definition}
+\label{def:betaBdy}
+For $A$ a set who's $\rho^{\beta}$ weighted perimeter is finite, define
+\begin{align*}
+\abs{\boundary A}_\beta \coloneqq \sup\set{\int_\bbR^d \chi_A(x)
+  \div(\rho^\beta (x) \phi(x))\,dx\smid \phi\in C_c^1(\bbR^d),\, \norm{\phi}_{\infty}\leq 1}.
+\end{align*}
+\end{definition}
+
+\begin{remark}
+We note that this definition of the boundary weight corresponds to the
+intuitive definition when $\boundary A$ is sufficiently
+regular. Specifically, if $A$ has smooth boundary and
+has finite perimeter in $K$ for every compact $K\subseteq U$, then,
+\begin{align*}
+\abs{\boundary A}_\beta = \int_{\boundary A} \rho^\beta(x)\,d \mc H^{n-1}.
+\end{align*}
+\end{remark}
+
+
+\begin{definition}
+  Let $A$ be a sat with $\rho^{\beta}$ weighted finite perimeter such
+  that $\abs{A}_\alpha,\abs{\bbR^d\setminus A}_\alpha >0$. The
+  \textit{isoperimetric ratio} of the cut induced by $A,B$ is
+\begin{align*}
+\Phi(A) &\coloneqq \frac{\abs{\boundary A}_\beta}{\min\left(\abs{A}_\alpha,\abs{B}_\alpha\right)}
+\end{align*}
+
+and the \textit{isoperimetric constant} of $\rho$ is
+\begin{align*}
+\Phi(\rho)\coloneqq \inf_{A \subset \RR^d} \Phi(A).
+\end{align*}
+Here, $A$ is taken over sets of $\rho$-finite perimeter such that $\abs{A}_\alpha,\abs{B}_\alpha>0$.
+\end{definition}
+
+Again we define $\lambda_2$ variationally.
+\begin{definition}
+Let $u\in W^{1,2}$. The \textit{Rayleigh quotient} of $u$ is
+\begin{align*}
+R(u) &= \frac{\int \rho^\gamma\norm{\grad u}^2\,dx}{\int \rho^\alpha u^2\,dx}
+\end{align*}
+and the \textit{second eigenvalue of the Laplacian} on $\RR^d$ with weight $\rho$ is
+\begin{align*}
+\lambda_2(\rho) &\coloneqq \inf_{u\in W^{1,2}}\set{R(u) \smid \int \rho^\alpha u \,dx = 0,\, u\neq 0}.
+\end{align*}
+\end{definition}
+
+

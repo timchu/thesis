@@ -1,0 +1,92 @@
+% \subsection{Differences between our work and past work}\label{sec:cheeger-buser-difficulties}
+% Our work differs from past work in the following key ways:
+% 
+% \begin{enumerate}
+% \item Our work differs from past practical work on spectral sweep cuts
+% cuts~\cite{TrillosRate15, TrillosVariational15, ShiMalik97,
+%   NgSpectral01}, as those methods perform what we call a $(\alpha = 1,
+%     \gamma = 2)$-sweep cut. These sweep cuts have no theoretical
+%     guarantees, much less a guarantee on their $(\alpha, \beta)$
+%     sparsity. Lemma~\ref{lem:converse} shows that no Cheeger and Buser inequality can
+%     simultaneously hold for any setting of $\beta$ when $\alpha = 1,
+%     \beta = 2$. 
+%     
+%     We will further show that using a $(\alpha=1,
+%     \gamma=2)$-sweep cut can lead to undesirable cuts of $1$-Lipschitz
+%     probability densities, with poor sparsity guarantees.
+% 
+% \item We note that probability density Cheeger-Buser is not easily implied by
+%   graph or manifold Cheeger-Buser. For a lengthier discussion on this,
+%     see Appendix~\ref{app:notgraph}.
+% \item We
+% do not require any assumptions on our probability density
+% except that it is Lipschitz. Past work on Cheeger-Buser inequality
+% for densities focused on log-concave distributions, or
+% mixtures thereof~\cite{Lee18survey, Ge2018}.  
+% \item For our work, the probability
+% density $\rho$ is not required to be bounded away from $0$.
+% This is a sharp departure from many existing results: past results on
+% partitioning probability densities required a positive lower bound on
+% $\rho$~\cite{von2008consistency, TrillosRate15}.
+% The strongest results in fields like linear elliptic partial
+% differential equations depend on $\rho$ being bounded away from
+% $0$ ~\cite{w17}.
+% \end{enumerate}
+% Our work is the first spectral sweep cut algorithm 
+% that guarantees a sparse cut on Lipschitz densities $\rho$, without requiring strong
+% parametric assumptions on $\rho$.
+
+\subsubsection{Technical Contribution}
+The key technical contribution of our proof is proving Buser's
+inequality on Lipschitz probability densities via
+mollification~\cite{s38, f44} with disks of varying radius. 
+This chapter is the first time mollification with disks of varying radius
+have been used. We emphasize that the most difficult part of our paper
+is proving the Buser inequality.
+
+Mollification has a long history in mathematics dating back to Sergei
+Sobolev's celebrated proof of the Sobolev embedding
+theorem~\cite{s38}. It is one of the key tools in numerical
+analysis, partial differential equations, fluid mechanics, and functional
+analysis~\cite{f44, lw01, ss09, m03}, and analogs of mollification have been
+used in computational complexity settings~\cite{dkn09}.  Informally
+speaking, mollification is used to
+create a series of smooth functions approximating a non-smooth
+function,  by  convolving the original function with a
+smooth function supported on a disk.  
+Notably, an approach using convolution is used by Buser in~\cite{Buser82} to
+prove the original Buser's inequality, albeit with an intricate
+pre-processing step on any given cut.
+
+To prove Buser's inequality on Lipschitz probability density functions $\rho$, we
+will show that given a cut $C$ with low $(\alpha, \beta)$-sparsity, we can find a function $u$ with low $(\alpha, \gamma)$-Rayleigh
+quotient. We build $u$ by starting with the indicator function $I_C$ for
+cut $C$ (which is $1$ on one side of the cut and $0$ on the other).
+Next, we mollify this function with disks of varying radii. In
+particular, for each point $r$ in the domain of $\rho$, we
+spread out the point mass $I_C(r)$ over a disk of radius
+proportional to $\rho(r)L$, where L is the Lipschitz constant of $\rho$.
+The resulting function $u$ obtained by `spreading out' $I_C$ will have
+low $(\alpha, \gamma)$-Rayleigh quotient.
+
+For all past uses of mollification, the disks on which the smooth
+convolving function is supported (we call this the mollification
+    disk) have the same radius throughout
+the manifold. The use of a uniform radius disk is critical for most uses and proofs in mollification.  
+Our contribution is to allow the disks to vary in
+radius across our density.  This variation in radius allow us to
+deal with functions that approach $0$ (and explains the importance
+    of the density being Lipschitz). No mollification disks
+centered anywhere in our probability density will intersect
+the $0$-set of the density. This overcomes significant
+hurdles in many results for functional analysis and PDEs, as
+many past significant results related to partial
+differential equations rely on having a positive lower
+bound on the density~\cite{w17, TrillosRate15}.
+
+Proving our Buser inequality using
+mollification by disks of various radius requires a fairly
+delicate proof with many pages of calculus. Our key technical
+lemma is a bound on how the $l_1$ norm of a mollified function
+when the mollification disks have various radius, which can be
+found in Section~\ref{sec:key_lemma}. 

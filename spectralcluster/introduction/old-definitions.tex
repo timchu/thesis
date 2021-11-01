@@ -1,0 +1,80 @@
+\subsection{Definitions}\label{sec:definitions}
+Using the upcoming definitions, we make
+Theorem~\ref{thm:informal} precise. These definitions are
+inspired by the definition of fundamental eigenvalues and
+isoperimetric cuts for graphs and manifolds.
+
+\subsubsection{Isoperimetric Cuts of Distributions}
+Let $\alpha$ and $\beta$ be two arbitrary non-negative constants.
+Let $\rho: \Re^d \rightarrow \Re_{\geq 0}$.
+
+Let $A \subset \bbR^d$. 
+Let $u\coloneqq \chi_A$, the characteristic function of $A$, i.e., $u(x) =
+1$ if $x \in A$ and zero otherwise.  We say that $A$ has
+\textbf{finite $\beta$-perimeter} if there exists a sequence of
+functions $\{u_n\}_{n=1}^\infty \subset C^\infty(\Re^d)$ with $u_n
+\rightarrow u$ in $\Lone$ for which \cite{EvansMeasure15}
+\[
+\abs{\boundary A}_\beta
+= \lim_{n \rightarrow \infty} \int  \rho^\beta|\nabla u_n|
+\eqqcolon  \int  \rho^\beta|\nabla u|
+\]
+exists and is finite.
+
+Assuming $\int_{A} \rho^\alpha u \leq \int_{\bbR^d - A}
+\rho^\alpha u $ (and interchanging $A$ and $B$ if otherwise), we define the
+\textbf{$(\alpha, \beta)$-sparsity} of the cut defined by $A$
+to be $\Phi_{\alpha, \beta}(A)$ where:
+\[
+  \Phi_{\alpha, \beta} (A) 
+:= \frac{\int \rho^\beta |\nabla u|}{\int \rho^\alpha u}
+= \lim_{n\to\infty}\frac{\int \rho^\beta\abs{\grad u_n}}{\int \rho^\alpha \abs{u_n}}.
+\]
+The \textbf{$(\alpha, \beta)$-isoperimetric cut} of the
+distribution $\rho$ is the set $A \subset \Re^d$ that minimizes $\Phi_{\alpha,
+\beta}(A)$. When $\alpha, \beta$ are clear from context, we
+simply call it the isoperimetric cut and denote it as $\Phi$.
+\subsubsection{Eigenvalues and $(\alpha, \gamma)$-Rayleigh Quotients of Distributions}
+Define the \textbf{$(\alpha, \gamma)$-Rayleigh quotient} of $u$ with
+respect to $\rho:\Re^d \to \Re_{\geq 0}$ as:
+
+\[
+  R_{\alpha, \gamma}(u) \coloneqq \frac{\int_{\Re^d} \rho^\gamma
+  |\nabla u|^2}{\int_{\Re^d} \rho^{\alpha}|u|^2} 
+\]
+
+Define a \textbf{$(\alpha, \gamma)$-principal eigenvalue} of $\rho$ to be
+$\lambda_2$, where:
+
+\[ \lambda_2 := \inf_{\int \rho^\alpha u = 0} R_{\alpha, \gamma}(u). \]
+
+When $(\alpha, \gamma)$ is clear, we simply refer to the above
+terms as Rayleigh quotient and eigenvalue respectively. In this
+case, we denote $R_{\alpha, \gamma}(u) = R(u)$.
+
+Finally, define a \textbf{$(\alpha, \gamma)$-principal eigenfunction} of
+$\rho$ to be a function $u$ such that $R_{\alpha, \gamma}(u) =
+\lambda_2$.
+
+We note that the eigenvalue $\lambda_2$ can also be defined in
+terms of a partial differential equation: 
+\begin{align*}
+-\div\left(\rho^\gamma \grad f\right) = \lambda \rho^\alpha f,
+\end{align*}
+However, for our
+purposes, the Rayleigh quotient definition suffices.
+
+Throughout our paper, we will use the variables $\alpha, \beta,
+\gamma$. It may be helpful for the reader to set these numbers to be $1, 2,$ and $3$
+repsectively, as this is the simplest setting of these variables
+in which we can recover our main theorems.
+
+\subsubsection{Additional Definitions}
+A function $\rho: \Re^d \to \Re_{\geq 0}$ is
+\textbf{$L$-Lipschitz} if $|\rho(x)-\rho(y)|_2 \leq L|x-y|_2$ for
+all $x, y \in \Re^d.$
+
+A function is $\rho:\Re^d \to \Re_{\geq 0}$ is
+\textbf{$\alpha$-integrable} if $\int_{\Re^d} \rho^\alpha$ is
+well defined and finite. Throughout this paper, we assume $\rho$
+is always $\alpha$-integrable.

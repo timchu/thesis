@@ -1,0 +1,211 @@
+\subsection{Applications: Fast Effective Resistance Computations,
+  Resistance Sparsifiers, and Graphjical Spectral Sketches}
+
+Graph sparsification is a procedure that, given a graph $G,$ returns
+another graph $H$, typically with much fewer edges, that approximately
+preserves some characteristics of $G$. Graph sparsification originated
+from the study of combinatorial graph algorithms related to cuts and
+flows~\cite{BenczurK96, EppsteinGIN97}. Many different notions of
+graph sparsification have been extensively studied, for instance,
+spanners~\cite{Chew86} approximately preserve pairwise distances,
+whereas cut-sparsification approximately preserves the sizes of all
+cuts~\cite{BenczurK96}.  Spielman and Teng~\cite{SpielmanTengSolver:journal,
+  SpielmanT11:journal} defined spectral sparsification, a notion
+that's strictly stronger than a cut-sparsification.
+
+Spectral sparsifiers have found numerous applications to graph
+algorithms.  They are key to fast solvers for Laplacian linear
+systems~\cite{SpielmanTengSolver:journal, SpielmanT11:journal,
+  KoutisMP10, KoutisMP11}.  Recently they have been used as the
+\emph{sole} graph theoretic primitive in graph algorithms including
+solving linear systems~\cite{PengS14, KyngLPSS16}, sampling random
+spanning trees~\cite{DurfeeKPRS17, DurfeeKPRS17}, measuring edge
+centrality~\cite{LiZ18,LiPSYZ18:arxiv}, etc.
+
+
+For an undirected, weighted graph $G = (V, E_G, w_G),$ we recall that
+the Laplacian of $G,$ $\lap_G$ is the unique symmetric $V \times V$
+matrix such that for all $x \in \rea^{V},$ we have
+\[
+  x^{\top}\lap_G x = \sum_{(u,v) \in E_G} w_G(u,v)(x_u - x_v)^{2}.
+\]
+For two positive scalars $a, b,$ we write $a \approx_{\eps} b$ if
+$e^{-\eps} a \le b \le e^{\eps} a.$ We say the graph
+$H = (V, E_H, w_H)$ is an $\eps$-spectral sparsifier of $G$ if,
+\begin{equation}
+  \label{eq:intro:forall-sparsifier}
+  \forall x \in \rea^V, \qquad  x^{\top}\lap_Gx \approx_{\eps} x^{\top} \lap_H x.
+\end{equation}
+Restricting the above definition only to vectors
+$x \in \{\pm 1\}^{V},$ one obtains cut sparsifiers. For a graph $G$
+with $n$ vertices and $m$ edges, Spielman and Teng gave the first
+algorithm for constructing spectral sparsifiers with
+$\otil{n\eps^{-2}}$ edges\footnote{The $\otil{\cdot}$ notation hides
+  $\poly(\log n)$ factors.}. Spielman and Srivastava~\cite{SpielmanS08:journal}
+proved that one could construct a sparsifier for $G$ by independently
+sampling $O(n \eps^{-2} \log n)$ edges with probabilities proportional
+to their \emph{leverage scores} in $G.$ Finally, Batson, Spielman, and
+Srivastava~\cite{BatsonSS12} proved that one could construct
+sparsifiers with $O(n\eps^{-2})$ edges, and that this is optimal even
+for constructing sparsifiers for the complete graph. Recently,
+Carlson \etal~\cite{CarlsonKNT17:arxiv} have proved a more general lower
+bound, proving that one needs $\Omega(n\eps^{-2} \log n)$ bits to
+store any data structure that can approximately compute the sizes of
+all cuts in $G.$
+
+Given the tight upper and lower bounds, it is natural to guess at this
+point that our understanding of graph sparsification is essentially
+complete. However, numerous recent works have surprisingly brought to
+attention several aspects that we do not seem to understand as yet.
+\begin{tight_enumerate}
+\item Are our bounds tight if we relax the requirement in
+  Equation~\eqref{eq:intro:forall-sparsifier} to hold only for a fixed
+  unknown $x$ with high probability?  Andoni
+  \etal~\cite{AndoniCKQWZ16} define such an object to be a
+  \emph{spectral sketch}. They also construct a \emph{data structure}
+  (not a graph) with $\otil{n\eps^{-1}}$ space that is a spectral
+  sketch for $x \in \{\pm 1\}^{V},$ even though $\Omega(n\eps^{-2})$
+  is a lower bound if one must answer correctly for all
+  $x \in \{\pm 1\}^{V}.$
+  Building on
+  their work, Jambulapati and Sidford~\cite{JambulapatiS18} showed how
+  to construct such data structures that can answer queries for any
+  $x$ with high probability. A natural question remains open: whether
+  there exist \emph{graphs} that are spectral sketches with
+  $\otil{n\eps^{-1}}$ edges?
+
+
+
+
+  
+\item What if we only want to preserve the effective
+  resistance\footnote{The effective resistance between a pair $u,v$ is
+    the voltage difference between $u, v$ if we consider the graph as
+    an electrical network with every edge of weight $w_e$ as a
+    resistor of resistance $\frac{1}{w_e},$ and we send one unit of
+    current from $u$ to $v.$ } between all pairs of vertices?  Dinitz,
+  Krauthgamer, and Wagner~\cite{DinitzKW15} define such a graph $H$ as a
+  \emph{resistance sparsifier} of $G$, and show their existence for
+  regular expanders with degree $\Omega(n).$ They conjecture that
+  every graph admits an $\eps$-resistance sparsifier with
+  $\otil{n\eps^{-1}}$ edges.
+  
+\item An $\eps$-spectral sparsifier preserves weighted vertex degrees
+  up to $(1\pm\eps).$ Do there exist spectral sparsifiers that exactly
+  preserve weighted degrees? Dinitz~\etal~\cite{DinitzKW15} also
+  explicitly pose a related question -- does every dense regular
+  expander contain a sparse regular expander?
+\item What about sparsification for directed graphs? The above
+  sparsification notions, and algorithms are difficult to generalize
+  to directed graphs. Cohen~\etal~\cite{CohenKPPSV16} developed a
+  notion of sparsification for Eulerian directed graphs (directed
+  graphs with all vertices having in-degree equal to out-degree), and
+  gave the first almost-linear time algorithms\footnote{An algorithm
+    is said to be almost-linear time if it runs in $m^{1+o(1)}$ time
+    on graphs with $m$ edges.} for building such sparsifiers. However,
+  their algorithm is based on expander decomposition, and isn't as
+  versatile as the importance sampling based sparsification of
+  undirected graphs~\cite{SpielmanS08:journal}. Is there an easier
+  approach to sparsifying Eulerian directed graphs?
+\item There is an ever-growing body of work on the algorithmic
+  applications of graph sparsification~\cite{Spielman10,
+    Teng10:survey, BatsonSST13, Teng16:book}. Could the above improved
+  guarantees lead to even faster algorithms for some of these
+  problems? Two problems of significant interest include estimating
+  determinants~\cite{DurfeeKPRS17} and sampling random spanning
+  trees~\cite{DurfeeKPRS17, DurfeePPR17, Schild17:arxiv}.
+\end{tight_enumerate}
+
+
+
+
+
+
+
+\subsection{Tool: Short Cycle Decomposition}
+\label{subsec:contributions}
+In this paper, we develop a framework for graph sparsification based
+on a new graph-theoretic tool we call \emph{short cycle
+  decomposition}. Informally, a short cycle decomposition of a graph
+$G$ is a decomposition into a sparse graph, and several cycles of
+short length.  We use our framework to give affirmative answers to all
+the challenges in graph sparsification discussed in the previous
+section. Specifically:
+\begin{tight_enumerate}
+\item We show that every graph $G$ has a graph $H$ with
+  $\otil{n\eps^{-1}}$ edges that is an $\eps$-spectral-sketch for $G.$
+  The existence of such
+  graphic spectral-sketches was not known before.
+  Moreover, we give an algorithm to construct an
+  $\eps$-spectral-sketch with $n^{1+o(1)} \eps^{-1}$ edges in
+  $m^{1+o(1)}$ time. In addition,  $H$ is also a spectral-sketch for $\LL_{G}^{+}.$
+
+\item We show every graph $G$ has an $\eps$-resistance sparsifier with
+  $\otil{n\eps^{-1}}$ edges, affirmatively answering the question
+    raised by Dinitz~\etal~\cite{DinitzKW15}. We also give an
+    algorithm to construct $\eps$-resistance sparsifiers with
+    $n^{1+o(1)}\eps^{-1}$ edges in $m^{1+o(1)}$ time.
+
+\item We show that every graph has an $\eps$-spectral sparsifier with
+  $\otil{n\eps^{-2}}$ edges that exactly preserves the
+  weighted-degrees of all vertices.  It follows that every dense
+  regular expander contains a sparse (weighted) regular expander.
+  Before our work, it was not known if there exist sparse
+  degree-preserving sparsifiers (even for cut sparsifiers).
+  
+
+
+\item We show that short cycle decompositions can be used for
+  constructing sparse spectral approximations for Eulerian directed
+  graphs under the notion of spectral approximation given by
+  Cohen~\etal~\cite{CohenKPPSV16} for Eulerian directed graphs
+  (see~\ref{sec:overview:eulerian} for definition). We show that
+  short-cycle decompositions are sufficient for sparsifying Eulerian
+  directed graphs, and prove that every directed Eulerian graph has a
+  spectral approximation with $O(n\eps^{-2}\log^{4} n)$ edges.
+ 
+\item We build on our spectral-sketches, to give an algorithm for
+  estimating the effective resistances of all edges up to a factor of
+  $(1\pm \eps)$ in $m^{1+o(1)}\eps^{-1.5}$ time. The previous best
+  results for this algorithm were
+  $\otil{m\eps^{-2}}$~\cite{SpielmanS08:journal} and
+  $\otil{n^{2}\eps^{-1}}$~\cite{JambulapatiS18}.
+
+
+  Incorporating this result into the work of
+  Durfee~\etal~\cite{DurfeePPR17} gives an
+  $m^{1+o(1)} + n^{\nfrac{15}{8} + o(1)}\eps^{-\nfrac{7}{4}}$ time algorithm for
+  approximating the determinant of a $\LL$ (rather, $\LL$ after
+  deleting the last row and column, which is the number of spanning
+  trees in a graph), up to a factor of $(1\pm\eps).$ The previous best
+  algorithm for this problem ran in time
+  $\otil{n^{2}\eps^{-2}}$~\cite{DurfeeKPRS17}.
+\end{tight_enumerate}
+
+As a key component of all our results, we present efficient algorithms
+for constructing short cycle decompositions. From a bird's eye view,
+the key advantage provided by short cycle decompositions for all the
+above results, is that they allow us to sample edges in a coordinated
+manner so to preserve weighted vertex degrees exactly.
+%
+\begin{definition}
+\label{def:ShortCycleDecomposition}
+An $(\mhat, L)$-short cycle decomposition of an unweighted undirected
+graph $G$, decomposes $G$ into several edge-disjoint cycles, each of
+length at most $L,$ and at most $\mhat$ edges not in these cycles.
+\end{definition}
+The existence of such a decomposition  with $\mhat(m, n) \leq 2n$
+and $L(m, n) \leq 2\log{n}$ is a simple observation.
+We repeatedly remove vertices of degree at most 2 from the graph,
+along with their incident edges (removing at most $2n$ edges in total).
+If the remaining graph has no cycle of length at most $2 \log n,$
+a breadth-first search tree
+of depth $\log n$ starting from any remaining vertex will contain more
+than $n$ vertices, a contradiction. This can be implemented as an
+$O(mn)$ time algorithm to find a $(2n, 2\log n)$-short cycle
+decomposition, which in turn implies a similar running time
+for all the existential results above.
+Finding such decompositions faster is a core component of this paper:
+we give an algorithm that constructs an $(n^{1+o(1)},n^{o(1)})$-short
+cycle decomposition of a graph in $m^{1+o(1)}$ time.
+

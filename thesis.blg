@@ -1,0 +1,329 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
+The style file: plainnat.bst
+Reallocated field_info (elt_size=4) to 13708 items from 5000.
+Database file #1: ref.bib.bib
+Repeated entry---line 1767 of file ref.bib.bib
+ : @article{borsuk48imbedding
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1777 of file ref.bib.bib
+ : @article{edelsbrunner02topological
+ :                                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1789 of file ref.bib.bib
+ : @article{adamszek16nerve
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1800 of file ref.bib.bib
+ : @unpublished{gasparovic17complete
+ :                                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1808 of file ref.bib.bib
+ : @inproceedings{chazal08towards
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1818 of file ref.bib.bib
+ : @article{aanjaneya12metric
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1829 of file ref.bib.bib
+ : @article{chazal13persistence
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1847 of file ref.bib.bib
+ : @article{chazelle94selecting
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1873 of file ref.bib.bib
+ : @inproceedings{alamgir12shortest
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1882 of file ref.bib.bib
+ : @inproceedings{arya95euclid
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2031 of file ref.bib.bib
+ : @inproceedings{cohen15approximating
+ :                                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2051 of file ref.bib.bib
+ : @mastersthesis{SridharMaster
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2059 of file ref.bib.bib
+ : @article{hwang2016
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2089 of file ref.bib.bib
+ : @article{Kirszbraun1934
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2101 of file ref.bib.bib
+ : @inproceedings{bijral11semiSupLearningDBD
+ :                                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2994 of file ref.bib.bib
+ : @article{tenenbaum00global
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3065 of file ref.bib.bib
+ : @article{Valentine1945
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3078 of file ref.bib.bib
+ : @article{brehm1981
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3089 of file ref.bib.bib
+ : @inproceedings{vincent03
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3096 of file ref.bib.bib
+ : @inproceedings{sajama05estimatingDBDM
+ :                                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3137 of file ref.bib.bib
+ : @inproceedings{Ester1996
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3227 of file ref.bib.bib
+ : @article{Callahan1995
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3284 of file ref.bib.bib
+ : @inproceedings{Callahan1993
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3427 of file ref.bib.bib
+ : @inproceedings{LiWan2001
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3681 of file ref.bib.bib
+ : @inproceedings{ll18
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3688 of file ref.bib.bib
+ : @inproceedings{nsw19
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3703 of file ref.bib.bib
+ : @article{cv95
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3715 of file ref.bib.bib
+ : @inproceedings{jgh18
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3723 of file ref.bib.bib
+ : @inproceedings{dzps19
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3731 of file ref.bib.bib
+ : @article{sy19
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3738 of file ref.bib.bib
+ : @inproceedings{als19_rnn
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3746 of file ref.bib.bib
+ : @inproceedings{als19_dnn
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3753 of file ref.bib.bib
+ : @inproceedings{vsp+17
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3761 of file ref.bib.bib
+ : @inproceedings{transformers
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3769 of file ref.bib.bib
+ : @article{wlk+20
+ :                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3777 of file ref.bib.bib
+ : @misc{note
+ :           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3784 of file ref.bib.bib
+ : @article{flla15
+ :                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3795 of file ref.bib.bib
+ : @inproceedings{aw17
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3803 of file ref.bib.bib
+ : @article{lrrk15
+ :                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3813 of file ref.bib.bib
+ : @article{l18
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3822 of file ref.bib.bib
+ : @article{critchley
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3832 of file ref.bib.bib
+ : @article{a80
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3849 of file ref.bib.bib
+ : @inproceedings{cm21
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3857 of file ref.bib.bib
+ : @inproceedings{m15
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3865 of file ref.bib.bib
+ : @article{b29
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3876 of file ref.bib.bib
+ : @inproceedings{ik14
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3887 of file ref.bib.bib
+ : @inproceedings{k17
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3902 of file ref.bib.bib
+ :  @inproceedings{k16
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3916 of file ref.bib.bib
+ :  @inproceedings{ikp14
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3934 of file ref.bib.bib
+ : @article{GM98
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3954 of file ref.bib.bib
+ : @book{harmonic
+ :               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3990 of file ref.bib.bib
+ : @article{s35
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 4523 of file ref.bib.bib
+ : @article{s38
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 4871 of file ref.bib.bib
+ : @incollection{t10
+ :                  , title={III. 27 The Fourier Transform}, author={Tao, Terence}, booktitle={The Princeton Companion to Mathematics}, pages={204--208}, year={2010}, publisher={Princeton University Press} }
+I'm skipping whatever remains of this entry
+Repeated entry---line 5250 of file ref.bib.bib
+ : @inproceedings{lsswy20
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5348 of file ref.bib.bib
+ : @inproceedings{jgh18
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5356 of file ref.bib.bib
+ : @inproceedings{ll18
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5363 of file ref.bib.bib
+ : @inproceedings{dzps19
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5371 of file ref.bib.bib
+ : @article{sy19
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5440 of file ref.bib.bib
+ : @article{jl84
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5615 of file ref.bib.bib
+ : @inproceedings{im98
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 5781 of file ref.bib.bib
+ : @inproceedings{acl06
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6154 of file ref.bib.bib
+ : @inproceedings{cw16
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6365 of file ref.bib.bib
+ : @article{cv95
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6422 of file ref.bib.bib
+ : @inproceedings{cms20
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6467 of file ref.bib.bib
+ : @article{l82
+ :             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6524 of file ref.bib.bib
+ : @inproceedings{njw02
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 6781 of file ref.bib.bib
+ : @article{ns41
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 7337 of file ref.bib.bib
+ : @inproceedings{acw16
+ :                     ,
+I'm skipping whatever remains of this entry
+Warning--empty booktitle in FOW18
+Warning--empty booktitle in transformers
+Warning--empty booktitle in Stuetzle2007
+Warning--empty booktitle in Wishart69
+Warning--empty booktitle in Yaro2017
+You've used 311 entries,
+            2773 wiz_defined-function locations,
+            2318 strings with 56724 characters,
+and the built_in function-call counts, 152043 in all, are:
+= -- 14090
+> -- 7541
+< -- 294
++ -- 2598
+- -- 2265
+* -- 11359
+:= -- 22324
+add.period$ -- 1082
+call.type$ -- 311
+change.case$ -- 1667
+chr.to.int$ -- 289
+cite$ -- 627
+duplicate$ -- 7639
+empty$ -- 13206
+format.name$ -- 2756
+if$ -- 33054
+int.to.chr$ -- 23
+int.to.str$ -- 1
+missing$ -- 310
+newline$ -- 1653
+num.names$ -- 1252
+pop$ -- 3626
+preamble$ -- 1
+purify$ -- 1374
+quote$ -- 0
+skip$ -- 5862
+stack$ -- 0
+substring$ -- 6280
+swap$ -- 1445
+text.length$ -- 108
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 3346
+warning$ -- 5
+while$ -- 1420
+width$ -- 0
+write$ -- 4235
+(There were 69 error messages)

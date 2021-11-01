@@ -1,0 +1,168 @@
+\section{Introduction}
+
+A foundational hypothesis in non-linear dimension reduction and machine
+learning is that data can be represented as points in Euclidean space,
+and that graphs on these points can be generated to solve a variety of
+problems on the data, including classification, regression, and clustering \cite{Daitch09, Chen11,vL09, Dong11, Hashi15,
+vonluxburg13density, mcqueen16megaman}.
+Such graphs can induce similarity measures or distances on the point set,
+which are used as the key model when generating a clustering or
+classification~\cite{Daitch09, bijral11semiSupLearningDBD, tenenbaum00global}
+
+The problem of generating meaningful graphs and metrics on data is an active research topic in machine learning, statistics, and
+geometry~\cite{hein07graph, amenta99surface, sajama05estimatingDBDM, vincent03,
+bijral11semiSupLearningDBD, Hashi15, alamgir12shortest, ting10analysis,
+gorban07principal, bookDey2007, cavanna16adaptive, Gottlieb14, vL04,
+agarwal16efficient, SridharMaster, hwang2016}.
+% We believe two important problems are: comparing the
+% various methods of generating distances from point sets, and
+% building data structures to quickly compute these distances.
+%
+In this paper, we study a distance generated from a graph
+on points in Euclidean space called the edge-squared metric. It
+is defined by taking the squared Euclidean distance between every pair of
+points, and finding the shortest path on the resulting graph.
+This metric has the property that two points
+in a dense cluster can be close, even if their Euclidean
+distance is far~\cite{bijral11semiSupLearningDBD}.
+This property is known as \textbf{density-sensitivity}
+~\cite{vincent03}, and is
+desirable for clustering and classification
+~\cite{sajama05estimatingDBDM, alamgir12shortest, hwang2016,
+cohen15approximating}. The edge-squared metric has been studied
+before in the
+context of machine learning~\cite{bijral11semiSupLearningDBD, vincent03, hwang2016, alamgir12shortest,
+cohen15approximating} and
+power-efficient wireless
+networks~\cite{LiWan2001, LiWan2002}.
+Squared Euclidean distances have been
+examined before as an optimization objective, and occur in
+natural settings including $k$-means clustering and RMS
+matching~\cite{macqueen67,Agarwal12}.
+We compare the edge-squared metric to another
+distance on point sets known as the nearest neighbor metric,
+first introduced in~\cite{cohen15approximating} as the nearest neighbor
+distance. Close variants of this metric have been studied in
+probability and machine learning~\cite{sajama05estimatingDBDM, cohen15approximating,
+hwang2016}. We then give efficient algorithms constructing sparse
+spanners for both metrics.
+
+% Close variants of both these metrics have been studied in machine
+% learning~\cite{bijral11semiSupLearningDBD, LiWan2001,
+% alamgir12shortest,sajama05estimatingDBDM, cohen15approximating,
+% vincent03, hwang2016}.
+
+In this paper, we show that the edge-squared metric and nearest-neighbor
+geodesic distance are
+identical. It was not previously known or
+suspected that the two might be the same. This is the
+first work we know of that equates a discrete metric with a
+continuous geodesic, and gives the first nontrivial example of a
+so-called \textbf{density-based distance}~\cite{sajama05estimatingDBDM} that can
+be computed exactly. This considerably improves a result
+in~\cite{cohen15approximating}, which showed that the two were
+$3$-approximations of each other. Previous works computing
+geodesics or density-based distances generally use approximate
+methods whose running time grows as the approximation
+quality improves~\cite{Kimmel98, tenenbaum00global,
+alamgir12shortest, agarwal16efficient, hwang2016,
+cohen15approximating}, or
+calculus of variations~\cite{bernoulli, Schwarzschild, Sussmann97}.
+We don't follow any of the previous existing approaches. Our proof employs
+the Kirszbraun theorem, also known as the Lipschitz
+Extension Theorem~\cite{Kirszbraun1934, brehm1981}. This theorem has been
+widely used in mathematics, classification, and metric
+embeddings~\cite{Naor06, Lee05, Naor15, Gottlieb14, Gottlieb17}.
+Our result lets us compute the persistent
+homology of the nearest neighbor metric, a general problem of interest for
+many continuous metrics in the computational geometry
+setting~\cite{edelsbrunner02topological,gasparovic17complete,chazal08towards,chazal13persistence,carlsson09topology}.
+
+In order to perform clustering or classification with the edge-squared
+metric or nearest neighbor metric, we
+provide data structures that admit fast, practical
+computation of these metrics with theoretical guarantees. The
+edge-squared metric can have high doubling
+dimension even if the underlying points are in $2$
+dimensions~\cite{cohen15approximating}. This
+means that many data structures suitable for low-doubling dimension
+metrics will not immediately
+work on it. Despite this, if the underlying point set is in low dimension,
+we compute a sparse $(1+\eps)$-spanner of
+the edge-squared metric quickly.
+This spanner is sparser and faster to compute than the
+best known $(1+\eps)$-spanners for Euclidean metrics, and uses
+techniques from well-separated pair
+decompositions~\cite{Callahan1993} and
+approximate Euclidean MSTs~\cite{arya95euclid, Arya2016,
+Callahan1995}.
+
+ A foundational assumption of
+machine learning is that most data points are samples from a
+well-behaved probability
+distribution with low intrinsic dimension~\cite{tenenbaum00global,
+gorban07principal, vandermaaten08visualizing, Hashi15, mcqueen16megaman,
+hwang2016}.
+We compute a sparse
+$1$-spanner for our metrics in such a setting. Our $1$-spanner is a $k$-nearest neighbor graph ($k$-NN graph)
+with edge weights equal to Euclidean distance squared, with $k = O(2^d \log n)$. Here, $d$ is the
+intrinsic dimension of the probability density.
+Note that a sparse $1$-spanner of
+Euclidean distance is not possible in this setting.
+Our result may allow for fast computation of edge-squared spanners in
+practice, given the breadth of
+literature on the $k$-NN graph~\cite{Brito97, Dong11, Chen11}
+and its widespread
+use in practice~\cite{tenenbaum00global, vL09, Dong11}.
+If intrinsic dimension $d$ is constant,
+our $k$ is nearly optimal:
+it is believed $k=\Omega(\log n)$ is necessary for
+connectivity of the $k$-nearest neighbor
+graph~\cite{Balister05,Gonzales2003, vL09}.
+
+We also show how spanners of the edge-squared metric can be seen as a generalization of
+Euclidean spanners~\cite{Vaidya1991, Elkin2013, arya95euclid,
+Callahan1993}, approximate Euclidean
+MSTs~\cite{Callahan1995, Andoni2014, Arya2016, Alman2016, Yaro2017}, and
+single linkage clustering~\cite{Gower1969, Yaro2017}.\input{definitions}
+% To illustrate one finding, we prove in this section that:
+% \begin{lemma} \label{lem:one-span} A $1$-spanner of the edge-squared metric
+%   contains every Euclidean MST.
+% \end{lemma}
+% This leads us to an alternate proof of the following corollary, which was already known in the
+% literature~\cite{Gonzales2003}:
+% \begin{corollary} For a Lipschitz distribution of bounded support bounded
+%   above and below, with constant intrinsic
+%   dimension $d$, the $k$-NN graph from
+%   points drawn from this distribution contains all Euclidean MSTs w.h.p
+%   when $k = O(\log n)$. The Euclidean MST is unique almost always.
+% \end{corollary}
+% \begin{proof} This follows from Theorem~\ref{thm:distribution-spanner}
+%   and Lemma~\ref{lem:one-span}.
+% \end{proof}
+%%%%%% Two techniques!!!
+
+%% In this
+%% paper, we provide two techniques for computing accurate and sparse
+%% spanners of the edge-squared metric (thus also computing it for the
+%% nearest neighbor metric), when the point set lives in constant dimensional space.
+
+%%%%% Two techniques continued!!!!
+%% One technique
+%% is useful in the setting where the point-set comes from an underlying
+%% probability
+%% distribution, an assumption common in the machine learning setting. This
+%% uses $k$-NN graphs, a common tool in machine learning. The
+%% second technique can be used for any point set, and uses well-separated
+%% pair decompositions, and other techniques used in computing fast
+%% Euclidean spanning trees.
+
+%%%%%%%% Below: Some exposition on the edge^2 metric and NN metric, and what they
+%% are.
+
+%% The edge-squared metric is a metric built by taking the graph of
+%% Euclidean distances between points, squaring them, and taking the
+%% shortest path on the resulting graph. The
+%% nearest neighbor metric is a distance based on geodesics through the
+%% ambient space, and will be fully
+%% defined in Section~\ref{sec:definitions}.

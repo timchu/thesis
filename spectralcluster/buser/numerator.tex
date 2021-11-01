@@ -1,0 +1,291 @@
+\subsection{Upper Bounding the Numerator}
+To bound the $L^2$ norm in
+  the numerator of the Rayleigh quotient by the $L^1$ norm in the
+  numerator of the expression for $\Phi(A)$ it is necessary to obtain
+  uniform bound on $\rho(x) \nabla u_\theta(x)$. 
+  
+  \begin{lemma} \label{lem:rep1}
+  Let $u$ be any function, and let $u_{\theta}$ be defined as in
+  Equation~\ref{eqn:utheta}. Let $\rho: \Re^d \to \Re_{\geq 0}$ be an
+  $L$-Lipschitz function.
+  \begin{align}
+  \linf{\rho (x) \nabla u_\theta(x)}
+    \leq \linf{u} \frac{d(2+3L)}{\theta}
+  \end{align}
+  \end{lemma}
+
+  \begin{proof}
+  In order to prove this lemma, we first need to get a handle on
+  $\nabla u_\theta(x)$, which is the gradient of $u$ after
+  mollification by $\theta$.
+
+  We take the
+  the second representation of $u_\theta$ in equation \eqnref{:utheta}
+  to get
+  \begin{align}
+  \nabla u_\theta(x) 
+  = \int_{\bbR^d} u(z) \left\{
+    \frac{-d}{\theta \rho(x)} \phi_{\theta \rho}(x-z) \nabla \rho
+    + \frac{1}{(\theta \rho(x))^{d+1}} 
+    \left( I 
+      + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho(x)} \right) \right\}
+    \, dz,
+  \end{align}
+  which is a consequence of the multivariable chain rule. Here,
+  $v \otimes u$ refers to the outer product of $v$ and $u$.
+
+  Multiplying by $\rho$ gives:
+  \begin{align}
+  \rho (x) \nabla u_\theta(x) 
+  = \int_{\bbR^d} u(z) \left\{
+    \frac{-d}{\theta} \phi_{\theta \rho(x)}(x-z) \nabla
+    \rho(x)
+    + \frac{1}{(\theta^{d+1} \rho(x)^{d})} 
+    \left( I 
+      + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho(x)} \right) \right\} \, dz.
+  \end{align}
+  Now, we can bound the above equation by carefully bounding each
+  part. We note:
+  \begin{align} \label{eq:Cphi-calculation}
+    & \int_{\bbR^d} \frac{1}{(\theta^{d+1} \rho(x)^d)} \nabla
+    \phi\left(\frac{x-z}{\theta \rho(x)} \right) dz
+    \\
+    & = \int_{\bbR^d} \frac{1}{(\theta^{d+1} \rho(x)^d)} \nabla
+    \phi\left(\frac{-z}{\theta \rho(x)} \right) dz
+    \\
+     & = \frac{1}{\theta} \int_{\bbR^d} \nabla \phi(-y) dy
+  \end{align}
+  where the last step follows by a simple change of variable.
+  Here, we note that $\nabla \phi(y)$ is a vector, and the
+  integral is over $\bbR^d$, which is how we eliminated
+  $\frac{1}{(\theta \rho(x))^d}$ from the expression.
+
+  Next, we examine the term: 
+  \begin{align}
+    I + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)}
+  \end{align}
+  Here, we aim to bound the operator norm of this matrix. Here,
+  we note that 
+  \[ |x - z| \leq \theta \rho(x) \]
+  when 
+  \[
+    \nabla \phi\left(\frac{x-z}{\theta \rho(x)}\right) \not= 0
+  \]
+  and thus, when the latter equation holds, we can say:
+
+  \[
+    \left| \frac{x-z}{\theta \rho(x)}\right| < 1.
+  \]
+  Since $|\nabla \rho(x) < L|$, we now have:
+  \begin{align}\label{eqn:num-matrix-norm-bound}
+    |I + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)}|_2 <
+    3/2
+  \end{align}
+  Combining Equation~\ref{eqn:num-matrix-norm-bound} Equation~\ref{eq:Cphi-calculation} to show:
+  \begin{align}
+    & \left | \int_{\bbR^d}
+    \frac{1}{(\theta^{d+1} \phi(x)^{d})} \left( I + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)}
+    \right) \nabla \phi \left( \frac{x-z}{\theta \rho(x)}
+    \right) dz \right| 
+    \\
+    & \leq \frac{(1 + L)}{\theta} \int_{\bbR^d} |\nabla\phi(y) | dy,
+  \end{align}
+  where $L = \linf{\nabla \rho}$ is the Lipschitz constant for $\rho$. 
+  We note that Section~\ref{sec:dimension-dep} shows that 
+  \begin{align}
+    \int_{\bbR^d} | \nabla \phi(y) dy| \leq 2d.
+  \end{align}
+  and therefore:
+  \begin{align}
+    & \left | \int_{\bbR^d}
+    \frac{1}{(\theta^{d+1} \phi(x)^{d})} \left( I + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)}
+    \right) \nabla \phi \left( \frac{x-z}{\theta \rho(x)}
+    \right) dz \right| 
+    \\ \label{eq:rho-grad-utheta-2}
+    & \leq \frac{2d(1+L)}{\theta}
+  \end{align}
+
+  Now we turn our attention to the first term, which is:
+  \begin{align}
+    \int_{\bbR^d} \frac{-d}{\theta} \phi_{\theta \rho(x)}(x-z)
+    \nabla\rho(x) dz
+  \end{align}
+  We note that 
+  \[ 
+    \int_{\bbR^d}\left| \phi_{\theta \rho(x)}(x-z)\right| dz
+    = 1
+  \]
+  by our definition of $\phi$ (which was defined when we defined
+      $u_\theta$). Combining this
+  with $|\nabla \rho(x)| < L$, we get:
+  \begin{align}
+    & \int_{\bbR^d} \left | \frac{-d}{\theta} \phi_{\theta \rho(x)}(x-z)
+    \nabla\rho(x) \right| dz
+    \\ \label{eq:rho-grad-utheta-1}
+    & < \frac{dL}{\theta}
+  \end{align}
+  Therefore, 
+  \begin{align}
+  &  \nonumber \left| \int_{\bbR^d} 
+    \frac{-d}{\theta \rho(x)} \phi_{\theta \rho}(x-z) \nabla \rho
+    + \frac{1}{(\theta \rho(x))^{d+1}} 
+    \left( I 
+      + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho(x)} \right) \, dz
+    \right|
+    \\
+    & \nonumber \leq \frac{d}{\theta}( L + 2(1+L)) 
+    \\
+  & = \frac{d(2+3L)}{\theta}.
+  \label{eqn:}
+  \end{align}
+  where the first inequality comes from combining
+  Equations~\ref{eq:rho-grad-utheta-2}
+  and~\ref{eq:rho-grad-utheta-1}.
+
+  This allows us to bound $\linf{\rho(x) \nabla u_{\theta}(x)}$:
+  \begin{align}
+  & \linf{\rho (x) \nabla u_\theta(x)}
+  \\
+  & = \linf{ \left| \int_{\bbR^d} u(z) \left\{
+    \frac{-d}{\theta} \phi_{\theta \rho(x)}(x-z) \nabla
+    \rho(x)
+    + \frac{1}{(\theta^{d+1} \rho(x)^{d})} 
+    \left( I 
+      + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho(x)} \right) \right\}
+  \, dz \right| }
+  \\
+  & \leq \linf{u} \linf{ \int_{\bbR^d} \left| 
+    \frac{-d}{\theta} \phi_{\theta \rho(x)}(x-z) \nabla
+    \rho(x)
+    + \frac{1}{(\theta^{d+1} \rho(x)^{d})} 
+    \left( I 
+      + \nabla \rho(x) \otimes \frac{x-z}{\theta \rho(x)} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho(x)} \right)
+  \right| \, dz}
+  \\
+  & \leq \linf{u} \frac{d(2+3L)}{\theta}
+  \end{align}
+  where we make use of the fact that
+    $\linf{ab} < \linf{a}\lone{b}.$
+  This completes our proof.
+  \end{proof}
+
+  Next, we want an $L_1$ bound on $\rho^{\beta}(x) \nabla
+  u_{\theta}(x)$.
+
+  \begin{lemma} \label{lem:rep2}
+  Let $u$ be any function, and let $u_{\theta}$ be defined as in
+  Equation~\ref{eqn:utheta}. Let $\rho:\Re^d \to \Re_{\geq 0}$ be an
+  $L$-Lipschitz function, and
+  let $\theta L < 1/2$.
+
+  Then:
+  \begin{align}
+      \lone{\rho^\beta(x) \nabla u_{\theta}(x)} \leq C_{\beta}
+      \lone{\rho^\beta(x) \nabla u(x)}
+  \end{align}
+  \end{lemma}
+  \begin{proof}
+  First, we take the gradient 
+  first representation of $u_\theta$
+  in equation \eqnref{:utheta}. Using the chain rule gives us an
+  alternate form for $\nabla u_\theta(x)$:
+
+  \begin{align}
+  \nabla u_\theta(x) 
+  = \int_{\Re^d} 
+  (I - \theta \nabla \rho \otimes y) \nabla u(x-\theta \rho y) \phi(y) \, dy,
+  \end{align}
+  so
+  \begin{align}\label{eqn:rhoNablaUtheta}
+  \rho^\beta(x) \nabla u_\theta(x) 
+  = \int_{\Re^d} 
+  (I - \theta \nabla \rho \otimes y)
+  \frac{\rho^\beta(x)}{\rho^\beta(x-\theta \rho y)}
+  \rho^\beta(x-\theta \rho y) \nabla u(x-\theta \rho y) \phi(y) \, dy.
+  \end{align}
+
+  The ratio in the integrand is bounded using the Lipschitz assumption
+  on $\rho$ (and $|y| \leq 1$),
+  \begin{equation} \label{eqn:rhoRatio}
+    \frac{\rho(x)}{\rho(x-\theta \rho y)}
+    \leq \frac{\rho(x)}{\rho(x) - L \theta \rho(x)}
+    = \frac{1}{1 - L \theta} \leq 2,
+    \qquad \text{ when } \theta < 1 / (2L).
+  \end{equation}
+  Note that 
+  \begin{align} \label{eqn:matrix-norm} 
+  \left\| I - \theta \nabla \rho \otimes y \right\|_2 \leq 3/2
+  \end{align}
+  where $\|M\|_2$ represents the $\ell^2$ matrix norm of $M$. This is
+  because $|\nabla \rho(x) | \leq L$, and
+  $\theta L < 1/2$, and $|y| \leq
+  1$ every time $\phi(y) \not= 0$, and thus 
+  \[ 
+   \frac{I}{2} \preceq  I - \theta \nabla \rho \otimes y
+   \preceq \frac{3I}{2}.
+    \]
+  
+ Therefore, we can now apply Corollary~\ref{cor:lonetheta}
+ to Equation~\eqnref{:rhoNablaUtheta} to show:
+  \begin{align}
+  \nonumber 
+  & \lone{\rho^\beta(x) \nabla u_\theta(x)} 
+  \\  \nonumber
+  & \leq \|I - \theta \nabla \rho(x) \otimes y\|_2
+  \cdot \max_x\left(\frac{\rho(x)}{\rho(x - \theta \rho
+        y)}\right) \cdot
+  \int_{\bbR^d} \left| \int_{\bbR^d} \rho^{\beta}(x - \theta \rho y) \nabla u(x - \theta \rho y)
+    \phi(y) dy \right|
+  \\ \nonumber 
+  & \leq 3 \cdot 2^{\beta - 1} \int_{\bbR^d} \rho^\beta(x -
+      \theta \rho(x) y) \nabla u (x - \theta \rho (x) y 
+  \\ \nonumber
+  & 
+  \leq 3 \cdot 2^\beta \lone{\rho^\beta \nabla u},
+  \qquad \text{ when } \theta < 1 / (2L).
+  \end{align}
+  here, the first inequality comes from the equation $\lone{abc}
+  \leq \linf{a}\linf{b}\lone{c}$, the second inequality comes
+  from Equations~\ref{eqn:rhoRatio} and~\ref{eqn:matrix-norm}, and the
+  third inequality comes
+  from Corollary~\ref{cor:lonetheta} assuming $\theta L \leq
+  1/2$. 
+  \end{proof}
+
+  \begin{lemma}\label{lem:num}
+  For any $L$-Lipschitz distribution $\rho$, any function $u$, and any $\theta$ such that $\theta L <
+  1/2$:
+
+  \begin{align}
+  \int_{\bbR^d} \rho^\gamma |\nabla u_\theta|^2
+  \leq  C_\beta \linf{\rho^{\gamma-\beta-1}} \frac{d(2+3L)}{\theta} 
+  \linf{u} \lone{\rho^\beta \nabla u},
+  \end{align}
+  \end{lemma}
+
+  \begin{proof}
+  Combining the two estimates from Lemma~\ref{lem:rep1}
+  and~\ref{lem:rep2} gives an upper bound for the Rayleigh
+  quotient 
+  \begin{align}
+  \int_{\bbR^d} \rho^\gamma |\nabla u_\theta|^2
+  = \int_{\bbR^d} \rho^{\gamma-\beta-1} \,
+  \rho |\nabla u_\theta| \, \rho^\beta |\nabla u_\theta|
+  \leq 3 \cdot 2^{\beta + 1} \linf{\rho^{\gamma-\beta-1}} \frac{d(2+3L)}{\theta} 
+  \linf{u} \lone{\rho^\beta \nabla u},
+  \end{align}
+  \end{proof}
+
+  We note that in the case where $\gamma = \beta + 1$, and if $u$ is a step
+  function, the expression would
+  simplify to:
+  \[ \int_{\bbR^d}
+  |\rho^{\gamma} |\nabla u_\theta|^2
+  \leq 3 \cdot 2^{\beta + 1} \frac{d(2+3L)}{\theta} 
+  \linf{u} \lone{\rho^\beta \nabla u},
+  \]

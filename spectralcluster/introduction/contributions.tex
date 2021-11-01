@@ -1,0 +1,68 @@
+\subsection{Theorems}
+
+%Unfamiliar terms like $(\alpha, \beta)$-sparsity, $(\alpha, \gamma)$-spectral sweep cuts, and $(\alpha,\beta)$-principal eigenvalue are defined in Section~\ref{sec:definitions}.
+
+\begin{theorem}\label{thm:Cheeger-Buser}
+  \textbf{Probability Density Cheeger and Buser:}
+
+  Let $\rho:\mathbb{R}^d \rightarrow \mathbb{R \geq 0}$ be an $L$-Lipschitz
+  density function. Let $\alpha = \beta - 1 = \gamma - 2$.
+
+  Let $\Phi$ be the infimum $(\alpha,\beta)$-sparsity of a cut through
+  $\rho$, and let $\lambda_2$ be the $(\alpha,\gamma)$-principal eigenvalue of
+  $\rho$. Then:
+  \[ \Phi^2/4 \leq \lambda_2 \]
+  and 
+  \[\lambda _2 \leq O_{\alpha, \beta}(d \max(L \Phi, \Phi^2)).\]
+  The first inequality is \textbf{Probability Density Cheeger}, and
+  the second inequality is \textbf{Probability Density Buser}.
+\end{theorem}
+In particular, a Cheeger and Buser inequality exist when $\alpha = 1,
+\beta = 2, \gamma=3$. Note that we don't need $\rho$ to have a total mass of $1$ for any
+of our proofs. The overall probability mass of $\rho$ can be arbitrary.
+
+
+Theorem~\ref{thm:Cheeger-Buser} has partial converses:
+
+\begin{lemma} \label{lem:cheeger-converse} If $\alpha + \gamma >
+  2\beta$, the Cheeger inequality in Theorem~\ref{thm:Cheeger-Buser}
+  does not hold.
+\end{lemma}
+
+\begin{lemma} \label{lem:buser-converse} If $\gamma \geq 1$ and $\gamma -1 < \beta$, then the
+  Buser inequality in Theorem~\ref{thm:Cheeger-Buser} does not
+  hold.
+\end{lemma}
+
+In particular, if $\alpha = \beta = \gamma = 1$, the Buser inequality
+fails.  If $\alpha = 1, \gamma =2$, no
+Cheeger-Buser inequality can hold for any $\beta$. These settings
+encompass most past work on sparse cuts and eigenvectors in probability
+densities, as mentioned in Section~\ref{sec:past-prob}.
+
+We apply these inequalities to show that spectral sweep cuts of
+Lipschitz probability density functions give sparse cuts of the density.
+This contrasts with past work on sweep cuts in probability
+densities, as mentioned in Section~\ref{sec:past-prob}.
+
+\begin{theorem} \label{thm:sweep-cut} 
+  \textbf{Spectral Sweep Cuts give Sparse Cuts:}
+
+  Let $\rho:\Re^d \to \Re_{\geq 0}$ be an $L$-Lipschitz probability
+  density function, and let $\alpha = \beta - 1 = \gamma - 2$.
+  
+  The $(\alpha,\gamma)$-spectral sweep cut of $\rho$ has 
+  $(\alpha, \beta)$ sparsity $\Phi$ satisfying:
+  \[ 
+  \Phi_{OPT} \leq \Phi \leq O(\sqrt{dL\Phi_{OPT}} ).
+  \]
+  Here, $\Phi_{OPT}$ refers to the optimal $(\alpha,\beta)$ sparsity of
+  a cut on $\rho$. 
+\end{theorem}
+
+In words, the spectral sweep cut of the
+  $(\alpha, \gamma)$  eigenvector gives a provably good approximation to
+  the sparsest $(\alpha, \beta)$ cut, as long as $\beta = \alpha+1$ and
+  $\gamma = \alpha+2$.   We will also show that this theorem is not possible
+  for past definitions of eigenvectors and sparsity on probability
+  density functions.

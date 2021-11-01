@@ -1,0 +1,138 @@
+
+\section{Positive Definite Manhattan Kernels}\label{sec:bern}
+
+The section is organized as follows:
+\begin{itemize}
+    \item In Section~\ref{sec:bern:tool}, we state a useful tool.
+    \item In Section~\ref{sec:bern:main}, we present our main result. This result classifies all positive definite Manhattan kernels (Definition~\ref{def:manhattan_kernel}), and is a formal restatement of Theorem~\ref{thm:informal_kernel_manhattan}.
+\end{itemize}
+\iffalse
+\section{Manhattan to Manhattan, via Random Walks}
+\label{sec:bern}
+
+Here we explain a direct constructive proof that Bernstein functions preserve Manhattan distances. The proof avoids any notions of positive definite matrices, which appear in all other known proofs to the best of our knowledge. Instead we use a probabilistic approach, constructing a random process on $\ell_1$ which encodes the distance transformation $f$. Connections between Bernstein functions and random walk semigroups are rich and numerous, see for instance \cite[Chapter 5]{vss12}.
+
+
+\begin{theorem}
+\Zhao{We need to write a statement here. I don't understand the point of the following proof.} \tim{I'm on it.}
+\end{theorem}
+
+\begin{proof}
+
+First, by part 3 of Proposition~\ref{prop:bern} it suffices to show that $f(x)=1-e^{-tx}$ preserves Manhattan distances for any $t>0$. Indeed, the constant and identity terms clearly preserve Manhattan distance, and it is an easy exercise to show that positive combinations of functions preserving Manhattan distance preserve Manhattan distance.\\
+
+Fix $X=\{x_1,\dots,x_n\}\in \ell_1$. The main idea is to construct a suitable random function $\phi:\ell_1\to \mathbb R$, on which $\mathbb E[|\phi(x)-\phi(y)|]=1-e^{-t|x-y|_1}$ for any $x,y\in \ell_1$. This is achieved as follows. Represent $\ell_1$ by $\ell_1(\mathbb Z_+)$ and for each $k\in \mathbb Z_+$ consider a Poisson point process $P_k$ on $\mathbb R$ with rate $t$. This defines a random right-continuous function $f_k:\mathbb R\to \mathbb Z^+$, where $f_k(x)$ is the number of $P_k$ points between $0$ and $x$. We consider the ``function"
+
+\[\phi(x)=\phi(x_1,\dots,x_k,\dots)=(-1)^{\sum_{k\geq 1} f_k(x_k)}.\]
+
+Although $\phi$ is not actually defined on all of $\ell_1$ at once (as there will be expectional values of $x$ for which the sum does not converge), the value $\phi(x)$ is defined almost surely for any fixed $x\in\ell_1$. Therefore for any finite point set $(x_1,\dots,x_n)\in\ell_1$ we have constructed a random $n$-tuple
+\begin{align*}
+(\phi(x_1),\dots,\phi(x_n))\in \{-1,1\}^n.
+\end{align*}
+Moreover it is not difficult to see that 
+\begin{align*}
+\mathbb{E} [ |\phi(x_i)-\phi(x_j)| ]=2-2\exp(-t\|x_i-x_j\|_1).
+\end{align*}
+
+Since $\phi$ only takes $2^n$ possible values on the $n$-tuple under consideration, it is easy to convert $\phi$ into a deterministic function $\hat\phi:X\to\ell_1^{2^n}$ with 
+\begin{align*}
+|\hat\phi(x_i)-\hat\phi(x_j)|_1=1- \exp(-t \| x_i - x_j \|_1 ).
+\end{align*}
+
+For instance, one can use each of the $2^n$ possible functions $\phi|_{X}$ as a different coordinate of $\hat\phi$, scaled by (half of) the probability of that function occuring. This shows that $f(x)=1-e^{-tx}$ preserves Manhattan distances concluding the proof.
+
+\end{proof}
+
+
+
+We remark that similar arguments show directly that many other Bernstein functions preserve Manhattan distances. Here we outline the corresponding proofs for functions $f(x)=x^s,s\in [0,1]$. In the case of $x^{1/2}$ one can mimic the proof above by taking 
+
+\[\phi(x)=\sum_i B_i(x_i)\]
+
+for $(B_1,B_2,\dots)$ i.i.d. standard Brownian motions. More generally for $s\in [1/2,1]$ this can be achieved using a stable Levy process in place of Brownian motion. For $s<1/2$ this can be achieved by composing stable Levy processes to multiply the corresponding exponents, e.g. 
+\[
+\phi(x)=B_0\left(\sum_i B_i(x_i)\right) 
+\]
+
+shows that $x^{1/4}$ preserves Manhattan distance. 
+
+\fi
+
+\subsection{A Useful Tool}\label{sec:bern:tool} 
+
+First, we prove the following lemma.
+\begin{lemma}
+
+\label{lem:monotonepositive}
+
+If $f$ is a positive definite Manhattan kernel (Definition~\ref{def:manhattan_kernel}), then $f(t)\geq 0$ for all $t\geq 0$.
+
+\end{lemma}
+
+\begin{proof}
+
+Let ${\cal X}$ denote metric space $(\R^N, \ell_1)$.  For any $N \geq 0$ we consider the points $x_i=\frac{t}{2}e_i\in {\cal X}$ for $i\in [N]$ where $e_i=(0,\dots,0,1,0,\dots,0)$ is a standard basis vector, so that $\|x_i-x_j\|_1=t$ for any $i\neq j$. Since the matrix of values $(f(\|x_i - x_j\|_1)_{i,j\in [N]}$ must be positive semidefinite, the sum of all its entries must be positive, hence:
+\begin{align*}
+N(f(0)+(N-1)f(t))\geq 0.
+\end{align*}
+The above equation implies the following:
+\begin{align*}
+\frac{f(0)}{N-1}+f(t)\geq 0
+\end{align*}
+for all integer $N \geq 0$ and real $t \geq 0$. 
+
+Since $N$ can be arbitrarily large, therefore we conclude $f(t)\geq 0$ as claimed.
+
+\end{proof}
+
+
+\subsection{Main Result}\label{sec:bern:main}
+
+The goal of this section is to prove Theorem~\ref{thm:formal_kernel_manhattan}.
+\begin{theorem}[Formal statement of Theorem~\ref{thm:informal_kernel_manhattan}] \label{thm:formal_kernel_manhattan} 
+  $f:\mathbb R_{\geq 0}\to \mathbb R$
+  is a positive definite Manhattan kernel (Definition~\ref{def:manhattan_kernel}) if and only if
+  $f(x)$ is completely monotone (Definition~\ref{def:cm}). 
+\end{theorem}
+\begin{proof}
+
+First, we prove that if $f$ is a positive definite Manhattan kernel, then $f$ must be completely monotone.  The converse direction is previously known, and is a consequence of Lemma~\ref{lem:l1-iso} and Theorem 3 of~\cite{sow01}\footnote{Theorem 3 of ~\cite{sow01} is a modern restatement of Schoenberg's work in~\cite{s42}}.
+
+Suppose that $f$ is a positive definite Manhattan kernel (Definition~\ref{def:manhattan_kernel}). Cauchy-Schwarz easily implies that $f(t)\leq f(0)$ for all $t$, so $f$ is bounded.. Now, if $x_1,\dots, x_n$ correspond to $y_1,\dots,y_n$ then
+\begin{align*}
+f(\|x_i-x_j\|_1)
+= & ~ \langle y_i,y_j\rangle \\
+= & ~ f(0)-\frac{1}{2} \|y_i-y_j\|_2^2. 
+\end{align*}
+
+Therefore $2(f(0)-f(t))$ (equivalently, $f(0)-f(t)$) sends Manhattan distances to squared Euclidean distances. Therefore $f(0)-f(t)$ is Bernstein (Definition~\ref{def:bernstein}), by Theorem~\ref{thm:informal_manhattan_transform}. Combining with Lemma~\ref{lem:monotonepositive} we conclude that $f$ must be completely monotone (Definition~\ref{def:cm}). 
+
+\iffalse
+We now argue the converse direction. Since any completely monotone function is a positive combination of functions $e^{-tx}$ and $1_{x=0}$ it suffices to show that each of these functions are positive definite Manhattan kernels for any $t$. The latter function is trivially achievable so we focus on a construction for $e^{-tx}$.  
+Let ${\cal Y}$ denote the metric space $(\R^{\mathbb{N}}, \ell_1)$. 
+
+Indeed we just constructed, for any finite set $X:=\{x_1,\dots,x_n\}\subseteq {\cal Y}$, a random function $\phi:X\to \{-\frac{1}{2},\frac{1}{2}\}$ satisfying 
+\begin{align*}
+\mathbb E[|\phi(x_i)-\phi(x_j)|]=1-e^{-t \| x_i - x_j \|_1}
+\end{align*}
+
+Letting $Y_i=\phi(x_i)$, we see that 
+\begin{align*}
+\mathbb E[Y_iY_j]
+= & ~ \frac{1}{2}\left(\mathbb E[Y_i^2+Y_j^2]-\mathbb E[(Y_i-Y_j)^2]\right)\\
+= & ~ 1-\mathbb E[ | Y_i - Y_j | ] \\
+= & ~ \exp( - t \| x_i - x_j \|_1 )
+\end{align*}
+for any $i,j$. Since $\langle Y_i,Y_j\rangle = \mathbb E[Y_i Y_j]$ defines an inner product on the space of linear combinations $\sum_i a_iY_i$ for $a_i \in \mathbb{R}$, we have constructed an explicit embedding from $X$ to an inner product mapping the $\ell_1$ metric to $e^{-tx}$ for any $t\geq 0$. 
+
+This completes the proof.
+\fi
+
+
+\end{proof}
+
+
+
+
+
+

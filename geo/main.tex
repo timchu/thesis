@@ -1,0 +1,119 @@
+%\def\isfocs{1} %%% Zhao define this
+
+\newtheorem{notation}[theorem]{Notation}
+%\newtheorem{proof}[theorem]{Proof}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{open}[theorem]{Open Problem}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\T}{\mathcal{T}}
+%\newcommand{\poly}{\mathrm{poly}}
+%\newcommand{\sign}{\mathrm{sign}}
+%\newcommand{\tr}{\mathrm{tr}}
+%\newcommand{\polylog}{\mathrm{polylog}}
+%\newcommand{\Ceff}{\mathtt{Ceff}}
+%\newcommand{\Ham}{\mathrm{Ham}}
+%\newcommand{\wh}{\widehat}
+%\newcommand{\wt}{\widetilde}
+%\newcommand{\ov}{\overline}
+%\newcommand{\mc}{\mathcal}
+%\renewcommand{\tilde}{\wt}
+%\renewcommand{\hat}{\wh}
+%\renewcommand{\bar}{\ov}
+%\renewcommand{\k}{\mathsf{K}}
+%\newcommand{\Reff}{\mathtt{Reff}}
+%\newcommand{\true}{\mathtt{true}}
+%\newcommand{\false}{\mathtt{false}}
+%\newcommand{\KAdjE}{\mathsf{KAdjE}}
+%\newcommand{\KLapE}{\mathsf{KLapE}}
+%\newcommand{\KDF}{\mathrm{KDF}}
+%\newcommand{\KDE}{\mathrm{KDE}}
+%\newcommand{\cts}{\mathrm{cts}}
+%\newcommand{\dis}{\mathrm{dis}}
+%\newcommand{\WSPD}{\mathrm{WSPD}}
+%\newcommand{\dist}{\mathrm{dist}}
+%\renewcommand{\d}{\mathrm{d}}
+%\newcommand{\bdeg}{\mathrm{bdeg}}
+%\newcommand{\SETH}{\mathsf{SETH}}
+%\newcommand{\ANN}{\mathsf{ANN}}
+%\newcommand{\RecoverExpander}{\textsc{RecoverExpander}}
+%\newcommand{\SparsifyInner}{\textsc{SparsifyInner}}
+%\newcommand{\LowDiamSet}{\textsc{LowDiamSet}}
+%\newcommand{\ReffQuery}{\textsc{ReffQuery}}
+%\newcommand{\ReffPreproc}{\textsc{ReffPreproc}}
+%\newcommand{\UnweightedCover}{\textsc{UnweightedCover}}
+%\newcommand{\BoundedCover}{\textsc{BoundedCover}}
+%\newcommand{\TwoBoundedCover}{\textsc{TwoBoundedCover}}
+%\newcommand{\LogCover}{\textsc{LogCover}}
+%\newcommand{\DesiredCover}{\textsc{DesiredCover}}
+%\newcommand{\IntervalFamily}{\textsc{IntervalFamily}}
+%\newcommand{\OversamplingWithCover}{\textsc{OversamplingWithCover}}
+
+\def\Z{{\mathbb Z}}
+\def\N{{\mathbb N}}
+\def\R{{\mathbb R}}
+\def\Q{{\mathbb Q}}
+\def\eps{\varepsilon}
+\renewcommand{\epsilon}{\eps}
+
+
+\definecolor{b2}{RGB}{51,153,255}
+\definecolor{mygreen}{RGB}{80,180,0}
+ \newcommand{\Zhao}[1]{{\color{mygreen}[Zhao: #1]}}
+%\newcommand{\Zhao}[1]{}
+\newcommand{\Josh}[1]{{\color{b2}[Josh: #1]}}
+\newcommand{\josh}[1]{{\color{b2}[Josh: #1]}}
+\newcommand{\Aaron}[1]{{\color{mygreen}[Aaron: #1]}}
+% \newcommand{\Aaron}[1]{}
+\newcommand{\tim}[1]{{\color{orange}[Tim: #1]}}
+\newcommand{\Tim}[1]{{\color{orange}[Tim: #1]}}
+
+
+
+%\newcommand{\Zhao}[1]{{\color{mygreen}}}
+\renewcommand{\Josh}[1]{{\color{b2}}}
+\renewcommand{\josh}[1]{{\color{b2}}}
+\renewcommand{\Aaron}[1]{{\color{brown}}}
+
+  \begin{abstract}
+\input{geo/abstract}
+
+  \end{abstract}
+
+%\pagenumbering{roman}
+
+{\hypersetup{linkcolor=black}
+\tableofcontents
+}
+
+\newpage
+
+% \setcounter{page}{1}
+% \pagenumbering{arabic}
+
+ 
+\input{geo/intro} %%% Section 1
+
+%\newpage
+
+\input{geo/result} %%% Section 2 Summary of Low Dimension Results
+\input{geo/preli} %%% Section 3 Preliminaries
+\input{geo/equiv} %%% Section 4 Equivalence of Matrix-Vector Multiplication and Solving Linear Systems
+\input{geo/hardness} %%% Section 5 Matrix-Vector Multiplication
+\input{geo/sparsifier_lip} %%% Section 6 Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time
+\input{geo/sparsifier_ip} %%% Section 7 Sparsifiers for $|<x,y>|$
+\input{geo/lapl_hard} %%% Section 8 Hardness of Sparsifying and Solving
+\input{geo/fastmm} %%% Section 9 Fast Multipole Method
+\input{geo/ntk} %%% Section 10 Neural Tangent Kernel
+
+%\newpage
+%\appendix
+
+%\input{dis}
+%\addcontentsline{toc}{section}{References}
+%\bibliographystyle{alpha}
+%\bibliography{ref}
+

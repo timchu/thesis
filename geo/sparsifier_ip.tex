@@ -1,0 +1,1038 @@
+\section{Sparsifiers for \texorpdfstring{$| \langle x,y \rangle|$}{}}
+
+In this section, we construct sparsifiers for Kernels of the form $| \langle x,y \rangle |$.
+
+
+\begin{lemma}[sparsification algorithm for inner product kernel]\label{lem:inner-sparsify}
+Given a set of vectors $X\subseteq \mathbb{R}^d$ with $|X|=n$ and accuracy parameter $\epsilon \in (0,1/2)$, there is an algorithm that runs in $\epsilon^{-2} n \cdot \poly(d, \log n)$ time, and outputs a graph $H$ that satisfies both of the following properties with probability at least $1 - 1/\poly(n)$:
+\begin{enumerate}
+    \item $(1 - \epsilon)L_G\preceq L_H\preceq (1 + \epsilon)L_G$;
+    \item $|E(H)|\le  \epsilon^{-2} \cdot n \cdot \poly(d,\log n)$.
+\end{enumerate}
+where $G$ is the $\k$-graph on $X$, where $\k(x,y) = |\langle x,y\rangle|$.
+\end{lemma}
+
+Throughout this section, we specify various values $C_i$. For each subscript $i$, it is the case that $1\le C_i\le \text{poly}(d,\log n)$.
+
+\subsection{Existence of large expanders in inner product graphs}\label{sec:inner_product_kernel_sparsifier_algorithm}
+
+We start by showing that certain graphs that are related to unweighted versions of $\k$-weighted graphs contain large expanders:
+
+\begin{definition}[$k$-dependent graphs]
+For a positive integer $k > 1$, call an unweighted graph $G$ $k$-\emph{dependent} if no independent set with size at least $k+1$ exists in $G$.
+\end{definition}
+
+We start by observing that inner product graphs are $(d+1)$-dependent.
+
+\begin{definition}[inner product graphs]
+For a set of points $X\subseteq \mathbb{R}^d$, the \emph{unweighted inner product graph for } $X$ is a graph $G$ with vertex set $X$ and unweighted edges $\{u,v\}\in E(G)$ if and only if $|\langle u,v\rangle| \ge \frac{1}{d+1} \|u\|_2 \|v\|_2$. The \emph{weighted inner product graph for } $X$ is a complete graph $G$ with edge weights $w_e$ for which $w_{uv} = |\langle u,v\rangle|$.
+\end{definition}
+
+We now show that these graphs are $k$-dependent:
+
+\begin{lemma}\label{lem:indep-rank}
+Suppose $M \in \R^{n \times n}$ such that $M[i,i] = 1$ for all $i \in [n]$, and $|M[i,j]| < 1/n$ for all $i \neq j$. Then, $M$ has full rank.
+\end{lemma}
+
+\begin{proof}
+Assume to the contrary that $M$ does not have full rank. Thus, there are values $c_1, \ldots, c_{n-1} \in \R$ such that for all $i \in [n]$ we have $\sum_{j=1}^{n-1} c_j M[i,j] = M[i,n]$.
+
+First, note that there must be a $j$ with $|c_j| \geq 1 + 1/n$. Otherwise, we would have
+$$1 = |M[n,n]| = \left| \sum_{j=1}^{n-1} c_j M[n,j] \right| < \frac{1}{n}  \sum_{j=1}^{n-1} \left| c_j \right|  < \frac{n-1}{n} (1 + 1/n) < 1.$$
+Assume without loss of generality that $|c_1| \geq |c_j|$ for all $j \in \{2,3,\ldots,n-1\}$, so in particular $|c_1| \geq 1 + 1/n$. Letting $c_n = -1$, this means that $\sum_{j=1}^n c_j M[1,j] = 0$, and so $M[1,1] = -\sum_{j=2}^n (c_j / c_1) M[1,j]$. Thus,
+\begin{align*}
+ 1 = |M[1,1]| = \left| \sum_{j=2}^n \frac{c_j }{ c_1} M[1,j] \right| \leq  \sum_{j=2}^n \left|\frac{c_j }{ c_1} M[1,j] \right| <  \sum_{j=2}^n \left| M[1,j] \right| < (n-1)\cdot \frac{1}{n} < 1,
+\end{align*}
+a contradiction as desired.
+\end{proof}
+
+\begin{proposition}\label{prop:inner-product-dep}
+The unweighted inner product graph for $X\subseteq \mathbb{R}^d$ is $(d+1)$-dependent.
+\end{proposition}
+
+\begin{proof}
+For an independent set $S$ in the unweighted inner product graph $G$ for $X$, define an $S\times S$ matrix $M$ with $M[i,j] = \langle s_i,s_j\rangle$ where $S = \{s_1,s_2,\hdots,s_{|S|}\}$. Then Lemma \ref{lem:indep-rank} coupled with the definition for edge presence in $G$ shows that $M$ is full rank. However, $M$ is a rank $d$ matrix because it is the matrix of inner products for dimension $d$ vectors. Therefore, $d\ge |S|$, so no independent set has size greater than $d$.
+\end{proof}
+
+Next, we show that $k$-dependent graphs are dense:
+
+\begin{proposition}[dependent graph is dense]\label{prop:k-dep-dense}
+Any $k$-dependent graph $G$ has at least $n^2/(2k^2)$ edges.
+\end{proposition}
+
+\begin{proof}
+Consider any $k+1$-tuple of vertices in $G$. There are $\binom{n}{k+1}$ such $k+1$-tuples. By definition of $k$-dependence, there must be some edge with endpoints in any $k+1$-tuple. The number of $k$-tuples that any given edge can be a part of is at most $\binom{n-2}{k-1}$. Therefore, the number of edges in the graph is at least
+\begin{align*}
+\frac{ \binom{n}{k+1} }{ \binom{n-2}{k-1} } \ge \frac{ n(n-1)}{ (k+1)k } \ge \frac{ n^2 }{ 2k^2 }
+\end{align*}
+as desired.
+\end{proof}
+
+Next, we argue that unweighted inner product graphs have large expanders:
+
+\begin{proposition}[every dense graph has a large expander]\label{prop:dense-has-expander}
+Consider an unweighted graph $G$ with $n$ vertices and at least $n^2/c$ edges for some $c > 1$. Then, there exists a set $S\subseteq V(G)$ with the following properties:
+
+\begin{enumerate}
+    \item (Size) $|S|\ge n/(40c)$
+    \item (Expander) $\Phi_{G[S]}\ge 1/(100c\log n)$
+    \item (Degree) The degree of each vertex in $S$ within $G[S]$ is at least $n/(10000c)$
+\end{enumerate}
+
+\end{proposition}
+
+\begin{proof}
+We start by partitioning the graph as follows:
+
+\begin{enumerate}
+    \item Initialize $\mathcal F = \{V(G)\}$
+    
+    \item While there exists a set $U\in \mathcal F$ with (a) a partition $U = U_1\cup U_2$ with $U_1$ cut having conductance $\le 1/(100 c\log n)$ \textbf{or} (b) a vertex $u$ with degree less than $n/(10000c)$ in $G[U]$
+    
+    \begin{enumerate}
+        \item If (a), replace $U$ in $\mathcal F$ with $U_1$ and $U_2$
+        \item Else if (b), replace $U$ in $\mathcal F$ with $U\setminus \{u\}$ and $\{u\}$
+    \end{enumerate}
+\end{enumerate}
+We now argue that when this procedure stops,
+
+$$\sum_{U\in \mathcal F} |E(G[U])| \ge n^2/(2c)$$
+To prove this, think of each splitting of $U$ into $U_1$ and $U_2$ as deleting the edges in $E(U_1,U_2)$ from $G$. Design a charging scheme that assigns deleted edges due to (a) steps to edges of $G$ as follows. Let $c_e$ denote the charge assigned to an edge $e$ and initialize each charge to 0. When $U$ is split into $U_1$ and $U_2$, let $U_1$ denote the set with $|E(U_1)| \le |E(U_2)|$. When $U$ is split, increase the charge $c_e$ for each $e\in E(U_1)\cup E(U_1,U_2)$ by $|E(U_1,U_2)|/|E(U_1)\cup E(U_1,U_2)|$.
+
+We now bound the charge assigned to each edge at the end of the algorithm. By construction, $\sum_{e\in E(G)} c_e$ is the number of edges deleted over the course of the algorithm of type (a). Each edge is assigned charge at most $\log |E(G)|\le 2\log n$ times, because $|E(U_1)|\le \frac{|E(U_1)| + |E(U_2)|}{2}\le \frac{|E(U)|}{2}$ when charge is assigned to edges in $U_1$. Furthermore, the amount of charge assigned is the conductance of the cut deleted, which is at most $1/(100c\log n)$. Therefore, 
+\begin{align*}
+c_e\le \frac{ 2 \log n } { 100c\log n } = \frac{ 1 }{ 50c }
+\end{align*}
+for all edges in $G$, which means that the total number of edges deleted of type (a) was at most $n^2/(100c)$. Each type (b) deletion reduces the number of edges in $G$ by at most $n/(10000c)$, so the total number of type (b) edge deletions is at most $n^2/(10000c)$. Therefore, the total number of edges remaining is at least 
+\begin{align*}
+\frac{ n^2 }{ c } - \frac{ n^2 }{ 100c } - \frac{ n^2 }{ 10000c }  > \frac{ n^2 }{ 2c },
+\end{align*}
+as desired.
+
+By the stopping condition of the algorithm, each connected component of $G$ after edge deletions is a graph with all cuts having conductance at least $1/(100c \log n)$ and all vertices having degree at least $n/(10000c)$. Next, we show that some set in $\mathcal F$ has at least $n/(40c)$ vertices. If this is not the case, then
+\begin{align*}
+\sum_{U\in \mathcal F} |E(G[U])|
+\le & ~ \sum_{U\in \mathcal F} |U|^2\\
+\le & ~ \sum_{U\in \mathcal F} \frac{ n}{40c } |U| & \text{~by~assuming~all~}|U|\leq n / (40c) \\
+\le & ~ \frac{ n^2 }{ 40c } & \text{~by~} |U| \leq n \\
+< & ~ \frac{n^2} {2c}
+\end{align*}
+which leads to a contradiction. Therefore, there must be some connected component with at least $n/(40c)$ vertices. Let $S$ be this component. By definition $S$ satisfies the \emph{Size} guarantee. By the stopping condition for $\mathcal F$, $S$ satisfies the other two guarantees as well, as desired.
+\end{proof}
+
+Proposition \ref{prop:dense-has-expander} does not immediately lead to an efficient algorithm for finding $S$. Instead, we give an algorithm for finding a weaker but sufficient object:
+
+\begin{proposition}[algorithm for finding sets with low effective resistance diameter]\label{prop:efficient-low-eff-res}
+For any set of vectors $X\subseteq \mathbb{R}^d$ with $n = |X|$ and unweighted inner product graph $G$ for $X$, there is an algorithm $\LowDiamSet(X)$ that runs in time
+
+$$\poly(d, \log n) n$$
+and returns a set $Q$ that has the following properties with probability at least $1 - 1/\poly(n)$:
+
+\begin{enumerate}
+    \item (Size) $|Q| \ge n/C_1$, where $C_1 = 320d^2$
+    \item (Low effective resistance diameter) For any pair of vertices $u,v\in Q$, $\Reff_G(u,v)\le \frac{C_2}{n}$, where $C_2 = (10d\log n)^{10}$
+\end{enumerate}
+\end{proposition}
+
+We prove this proposition in Section \ref{subsec:eff-res-diam}.
+
+\subsection{Efficient algorithm for finding sets with low effective resistance diameter} \label{subsec:eff-res-diam}
+
+In this section, we prove Proposition \ref{prop:efficient-low-eff-res}. We implement $\LowDiamSet$ by picking a random vertex $v$ and checking to see whether or not it belongs to a set with low enough effective resistance diameter. We know that such a set exists by Proposition \ref{prop:dense-has-expander} and the fact that dense expander graphs have low effective resistance diameter. One could check that $v$ lies in this set in $\tilde{O}(n^2)$ time by using the effective resistance data structure of \cite{ss11}. Verifying that $v$ is in such a set in $\poly(d,\log n) n$ time is challenging given that $G$ is dense. We instead use the following data structure, which is implemented by uniformly sampling sparse subgraphs of $G$ and using \cite{ss11} on those subgraphs:
+
+\begin{proposition}[Sampling-based effective resistance data structure]\label{prop:weak-sampling}
+Consider a set $X\subseteq \mathbb{R}^d$, let $n = |X|$, let $G$ be the unweighted inner product graph for $X$, and let $S\subseteq X$ be a set with the following properties:
+
+\begin{enumerate}
+    \item (Size) $|S|\ge n/C_{3a}$, where $C_{3a} = 40\cdot 8d$
+    \item (Expander) $\Phi_{G[S]}\ge 1/C_{3b}$, where $C_{3b} = 800d\log n$
+    \item (Degree) The degree of each vertex in $S$ within $G[S]$ is at least $n/C_{3c}$, where $C_{3c} = 10000\cdot 8d$.
+\end{enumerate}
+
+There is a data structure that, when given a pair of query points $u,v\in X$, outputs a value $\ReffQuery(u,v)\in \mathbb{R}_{\ge 0}$ that satisfies the following properties with probability at least $1 - 1/\poly(n)$:
+
+\begin{enumerate}
+    \item (Upper bound) For any pair $u,v\in S$, $\ReffQuery(u,v) \le C_4\Reff_G(u,v)$, where $C_4 = 10$
+    \item (Lower bound) For any pair $u,v\in X$, $\ReffQuery(u,v) \ge \Reff_G(u,v)/2$.
+\end{enumerate}
+
+The preprocessing method $\ReffPreproc(X)$ takes $\poly(d,\log n) n$ time and $\ReffQuery$ takes $\poly(d,\log n)$ time.
+\end{proposition}
+
+We now implement this data structure. $\ReffPreproc$ uniformly samples $O(\log n)$ subgraphs of $G$ and builds an effective resistance data structure for each one using \cite{ss11}. $\ReffQuery$ queries each data structure and returns the maximum:
+
+\begin{algorithm}[!ht]
+\begin{algorithmic}[1]
+\Procedure{\ReffPreproc}{$X$}
+
+    \State \textbf{Input}: $X\subseteq \mathbb{R}^d$ with unweighted inner product graph $G$
+    
+    \State $C_5\gets 1000\log n$
+    
+    \State $C_6\gets 80000CC_{3a}^2 C_{3b}^2 C_{3c}^2$, where $C$ is the constant in Theorem \ref{thm:oversampling}
+    
+    \For{$i$ from 1 through $C_5$}
+    
+        \State $H_i\gets $ uniformly random subgraph of $G$; sampled by picking $C_6 n$ uniformly random pairs $(u,v)\in X\times X$ and adding the $e = \{u,v\}$ edge to $H_i$ if and only if $\{u,v\}\in E(G)$ (that is when $|\langle u,v\rangle|\ge \frac{1}{d+1} \|u\|_2 \|v\|_2$).
+        
+        \State For each edge $e\in E(H_i)$, let $w_e = \frac{|E(G)|}{|E(H_i)|}$.
+        
+        \State $f_i\in \mathbb{R}^{X\times X}\gets$ approximation to $\Reff_{H_i}(u,v)$ given by the data structure of Theorem \ref{thm:ss11} for $\epsilon = 1/6$.
+    
+    \EndFor
+    
+\EndProcedure
+\Procedure{\ReffQuery}{$u,v$}
+
+    \State \textbf{Input}: A pair of points $u,v\in X$
+    
+    \State \textbf{Output}: An estimate for the $u$-$v$ effective resistance in $G$
+    
+    \State \Return $\max_{i=1}^{C_5} f_i(u,v)$
+    
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Bounding the runtime of these two routines is fairly straightforward. We now outline how we prove the approximation guarantee for $\ReffQuery$. To obtain the upper bound, we use Theorem \ref{thm:oversampling} to show that $H_i$ contains a sparsifier for $G[S]$, so effective resistances are preserved within $S$. To obtain the lower bound, we use the following novel Markov-style bound on effective resistances:
+
+\begin{lemma}\label{lem:sparse-lower-tail}
+Let $G$ be a $w$-weighted graph with vertex set $X$ and assign numbers $p_e\in [0,1]$ to each edge. Sample a reweighted subgraph $H$ of $G$ by independently and identically selecting $q$ edges, with an edge chosen with probability proportional to $p_e$ and added to $H$ with weight $t w_e/(p_eq)$, where $t = \sum_{e \in G} p_e$. Fix a pair of vertices $u,v$. Then for any $\kappa > 1$,
+\begin{align*}
+    \Pr \left[\Reff_H(u,v)\le \Reff_G(u,v)/\kappa \right] \le 1/\kappa.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+For two vertices $u,v$, define the (folklore) \emph{effective conductance} between $u$ and $v$ in the graph $I$ to be
+\begin{align*}
+\Ceff_I(u,v) := \min_{q\in \mathbb{R}^n: q_u = 0,q_v = 1} \sum_{\text{ edges } \{x,y\} \in I} w_{xy}(q_x - q_y)^2 .
+\end{align*}
+It is well-known that $\Ceff_I(u,v) = 1/\Reff_I(u,v)$.
+
+ Let 
+\begin{align*}
+ q^* = \arg\min_{q\in \mathbb{R}^n: q_u = 0, q_v = 1} \sum_{\{x,y\} \in E(G)} w_{xy}(q_x - q_y)^2.
+\end{align*} 
+
+Using $q^*$ as a feasible solution in the $\Ceff_H$ optimization problem shows that
+\begin{align*}
+\textbf{E}[\Ceff_H(u,v)] &\le \textbf{E} \left[\sum_{\{x,y\}\in E(G)} w_{xy}^H(q^*_x - q^*_y)^2 \right]\\
+&= \sum_{\{x,y\}\in E(G)} \textbf{E}[w_{xy}^H](q^*_x - q^*_y)^2\\
+&= \sum_{\{x,y\}\in E(G)} \frac{p_{xy}}{t}\sum_{i=1}^q (\frac{t w_{xy}^G}{q p_{xy}})(q^*_x - q^*_y)^2\\
+&= \sum_{\{x,y\}\in E(G)} w_{xy}^G(q^*_x - q^*_y)^2\\
+&= \Ceff_G(u,v)
+\end{align*}
+where $w^I_e$ denotes the weight of the edge $e$ in the graph $I$.
+
+Finally, we have 
+\begin{align*}
+\Pr[\Reff_H(u,v) < \Reff_G(u,v)/\kappa]
+= & ~ \Pr[\Ceff_H(u,v) > \kappa \cdot \Ceff_G(u,v)]\\
+\le & ~ 1/\kappa,
+\end{align*}
+where the first step follows from $\Reff_G(u,v) = 1 / \Ceff_G(u,v)$, and the last step follows from Markov's inequality.
+\end{proof}
+
+We now prove Proposition \ref{prop:weak-sampling}:
+
+\begin{proof}[Proof of Proposition \ref{prop:weak-sampling}]
+\textbf{Runtime.} We start with preprocessing. Sampling $C_6 n$ pairs and checking if each pair satisfies the edge presence condition for $G$ takes $O(d C_6 n) = \poly(d,\log n) n$ time. Preprocessing for the function $f_i$ takes $\poly(d,\log n) n$ time by the preprocessing guarantee of Theorem \ref{thm:ss11}. Since there are $C_5 \le \poly(d,\log n)$ different $i$s, the total preprocessing time is $\poly(d,\log n) n$, as desired.
+
+Next, we reason about query time. This follows immediately from the query time bound of Theorem \ref{thm:ss11}, along the the fact that $C_5 \le \poly(d,\log n)$.
+
+\textbf{Upper bound.} Let $p_e^{\text{upper}} = C_7/n$ for each edge $e\in E(G[S])$, where $C_7 = 2C_{3a}C_{3b}^2$. We apply Theorem \ref{thm:oversampling} to argue that $H_i[S]$ is a sparsifier for $G[S]$ for each $i$. By choice of $C_7$ and the \emph{Size} condition on $|S|$, $p_{u,v}^{\text{upper}}\ge \frac{2}{\Phi_{G[S]}^2 |S|}$. By Lemma \ref{lem:conductance_cut} and the \emph{Expander} condition on $G[S]$, $\frac{2}{\Phi_{G[S]}^2 |S|}\ge \Reff_{G[S]}(u,v)$ for each pair $u,v\in S$. Therefore, the second condition of Theorem \ref{thm:oversampling} is satisfied by the probabilities $p_e$. Let $q = 10000C (n^2/(C_{3a}C_{3c})) \log(n^2/(C_{3a}C_{3c})) (C_7/n)$, where $C$ is the constant in Theorem \ref{thm:oversampling}. This value of $q$ satisfies the first condition of Theorem \ref{thm:oversampling}.
+
+To apply Theorem \ref{thm:oversampling}, we just need to show that $H_i[S]$ has at least $q$ edges with probability at least $1 - 1/\poly(n)$. First, note that for uniformly random $u,v\in X$
+
+\begin{align*}
+    \Pr_{u,v\in X}[\{u,v\}\in E(G[S])] &= \Pr[\{u,v\}\in E(G[S]), u,v\in S]\\
+    &= \Pr[\{u,v\}\in E(G[S]) | u,v\in S] \Pr[u\in S]\Pr[v\in S]\\
+    &\ge \frac{1}{2C_{3c}} \frac{1}{C_{3a}^2}\\
+\end{align*}
+by the \emph{Degree} and \emph{Size} conditions on $S$. Since at least $C_6n$ pairs in $X\times X$ are chosen, $\textbf{E}[|E(H_i[S])|]\ge C_6 n (\frac{1}{2C_{3c}})(\frac{1}{C_{3a}^2})\ge 2q$. By Chernoff bounds, this means that $|E(H_i[S])|\ge q$ with probability at least $1 - 1/\poly(n)$. Therefore, Theorem \ref{thm:oversampling} applies and shows that $H_i[S]$ with edge weights $|E(G[S])|/|E(H_i[S])|$ is a $(1/6)$-sparsifier for $G[S]$ with probability at least $1 - 1/\poly(n)$. By Chernoff bounds, $|E(G[S])|/|E(H_i[S])| \ge |E(G)|/(2|E(H_i)|)$, so $\Reff_{H_i[S]}(u,v)\le \Reff_{G[S]}(u,v) (1 + 1/6)2 \le C_4 \Reff_{G[S]}(u,v)$ for all $u,v\in S$ by the sparsification accuracy guarantee. Since this holds for each $i$, the maximum over all $i$ satisfies the guarantee as well, as desired.
+
+\textbf{Lower bound.} Let $p_e^{\text{lower}} = 1/|E(G)|$ for each edge $e$. Note that $t = 1$, so with $q = |E(H_i)|$, all edges in the sampled graph should have weight $tw_e/(p_eq) = |E(G)|/|E(H_i)|$. Therefore, by Lemma \ref{lem:sparse-lower-tail}, for a pair $u,v\in X$
+
+$$\Pr[\Reff_{H_i}(u,v) \le 4\Reff_G(u,v)/5]\le \frac{4}{5}$$
+for each $i$. Since the $H_i$s are chosen independently and identically,
+
+$$\Pr[\max_i \Reff_{H_i}(u,v) \le 4\Reff_G(u,v)/5]\le \left(\frac{4}{5}\right)^{C_5} \le \frac{1}{n^{100}}$$
+Union bounding over all pairs shows that $$\ReffQuery(u,v) > (6/7)(4/5)\Reff_G(u,v) > \Reff_G(u,v)/2$$ for all $u,v\in X$ with probability at least $1 - 1/n^{98} = 1 - 1/\poly(n)$, as desired.
+\end{proof}
+
+We now describe the algorithm $\LowDiamSet$. This algorithm simply picks random vertices $v$ and queries the effective resistance data structure to check that $v$ is in a set with the desired properties:
+
+\begin{algorithm}[!h]
+\begin{algorithmic}[1]
+\Procedure{\LowDiamSet}{$X$}
+
+    \State $\ReffPreproc(X)$
+
+    \While{true}
+    
+        \State Pick a uniformly random vertex $v$ from $X$
+        
+        \State $Q_v\gets \{u\in X: \ReffQuery(u,v) \le C_2/(2n)\}$
+        
+        \State Return $Q_v$ if $|Q_v| \ge n/C_1$
+    
+    \EndWhile
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+We now prove that this algorithm suffices:
+
+\begin{proof}[Proof of Proposition \ref{prop:efficient-low-eff-res}]
+\textbf{Size and Low effective resistance diameter.} Follows immediately from the return condition and the fact that for every $u\in Q_v$ for the returned $Q_v$,
+
+$$\Reff_G(u,v)\le 2\ReffQuery(u,v)\le C_2/n$$
+by the \emph{Lower bound} guarantee of Proposition \ref{prop:weak-sampling}.
+
+\textbf{Runtime.} We start by showing that the while loop terminates after $\poly(d,\log n)$ iterations with probability at least $1 - 1/\poly(n)$. By Proposition \ref{prop:inner-product-dep}, $G$ is $(d+1)$-dependent. By Proposition \ref{prop:k-dep-dense}, $G$ has at least $n^2/(8d^2)$ edges. By Proposition \ref{prop:dense-has-expander}, $G$ has a set of vertices $S$ for which $|S|\ge n/(320d^2)$, $\Phi_{G[S]} \ge 1/(800d^2\log n)$, and for which the minimum degree of $G[S]$ is at least $n/(80000d^2)$. By the first condition on $S$,
+
+$$\Pr[v\in S] \ge 1/(320d^2)$$
+so the algorithm picks a $v$ in $S$ with probability at least $1 - 1/\poly(n)$ after at most $32000d^2\log n\le \poly(d,\log n)$ iterations. By Lemma \ref{lem:conductance_cut} applied to $S$,
+
+$$\Reff_G(x,y)\le \Reff_{G[S]}(x,y)\le \left(\frac{1}{d_S(x)} + \frac{1}{d_S(y)}\right)\frac{1}{\Phi_{G[S]}^2}$$
+for any $x,y\in S$, where $d_S(w)$ denotes the degree of the vertex $w$ in $G[S]$. By the third property of $S$, $d_S(x)\ge n/(80000d^2)$ and $d_S(y)\ge n/(80000d^2)$. By this and the second property of $S$,
+
+$$\Reff_G(x,y)\le 102400000000 d^6(\log^2 n)/n\le C_2/(2C_4 n)$$
+for any $x,y\in S$. $S$ satisfies the conditions required of Proposition \ref{prop:weak-sampling} by choice of the values $C_{3a}$, $C_{3b}$, and $C_{3c}$. Therefore, by the \emph{Upper bound} guarantee of Proposition \ref{prop:weak-sampling},
+
+$$\ReffQuery(u,v)\le C_2/(2n)$$
+for every $u\in S$ if $v\in S$. Since $|S|\ge n/C_1$ by choice of $C_1$, the return statement returns $Q_v$ with probability at least $1 - 1/\poly(n)$ when $v\in S$. Therefore, the algorithm returns a set $Q_v$ with probability at least $1 - 1/\poly(n)$ after at most $\poly(d,\log n)$ iterations.
+
+Each iteration consists of $O(n)$ $\ReffQuery$ calls and $O(n)$ additional work. Therefore, the total work done by the while loop is $\poly(d,\log n) n$ with probability at least $1 - 1/\poly(n)$. $\ReffPreproc(X)$ takes $\poly(d,\log n) n$ by Proposition \ref{prop:weak-sampling}. Thus, the total runtime is $\poly(d,\log n) n$, as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Using low-effective-resistance clusters to sparsify the unweighted IP graph}
+
+In this section, we prove the following result:
+
+\begin{proposition}[Unweighted inner product sparsification]\label{prop:unweighted-ip-sparsify}
+There is a $\poly(d,\log n) n/\epsilon^2$-time algorithm for constructing an $\epsilon$-sparsifier with $O(n/\epsilon^2)$ for the unweighted inner product graph of a set of $n$ points $X\subseteq \mathbb{R}^d$.
+\end{proposition}
+
+To sparsify an unweighted inner product graph, it suffices to apply Proposition \ref{prop:efficient-low-eff-res} repeatedly to partition the graph into $\poly(d,\log n)$ clusters, each with low effective resistance diameter. We can use this structure to get a good bound on the leverage scores of edges between clusters:
+
+\begin{proposition}[bound leverage scores of edges between clusters]\label{prop:lev-score-bound}
+For a $w$-weighted graph $G$ with vertex set $X$ and $n = |X|$, let $S_1,S_2\subseteq X$ be two sets of vertices, let $R_1 = \max_{u,v\in S_1} \Reff_G(u,v)$, and let $R_2 = \max_{u,v\in S_2} \Reff_G(u,v)$. Then, for any $u\in S_1$ and $v\in S_2$,
+\begin{align*}
+\Reff_G(u,v)\le 3R_1 + 3R_2 + \frac{3}{\sum_{x\in S_1,y\in S_2} w_{xy}} .
+\end{align*}
+where $w_{xx} = \infty$ for all $x\in X$
+\end{proposition}
+
+\begin{proof}
+Let $\chi\in \mathbb{R}^n$ be the vector with $\chi_u = 1$, $\chi_v = -1$, and $\chi_x = 0$ for all $x\in X$ with $x\ne u$ and $x\ne v$. For each vertex $x\in S_1$, let $s_x = \sum_{y\in S_2} w_{xy}$. For each vertex $y\in S_2$, let $s_y = \sum_{x\in S_1} w_{xy}$. Let $\tau = \sum_{x\in S_1} s_x = \sum_{y\in S_2} s_y = \sum_{x\in S_1,y\in S_2} w_{xy}$. Write $\chi$ as a sum of three vectors $d^{(1)},d^{(12)},d^{(2)}\in \mathbb{R}^n$ as follows:
+
+$$d_x^{(1)} = \begin{cases} 
+      1 - \frac{s_x}{\tau} & x = u \\
+      -\frac{s_x}{\tau} & x\in S_1\setminus \{u\} \\
+      0 & \text{ otherwise} \\
+   \end{cases}$$
+$$d_x^{(2)} = \begin{cases} 
+      \frac{s_x}{\tau} - 1 & x = v \\
+      \frac{s_x}{\tau} & x\in S_2\setminus \{v\} \\
+      0 & \text{ otherwise} \\
+   \end{cases}$$
+$$d_x^{(12)} = \begin{cases}
+      \frac{s_x}{\tau} & x\in S_1\\
+      -\frac{s_x}{\tau} & x\in S_2\\
+      0 & \text{ otherwise}\\
+    \end{cases}$$
+Notice that $d^{(1)} + d^{(2)} + d^{(12)} = \chi$. Furthermore, notice that $d^{(1)} = \sum_{x\in S_1} p_x\chi^{(ux)}$ and $d^{(2)} = \sum_{y\in S_2} q_y\chi^{(yv)}$, where $\chi^{(ab)}$ is the signed indicator vector of the edge from $a$ to $b$ and $\sum_{x\in S_1} p_x = 1$, $\sum_{y\in S_2} q_y = 1$, and $p_x\ge 0$ and $q_y\ge 0$ for all $x\in S_1,y\in S_2$. The function $f(d) = d^{\top} L^{\dag} d$ is convex, so by Jensen's Inequality,
+\begin{align*}
+(d^{(1)})^{\top} L_G^{\dag} (d^{(1)}) &\le \sum_{x\in S_1} p_x (\chi^{(ux)})^{\top} L_G^{\dag} \chi^{(ux)}\\
+&\le \sum_{x\in S_1} p_x R_1\\
+&\le R_1
+\end{align*}
+and $(d^{(2)})^{\top} L_G^{\dag} (d^{(2)}) \le R_2$. Let $f\in \mathbb{R}^{|E(G)|}$ be the vector with $f_{xy} = \frac{w_{xy}}{\tau}$ for all $x\in S_1,y\in S_2$ and let $f_e = 0$ for all other $e\in E(G)$. By definition of the $s_u$s, $f$ is a feasible flow for the electrical flow optimization problem for the demand vector $d^{(12)}$. Therefore,
+\begin{align*}
+(d^{(12)})^{\top} L_G^{\dag} d^{(12)} &\le \sum_{x\in S_1,y\in S_2} \frac{f_{xy}^2}{w_{xy}}\\
+&= \sum_{x\in S_1,y\in S_2} \frac{w_{xy}}{\tau^2}\\
+&= \frac{1}{\tau}
+\end{align*}
+so we can upper bound $\Reff_G(u,v)$ in the following way
+\begin{align*}
+\Reff_G(u,v) &= (d^{(1)} + d^{(2)} + d^{(12)})^{\top} L_G^{\dag} (d^{(1)} + d^{(2)} + d^{(12)})\\
+&\le 3 (d^{(1)})^{\top} L_G^{\dag} d^{(1)} + 3 (d^{(2)})^{\top} L_G^{\dag} d^{(2)} + 3 (d^{(12)})^{\top} L_G^{\dag} d^{(12)}\\
+&\le 3 R_1 + 3R_2 + 3/\tau
+\end{align*}
+as desired.
+\end{proof}
+
+
+
+\subsection{Sampling data structure}
+
+In this section, we give a data structure for efficiently sampling pairs of points $(u,v)\in \mathbb{R}^d\times \mathbb{R}^d$ with probability proportional to a constant-factor approximation of $|\langle u,v\rangle|$:
+
+\begin{lemma}\label{lem:simple-sampling-ds}
+Given a pair of sets $S_1,S_2\subseteq \mathbb{R}^d$, there is a data structure that can be constructed in $\tilde{O}(d|S_1| + |S_2|)$ time that, in $\poly(d\log(|S_1| + |S_2|))$ time per sample, independently samples pairs $u\in S_1, v\in S_2$ with probability $p_{uv}$, where
+
+$$\frac{1}{2} \frac{|\langle u,v\rangle|}{\sum_{a\in S_1,b\in S_2} |\langle a,b\rangle|}\le p_{uv}\le 2\frac{|\langle u,v\rangle|}{\sum_{a\in S_1,b\in S_2} |\langle a,b\rangle|}$$
+Furthermore, it is possible to query the probability $p_{uv}$ in $\poly(d\log(|S_1| + |S_2|))$ time.
+\end{lemma}
+
+To produce this data structure, we use the following algorithm for sketching $\ell_1$-norms:
+
+\begin{theorem}[Theorem 3 in \cite{i06}]\label{thm:l1-sketch}
+An efficiently computable, $\poly(\log d, 1/\epsilon)$-space linear sketch exists for the $\ell_1$ norm. That is, given a $d\in \mathbb{Z}_{\ge 1}$, $\delta\in (0,1)$, and $\epsilon\in (0,1)$, there is a matrix $C = \textsc{SketchMatrix}(d,\delta,\epsilon)\in \mathbb{R}^{\ell\times d}$ and an algorithm $\textsc{RecoverNorm}(s,d,\delta,\epsilon)$ with the following properties:
+
+\begin{enumerate}
+    \item (Approximation) For any vector $v\in \mathbb{R}^d$, with probability at least $1 - \delta$ over the randomness of $\textsc{SketchMatrix}$, the value $r = \textsc{RecoverNorm}(Cv, d, \delta, \epsilon)$ is as follows:
+    
+    $$(1 - \epsilon) \|v\|_1\le r\le (1 + \epsilon)\|v\|_1$$
+    \item $\ell = (c/\epsilon^2) \log(1/\delta)$ for some constant $c > 1$
+    \item (Runtime) $\textsc{SketchMatrix}$ and $\textsc{RecoverNorm}$ take $\tilde{O}(\ell d)$ and $\poly(\ell)$ time respectively.
+\end{enumerate}
+\end{theorem}
+
+We use this sketching algorithm to obtain the desired sampling algorithm in the following subroutine:
+
+\begin{corollary}\label{cor:s-data-struct}
+Given a set $S\subseteq \mathbb{R}^d$, an $\epsilon\in (0,1)$, and a $\delta\in (0,1)$, there exists a data structure which, when given a query point $u\in \mathbb{R}^d$, returns a $(1 \pm \epsilon)$-multiplicative approximation to $\sum_{v\in S} |\langle u,v\rangle|$ with probability at least $1 - \delta$. This data structure can be computed in $O(\ell d |S|)$ preprocessing time and takes $\poly(\ell d)$ time per query, where $\ell = O( \epsilon^{-2} \log(1/\delta))$.
+\end{corollary}
+
+\begin{proof}
+Let $n = |S|$ and $C = \textsc{SketchMatrix}(n,\delta,\epsilon)$. We will show that the following algorithm returns the desired estimate with probability at least $1 - \delta$:
+
+\begin{enumerate}
+    \item Preprocessing:
+    \begin{enumerate}
+        \item Index the rows of $C$ by integers between 1 and $\ell$. Index columns of $C$ by points $v\in S$.
+        \item Compute the vector $x^{(i)} = \sum_{v\in S} C_{iv} v$ for each $i\in \ell$, where $\ell = (c/\epsilon^2)\log(1/\delta)$ for the constant $c$ in Theorem \ref{thm:l1-sketch}.
+    \end{enumerate}
+    \item Given a query point $u\in \mathbb{R}^d$,
+    \begin{enumerate}
+        \item Let $y\in \mathbb{R}^{\ell}$ be a vector with $y_i = \langle u, x^{(i)}\rangle$ for each $i\in [\ell]$.
+        \item Return $\textsc{RecoverNorm}(y,n,\delta,\epsilon)$
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Approximation}. Let $w \in \mathbb{R}^n$ be the vector with $w_v = \langle u,v\rangle$ for each $v\in S$. It suffices to show that the number that a query returns is a $(1\pm\epsilon)$-approximation to $\|w\|_1$. By definition, $y_i = \sum_{v\in S} C_{iv} w_v$ for all $i\in [\ell]$ and $v\in S$, so $y = C w$. Therefore, by the \emph{Approximation} guarantee of Theorem \ref{thm:l1-sketch}, $\textsc{RecoverNorm}(y,n,\delta,\epsilon)$ returns a $(1\pm\epsilon)$-approximation to $\|w\|_1$ with probability at least $1 - \delta$, as desired.
+
+\textbf{Preprocessing time}. Computing the matrix $C$ takes $\tilde{O}(n\ell)$ time by the \emph{Runtime} guarantee of Theorem \ref{thm:l1-sketch}. Computing the vectors $x^{(i)}$ for all $i\in [\ell]$ takes $O(d\ell n)$ time. This is all of the preprocessing steps, so the total runtime is $\tilde{O}(d\ell n)$, as desired.
+
+\textbf{Query time}. Each query consists of $\ell$ inner products of $d$ dimensioal vectors and one call to $\textsc{RecoverNorm}$, for a total of $O(\ell d + \poly(\ell))$ work, as desired.
+\end{proof}
+
+We use this corollary to obtain a sampling algorithm as follows, where $n = |S_1| + |S_2|$:
+
+\begin{enumerate}
+    \item Preprocessing:
+    \begin{enumerate}
+        \item Use the Corollary \ref{cor:s-data-struct} data structure to $(1 \pm 1/(100\log n))$-approximate $\sum_{v\in S_2} |\langle u,v\rangle|$ for each $u\in S_1$. Let $t_u$ be this estimate for each $u\in S_1$. (one preprocess for $S\gets S_2$, $|S_1|$ queries).
+        \item Form a balanced binary tree $\mathcal T$ of subsets of $S_2$, with $S_2$ at the root, the elements of $S_2$ at the leaves, and the property that for every parent-child pair $(P,C)$, $|C|\le 2|P|/3$.
+        \item For every node $S$ in the binary tree, construct a $(1 \pm 1/(100\log n))$-approximate data structure for $S$.
+    \end{enumerate}
+    \item Sampling query:
+    \begin{enumerate}
+        \item Sample a point $u\in S_1$ with probability $t_u/(\sum_{a\in S_1} t_a)$.
+        \item Initialize $S\gets S_2$. While $|S| > 1$,
+        \begin{enumerate}
+            \item Let $P_1$ and $P_2$ denote the two children of $S$ in $\mathcal T$
+            \item Let $s_1$ and $s_2$ be the $(1 \pm 1/(100\log n))$-approximations to $\sum_{v\in P_1} |\langle u,v\rangle|$ and $\sum_{v\in P_2} |\langle u,v\rangle|$ respectively obtained from the data structure for $S$ computed during preprocessing.
+            \item Reset $S$ to $P_1$ with probability $s_1/(s_1 + s_2)$; otherwise reset $S$ to $P_2$.
+        \end{enumerate}
+        \item Return the single element in $S$.
+    \end{enumerate}
+    \item $p_{uv}$ query:
+    \begin{enumerate}
+        \item Return the product of the $O(\log n)$ probabilities attached to ancestor nodes of the node $\{v\}$ in $\mathcal T$ for $u$, obtained from the preprocessing step (as during the sampling query)
+    \end{enumerate}
+\end{enumerate}
+
+$s_i/(s_1 + s_2)$ is a $(1 \pm 1/(100\log n))^2$-approximation to $\Pr[v\in P_i | v\in S]$ for each $i\in \{1,2\}$. A $v\in S_2$ is sampled with probability proportional to the product of these conditional probabilities for the ancestors, for which $p_{uv}$ is a $(1 + 1/(100\log n))^{2\log n + 1}\le 2$-approximation. The total preprocessing time is proportional to the size of all sets in the tree, which is at most $O(|S_2|\log |S_2|)$. The total query time is also $\text{polylog}(|S_1| + |S_2|)\poly(d)$ due to the logarithmic depth of the query binary tree.
+
+We now expand on this intuition to prove Lemma \ref{lem:simple-sampling-ds}:
+
+\begin{proof}[Proof of Lemma \ref{lem:simple-sampling-ds}]
+We show that the algorithm given just before this proof satisfies this lemma:
+
+\textbf{Probability guarantee}. Consider a pair $u\in S_1$, $v\in S_2$. Let $A_0 = S_2, A_1,\hdots A_{k-1}, A_k = \{v\}$ denote the sequence of ancestor sets of the singleton set $\{v\}$ in $\mathcal{T}$. For each $i\in [k]$, let $B_i$ be the child of $A_{i-1}$ besides $A_i$ (unique because $\mathcal{T}$ is binary). For a node $X$ of $\mathcal{T}$, let $s_X$ be the $(1\pm 1/(100\log n))$-approximation to $\sum_{v\in X} |\langle u,v\rangle|$ used by the algorithm. The sampling probability $p_{uv}$ is the following product of probabilities:
+
+$$p_{uv} = \frac{t_u}{\sum_{a\in S_1} t_a} \prod_{i=1}^k \frac{s_{A_i}}{s_{A_i} + s_{B_i}}$$
+$s_{A_i} + s_{B_i}$ is a $(1\pm 1/(100\log n))$-approximation to $\sum_{v\in A_{i-1}} |\langle u,v\rangle|$ by the approximation guarantee of Corollary \ref{cor:s-data-struct}. $s_{A_i}$ is a $(1\pm 1/(100\log n))$-approximation to $\sum_{v\in A_i} |\langle u,v\rangle|$ by the approximation guarantee of Corollary \ref{cor:s-data-struct}. By these guarantees and the approximation guarantees for the $t_a$s for $a\in S_1$, $p_{uv}$ is a $(1 \pm 1/(100\log n))^{2k+2}\le (1\pm 1/2)$-approximation to
+
+$$\frac{\sum_{b\in S_2} |\langle u,b\rangle|}{\sum_{a\in S_1,b\in S_2} |\langle a,b\rangle|}\prod_{i=1}^k \frac{\sum_{b\in A_i} |\langle u,b\rangle|}{\sum_{b\in A_{i-1}} |\langle u,b\rangle|} = \frac{|\langle u,v\rangle|}{\sum_{a\in S_1,b\in S_2} |\langle a,b\rangle|}$$
+as desired, since $k\le \log n$.
+
+\textbf{Preprocessing time}. Let $\delta = 1/n^{1000}$ and $\ell = (c/\epsilon^2)\log(1/\delta)$, where $c$ is the constant from Theorem \ref{thm:l1-sketch}. Approximating all $t_u$s takes $\tilde{O}(\ell d |S_2|) + |S_1|\poly(\ell d) = n \poly(\ell d)$ time by Corollary \ref{cor:s-data-struct}. Preprocessing the data structures for each node $S\in \mathcal{T}$ takes $\sum_{S\in \mathcal{T}} O(\ell d |S|)$ time in total. Each member of $S_2$ is in at most $O(\log n)$ sets in $\mathcal{T}$, since $\mathcal{T}$ is a balanced binary tree. Therefore, $\sum_{S\in \mathcal{T}} O(\ell d |S|)\le \tilde{O}(n\ell d)$, so the total preprocessing time is $\tilde{O}(n\ell d)$, as desired.
+
+\textbf{Query time}. $O(\log n)$ of the data structures attached to sets in $\mathcal{T}$ are queried per sample query, for a total of $O(\log n)\poly(\ell d)$ time by Corollary \ref{cor:s-data-struct}, as desired.
+
+\end{proof}
+
+We use this data structure via a simple reduction to implement the following data structure, which suffices for our applications:
+
+\begin{proposition}\label{prop:main-sampling-ds}
+Given a family $\mathcal G$ of sets in $\mathbb{R}^d$, a collection of positive real numbers $\{\gamma_S\}_{S\in \mathcal G}$, and a set $S_2\subseteq \mathbb{R}^d$, there is a data structure that can be constructed in $\tilde{O}(d(|S_2| + \sum_{S\in \mathcal G} |S|))$ time that, in $\poly(d\log(|S_2| + \sum_{S\in \mathcal G} |S|))$ time per sample, independently samples pairs $u\in S$ for some $S\in \mathcal G$, $v\in S_2$ with probability $p_{uv}$, where
+
+$$\frac{\gamma_S |\langle u,v\rangle|}{(\sum_{A\in \mathcal G} \gamma_A) \sum_{a\in A,b\in S_2} |\langle a,b\rangle|}$$
+is a 2-approximation to $p_{uv}$. Furthermore, it is possible to query the number $p_{uv}$ in time $\poly(d\log(|S_2| + \sum_{S\in \mathcal G} |S|))$ time.
+\end{proposition}
+
+\begin{proof}
+Define a new set $S_1\subseteq \mathbb{R}^{d+\log n}$ as follows, where $n = |S_2| + \sum_{S\in \mathcal G} |S|$:
+
+$$S_1 = \cup_{S\in \mathcal G} \{f_S(u) \forall u\in S\}$$
+where the function $f_S:\mathbb{R}^d\rightarrow \mathbb{R}^d$ is defined as follows for any set $S\in \mathcal G$:
+
+$$f_S(u) = \frac{\gamma_S (u,\text{id}(u))}{\sum_{a\in S,b\in S_2} |\langle a,b\rangle|}$$
+where $\text{id}: \cup_{S\in \mathcal G} S\rightarrow \{0,1\}^{\log n}$ is a function that outputs a unique ID for each element of $\cup_{S\in \mathcal G} S$. Define $f(u) = f_S(u)$ for the unique $S$ containing $u$ (Without loss of generality assume that exactly one $S$ contains $u$). Let $S_2' = \{(x,0^{\log n}) \forall x\in S_2\}$. Construct the data structure $\mathcal D$ from Lemma \ref{lem:simple-sampling-ds} on the pair of sets $S_1,S_2'$. Now, sample a pair of $d$-dimensional vectors as follows:
+
+\begin{enumerate}
+    \item Sample:
+    \begin{enumerate}
+        \item Sample a pair $(x,(y,0^{\log n}))$ from $\mathcal D$, where $y\in S_2$ and $x\in \mathbb{R}^{d+\log n}$.
+        \item Since the function $\text{id}$ outputs values that are not proportional to one other, the function $f$ is injective.
+        \item Return the pair $(f^{-1}(x),y)$.
+        \item (For the proof, let $w = f^{-1}(x)$ and let $S$ be the unique set for which $w\in S$)
+    \end{enumerate}
+\end{enumerate}
+
+This data structure has preprocessing time $\tilde{O}(d(|S_2'| + |S_1|)) = \tilde{O}(d(|S_2| + \sum_{S\in \mathcal G} |S|))$ and sample query time $\poly(d\log n)$ by Lemma \ref{lem:simple-sampling-ds}, as desired. Therefore, we just need to show that it samples a pair $(w,y)$ with the desired probability. By the probability guarantee for Lemma \ref{lem:simple-sampling-ds} and the injectivity of the mapping $f$ combined over all $S\in \mathcal G$, $p_{wy}$ is 2-approximated by
+
+\begin{align*}
+\frac{|\langle x,(y,0^{\log n})\rangle|}{\sum_{a\in S_1,b\in S_2'} |\langle a,b\rangle|} &= \frac{\gamma_S |\langle w,y\rangle|}{\sum_{A\in \mathcal G} \sum_{p\in A,q\in S_2} |\langle p,q\rangle|}\\
+\end{align*}
+as desired.
+\end{proof}
+
+\subsection{Weighted IP graph sparsification}
+
+In this section, we use the tools developed in the previous sections to sparsify weighted inner product graphs. To modularize the exposition, we define a partition of the edge set of a weighted inner product graph:
+
+\begin{definition}
+For a $w$-weighted graph $G$ and three functions on pairs of vertex sets $\zeta,\kappa,\delta$, a collection of vertex set family-vertex set pairs $\mathcal F$ is called a $(\zeta,\kappa,\delta)$-\emph{cover} for $G$ iff the following property holds:
+
+\begin{enumerate}
+    \item (Coverage) For any $e = \{u,v\}\in E(G)$, there exists a pair $(\mathcal G,S_1)\in \mathcal F$ and an $S_0\in \mathcal G$ for which $u\in S_0,v\in S_1$ or $u\in S_1,v\in S_0$, and
+    $$\Reff_G(u,v)\le \frac{\delta(S_0,S_1)}{w_{uv}} + \frac{\kappa(S_0,S_1)}{\max_{x\in S_0,y\in S_1} w_{xy}} + \frac{\zeta(S_0,S_1)}{\sum_{x\in S_0,y\in S_1} w_{xy}}$$
+\end{enumerate}
+
+A $(\zeta,\kappa,\delta)$-cover is said to be $s$-\emph{sparse} if $\sum_{(\mathcal G,S_1)\in \mathcal{F}} \sum_{S_0\in \mathcal G} ((\delta(S_0,S_1) + \kappa(S_0,S_1))|S_0||S_1| + \zeta(S_0,S_1)) \le s$. A $(\zeta,\kappa)$-cover is said to be $w$-\emph{efficient} if $\sum_{(\mathcal G,S_1)\in \mathcal F} \left(|S_1| + \sum_{S_0\in \mathcal G} |S_0|\right)\le w$. When $\delta = 0$, we simplify notation to refer to $(\zeta,\kappa)$-covers instead.
+\end{definition}
+
+Given a $(\zeta,\kappa)$-cover for a weighted or unweighted inner product graph, one can sparsify it using Theorem \ref{thm:oversampling} and the sampling data structure from Proposition \ref{prop:main-sampling-ds}:
+
+\begin{proposition}\label{prop:sparsify-given-cover}
+Given a set $X\subseteq \mathbb{R}^d$ with $n = |X|$ and an $s$-sparse $w$-efficient $(\zeta,\kappa,\delta)$-cover $\mathcal F$ for the weighted inner product graph $G$ on $X$, and $\epsilon,\delta \in (0,1)$, there is an 
+\begin{align*}
+\poly(d,\log n,\log s,\log w,\log(1/\delta)) (s + w + n)/\epsilon^4
+\end{align*}
+time algorithm for constructing an $(1\pm\epsilon)$-sparsifier for $G$ with $O(n\log n/\epsilon^2)$ edges with probability at least $1 - \delta$.
+\end{proposition}
+
+\begin{algorithm}
+\begin{algorithmic}[1]\caption{}
+\Procedure{\OversamplingWithCover}{$X,\mathcal F,\epsilon,\delta$}
+    \State (for analysis only: define $r_{uv}$ for each pair $u,v\in X$ as in proof)
+    \State \textbf{Construct the Proposition \ref{prop:main-sampling-ds} data structure $\mathcal D_{(\mathcal G,S_1)}$ with $\gamma_S = \zeta(S,S_1)$ for each $S\in \mathcal G$}
+    \State $t \leftarrow \sum_{u,v\in X} r_{uv}$
+    \State $q \leftarrow C \cdot \epsilon^{-2} \cdot t \log t \cdot \log(1/\delta)$
+    \State Initialize $H$ to be an empty graph
+    \For{$i = 1 \to q$}
+        \State Sample one $e = \{u,v\} \in X\times X$ with probability $r_e/t$ \textbf{by sampling $\{u,v\}$ uniformly or from some data structure $\mathcal D_{(\mathcal G,S_1)}$ (see proof for details)}
+        \State Add that edge with weight $w_e t / (r_e q)$ to graph $H$ (note: $r_e$ can be computed in $\poly(d,\log w)$ by the $p_{uv}$ query time in Prop \ref{prop:main-sampling-ds})
+    \EndFor
+    \State \Return Spielman-Srivastava \cite{ss11} applied to $H$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+
+\textbf{Filling in algorithm details (the bolded parts)}. We start by filling in the details in the algorithm
+
+\noindent $\OversamplingWithCover$. First, we define $r_{uv}$ for each pair of distinct $u,v\in X$. $\{u,v\}$ is a weighted edge in $G$ with weight $w_{uv}$. Define
+
+$$r_{uv} = 2\sum_{(\mathcal G,S_1)\in \mathcal F}\sum_{S_0\in \mathcal G: u\in S_0,v\in S_1 \text{ or } v\in S_0,u\in S_1} \left(\delta(S_0,S_1) + \kappa(S_0,S_1) + \left(\sum_{A\in \mathcal G} \zeta(A,S_1)\right) p_{uv}^{(\mathcal G,S_1)}\right)$$
+where $p_{uv}^{(\mathcal G,S_1)}$ is the probability $p_{uv}$ defined for the data structure $\mathcal D^{(\mathcal G,S_1)}$ in Proposition \ref{prop:main-sampling-ds}. Next, we fully describe how to sample pairs $\{u,v\}$ with probability proportional to $r_{uv}$. Notice that $t$ can be computed in $O(w)$ time because
+
+\begin{align*}
+t &= 2\sum_{u,v\in X} r_{uv}\\
+&= 2\sum_{(\mathcal G,S_1)\in \mathcal F} \sum_{S_0\in \mathcal G} \sum_{u\in S_0,v\in S_1} \left(\delta(S_0,S_1) + \kappa(S_0,S_1) + \left(\sum_{A\in \mathcal G} \zeta(A,S_1)\right) p_{uv}^{(\mathcal G,S_1)}\right)\\
+&= 2\sum_{(\mathcal G,S_1)\in \mathcal F} \left(\left(\sum_{A\in \mathcal G} \zeta(A,S_1)\right) + \sum_{S_0\in \mathcal G} |S_0||S_1|(\delta(S_0,S_1) + \kappa(S_0,S_1))\right)\\
+\end{align*}
+can be computed in $O(w)$ time. Sample a pair $\{u,v\}$ with probability equal to $r_{uv}/t$ as follows:
+
+\begin{enumerate}
+    \item Sample a pair:
+    \begin{enumerate}
+        \item Sample a Bernoulli $b\sim \text{Bernoulli}\left(\frac{1}{t}\sum_{(\mathcal G,S_1)\in \mathcal F} \left(\sum_{A\in \mathcal G} \zeta(A,S_1)\right)\right)$.
+        \item If $b = 1$
+        \begin{enumerate}
+            \item Sample a pair $(\mathcal G,S_1)\in \mathcal F$ with probability proportional to $\sum_{A\in \mathcal G} \zeta(A,S_1)$.
+            \item Sample the pair $(u,v)$ using the data structure $\mathcal D^{(\mathcal G,S_1)}$.
+        \end{enumerate}
+        \item Else
+        \begin{enumerate}
+            \item Sample a pair $(\mathcal G,S_1)\in \mathcal F$ with probability proportional to $\sum_{S_0\in \mathcal G} |S_0||S_1|(\delta(S_0,S_1) + \kappa(S_0,S_1))$.
+            \item Sample an $S_0\in \mathcal G$ with probability proportional to $|S_0|(\delta(S_0,S_1) + \kappa(S_0,S_1))$.
+            \item Sample $(u,v)\in S_0\times S_1$ uniformly.
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+All sums in the above sampling procedure can be precomputed in $\poly(d) w$ time. After doing this precomputation, each sample from the above procedure takes $\poly(d,\log n,\log w)$ time by to Proposition \ref{prop:main-sampling-ds} for the last step in the if statement and uniform sampling from $[0,1]$ with intervals otherwise.
+
+\textbf{Sparsifier correctness}. By the \emph{Coverage} guarantee of $\mathcal F$ and the approximation guarantee for the $p_{uv}$s in Proposition \ref{prop:main-sampling-ds}, $w_{uv}\Reff_G(u,v)\le r_{uv}$ for all $u,v\in X$. Therefore, Theorem \ref{thm:oversampling} applies and shows that the graph $H$ returned is a $(1\pm\epsilon)$-sparsifier for $G$ with probability at least $1 - \delta$. Spielman-Srivastava only worsens the approximation guarantee by a $(1+\epsilon)$ factor, as desired.
+
+\underline{Number of edges in $H$}. It suffices to bound $q$. In turn, it suffices to bound $t$. Recall from above that
+
+\begin{align*}
+t &= 2\sum_{(\mathcal G,S_1)\in \mathcal F} \left(\left(\sum_{A\in \mathcal G} \zeta(A,S_1)\right) + \sum_{S_0\in \mathcal G} |S_0||S_1|(\delta(S_0,S_1) + \kappa(S_0,S_1))\right)\\
+&= 2\sum_{(\mathcal G,S_1)\in \mathcal F} \left(\sum_{S_0\in \mathcal G} \left(|S_0||S_1|(\delta(S_0,S_1) + \kappa(S_0,S_1)) + \zeta(S_0,S_1)\right)\right)\\
+&\le 2s
+\end{align*}
+since $\mathcal F$ is $s$-sparse. Therefore, $q\le \poly(d,\log s,\log 1/\delta) s/\epsilon^2$.
+
+\textbf{Runtime}. We start by bounding the runtime to produce $H$. Constructing the data structure $\mathcal D_{(\mathcal G,S_1)}$ takes $\poly(d,\log n,\log w) (|S_1| + \sum_{S_0\in \mathcal G} |S_0|)$ time by Proposition \ref{prop:main-sampling-ds}. Therefore, the total time to construct all data structures is at most $\poly(d,\log n,\log w) w$. Computing $t$ and $q$, as discussed above, takes $O(w)$ time. $q\le \poly(d,\log s,\log 1/\delta) s/\epsilon^2$ as discussed above and each iteration of the for loop takes $\poly(d,\log n,\log w)$ time by the query complexity bounds of Proposition \ref{prop:main-sampling-ds}. Therefore, the total time required to produce $H$ is at most $\poly(d,\log n,\log s,\log w,\log 1/\delta) (s + w)/\epsilon^2$. Running Spielman-Srivastava requires an additional $\poly(\log s,\log n) (s/\epsilon^2 + n)/\epsilon^2$ time, for a total of $\poly(d,\log n,\log s,\log w,\log 1/\delta) (s + w)/\epsilon^4$ time, as desired.
+\end{proof}
+
+Therefore, to sparsify weighted inner product graphs, it suffices to construct an $\poly(d,\log n) n$-sparse, $\poly(d,\log n) n$-efficient $(\zeta,\kappa)$-cover. We break up this construction into a sequence of steps:
+
+\subsubsection{\texorpdfstring{$(\zeta,\kappa)$}{}-cover for unweighted IP graphs}
+
+We start by constructing covers for unweighted inner product graphs. The algorithm repeatedly peels off sets constructed using $\LowDiamSet$ and returns all pairs of such sets. The sparsity of the cover is bounded due to Proposition \ref{prop:lev-score-bound}. The efficiency of the cover is bounded thanks to a $\poly(d,\log n)$ bound on the number of while loop iterations, which in turn follows from the \emph{Size} guarantee of Proposition \ref{prop:weak-sampling}.
+
+\begin{proposition}[Cover for unweighted graphs]\label{prop:unweighted-cover}
+Given a set $X\subseteq \mathbb{R}^d$ with $|X| = n$, there is an $\poly(d,\log n)$-time algorithm $\UnweightedCover(X)$ that, with probability at least $1 - 1/\poly(n)$, produces an $\poly(d,\log n) n$-sparse $\poly(d,\log n) n$-efficient $(\zeta,\kappa)$-cover for the unweighted inner product graph $G$ on $X$.
+\end{proposition}
+
+\begin{algorithm}[!h]\caption{}
+\begin{algorithmic}[1]
+\Procedure{\UnweightedCover}{$X$}
+
+    \State \textbf{Input}: $X\subseteq \mathbb{R}^d$
+    
+    \State \textbf{Output}: An sparse, efficient $(\zeta,\kappa)$ cover for the unweighted inner product graph $G$ on $X$
+    
+    \State $\mathcal U \gets \emptyset$
+    
+    \State $Y\gets X$
+    
+    \While{$Y\ne \emptyset$} \Comment{Finding expanders}
+    
+        \State Let $Q\gets \LowDiamSet(Y)$
+    
+        \State Add the set $Q$ to $\mathcal U$
+        
+        \State Remove the vertices $Q$ from $Y$
+        
+    \EndWhile
+    
+    \State \Return $\{(\mathcal U, S): \forall S\in \mathcal U\}$
+    
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+Let $\mathcal F = \UnweightedCover(X)$ and define the functions $\zeta,\kappa$ as follows: $\zeta(S_0,S_1) = 3$ and $\kappa(S_0,S_1) = C_2\left(\frac{3}{|S_0|} + \frac{3}{|S_1|}\right)$ for any pair of sets $S_0,S_1\subseteq X$. Recall that $C_2$ is defined in the statement of Proposition \ref{prop:efficient-low-eff-res}.
+
+\textbf{Number of while loop iterations}. We start by showing that there are at most $\poly(d,\log n)$ while loop iterations with probability at least $1 - 1/\poly(n)$. By the \emph{Size} guarantee of Proposition \ref{prop:efficient-low-eff-res}, when $\LowDiamSet$ succeeds (which happens with probability $1 - 1/\poly(n)$), $Y$ decreases in size by a factor of at least $1 - 1/p(d,\log n)$ for some fixed constant degree polynomial $p$. Therefore, after $p(d,\log n) \log n = \poly(d,\log n)$ iterations, $Y$ will be empty, as desired. Therefore, $|\mathcal U|\le \poly(d,\log n)$.
+
+\textbf{Runtime}. The runtime follows immediately from the bound on the number of while loop iterations and the runtime bound on $\LowDiamSet$ from Proposition \ref{prop:efficient-low-eff-res}.
+
+\textbf{Coverage}. For each $S\in \mathcal U$, $\max_{u,v\in S} \Reff_G(u,v)\le \frac{C_2}{|S|}$ by the \emph{Low effective resistance diameter} guarantee of Proposition \ref{prop:efficient-low-eff-res}. Plugging this into Proposition \ref{prop:lev-score-bound} immediately shows that $\mathcal F$ is a $(\zeta,\kappa)$-cover for $G$.
+
+\textbf{Sparsity bound}. We bound the desired quantity directly using the fact that $|\mathcal U|\le \poly(d,\log n)$:
+
+\begin{align*}
+    \sum_{(\mathcal U,S_1)\in \mathcal F} \sum_{S_0\in \mathcal U} \left(\kappa(S_0,S_1)|S_0||S_1| + \zeta(S_0,S_1)\right) &\le \poly(d,\log n)\sum_{(\mathcal U,S_1)\in \mathcal F} \sum_{S_0\in \mathcal U} (|S_0| + |S_1| + 1)\\
+    &\le \poly(d,\log n) n\\
+\end{align*}
+as desired.
+\end{proof}
+
+\textbf{Efficiency bound}. Follows immediately from the bound on $|\mathcal U|$.
+
+\subsubsection{\texorpdfstring{$(\zeta,\kappa)$}{}-cover for weighted IP graphs on bounded-norm vectors}
+
+Given a covers for unweighted inner product graphs, it is easy to construct covers for weighted inner product graphs on bounded norm vectors simply by removing edge weights and producing the cover. Edge weights only differ by a factor of $O(d)$ in these two graphs, so effective resistances also differ by at most that amount. Note that the following algorithm also works for vectors with norms between $z$ and $2z$ for any real number $z$.
+
+\begin{proposition}[Weighted bounded norm cover]\label{prop:bounded-cover}
+Given a set $X\subseteq \mathbb{R}^d$ with $1\le \|u\|_2\le 2$ for all $u\in X$ and $|X| = n$, there is an $n\poly(d,\log n)$ time algorithm $\BoundedCover(X)$ that produces a $\poly(d,\log n)$-sparse, $\poly(d,\log n)$-efficient $(\zeta,\kappa)$-cover for the weighted inner product graph $G$ on $X$.
+\end{proposition}
+
+\begin{proof}
+Let $G_0$ be the unweighted inner product graph on $X$. Let $G_1$ be the weighted graph $G$ with all edges that are not in $G_0$ deleted. Let $\mathcal F$ be the $(\zeta_0,\kappa_0)$-cover given by Proposition \ref{prop:unweighted-cover} for $G_0$. Let this cover be the output of $\BoundedCover(X)$. It suffices to show that $\mathcal F$ is a $(\zeta,\kappa)$-cover for $G$, where $\zeta = 8d \zeta_0$ and $\kappa = 8d \kappa_0$. By Rayleigh monotonicity,
+
+$$\Reff_G(u,v)\le \Reff_{G_1}(u,v)$$
+for all $u,v\in X$. Let $w_e$ denote the weight of the edge $e$ in $G_1$. For all edges $e$ in $G_1$, $\frac{1}{d+1}\le w_e\le 4$ by the norm condition on $X$. Therefore, for all $u,v\in X$,
+
+$$\Reff_{G_1}(u,v)\le (d+1)\Reff_{G_0}(u,v)$$
+By the \emph{Coverage} guarantee on $\mathcal F$, there exists a pair $(\mathcal G,S_1)$ and an $S_0\in \mathcal G$ for which $u\in S_0,v\in S_1$ or $v\in S_0,u\in S_1$ and
+
+$$\Reff_{G_1}(u,v)\le (d+1) \left(\kappa_0(S_0,S_1) + \frac{\zeta_0(S_0,S_1)}{|S_0||S_1|}\right)$$
+By the upper bound on the edge weights for $G_1$,
+
+$$\Reff_{G_1}(u,v)\le 4(d+1) \left(\frac{\kappa_0(S_0,S_1)}{\max_{x\in S_0,y\in S_1} w_{xy}} + \frac{\zeta_0(S_0,S_1)}{\sum_{x\in S_0,y\in S_1}w_{xy}}\right)$$
+Since $4(d+1)\le 8d$, $\mathcal F$ is a $(\zeta,\kappa)$-cover for $G$ as well, as desired.
+\end{proof}
+
+\subsubsection{\texorpdfstring{$(\zeta,\kappa)$}{}-cover for weighted IP graphs on vectors with norms in the set \texorpdfstring{$[1,2]\cup [z,2z]$}{} for any \texorpdfstring{$z > 1$}{}}
+
+By the previous subsection, it suffices to cover the pairs $(u,v)$ for which $\|u\|_2\in [1,2]$ and $\|v\|_2\in [z,2z]$. This can be done by clustering using $\LowDiamSet$ on the $[z,2z]$-norm vectors. For each cluster $S_1$, let $\mathcal G = \{\{u\}: \forall u\in X \text{ with } \|u\|_2\in [1,2]\}$. This cover is sparse because of the fact that the clusters have low effective resistance diameter. It is efficient because of the small number of clusters.
+
+\begin{proposition}[Two-scale cover]\label{prop:two-bounded-cover}
+Given a set $X\subseteq \mathbb{R}^d$ for which $|X| = n$ and $\|u\|_2\in [1,2]\cup [z,2z]$ for all $u\in X$, there is a $\poly(d,\log n) n$-time algorithm $\TwoBoundedCover(X)$ that produces an $\poly(d,\log n) n$-sparse, $\poly(d,\log n)$-efficient $(\zeta,\kappa)$-cover for the weighted inner product graph $G$ on $X$.
+\end{proposition}
+
+\begin{algorithm}[!h]\caption{}
+\begin{algorithmic}[1]
+\Procedure{\TwoBoundedCover}{$X$}
+
+    \State \textbf{Input}: $X\subseteq \mathbb{R}^d$, where $\|u\|_2\in [1,2]\cup [z,2z]$ for all $u\in X$
+    
+    \State \textbf{Output}: An sparse, efficient $(\zeta,\kappa)$ cover for the weighted inner product graph $G$ on $X$
+    
+    \State $X_{\text{low}}\gets \{u\in X: \|u\|_2\in [1,2]\}$
+    
+    \State $X_{\text{high}}\gets \{u\in X: \|u\|_2\in [z,2z]\}$
+    
+    \State $\mathcal U \gets \emptyset$
+    
+    \State $Y\gets X_{\text{high}}$
+    
+    \While{$Y\ne \emptyset$}
+    
+        \State Let $Q\gets \LowDiamSet(Y)$
+    
+        \State Add the set $Q$ to $\mathcal U$
+        
+        \State Remove the vertices $Q$ from $Y$
+        
+    \EndWhile
+    
+    \State \Return $\{(\{\{u\} \forall u\in X_{\text{low}}\}, S_1): \forall S_1\in \mathcal U\}$
+    
+    \State $ \cup \BoundedCover(X_{\text{low}}) \cup \BoundedCover(X_{\text{high}})$
+    
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+Suppose that the $\BoundedCover$s returned for $X_{\text{low}}$ and $X_{\text{high}}$ are $(\zeta_{\text{low}},\kappa_{\text{low}})$ and $(\zeta_{\text{high}},\kappa_{\text{high}})$-covers respectively. Recall the value $C_2\le \poly(d,\log n)$ from the statement of Proposition \ref{prop:efficient-low-eff-res}. Let $w_{uv} = |\langle u,v\rangle|$ denote the weight of the $u$-$v$ edge in $G$. Let $\mathcal F = \TwoBoundedCover(X)$ and define the functions $\zeta,\kappa$ as follows:
+
+\[
+  \zeta(S_0,S_1) =
+  \begin{cases}
+                                   \zeta_{\text{low}}(S_0,S_1) & \text{if $S_0,S_1\subseteq X_{\text{low}}$} \\
+                                   \zeta_{\text{high}}(S_0,S_1) & \text{if $S_0,S_1\subseteq X_{\text{high}}$} \\
+                                    3 & \text{if $S_0\subseteq X_{\text{low}}$ and $S_1\subseteq X_{\text{high}}$} \\
+                                    \infty & \text{otherwise}
+  \end{cases}
+\]
+
+\[
+  \kappa(S_0,S_1) =
+  \begin{cases}
+                                   \kappa_{\text{low}}(S_0,S_1) & \text{if $S_0,S_1\subseteq X_{\text{low}}$} \\
+                                   \kappa_{\text{high}}(S_0,S_1) & \text{if $S_0,S_1\subseteq X_{\text{high}}$} \\
+                                    \frac{24 d C_2}{|S_1|} & \text{if $S_0\subseteq X_{\text{low}}$ and $S_1\subseteq X_{\text{high}}$} \\
+                                    \infty & \text{otherwise}
+  \end{cases}
+\]
+
+
+\textbf{Number of while loop iterations}. A $\poly(d,\log n)$-round bound follows from the \emph{Size} bound of Proposition \ref{prop:efficient-low-eff-res}. For more details, see the same part of the proof of Proposition \ref{prop:unweighted-cover}, which used the exact same algorithm for producing $\mathcal U$.
+
+\textbf{Runtime}. Follows immediately from the runtime bounds of $\LowDiamSet$, $\BoundedCover$, and the number of while loop iterations.
+
+\textbf{Coverage}. Consider a pair $u,v\in X$. We break the analysis up into cases:
+
+\underline{Case 1: $u,v\in X_{\text{low}}$}. In this case, the \emph{Coverage} property of $\BoundedCover(X_{\text{low}})$ implies that the pair $(u,v)$ is covered in $\mathcal F$ by Rayleigh monotonicity (since $G_{\text{low}}$ is a subgraph of $G$, where $G_{\text{low}}$ is the weighted inner product graph for $X_{\text{low}}$).
+
+\underline{Case 2: $u,v\in X_{\text{high}}$}. In this case, the \emph{Coverage} property of $\BoundedCover(X_{\text{high}})$ implies that the pair $(u,v)$ is covered in $\mathcal F$ by Rayleigh monotonicity.
+
+\underline{Case 3: $u\in X_{\text{low}}$ and $v\in X_{\text{high}}$}. Since $\mathcal U$ is a partition of $X_{\text{high}}$, there is a unique pair $(\mathcal G,S_1)\in \mathcal F$ for which $\{u\}\in \mathcal G$ and $v\in S_1$. Let $H$ denote the unweighted inner product graph on $X_{\text{high}}$. By Rayleigh monotonicity, the fact that $\frac{z^2}{2d}\le\frac{z^2}{d+1}\le w_{xy}$ for all $\{x,y\}\in E(H)$, and the \emph{Low effective resistance diameter} guarantee of Proposition \ref{prop:efficient-low-eff-res},
+
+\begin{align*}
+    \Reff_G(x,y) &\le \Reff_{G_{\text{high}}}(x,y)\\
+    &\le \frac{2d\Reff_H(x,y)}{z^2}\\
+    &\le \frac{2dC_2}{z^2|S_1|}\\
+\end{align*}
+for any $x,y\in S_1$. Since $z > 1$, $w_{xy}\le 4z^2$ for all $x,y\in X$. Therefore,
+
+$$\Reff_G(x,y) \le \frac{8dC_2}{\max_{p\in X_{\text{low}}, q\in S_1} w_{pq}}$$
+for any $x,y\in S_1$. Therefore, Proposition \ref{prop:lev-score-bound} implies the desired \emph{Coverage} bound in this case.
+
+\textbf{Sparsity bound}. We use the fact that $|\mathcal U|\le \poly(d,\log n)$ along with sparsity bounds for $\BoundedCover$ from Proposition \ref{prop:bounded-cover} to bound the sparsity of $\mathcal F$ as follows:
+
+\begin{align*}
+    \sum_{(\mathcal G, S_1)\in \mathcal F} \sum_{S_0\in \mathcal G} (\kappa(S_0,S_1) |S_0||S_1| + \zeta(S_0,S_1)) &= \text{Sparsity}(\BoundedCover(X_{\text{low}})) \\
+    &+ \text{Sparsity}(\BoundedCover(X_{\text{high}})) \\
+    &+ \sum_{u\in X_{\text{low}}, S_1\in \mathcal U} (\kappa(\{u\},S_1)|S_1| + \zeta(\{u\},S_1))\\
+    &\le \poly(d,\log n) n + |X_{\text{low}}||\mathcal U| (24dC_2 + 3)\\
+    &\le \poly(d,\log n) n\\
+\end{align*}
+as desired.
+
+\textbf{Efficiency bound}. We use the efficiency bounds of Proposition \ref{prop:bounded-cover} along with the bound on $|\mathcal U|$:
+
+\begin{align*}
+    \sum_{(\mathcal G, S_1)\in \mathcal F} \left(|S_1| + \sum_{S_0\in \mathcal G} |S_0|\right) &= \text{Efficiency}(\BoundedCover(X_{\text{low}})) \\
+    &+ \text{Efficiency}(\BoundedCover(X_{\text{high}})) \\
+    &+ \sum_{S_1\in \mathcal U} (|S_1| + |X_{\text{low}}|)\\
+    &\le \poly(d,\log n) n + |X_{\text{high}}| + |\mathcal U||X_{\text{low}}|\\
+    &\le \poly(d,\log n) n\\
+\end{align*}
+as desired.
+\end{proof}
+
+\subsubsection{\texorpdfstring{$(\zeta,\kappa)$}{}-cover for weighted IP graphs with polylogarithmic dependence on norm}
+
+We now apply the subroutine from the previous subsection to produce a cover for weighted inner product graphs on vectors with arbitrary norms. However, we allow the sparsity and efficiency of the cover to depend on the ratio $\tau$ between the maximum and minimum norm of points in $X$. To obtain this cover, we bucket vectors by norm and call $\TwoBoundedCover$ on all pairs of buckets.
+
+\begin{proposition}[Log-dependence cover]\label{prop:log-cover}
+Given a set of vectors $X\subseteq \mathbb{R}^d$ with $\tau = \frac{\max_{x\in X} \|x\|_2}{\min_{x\in X} \|x\|_2}$ and $n = |X|$, there is a $\poly(d,\log n,\log \tau) n$-time algorithm $\LogCover(X)$ that produces a $\poly(d,\log n,\log \tau) n$-sparse, $\poly(d,\log n,\log \tau) n$-efficient $(\zeta,\kappa)$-cover for the weighted inner product graph $G$ on $X$.
+\end{proposition}
+
+\begin{algorithm}[!h]\caption{}
+\begin{algorithmic}[1]
+\Procedure{\LogCover}{$X$}
+
+    \State \textbf{Input}: $X\subseteq \mathbb{R}^d$
+    
+    \State \textbf{Output}: An sparse, efficient $(\zeta,\kappa)$ cover for the weighted inner product graph $G$ on $X$
+    
+    \State $d_{\min}\gets \min_{x\in X} \|x\|_2$, $d_{\max}\gets \max_{x\in X} \|x\|_2$
+    
+    \For{$i\in \{0,1,\hdots,\log \tau\}$}
+    
+        $X_i\gets \{x\in X: \|x\|_2\in [2^i d_{\min}, 2^{i+1}d_{\min})\}$
+    
+    \EndFor
+    
+    \State $\mathcal F = \emptyset$
+    
+    \For{each pair $i,j\in \{0,1,\hdots,\log \tau\}$}
+    
+        \State Add $\TwoBoundedCover(X_i\cup X_j)$ to $\mathcal F$
+    
+    \EndFor
+    
+    \State \Return $\mathcal F$
+    
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+\textbf{Coverage}. For any edge $\{u,v\}\in E(G)$, there exists a pair $i,j\in \{0,1,\hdots,\log \tau\}$ for which $u,v\in X_i\cup X_j$. Therefore, the \emph{Coverage} property for $\TwoBoundedCover(X_i\cup X_j)$ (which is part of $\mathcal F$) implies that the pair $\{u,v\}$ is covered by $\mathcal F$.
+
+\textbf{Runtime, efficiency, and sparsity}. Efficiency and sparsity of $\mathcal F$ are at most the sum of the efficiencies and sparsities respectively of the constituent $\TwoBoundedCover$s, each of which are at most $\poly(d,\log n) n$ by Proposition \ref{prop:two-bounded-cover}. There are $O(\log^2 \tau)$ such covers in $\mathcal F$, so the efficiency and sparsity of $\mathcal F$ is at most $\poly(d,\log n)\log^2 \tau n\le \poly(d,\log n,\log \tau) n$, as desired. Runtime is also bounded due to the fact that there are at most $\log^2 \tau$ for loop iterations.
+\end{proof}
+
+\subsubsection{Desired \texorpdfstring{$(\zeta,\kappa,\delta)$}{}-cover}
+
+Now, we obtain a cover for all $X$ with sparsity, efficiency, and runtime $\poly(d,\log n)$. To do this, we break up pairs to cover $\{u,v\}\in X\times X$ into two types. Without loss of generality, suppose that $\|u\|_2\le \|v\|_2$. The first type consists of pairs for which $\|v\|_2\le (dn)^{1000} \|u\|_2$. These pairs are covered using several $\LogCover$s. The total efficiency, sparsity, and runtime required for these covers is $\poly(d,\log n) n$ due to the fact that each vector is in at most $\poly(d,\log n)$ of these covers.
+
+The second type consists of all other pairs, i.e. those with $\|v\|_2 > (dn)^{1000} \|u\|_2$. For these pairs, we take care of them via a clustering argument. We cluster all vectors in $X$ into $d+1$ clusters in a greedy fashion. Specifically, we sort vectors in decreasing order by norm and create a new cluster for a vector $x\in X$ if $|\langle x,y\rangle | < \frac{1}{d+1} \|x\|_2 \|y\|_2$ for the first vector $y$ in each cluster. Otherwise, we assign $x$ to an arbitrary cluster for which $|\langle x,y\rangle | \ge \frac{1}{d+1} \|x\|_2 \|y\|_2$ for first cluster vector $y$. We then cover the pair $\{u,v\}$ using the pair of sets $(\{u\},C)$, where $C$ is the cluster containing $v$. To argue that this satisfies the \emph{Coverage} property, we exploit the norm condition on the pair $\{u,v\}$. To bound efficiency, sparsity, and runtime, it suffices to bound the number of clusters, which is at most $d+1$ by Proposition \ref{prop:inner-product-dep}.
+
+In order to define this algorithm, we use the notion of an \emph{interval family}, which is exactly the same as the one-dimensional interval tree from computational geometry.
+
+\begin{definition}
+For a set $X$ and a function $f:X\rightarrow \mathbb{R}$, define the \emph{interval family} for $X$, denoted $\mathcal X = \IntervalFamily(X)$, to be a family of sets produced recursively by initializing $\mathcal X = \{X\}$ and repeatedly taking an element $S\in \mathcal X$, splitting it evenly into two subsets $S_0$ and $S_1$ for which $\max_{x\in S_0} f(x)\le \min_{x\in S_1} f(x)$, and adding $S_0$ and $S_1$ to $\mathcal X$ until $\mathcal X$ contains all singleton subsets of $X$.
+
+$\mathcal X$ has the property that for any set $S\subseteq X$ consisting of all $x\in X$ for which $a\le f(x)\le b$ for two $a,b\in \mathbb{R}$, $S$ is the disjoint union of $O(\log |X|)$ sets in $\mathcal X$. Furthermore, each element in $X$ is in at most $O(\log |X|)$ sets in $\mathcal X$.
+\end{definition}
+
+\begin{proposition}[Desired cover]\label{prop:desired-cover}
+Given a set $X\subseteq \mathbb{R}^d$ with $n = |X|$, there is a $\poly(d,\log n) n$-time algorithm $\DesiredCover(X)$ that produces a $\poly(d,\log n) n$-sparse, $\poly(d,\log n) n$-efficient $(\zeta,\kappa,\delta)$-cover for the weighted inner product graph $G$ on $X$.
+\end{proposition}
+
+\begin{algorithm}[!h]\caption{}
+\begin{algorithmic}[1]
+\Procedure{\DesiredCover}{$X$}
+
+    \State \textbf{Input}: $X\subseteq \mathbb{R}^d$
+    
+    \State \textbf{Output}: An sparse, efficient $(\zeta,\kappa,\delta)$-cover for the weighted inner product graph $G$ on $X$, where $\zeta,\kappa$, and $\delta$ are defined in the proof of Proposition \ref{prop:desired-cover}.
+    
+    \State $\mathcal F\gets \emptyset$
+    
+    \State $\xi\gets (dn)^{1000}$
+    
+    \State $d_{\min}\gets \min_{x\in X} \|x\|_2$, $d_{\max}\gets \max_{x\in X} \|x\|_2$
+    
+    \Comment{Cover nearby norm pairs}
+    
+    \For{$i\in \{0,1,\hdots,\log (d_{\max}/d_{\min}) - \lceil \log \xi \rceil$}
+    
+        \State $X_i\gets \{x\in X: \|x\|_2\in [d_{\min}2^i,d_{\min}2^{i+1})$
+        
+        \State Add $\LogCover(X_i\cup X_{i+1}\cup \hdots\cup X_{i+\lceil \log \xi \rceil})$ to $\mathcal F$
+    
+    \EndFor
+    
+    \Comment{Create approximate basis for spread pairs}
+    
+    $B\gets \emptyset$
+    
+    \For{$x\in X$ in decreasing order by $\|x\|_2$}
+    
+        \If{there does not exist $y\in B$ for which $|\langle x,y\rangle| \ge \|x\|_2 \|y\|_2/(d+1)$}
+        
+            \State Add $x$ to $B$ and initialize a cluster $C_x = \{x\}$
+        
+        \Else
+        
+            \State Add $x$ to $C_y$ for an arbitrary choice of $y$ satisfying the condition
+        
+        \EndIf
+    
+    \EndFor
+    
+    \Comment{Cover the spread pairs}
+    
+    \For{$w\in B$}
+    
+        \State $\mathcal C_w\gets \IntervalFamily(C_w)$
+    
+        \For{each set $C\in \mathcal C_w$}
+        
+            \State $\mathcal G_C\gets$ the family of all singletons of $x\in X$ for which the disjoint union of $O(\log n)$ sets for $\{y\in C_w: \|y\|_2 \ge \xi \|u\|_2\}$ obtained from $\mathcal C_w$ contains $C$
+        
+            \State Add $(\mathcal G_C, C)$ to $\mathcal F$
+        
+        \EndFor
+    
+    \EndFor
+    
+    \Return $\mathcal F$
+    
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+We start by defining the functions $\zeta,\kappa$, and $\delta$. Let $\zeta_i$ and $\kappa_i$ denote the functions for which $\LogCover(Y_i)$ is a $(\zeta_i,\kappa_i)$-cover for the weighted inner product graph on $Y_i$, where $Y_i = X_i\cup X_{i+1}\cup \hdots\cup X_{i+\lceil \log \xi \rceil}$ for all $i\le \log(d_{\max}/d_{\min}) - \lceil \log \xi \rceil$. Let
+
+\[
+  \zeta(S_0,S_1) =
+  \begin{cases}
+                                   \sum_{i: S_0,S_1\subseteq Y_i, \zeta_i(S_0,S_1)\ne \infty} \zeta_i(S_0,S_1) & \text{if there exists $i$ for which $S_0,S_1\subseteq Y_i$} \\
+                                   2 & \text{if $S_1\in \mathcal C_y$ for some $y\in B$ and $S_0 = \{x\}$ for some $x$}\\
+                                   & \text{with $\|x\|_2\le \min_{a\in C} \|a\|_2/\xi$} \\
+                                    \infty & \text{otherwise}
+  \end{cases}
+\]
+
+\[
+  \kappa(S_0,S_1) =
+  \begin{cases}
+                                   \sum_{i: S_0,S_1\subseteq Y_i, \kappa_i(S_0,S_1)\ne \infty} \kappa_i(S_0,S_1) & \text{if there exists $i$ for which $S_0,S_1\subseteq Y_i$} \\
+                                   0 & \text{if $S_1\in \mathcal C_y$ for some $y\in B$ and $S_0 = \{x\}$ for some $x$}\\
+                                   & \text{with $\|x\|_2\le \min_{a\in C} \|a\|_2/\xi$} \\
+                                    \infty & \text{otherwise}
+  \end{cases}
+\]
+
+\[
+  \delta(S_0,S_1) =
+  \begin{cases}
+                                   0 & \text{if there exists $i$ for which $S_0,S_1\subseteq Y_i$} \\
+                                   \frac{1}{|S_1|} & \text{if $S_1\in \mathcal C_y$ for some $y\in B$ and $S_0 = \{x\}$ for some $x$}\\
+                                   & \text{with $\|x\|_2\le \min_{a\in C} \|a\|_2/\xi$} \\
+                                    \infty & \text{otherwise}
+  \end{cases}
+\]
+
+Before proving that the required guarantees are satisfied, we bound some important quantities.
+
+\underline{Bound on $w_{yw}$ in terms of $w_{uy}$ for $y\in C_w$ if $\|y\|_2 \ge \xi \|u\|_2$}. By definition of $C_w$, $w_{yw}\ge \frac{1}{d+1} \|y\|_2 \|w\|_2$ for any $y\in C_w$. $w$ was the first member added to $C_w$, so $\|w\|_2\ge \|y\|_2$. By the norm assumption on $y$, $\|y\|_2 \ge \xi \|u\|_2$. By Cauchy-Schwarz, $\|y\|_2 \|u\|_2 \ge |\langle y,u\rangle| = w_{uy}$. Therefore,
+
+$$w_{yw} \ge \frac{\xi}{d+1} w_{uy}$$
+
+\underline{Bound on $\Reff_G(u,w)$ for $w\in B$}. We start by bounding the effective resistance between $u\in X$ and any $w\in B$ for which $\|w\|_2 > \xi \|u\|_2$. Recall that $w_{xy} = |\langle x,y\rangle|$ for any $x,y\in X$. Consider any $C\in \mathcal C_w$ for which $\min_{a\in C} \|a\|_2 > \xi \|u\|_2$. We show that
+
+$$\Reff_G(u,w) \le \frac{2}{\sum_{y\in C} w_{uy}}$$
+Consider all 2-edge paths of the form $u$-$y$-$w$ for $y\in C$. By assumption on $C$, $\|y\|_2\ge \xi \|u\|_2$ for any $y\in C$. Therefore, the bound on $w_{yw}$ applies:
+
+$$w_{yw} \ge \frac{\xi}{d+1} w_{uy}$$
+for any $y\in C$. By series-parallel reductions, the $u$-$w$ effective resistance is at most
+
+\begin{align*}
+    \Reff_G(u,w) &\le \frac{1}{\sum_{y\in C} \frac{1}{1/w_{uy} + 1/w_{yw}}}\\
+    &\le \frac{1}{\sum_{y\in C} \frac{1}{(1 + (d+1)/\xi)/w_{uy}}}\\
+    &\le \frac{2}{\sum_{y\in C} w_{uy}}\\
+\end{align*}
+as desired.
+
+\underline{Bound on $\Reff_G(u,y)$ for $y\in C$}. Any $y\in C$ has the property that $\|y\|_2\ge \xi \|u\|_2$. Therefore, for $y\in C$, $\Reff_G(y,w)\le \frac{d+1}{\xi w_{uy}} \le \frac{1}{|C| w_{uy}}$. By the triangle inequality for effective resistance,
+
+$$\Reff_G(u,y)\le \Reff_G(u,w) + \Reff_G(w,y)\le \frac{1}{|C| w_{uy}} + \frac{2}{\sum_{a\in C} w_{ua}}$$
+
+\textbf{Coverage}. For any pair $\{u,v\}$ for which there exists $i$ with $u,v\in Y_i$, $\{u,v\}$ is still covered by $\mathcal F$ by the \emph{Coverage} property of $\LogCover(Y_i)$. Therefore, we may assume that this is not the case. Without loss of generality, suppose that $\|v\|_2 \ge \|u\|_2$. Then, by assumption, $\|v\|_2\ge \xi \|u\|_2$. By definition of the $C_w$s, there exists a $w\in B$ for which $v\in C_w$. By the first property of interval families, the set $\{x\in C_w: \|x\|_2 \ge \xi \|u\|_2\}$ is the disjoint union of $O(\log n)$ sets in $\mathcal C_w$. Let $C$ be the unique set among these for which $v\in C$. By our effective resistance bound,
+
+\begin{align*}
+    \Reff_G(u,v) &\le \frac{1}{|C| w_{uv}} + \frac{2}{\sum_{x\in C} w_{ux}}\\
+    &= \frac{\delta(\{u\},C)}{w_{uv}} + \frac{\kappa(\{u\},C)}{\max_{x\in C} w_{ux}} + \frac{\zeta(\{u\},C)}{\sum_{x\in C} w_{ux}}\\
+\end{align*}
+so the coverage property for the pair $\{u,v\}$ is satisfied within $\mathcal F$ by the pair $(\mathcal G_C, C)$, as desired.
+
+\textbf{Efficiency}. The efficiency of $\mathcal F$ is at most the efficiency of the $\LogCover$s and the remaining part for spread pairs. We start with the $\LogCover$s. By Proposition \ref{prop:log-cover},
+
+\begin{align*}
+    \sum_i \text{Efficiency}(\LogCover(Y_i)) &\le \sum_i \poly(d,\log |Y_i|,\log \xi) |Y_i|\\
+    &\le \sum_i \poly(d,\log n) |Y_i|\\
+    &\le (\log \xi + 1) \poly(d,\log n) \sum_i |X_i|\\
+    &\le \poly(d,\log n) n\\
+\end{align*}
+Therefore, we just need to bound the efficiency of the remainder of $\mathcal F$. The efficiency of $\mathcal F$ is at most
+
+\begin{align*}
+    \text{Efficiency}(\mathcal F) &= \sum_{(\mathcal G,S_1)\in \mathcal F} \sum_{S_0\in \mathcal G} ((\delta(S_0,S_1) + \kappa(S_0,S_1))|S_0||S_1| + \zeta(S_0,S_1))\\
+    &= \sum_i \text{Efficiency}(\LogCover(Y_i))\\
+    &+ \sum_{w\in B}\sum_{C\in \mathcal C_w}\sum_{\{u\}\in \mathcal G_C} (\delta(\{u\},C)|C| + \zeta(\{u\},C))\\
+    &\le \poly(d,\log n) n + \sum_{w\in B}\sum_{C\in \mathcal C_w} 3|\mathcal G_C|\\
+\end{align*}
+By the first property of interval families, each $x\in X$ is present as a singleton in at most $O(\log n)$ $\mathcal G_C$s for $C$ that are a subset of a given $C_w$. Therefore,
+
+$$\text{Efficiency}(\mathcal F)\le \poly(d,\log n) n + \sum_{w\in B} O(\log n) n$$
+By Proposition \ref{prop:inner-product-dep}, $|B|\le d+1$. Therefore, $\text{Efficiency}(\mathcal F)\le \poly(d,\log n) n$, as desired.
+
+\textbf{Sparsity}. By Proposition \ref{prop:log-cover},
+
+$$\sum_i \text{Sparsity}(\LogCover(Y_i)) \le \sum_i \poly(d,\log n,\log \xi) |Y_i|\le \poly(d,\log n) n$$
+Therefore, we may focus on the remaining part for spread pairs. In particular,
+
+\begin{align*}
+    \text{Sparsity}(\mathcal F) &= \sum_{(\mathcal G,S_1)\in \mathcal F}(|S_1| + \sum_{S_0\in \mathcal G} |S_0|)\\
+    &\le \poly(d,\log n) n\\
+    &+ \sum_{w\in B}\sum_{C\in \mathcal C_w}(|C| + |\mathcal G_C|)\\
+    &\le \poly(d,\log n) n + \sum_{w\in B}\sum_{C\in \mathcal C_w} |C|
+\end{align*}
+where the last inequality follows from the first property of interval families. By the second property of interval families, each element of $C_w$ is in at most $O(\log n)$ sets in $\mathcal C_w$, so $\sum_{C\in \mathcal C_w} |C|\le O(\log n) |C_w|$. Since $|B|\le d+1$, $\text{Sparsity}(\mathcal F)\le \poly(d,\log n) n$, as desired.
+
+\textbf{Runtime}. The first for loop takes $\sum_i \poly(d,\log n) |Y_i|\le \poly(d,\log n) n$ by Proposition \ref{prop:log-cover}. The second for loop takes $O(d|B|n)\le \poly(d,\log n) n$ by the bound on $|B|$. The third for loop takes $\poly(d,\log n) n$ by the runtime for $\IntervalFamily$ and the two properties of interval families. Therefore, the total runtime is $\poly(d,\log n) n$, as desired.
+
+\end{proof}
+
+\subsubsection{Proof of Lemma \ref{lem:inner-sparsify}}
+
+\begin{proof}[Proof of Lemma \ref{lem:inner-sparsify}]
+Follows immediately from constructing the cover $\mathcal F$ given by Proposition \ref{prop:desired-cover} and plugging that into Proposition \ref{prop:sparsify-given-cover}.
+\end{proof}

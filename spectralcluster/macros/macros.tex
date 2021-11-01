@@ -1,0 +1,133 @@
+%!TEX root = paper.tex
+\usepackage{amssymb, amsmath, amsthm, mathtools,bbold}
+\usepackage[utf8]{inputenc}
+
+% Formatting
+
+  % Page options
+    \usepackage{geometry}
+    \geometry{margin=1in}
+    \usepackage{parskip}
+
+  %% % Theorem styles, environments
+  %%   \newtheoremstyle{spacedplain}
+  %%     {\parskip}{0pt}{\itshape}{}{\bfseries}{.}{5pt plus 1pt minus 1pt}{}
+  %%   \newtheoremstyle{spaceddefinition}
+  %%     {\parskip}{0pt}{\normalfont}{}{\bfseries}{.}{5pt plus 1pt minus 1pt}{}
+  %%   \newtheoremstyle{spacedremark}
+  %%     {\parskip}{0pt}{\normalfont}{}{\itshape}{.}{5pt plus 1pt minus 1pt}{}
+
+  %%   \theoremstyle{spacedplain}
+  \input{macros/njw_commands}
+  
+    \newtheorem{theorem}{Theorem}[section]
+    \newtheorem{corollary}[theorem]{Corollary}
+    \newtheorem{lemma}[theorem]{Lemma}
+    \newtheorem{claim}[theorem]{Claim}
+
+ %   \theoremstyle{spaceddefinition}
+    \newtheorem{definition}[theorem]{Definition}
+    \newtheorem{example}[theorem]{Example}
+    \newtheorem{algorithm}[theorem]{Algorithm}
+    \newtheorem{assumption}[theorem]{Assumption}
+
+    \theoremstyle{spacedremark}
+    \newtheorem{remark}[theorem]{Remark}
+    \newtheorem{question}[theorem]{Question}
+    \newtheorem{fact}[theorem]{Fact}
+
+  % References
+    \usepackage{hyperref,url}
+% Math
+
+  % Set theory
+    \let\oldemptyset\emptyset
+    \let\emptyset\varnothing
+    \newcommand{\set}[1]{\left\{#1\right\}}
+    \newcommand{\smid}{\,\middle|\,}
+
+  % Number Sets
+    \newcommand{\NN}{\mathbb{N}}
+    \newcommand{\ZZ}{\mathbb{Z}}
+    \newcommand{\QQ}{\mathbb{Q}}
+    \newcommand{\RR}{\mathbb{R}}
+    \newcommand{\CC}{\mathbb{C}}
+    \newcommand{\FF}{\mathbb{F}}
+    \newcommand{\BB}{\{0,1\}}
+    \newcommand{\pmone}{\{-1,1\}}
+
+  % Elementary functions
+    \newcommand{\floor}[1]{\ensuremath{\left\lfloor #1 \right\rfloor}}
+    \newcommand{\ceil}[1]{\ensuremath{\left\lceil #1 \right\rceil}}
+    \newcommand{\abs}[1]{\ensuremath{\left\lvert #1 \right\rvert}}
+    \DeclareMathOperator{\poly}{poly}
+    \newcommand{\by}{\times}
+    \renewcommand{\restriction}{\mathord{\upharpoonright}}
+    \DeclareMathOperator*{\argmin}{arg\,min}
+    \DeclareMathOperator*{\argmax}{arg\,max}
+
+  % Vector/matrix calculus
+    \newcommand{\norm}[1]{\ensuremath{\left\lVert #1 \right\rVert}}
+    \newcommand{\ip}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+    \newcommand{\grad}{\nabla}
+
+    \DeclareMathOperator{\trace}{tr}
+    \DeclareMathOperator{\spann}{span}
+    \DeclareMathOperator{\range}{range}
+    \DeclareMathOperator{\nulll}{null}
+    \DeclareMathOperator{\diag}{diag}
+    \DeclareMathOperator{\rank}{rank}
+
+    \newcommand{\psdgeq}{\succeq}
+    \newcommand{\psdleq}{\preceq}
+    \newcommand{\bS}{{\bb S}}
+
+  % Probability theory
+    \newcommand{\dist}{\sim}
+    \newcommand{\given}{\mid}
+    \newcommand{\indicator}[1]{\ensuremath{\bb 1\left[#1\right]}}
+    \DeclareMathOperator*{\E}{\mathbb{E}}
+    \DeclareMathOperator{\Var}{var}
+
+  % Group theory
+    \newcommand{\SL}{\text{SL}}
+    \newcommand{\GL}{\text{GL}}
+
+  % Logic
+    \newcommand{\xor}{\oplus}
+    \DeclareMathOperator*{\LOR}{\bigvee}
+    \DeclareMathOperator*{\LAND}{\bigwedge}
+
+  % Font Shortcuts
+    \newcommand{\mb}{\mathbf}
+    \newcommand{\bs}{\boldsymbol}
+    \newcommand{\mc}{\mathcal}
+    \newcommand{\bb}{\mathbb}
+
+  % Analysis
+    \DeclareMathOperator{\supp}{supp}
+    \def\Xint#1{\mathchoice
+    {\XXint\displaystyle\textstyle{#1}}%
+    {\XXint\textstyle\scriptstyle{#1}}%
+    {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+    {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+    \!\int}
+    \def\XXint#1#2#3{{\setbox0=\hbaox{$#1{#2#3}{\int}$ }
+    \vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+    \def\avint{\Xint-}
+    \newcommand{\loc}{\text{loc}}
+    \DeclareMathOperator{\ap}{ap}
+    \newcommand{\weakto}{\rightharpoonup}
+    \newcommand{\compcont}{\subsubset}
+    \DeclareMathOperator{\ess}{ess}
+    \let\olddiv\div
+    \let\div\undefined
+    \DeclareMathOperator{\div}{div}
+    \DeclareMathOperator{\BV}{BV}
+
+  % Topology/Geometry
+    \newcommand{\boundary}{\partial}
+    \DeclareMathOperator{\conv}{conv}
+
+  % Programming, Polyhedrons
+    \DeclareMathOperator{\extr}{extr}

@@ -1,0 +1,52 @@
+\section{Conclusions and Open Questions}\label{sec:conclusions}
+
+
+We examined the nearest neighbor metric and showed how to compute it
+exactly, as well as find sparse data structures efficiently for approximate
+computation in practice.  Many problems remain open.
+
+First: are there generalizations of these metrics, for which our proof techniques
+will still hold? The nearest neighbor metric has many natural
+generalizations, including the $k^{th}$ nearest neighbor or powers of the
+nearest neighbor function.
+
+Can we efficiently compute $o(\log n)$-spanners of the nearest neighbor
+metric in high dimension, such the the spanners have a nearly linear number of edges?
+The existence of such spanners has been studied for Euclidean metrics in~\cite{HarPeled13}, where the stretch
+obtained is $\sqrt{\log n}$.
+
+Does computing $k$-NN graphs with approximate nearest neighbor methods give $1$-spanners of the
+edge-squared metric with high probability?
+Approximate nearest neighbors have been studied extensively
+~\cite{kNNsurvey, Chen11, Dong11}, including locality-sensitive
+hashing for high dimensional point sets~\cite{LSH} and
+more~\cite{Laarhoven2018}.
+Recent work by Andoni et al.~\cite{Andoni2018} showed how to compute
+approximate nearest neighbors for any non-Euclidean norm.  Perhaps there
+is a rigorous theory about data-sensitive metrics generated from any such
+norm? Similar to
+how the edge-squared metric is generated from the Euclidean distance.
+
+It remains an open question how well clustering or
+classification with
+nearest neighbor metrics performs on real-world
+data.
+Experiments have been done by Bijral, Ratliff, and
+Srebro in~\cite{bijral11semiSupLearningDBD}.
+Theorem~\ref{thm:distribution-spanner} implies that future experiments
+can be done using any
+k-nearest-neighbor graph.  
+  We believe that the interest in alternative metrics on Euclidean data will continue to be a rich source of interesting problems.
+
+%%   We showed that the class of metrics that can be represented in this way is quite large, including all negative-type metrics and more.
+%%   There is no constant upper bound on the doubling dimension of such metrics even for point sets in the plane.
+%%   Theorem~\ref{thm:equality} extends these results immediately to density-based distances.
+%%   Although there is such rich structure in these metrics, they still maintain some of the advantages of low-dimensional euclidean metrics, and this is exploited to generate sparse spanners.
+%%   We also use the Euclidean structure to compute the persistent homology of the nearest neighbor distance in both the ambient sense and the intrinsic sense.
+%%
+%%   Many interesting problems remain open.
+%%   One of the most compelling is the generalization of Theorem~\ref{thm:equality} to higher power metrics.
+%%   It seems possible that integrating higher powers of the distance function could correspond exactly to higher power metrics.
+%%   However, the proof techniques of this paper do not easily extend to that case.
+%%   It does seem that as the power goes to infinity, shortest paths converge to the minimum spanning tree.
+%%   For other powers in between $2$ and $\infty$, this question remains open.

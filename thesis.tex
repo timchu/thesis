@@ -1,0 +1,242 @@
+%for a more compact document, add the option openany to avoid
+%starting all chapters on odd numbered pages
+\documentclass[12pt]{cmuthesis}
+
+% This is a template for a CMU thesis.  It is 18 pages without any content :-)
+% The source for this is pulled from a variety of sources and people.
+% Here's a partial list of people who may or may have not contributed:
+%
+%        bnoble   = Brian Noble
+%        caruana  = Rich Caruana
+%        colohan  = Chris Colohan
+%        jab      = Justin Boyan
+%        josullvn = Joseph O'Sullivan
+%        jrs      = Jonathan Shewchuk
+%        kosak    = Corey Kosak
+%        mjz      = Matt Zekauskas (mattz@cs)
+%        pdinda   = Peter Dinda
+%        pfr      = Patrick Riley
+%        dkoes = David Koes (me)
+
+% My main contribution is putting everything into a single class files and small
+% template since I prefer this to some complicated sprawling directory tree with
+% makefiles.
+
+% some useful packages
+\usepackage{algorithm}
+\usepackage{subfig}
+\usepackage{color}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{wrapfig,epsfig}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage{epstopdf}
+\usepackage{algpseudocode}
+\usepackage{scrextend}
+\usepackage[T1]{fontenc}
+\usepackage{bbm}
+\usepackage{comment}
+\usepackage{multicol} 
+\usepackage{paralist}
+
+ %%% print refs in table of contents
+\let\C\relax
+\usepackage{tikz}
+%\usepackage{hyperref}
+%\hypersetup{colorlinks=true,citecolor=red,linkcolor=blue} 
+\usetikzlibrary{arrows}
+
+
+\usepackage{times, nicefrac}
+\usepackage{fullpage}
+\usepackage{float}
+\usepackage{amsmath,amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage[numbers,sort]{natbib}
+\usepackage[backref,pageanchor=true,plainpages=false, pdfpagelabels, bookmarks,bookmarksnumbered,
+%pdfborder=0 0 0,  %removes outlines around hyper links in online display
+]{hyperref}
+%\usepackage{subfigure}
+
+% Approximately 1" margins, more space on binding side
+%\usepackage[letterpaper,twoside,vscale=.8,hscale=.75,nomarginpar]{geometry}
+%for general printing (not binding)
+\usepackage[letterpaper,twoside,vscale=.8,hscale=.75,nomarginpar,hmarginratio=1:1]{geometry}
+
+% Provides a draft mark at the top of the document. 
+% \draftstamp{\today}{DRAFT}
+
+\input{macros}
+\begin {document} 
+\frontmatter
+
+%initialize page style, so contents come out right (see bot) -mjz
+\pagestyle{empty}
+
+\title{ 
+{\bf Metric Embeddings, Group theory, and Spectral Graph Algorithms in Machine Learning}}
+\author{Timothy Chu}
+\date{August 19}
+\Year{2021}
+\trnumber{}
+
+\committee{
+Gary Miller, Chair \\
+Anupam Gupta \\
+Daniel Sleator \\
+Satish Rao
+}
+
+\support{}
+\disclaimer{}
+
+% copyright notice generated automatically from Year and author.
+% permission added if \permission{} given.
+
+\keywords{Stuff, More Stuff}
+
+\maketitle
+
+\begin{dedication}
+To my mother, who supported me since the day I was born.
+\end{dedication}
+
+\pagestyle{plain} % for toc, was empty
+
+%% Obviously, it's probably a good idea to break the various sections of your thesis
+%% into different files and input them into this file...
+
+\begin{abstract}
+  In this thesis, we analyze new theories of clustering,
+  one of the most fundamental tasks in machine learning. We use methods
+  drawing from multiple disciplines, including metric embeddings,
+  spectral algorithms, and group representation theory.
+  \begin{itemize}
+    \item We propose a metric that adapts to the shape of data, and show
+      how to quickly compute it. These metrics may be useful for
+      improving $k$-means clustering methods.
+    \item We build a spectral partition method with provable theoretical
+      guarantees. This may lead to more theoretically principled
+      spectral clustering methods, as existing methods do not have any
+      such guarantees. Spectral clustering is one of the most popular
+      methods of clustering.
+    \item We classify all Manhattan distance kernels. This
+      is a Manhattan distance analog of one of the fundamental results
+      in machine learning kernel theory. Kernel methods are one of the
+      oldest and most established methods of clustering data.
+  \end{itemize}
+  Each of these contributions answers natural questions in machine
+  learning theory. For each of these contributions, we develop
+  multidisciplinary tools, which draw heavily on ideas from metric
+  embeddings. 
+
+\end{abstract}
+\iffalse
+
+  We develop tools combining insights from group
+  theory, metric embeddings, and spectral algorithms, and apply them to
+  machine learning.  We give novel results classifying machine
+  learning kernels for Manhattan metrics, patch a longstanding hole
+  in the theory of spectral clustering, provide fast algorithms for
+  clustering with distances that adapt to the shape of data, and more.
+  
+  Our tools combine group representation theory, Schoenberg/Von
+  Neumann's work on geometric Fourier integrals, metric transforms, spectral
+  sparsification, effective resistance sparsifiers, fine grained
+  complexity, and the Johnson Lindenstrauss random projection method.
+  
+\end{abstract}
+\fi
+
+\begin{acknowledgments}
+  First and foremost, I'd like to thank my advisor Dr. Miller, who among
+  many things encouraged me to think about unorthodox problems. 
+
+  Research is always better with a great group of collaborators. I've
+  had a great time working with Professor Donald Sheehy, Professor Noel
+  Walkington, Professor Sushant Sachdeva, Professor Josh Alman, Aaron
+  Schild, Zhao Song, Mark Sellke, Shyam Narayanan, Alex Wang, Yu Gao,
+  Saurabh Sawlani, Junxing Wang, Jakub Pachocki, Michael Cohen (now
+  passed), Nathan Pinsker, and Alex X. Chen. I've also gotten
+  considerable math help from Amol Aggarwal and David Yang. I would like
+  to thank Professor Mikkel Thorup and the graduate students at BARC for
+  a wonderful research experience in Copenhagen, Professor Richard Peng
+  for an opportunity to be included on some cool research projects early
+  in my PhD career, and Professor Lorenzo
+  Orecchia for a research opportunity when I was an undergrad at
+  MIT.
+
+  Graduate school wouldn't be the same without a supportive group of
+  friends and loved ones. I've had many great memories with my friends
+  at Carnegie Mellon, including Goran Zuzic, Pedro Paredes, Ainesh
+  Bakshi, Travis Hance, Rajesh Jayaram, Roie Levin, Jonathan Laurent, and Jason Li.
+
+  Finally, I would like to thank my parents Iris Li and Weishang Chu,
+  my brother Joseph Chu, and Liting Chen for encouraging me to finish my PhD when
+  times were hard. 
+
+\end{acknowledgments}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+%% Double space document for easy review:
+%\renewcommand{\baselinestretch}{1.66}\normalsize
+
+% The other requirements Catherine has:
+%
+%  - avoid large margins.  She wants the thesis to use fewer pages, 
+%    especially if it requires colour printing.
+%
+%  - The thesis should be formatted for double-sided printing.  This
+%    means that all chapters, acknowledgements, table of contents, etc.
+%    should start on odd numbered (right facing) pages.
+%
+%  - You need to use the department standard tech report title page.  I
+%    have tried to ensure that the title page here conforms to this
+%    standard.
+%
+%  - Use a nice serif font, such as Times Roman.  Sans serif looks bad.
+%
+% Other than that, just make it look good...
+
+
+\chapter{introduction}
+\input{intro}
+\chapter{Group Theory in Kernels and Natural Language
+Processing}\label{sec:ker-main}
+\input{rep/main}
+\chapter{Data-Sensitive Distances}\label{sec:ds-main}
+\input{screw/main}
+\chapter{Spectral Clustering in the Limit}\label{sec:spec-main}
+\input{spectralcluster/main}
+\chapter{Geometric Spectral Algorithms and Hardness, with Machine
+Learning applications}\label{sec:sgt-main}
+\input{geo/main}
+%\input{geo}
+% \chapter{Deterministic, Linear Time $2$-Approximation for Principal Eigenvalue of a Line}
+% %\input{hardy}
+%\chapter{Short Cycle Decompositions}
+%%\input{shortcycle}
+\chapter{Conclusion}
+
+%\appendix
+%\include{appendix}
+
+% \backmatter
+% 
+% %\renewcommand{\baselinestretch}{1.0}\normalsize
+% 
+% % By default \bibsection is \chapter*, but we really want this to show
+% % up in the table of contents and pdf bookmarks.
+% \renewcommand{\bibsection}{\chapter{\bibname}}
+% %\newcommand{\bibpreamble}{This text goes between the ``Bibliography''
+% %  header and the actual list of references}
+ \bibliographystyle{plainnat}
+ \bibliography{ref.bib} %your bib file
+% 
+\end{document}

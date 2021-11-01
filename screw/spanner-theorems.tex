@@ -1,0 +1,22 @@
+%% \begin{theorem} \label{thm:NN} Given a point set $P \in \mathbb{R}^d$, the edge-squared metric on $P$
+%%   and the nearest neighbor metric on $P$ are always equivalent.
+%% \end{theorem}
+
+\begin{theorem} \label{thm:general-spanner}
+  For any set of points in $\mathbb{R}^d$ for constant $d$, there exists a $(1+\eps)$
+  spanner of the nearest neighbor metric
+  with size $O\left(n\eps^{-d/2} \right)$ computable in time
+  $O\left(n \log n + n\eps^{-d/2}\log{\frac{1}{\eps}}\right)$. The
+  $\log{\frac{1}{\eps}}$ term goes away given access to an algorithm
+computing floor function
+in $O(1)$ time.
+\end{theorem}
+
+\begin{theorem} \label{thm:distribution-spanner}
+Suppose points $P$ in Euclidean space are drawn i.i.d from a Lipschitz probability density bounded
+above and below by a constant, with support on a
+smooth, connected, compact manifold with intrinsic dimension $d$ with boundary of bounded curvature. Then w.h.p. the $k$-NN graph of
+  $P$ for $k = O(2^d \ln n)$ and edges weighted with Euclidean
+  distance squared, is a $1$-spanner of the nearest neighbor
+  metric on $P$.
+\end{theorem}

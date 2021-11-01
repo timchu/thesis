@@ -1,0 +1,310 @@
+\section{Introduction}
+
+Clustering, the task of
+partitioning data into groups, is one of the fundamental tasks
+in machine learning~\cite{bishopBook, NgSpectral01, e96, kk10clustering, sw18}.
+The data that practitioners seek to cluster is commonly modeled as samples from a probability density function,
+an assumption foundational in theory, statistics, and AI~\cite{bishopBook,
+TrillosContin16, bc17focs, mv10, Ge2018}. 
+A clustering algorithm on data drawn from a probability density function
+should ideally converge to a partitioning of the
+probability density function, as the number of samples grows
+large~\cite{von2008consistency, TrillosVariational15,
+TrillosContin16}.
+ 
+% As the sample count grows, simple tasks like 2-way clustering will
+% ideally converge to a cut of the underlying probability density.
+% Surprisingly, there are almost no clustering algorithms in the machine
+% learning literature that give any guarantees on the cut quality of the
+% probability density, absent strong parametric assumptions on the
+% density function~\footnote{Strong parametric assumptions may include:
+% being a mixture of Gaussians, or a mixture of log-concave
+% distributions.}. 
+
+In this paper, we outline a new strategy for
+clustering. We then make progress on implementing this strategy. We
+build clustering algorithms by addressing the following two questions:
+
+\begin{enumerate}
+  \item How can we partition probability density functions? How can we
+    do this so
+    that two data points drawn from the same part of the partition are
+    likely to be similar, and two data points drawn from different parts of the partition
+    are likely to be dissimilar?
+
+  \item What clustering algorithms converge to such a partition, 
+    as the number of samples from the density function grows large?
+\end{enumerate}
+
+In this paper, we address both points, with emphasis on the first.  We
+focus on the special case of $2$-way partitioning, which can be seen as
+finding a good cut on the probability density function. First, we
+propose a new notion of sparse (or isoperimetric)
+cuts on density functions. We call this an $(\alpha, \beta)$-sparse cut,
+for real parameters $\alpha$ and $\beta$. Next, we propose a new notion of spectral
+sweep cuts on probability densities, called a $(\alpha,
+\gamma)$-spectral sweep cut, for real parameters $\alpha$ and $\gamma$.
+We show that a $(\alpha, \gamma)$-spectral sweep cut provably
+approximates an $(\alpha, \beta)$-sparse cut when
+$\beta = \alpha+1$ and $\gamma=\alpha+2$. In particular, $\alpha = 1, \beta = 2,
+\gamma=3$ is such a setting.
+Our result holds for any $L$-Lipschitz
+probability density function on $\mathbb{R}^d$, for any $d$. 
+We will give evidence that partitioning probability densities via
+$(\alpha=1, \beta=2)$-sparse cuts agrees with the machine learning
+intuition that data drawn from the same part of the partition are
+similar, and data drawn from different parts of the partition are
+dissimilar.  
+% To our
+% knowledge, this is the first result we know of that gives
+% theoretical guarantees on a partitioning method for probability density
+% functions, where these density functions do not have any strong
+% parametric assumptions\footnote{Examples of parametric assumptions
+% include: assuming that a density function
+% is the mixture of finitely many log-concave functions, or a mixture of
+% Gaussians.}.
+
+The key mathematical contribution of this paper is a new Cheeger and Buser
+inequality for probability density functions, which we use to prove
+that $(\alpha,\gamma)$-spectral sweep cuts approximate $(\alpha,
+\beta)$-sparse cuts on probability
+density functions for the aforementioned settings of $\alpha, \beta, \gamma$.
+These inequalities
+are inspired by the Cheeger and Buser inequalities on graphs and
+manifolds~\cite{AlonM84, Cheeger70, Buser82}, which have received
+considerable attention in graph algorithms and machine
+learning~\cite{ChungBook97, SpielmanTeng2004, Orecchia08, Orecchia2011,
+kw16, belkin2004semisup}. These new inequalities do not directly follow
+from either the graph or manifold Cheeger inequalities,
+something we detail in Section~\ref{sec:cheeger-buser-difficulties}.
+We note that our Cheeger and Buser inequalities for probability density
+functions require a careful definition of eigenvalue and
+sparse/isoperimetric cut for density functions: existing definitions
+lead to false inequalities. 
+% The Cheeger and Buser inequality for
+% probability density functions is the first new Cheeger and Buser
+% inequality since Alon and Milman's development of graph Cheeger and
+% Buser~\cite{AlonM84}, and opens up natural conjectures about a potential
+% Cheeger and Buser inequality for
+% probability density functions supported on manifolds.
+
+Finally, our paper will present a discrete $2$-way clustering algorithm that we
+suspect converges to the $(\alpha=1, \gamma=3)$-spectral sweep cut as the
+number of data points grows large.  Our
+algorithm bears similarity to classic
+spectral clustering methods, with some important differences. We note
+that we do not prove convergence of this discrete clustering method to
+our method for cutting probability densities, and leave this for future work.
+
+% We briefly note some difficulties that we overcome in our work: first,
+% graph and manifold Cheeger inequalities do \textit{not} imply Cheeger
+% inequalities on Lipschitz density functions. This will be discussed at
+% length in Section~\ref{sec:contributions}. In fact, using most
+% standard definitions of sparse cuts and eigenfunctions of denstiy
+% functions, the Cheeger inequalities are false. Thus, our key
+% contribution is not only new mathematical foundations for Cheeger
+% inequalities on probability density functions, but also the appropriate
+% definitions of quantities like sparse cuts and eigenfunction in this
+% setting (which are necessary for the inequalities to hold). For a list of
+% mathematical tools necessary to build these inequalities in the
+% probability density setting, see Section~\ref{sec:contributions}.
+
+\subsection{Contributions}
+
+Our paper has three core contributions: 
+\begin{enumerate}
+  \item A natural method for cutting probability density
+    functions, based on a new notion of sparse cuts on density functions.
+  \item A Cheeger and Buser inequality for probability density
+    functions, and
+  \item A clustering algorithm operating on samples, which heuristically
+    approximates a spectral sweep cut on the density function when the
+    number of samples grows large.
+\end{enumerate}
+We emphasize that our primary contributions are points 1 and 2, which
+are formally stated in
+Theorems~\ref{thm:sweep-cut} and~\ref{thm:Cheeger-Buser} respectively.  
+Our clustering algorithm on samples, which is designed to approximate
+the $(\alpha, \gamma)$-spectral sweep cut on the density function as the number of samples
+grows large, is of secondary importance. 
+
+We now state our two main theorems. Unfamiliar terms like 
+$(\alpha, \beta)$-sparsity, $(\alpha, \gamma)$-spectral sweep cuts, and
+$(\alpha,\beta)$-principal eigenvalue are defined in Section~\ref{sec:definitions}.
+\begin{theorem} \label{thm:sweep-cut} 
+  \textbf{Spectral Sweep Cuts give Sparse Cuts:}
+
+  Let $\rho:\Re^d \to \Re_{\geq 0}$ be an $L$-Lipschitz probability
+  density function, and let $\beta = \alpha+1$ and $\gamma = \alpha+2$.
+  
+  The $(\alpha,\gamma)$-spectral sweep cut of $\rho$ has 
+  $(\alpha, \beta)$ sparsity $\Phi$ satisfying:
+  \[ 
+  \Phi_{OPT} \leq \Phi \leq O(\sqrt{dL\Phi_{OPT}} ).
+  \]
+  Here, $\Phi_{OPT}$ refers to the optimal $(\alpha,\beta)$ sparsity of
+  a cut on $\rho$. 
+\end{theorem}
+
+In words, the spectral sweep cut of the
+  $(\alpha, \gamma)$  eigenvector gives a provably good approximation to
+  the sparsest $(\alpha, \beta)$ cut, as long as $\beta = \alpha+1$ and
+  $\gamma = \alpha+2$.  
+  Proving this result is a straightforward application of two new
+  inequalities we present, which we will refer to as as the Cheeger and Buser inequalities
+  for probability density functions.
+
+\begin{theorem}\label{thm:Cheeger-Buser}
+  \textbf{Probability Density Cheeger and Buser:}
+
+  Let $\rho:\mathbb{R}^d \rightarrow \mathbb{R \geq 0}$ be an $L$-Lipschitz
+  density function. Let $\alpha = \beta - 1 = \gamma - 2$.
+
+  Let $\Phi$ be the infimum $(\alpha,\beta)$-sparsity of a cut through
+  $\rho$, and let $\lambda_2$ be the $(\alpha,\gamma)$-principal eigenvalue of
+  $\rho$. Then:
+  \[ \Phi^2/4 \leq \lambda_2 \]
+  and 
+  \[\lambda _2 \leq O_{\alpha, \beta}(d \max(L \Phi, \Phi^2)).\]
+  The first inequality is \textbf{Probability Density Cheeger}, and
+  the second inequality is \textbf{Probability Density Buser}.
+\end{theorem}
+Note that we don't need $\rho$ to have a total mass of $1$ for any
+of our proofs. The overall probability mass of $\rho$ can be arbitrary.
+
+Finally, we give a discrete algorithm~\textsc{1,3-SpectralClutering} for clustering data points into
+two-clusters.
+We conjecture, but do not prove, that
+\textsc{1,3-SpectralClustering} converges to the the $(\alpha=1,
+\gamma=3)$-spectral sweep cut of the probability density function $\rho$
+as the number of samples grows large.
+
+\begin{algorithm}
+  \textsc{1,3-SpectralClustering}
+
+  \textbf{Input:} Point $s_1, \ldots s_n \in \mathbb{R}^d$, and similarity measure
+  $K:\mathbb{R}^d, \mathbb{R}^d\rightarrow \mathbb{R}$.
+  \begin{enumerate}
+    \item Form the affinity matrix $A' \in \mathbb{R}^{n \times n}$,
+      where $A'_{ij} = K(s_i, s_j)$ for $i \not= j$ and $A_{ii} = 0$ for
+      all $i$.
+    \item Define $D$ to be the diagonal matrix whose $(i, i)$ element is
+      the sum of $A$'s $i^{th}$. Let $L$ be the Laplacian formed
+      from the adjacency matrix $D^{1/2}AD^{1/2}$.
+    \item Let $u$ be the principal eigenvector of $L$. Find the value
+      $t$ where $t := \argmin_s \Phi_{\{u(v) > t\}}$, where $\Phi_S$ is
+      the graph conductance of the cut defined by set $S$.
+  \end{enumerate}
+  \textbf{Output:} Clusters $G_1 = \{v : u(v) > t\}, G_2 = \{v : u(v)
+  \leq t\}$.
+\end{algorithm}
+We note that this strongly resembles the unnormalized spectral
+clustering based on the work of Shi and Malik~\cite{ShiMalik97} and Ng,
+Weiss, and Jordan~\cite{NgSpectral01}. The major difference is that we build our
+Laplacian from the matrix $D^{1/2}AD^{1/2}$ rather than $A$ (which is
+the case for unnormalized spectral
+clustering~\cite{von2007tutorial, TrillosVariational15}), or
+$D^{-1/2}AD^{-1/2}$ (which is the case for normalized spectral
+clustering~\cite{von2007tutorial, TrillosVariational15}).
+%%% DEFINITION %%%%
+\subsubsection{Definitions}\label{sec:definitions}
+In this subsection, we define $(\alpha, \beta)$ sparsity, $(\alpha,
+\gamma)$ eigenvalues/Rayleigh quotients, and $(\alpha, \gamma)$ sweep
+cuts. 
+
+\vspace{2 mm}
+\begin{definition} Let $\rho$ be a probability density function with domain
+  $\mathbb{R}^d$, and let $A$ be a
+  subset of $\mathbb{R}^d$.
+
+  The \textbf{$(\alpha, \beta)$-sparsity} of the cut defined by $A$ is the
+  integral of
+  $\rho^\beta$ over the cut, divided by the integral of
+  $\rho^\alpha$ on the side of the cut where this integral is
+  smaller.
+
+\end{definition}
+\vspace{2 mm}
+
+\begin{definition}
+The \textbf{$(\alpha, \gamma)$-Rayleigh quotient} of $u$ with
+respect to $\rho:\Re^d \to \Re_{\geq 0}$ is:
+
+\[
+  R_{\alpha, \gamma}(u) \coloneqq \frac{\int_{\Re^d} \rho^\gamma
+  |\nabla u|^2}{\int_{\Re^d} \rho^{\alpha}|u|^2} 
+\]
+
+A \textbf{$(\alpha, \gamma)$-principal eigenvalue} of $\rho$ is
+$\lambda_2$, where:
+
+\[ \lambda_2 := \inf_{\int \rho^\alpha u = 0} R_{\alpha, \gamma}(u). \]
+
+Define a \textbf{$(\alpha, \gamma)$-principal eigenfunction} of
+$\rho$ to be a function $u$ such that $R_{\alpha, \gamma}(u) =
+\lambda_2$.
+\end{definition}
+\vspace{2 mm}
+
+Now we define a sweep cut for a given function with respect to a
+a positive valued function supported on $\mathbb{R}^d$:
+
+\vspace{2 mm}
+\begin{definition} Let $\alpha, \beta$ be two real numbers, and $\rho$ be
+  any function from $\Re^d$ to $\Re_{\geq 0}$.
+  Let $u$ be any function from $\Re^d \to \Re$, and let $C_t$ be the cut
+  defined by the set $\{s \in \Re^d | u(s) > t\}$. 
+  
+  The \textbf{sweep-cut} algorithm
+  for $u$ with respect to $\rho$ returns the cut $C_t$ of minimum $(\alpha,
+  \beta)$ sparsity, where this sparsity is measured with respect to $\rho$.
+
+When $u$ is a $(\alpha, \gamma)$-principal eigenfunction, the sweep cut is called
+a \textbf{$(\alpha, \gamma)$-spectral sweep cut} of $\rho$.  
+\end{definition}
+\subsubsection{Additional Definitions}
+A function $\rho: \Re^d \to \Re_{\geq 0}$ is
+\textbf{$L$-Lipschitz} if $|\rho(x)-\rho(y)|_2 \leq L|x-y|_2$ for
+all $x, y \in \Re^d.$
+
+A function is $\rho:\Re^d \to \Re_{\geq 0}$ is
+\textbf{$\alpha$-integrable} if $\int_{\Re^d} \rho^\alpha$ is
+well defined and finite. Throughout this paper, we assume $\rho$
+is always $\alpha$-integrable.
+
+% \subsection{Do $(\alpha, \beta)$-sparse cuts give meaningful cuts of a
+% density function?}
+% 
+% In this section, we suggest that a $(\alpha, \beta)$ sparse cut captures
+% machine learning intuition that two data points drawn from the same side of
+% the cut are more similar, and two data points drawn from opposite sides of
+% the cut are less similar.
+% 
+% According to machine learning intuition, the ideal cut of a density
+% function should partition it into two pieces of relatively high
+% probability mass, while cutting through a low amount of probability
+% mass.  
+% 
+% We note that a $(\alpha=1,\beta=2)$-sparse cut agrees with the machine
+% learning intuition that an ideal cut should cut through regions
+% of low probability density, while splitting the density function
+% into two regions of comparatively large density. Moreover,
+% choosing $\beta$ to be $2$ instead of $1$
+% biases towards longer cuts through lower density regions,
+% which agrees with machine learning intuition and practice. We
+% will detail the advantages and disadvantages of a $(1,2)$-sparse cut in
+% Section~\ref{sec:changing-beta}.
+
+
+%These inequalities critically depend on the right notion of $(\alpha, \beta)$-sparsity and the principal $(\alpha, \gamma)$-eigenfunctions, and the right relations between $\alpha, \beta$, and $\gamma$.
+
+
+% The contributions of our paper can be summed up as follows: first, we define the notion of an $(\alpha, \beta)$-sparse cut for a probability density function, which captures the notion of a cut that separates the density into two pieces of high probability mass while cutting through a region of low probability mass. We will then show that $(1,2)$-sparse cuts satisfy this intuition, and have additional desirable properties in machine learning.  Next, we give a spectral clustering-based algorithm that generates a cut of provably low $(1,2)$-sparsity for all Lipschitz probability density functions, as the number of samples grows large.  To prove this, we will state and prove a Cheeger and Buser inequality on probability density functions, which depends critically on the right notion of $(\alpha, \beta)$-sparsity and principal $(\alpha, \beta)$ eigenvalue.  Finally, we show that classical spectral clustering algorithms (like those of Ng.  et al) generate a cut of bad $(\alpha, \beta)$-sparsity for simple $1$-Lipschitz distributions, for any $\alpha, \beta > 0$.
+
+% We note that our Cheeger and Buser inequalities on density functions lead to a natural new conjecture inspired by common machine learning models: is there a Cheeger and Buser inequality for density functions supported on manifolds?  Modeling data as samples from a probability density on a manifold is one of the most influential models in machine learning, and such a theorem would generalize our inequalities and the existing Cheeger/Buser inequalities on manifolds.
+%  More generally, we will present clustering algorithms that converge to cuts of provably low $(\alpha, \alpha+1)$-sparsity on the underlying density.  
+
+% \input{introduction/definitions}
+% \input{introduction/theorem}
+\input{introduction/past-work}
+\input{introduction/contributions}

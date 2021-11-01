@@ -1,0 +1,99 @@
+\section{Relating the nearest neighbor metric to Euclidean MSTs,
+Euclidean Spanners, and More}\label{sec:edge-power}
+The nearest neighbor metric, as seen in Theorem~\ref{thm:NN}, is equal to
+the edge-squared metric. This allows us to connect this manifold distance
+to a graph distance, which we will in turn show is a generalization of
+maximum-edge distance on minimum spanning trees. The results in this
+section are quite simple to prove, but we nonetheless believe they are important
+properties of the Nearest Neighbor metric and its variants.
+
+The edge-squared metric on a Euclidean point set, as we recall, is defined by taking the
+Euclidean distances squared and finding the shortest paths. 
+We could have taken any such power $p$ of the Euclidean distances. We
+will soon see that taking $p = 1$ gives us the Euclidean distance, and
+finding spanners of the graph as $\lim p\rightarrow \infty$ is the
+Euclidean MST problem.  
+Let the $p$-power metric be defined on a Euclidean point set by taking
+Euclidean distances to the power of $p$, and performing all-pairs
+shortest path on the resulting distance graph.
+\begin{theorem} \label{thm:1-spanner}
+For all $q > p$, any $1$-spanner of the $p$-power metric is a
+$1$-spanner of the $q$-power metric on the same point set
+\end{theorem}
+\begin{proof}
+A $1$-spanner of the $q$-power metric can be made by taking
+  edges $uv$ where
+  \begin{align}\label{eq:span}
+    \min_{p_0=u, \ldots p_k=v, k \not= 1} \sum_k ||p_i - p_{i-1}||^q > || u -
+v||^q.
+  \end{align}
+If
+  $\sum_{i=1}^k ||p_i - p_{i-1}||^q > || u - v||^q$ for any points
+  $p_1, \ldots p_k$, then
+  $\sum_{i=1}^k ||p_i - p_{i-1}||^p > || u - v||^p$ for any $q > p$.
+  Thus, for all such edges $uv$ satisfying
+  Equation~\ref{eq:span}:
+  \[ \min_{p_0=u, \ldots p_k=v, k \not= 1} \sum_k ||p_i - p_{i-1}||^p > || u -
+  v||^p. \] Such edges $uv$ must be included in any $1$-spanner
+  of the $p$-power
+  metric.
+\end{proof}
+
+ \begin{corollary}
+   Let $P$ be a set of points in Euclidean space drawn i.i.d. from a Lipschitz
+   probability density bounded above and below, with support on a
+   smooth, compact manifold with intrinsic dimension $d$, bounded
+   curvature, and
+   smooth boundary of bounded curvature. Then the $k$-NN graph on $P$
+   when $k = O(2^d \log n)$ is a $1$-spanner of the $p$-power
+   metric for every $p \geq 2$, w.h.p.
+ \end{corollary}
+This follows from combining Theorem~\ref{thm:distribution-spanner} and
+Theorem~\ref{thm:1-spanner}.
+\subsection{Relation to the Euclidean MST problem}
+  \begin{definition}
+  Let the \textbf{normalized $p$-power metric} between two points in
+  $\mathbb{R}^d$ be the $p$-power metric between the two points,
+  raised to the $\frac{1}{p}$ power. Define the normalized $\infty$-power
+  metric as the limit of the normalized $p$-power metric as $p \rightarrow \infty$.
+  \end{definition}
+  \begin{lemma} The Euclidean MST is a
+  $1$-spanner for the normalized $\infty$-power metric.
+  \end{lemma}
+  This lemma follows from basic properties of the MST.
+  The normalized $p$-power metrics give us a suite of
+  metrics such that $p=1$ is the Euclidean
+  distance and $p=\infty$ gives us the distance of the longest edge on the
+  unique MST-path.  Setting $p=2$ gives the edge-squared metric, which
+  sits between the Euclidean and max-edge-on-MST-path distance. 
+  Theorem~\ref{thm:1-spanner} establishes
+  that minimal $1$-spanners of the (normalized) $p$-power
+  metric are contained in each other, as $p$ varies from
+  $1$ to $\infty$. The minimal spanner for a general point set when $p=1$ is the complete graph, and
+ the Euclidean MST is the minimal spanner for $p=\infty$. Thus:
+  \begin{theorem} 
+    For points in $\mathbb{R}^d$, every $1$-spanner of the $p$-power
+    metric on that set of points contains every Euclidean MST.
+  \end{theorem}
+  \begin{corollary}
+    Every $1$-spanner for the Nearest Neighbor metric
+    contains every Euclidean
+    MST. 
+  \end{corollary}
+  \subsection{Generalizing Single Linkage Clustering, Level Sets, and k-Centers
+  clustering}
+  If our point set is drawn from a well-behaved probability
+  density, then the normalized edge-power metrics
+  converge to a nice geodesic distance detailed
+  in~\cite{hwang2016}. When $p=1$, clustering with this metric is
+  the same as Euclidean metric clustering ($k$-means,
+  $k$-medians, $k$-centers), and when $p=\infty$, clustering with
+  this metric is the same as the single-linkage clustering and the widely
+used level-set method~\cite{Wishart69, Gower1969, Ester1996,OPTICS96}.
+Thus, clustering with normalized edge-power metrics generalizes these two
+very popular methods, and interpolates between their advantages.
+Definitions of the level-set method and a full discussion are contained in
+Appendix~\ref{ap:clustering-link}
+
+% \tim{Maybe you want to mention the self-sparsifying graph when you raise
+% $p$ from $1$ to $\infty$}

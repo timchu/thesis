@@ -1,0 +1,60 @@
+\section{Summary of Low Dimensional Results}\label{sec:low-dim-summary}
+
+In the results we've discussed so far, we show that in high-dimensional settings, the curse of dimensionality applies to a wide variety of functions that are relevant in applications, including the Gaussian kernel and inverse polynomial kernels. Luckily, in many settings, the points supplied as input are very low-dimensional. In the classic $n$-body problem, for example, the input points are 3-dimensional. In this subsection, we discuss our results pertaining to whether algorithms with runtimes exponential in $d$ exist; such algorithms can still be efficient in low dimensions $d = o(\log n)$.
+
+\subsection{Multiplication}
+
+The prior work on the fast multipole method ~\cite{gr87, gr88, gr89} yields algorithms with runtime $(\log(n/\epsilon))^{O(d)} n^{1+o(1)}$ for $\epsilon$-approximate adjacency matrix-vector multiplication for a number of functions $\k$, including when $\k(u,v) = \frac{1}{\|u - v\|_2^c}$ for a constant $c$ and when $\k(u,v) = e^{-\|u-v\|_2^2}$. In order to explain what functions $\k$ the fast multipole methods work well for, and to clarify dependencies on $d$ in the literature, we give a complete exposition of how the fast multipole method of~\cite{gs91} works on the Gaussian kernel:
+
+\begin{theorem}[fast Gaussian transform~\cite{gs91}, exposition in Section~\ref{sec:fastmm}]\label{thm:fast_gaussian_transform_intro}
+Let $\k(x,y) = \exp (- \| x - y \|_2^2)$. Given a set of points $P \subset \R^d$ with $|P|= n$. Let $G$ denote the $\k$-graph. For any vector $u \in \R^d$, for accuracy parameter $\epsilon$, 
+there is an algorithm that runs in 
+$
+n \log^{O(d)} ( \| u \|_1 / \epsilon ) 
+$
+time to approximate $A_G \cdot u$ within $\epsilon$ additive error.
+\end{theorem}
+
+The fast multipole method is fairly general, and so similar algorithms also exist for a number of other functions $\k$; see Section~\ref{sec:fastmm_general} for further discussion. 
+Unlike in the high-dimensional case, we do not have a characterization of the functions for which almost-linear time algorithms exist in near-constant dimension. We leave this as an open problem. Nonetheless, we are able to show lower bounds, even in barely super-constant dimension $d = \exp(\log^*(n))$\footnote{Here, $\log^*(n)$ denotes the \emph{very} slowly growing iterated logarithm of $n$.}, on adjacency matrix-vector multiplication for kernels that are not multiplicatively Lipschitz:
+
+\begin{theorem}[Informal version of Proposition \ref{prop:low-mult-hard}]
+For some constant $c>1$, any function $f$ that is not $(C,L)$-multiplicatively Lipschitz for any constants $C > 1, L > 1$  does not have an $n^{1+o(1)}$ time adjacency matrix-vector multiplication (up to $2^{-\poly(\log n)}$ additive error) algorithm in $c^{\log^* n}$ dimensions assuming $\SETH$ when $\k(u,v) = f(\| u - v \|_2^2)$.
+\end{theorem}
+
+This includes threshold functions, but does not include piecewise exponential functions. Piecewise exponential functions do have efficient adjacency multiplication algorithms by Theorem \ref{thm:fast_gaussian_transform}.
+
+To illustrate the complexity of the adjacency matrix-vector multiplication problem in low dimensions, we are also able to show hardness for the function $\k(u,v) = |\langle u,v\rangle|$ in nearly constant dimensions. By comparison, we are able to sparsify for this function $\k$, even in very high $d = n^{o(1)}$ dimensions (in Theorem~\ref{thm:sparsabsinnerproduct} above).
+\begin{theorem}[Informal version of Corollary \ref{cor:lowdimmultabsinnerproduct}] \label{thm:introlowdimmultabsinnerproduct}
+For some constant $c>1$, assuming $\SETH$, adjacency matrix-vector multiplication (up to $2^{-\poly(\log n)}$ additive error) in $c^{\log^* n}$ dimensions cannot be done in subquadratic time in dimension $d = \exp(\log^*(n))$ when $\k(u,v) = |\langle u,v\rangle|$.
+\end{theorem}
+
+
+\subsection{Sparsification}
+
+We are able to give a characterization of the decreasing functions for which sparsification is possible in near-constant dimension. We show that a polynomial dependence on the multiplicative Lipschitz constant is allowed, unlike in the high-dimensional setting:
+\begin{theorem}[Informal version of Theorem \ref{thm:low-sparsify-lipschitz}]\label{thm:informal-low-sparsify-lipschitz}
+Let $f$ be a $(1 + 1/L,L)$-multiplicatively Lipschitz function and let $\k(u,v) = f(\|u-v\|_2^2)$. Then an $(1\pm\epsilon)$-spectral sparsifier for the $\k$-graph on $n$ points can be found in $ n^{1+o(1)} L^{O(d)} (\log \alpha) /\epsilon^2$ time. 
+\end{theorem}
+
+Thus, geometric graphs for piecewise exponential functions with $L = n^{o(1)}$ can be sparsified in almost-linear time when $d$ is constant, unlike in the case when $d = \Omega(\log n)$. In particular, spectral clustering can be done in $O(kn^{1+o(1)})$ time for $k$ clusters in low dimensions. Unfortunately, not all geometric graphs can be sparsified, even in nearly constant dimensions:
+
+\begin{theorem}[Informal version of Theorem \ref{thm:low-spars-hard}]\label{thm:informal-low-spars-hard}
+There are constants $c'\in (0,1),c > 1$ and a value $C_L$ given $L > 1$ for which any decreasing function $f$ that is not $(C_L,L)$-multiplicatively Lipschitz does not have an $O(n L^{c'})$ time sparsification algorithm for $\k$-graphs on $c^{\log^*n}$ dimensional points, where $\k(u,v) = f(\|u-v\|_2^2)$.
+\end{theorem}
+
+This theorem shows, in particular, that geometric graphs of threshold functions are not sparsifiable in subquadratic time even for low-dimensional pointsets. These two theorems together nearly classify the decreasing functions for which efficient sparsification is possible, up to the exponent on $L$.
+
+\subsection{Laplacian solving}
+
+As in the case of multiplication, we are unable to characterize the functions for which solving Laplacian systems can be done in almost-linear time in low dimensions. That said, we still have results for many functions $\k$, including most kernel functions of interest in applications. We prove most of these using the aforementioned connection from Section~\ref{sec:equivalence}: if a $\k$ graph can be efficiently sparsified, then there is an efficient Laplacian multiplier for $\k$ graphs if and only if there is an efficient Laplacian system solver for $\k$ graphs.
+
+For the kernels $\k(u,v) = 1/\|u-v\|_2^c$ for constants $c$ and the piecewise exponential kernel, we have almost-linear time algorithms in low dimensions by Theorems \ref{thm:sparsify-lipschitz} and \ref{thm:low-sparsify-lipschitz} respectively. Furthermore, the fast multipole method yields almost-linear time algorithms for multiplication. Therefore, there are almost-linear time algorithm for solving Laplacian systems in geometric graphs for these kernels.
+
+A similar approach also yields hardness results. Theorem~\ref{thm:sparsabsinnerproduct} above implies that an almost-linear time algorithm for solving Laplacian systems on $\k$-graphs for $\k(u,v) = |\langle u,v\rangle |$ yields an almost-linear time algorithm for $\k$-adjacency multiplication. However, no such algorithm exists assuming $\SETH$ by Theorem~\ref{thm:introlowdimmultabsinnerproduct} above. Therefore, $\SETH$ implies that no almost-linear time algorithm for solving Laplacian systems in this kernel can exist.
+
+We directly (i.e. without using a sparsifier algorithm) show an additional hardness result for solving Laplacian systems for kernels that are not multiplicatively Lipschitz, like threshold functions of $\ell_2$-distance:
+
+\begin{theorem}[Informal version of Theorem \ref{thm:low-lsolve-hard}]
+Consider an $L > 1$. There is some sufficiently large value $C_L > 1$ depending on $L$ such that for any decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(C_L,L)$-multiplicatively Lipschitz, no $O(n L^{c'} \log \alpha)$-time algorithm exists for solving Laplacian systems $2^{-\poly(\log n)}$ approximately in the $\k$-graph of a set of $n$ points in $c^{\log^* n}$ dimensions for some constants $c > 1, c'\in (0,1)$ assuming $\SETH$, where $\k(u,v) = f(\|u-v\|_2^2)$.
+\end{theorem}

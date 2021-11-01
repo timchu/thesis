@@ -1,0 +1,51 @@
+\subsection{Exact-spanners of nearest neighbor metric in
+the Probability Density Setting
+}\label{sec:distribution-spanner}
+% \tim{Do a warm up on Gabriel graphs with convex support.}
+
+Theorem~\ref{thm:distribution-spanner} states that for $k= O(2^d \log n)$, the $k$-NN graph of $n$ points drawn i.i.d from
+a nicely behaved probability distribution is a $1$-spanner of the
+nearest neighbor metric. This section is dedicated to outlining a proof of
+this Theorem, the full result which will be in
+Appendix~\ref{ap:distribution-spanner}.
+This result is clearly impossible for Euclidean distances,
+whose $1$-spanner is the complete graph almost surely.  
+Our theorem implies any off-the-shelf
+$k$-nearest neighbor graph generator can compute
+edge-squared metric.  We strongly rely on Theorem~\ref{thm:NN} for this
+result, and the fact that Gabriel graphs are $1$-spanners of the
+edge-squared metric.
+
+First, let us assume that the support of our
+probability density $D$ has the same dimension as our ambient space.
+This simplifies our calculations without changing the problem
+much. Then, we note that as our number of sample points get
+large, the density inside a $k$-NN ball around any point $x$ (the ball with radius
+$k^{th}$-NN
+distance, center at $x$) looks like the uniform distribution
+on that ball, possibly intersected with a halfspace. The bounding
+plane of our halfspace
+represents the boundary of our density $D$.
+
+For simplicity in the outline, let's suppose that $D$ is convex.
+If we condition on
+the radius of the $k$-NN ball, then the $k-1^{st}$ nearest
+neighbors of $x$ are distributed roughly according to the above
+distribution, described by the ball intersected with a halfspace.
+For any other point $p$ in $D$, we project $p$ onto the $k$-NN
+ball to point $p'$, and show that the ball $p'x$ contains a $k^{th}$ nearest
+neighbor w.h.p, when $k=O(2^d \log n)$. This
+implies ball with diameter $px$ contains a $k^{th}$ nearest
+neighbor of $x$, and thus $px$ is not necessary in any
+$1$-spanner of the edge-squared metric. Then we take union bound
+over all $x$.
+A rigorous proof of
+Theorem~\ref{thm:distribution-spanner} requires careful analysis, 
+and is contained in
+Section~\ref{ap:distribution-spanner}.  
+Our proof can be tweaked to show:
+\begin{theorem}
+  Given a Lipschitz distribution bounded above and below with support on convex set $C \subset
+  \mathbb{R}^d$, the $k$-NN graph is Gabriel w.h.p. for $k =
+  O(2^d \log n)$.
+\end{theorem}

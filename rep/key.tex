@@ -1,0 +1,62 @@
+\section{Representation Theory of the Real Hyperrectangles}\label{sec:key}
+In this section, we prove Lemma~\ref{lem:fourier_formal}, the formal version of Lemma~\ref{lem:fourier_informal}. This lemma uses representation theoretic ideas to compute the eigenvalues of matrices arising from the real hyperrectangle. We introduce Lemma~\ref{lem:box-int}, which expresses these same eigenvalues in terms of integrals. This integral formulation is useful for proving Theorem~\ref{thm:log_formal}.
+
+\subsection{Useful Tools}
+
+\begin{lemma}~\label{lem:key} Let $g:(\mathbb{R}^d \times \mathbb{R}^d)
+  \rightarrow \mathbb{R}$ such that $g(x,y)$ is invariant under axis
+  reflection.  Consider a $d$-dimensional hyperrectangle with
+corners $x_1, \ldots x_{2^d}$.  
+  Let $D$ be a $2^d$ by $2^d$ matrix such that $D_{ij} = g(x_i, x_j)$.
+  Then there is an eigendecomposition of $D$ into $H_d \Sigma H_d$ where $\Sigma$ is a
+diagonal matrix.
+\end{lemma}
+\begin{proof} This lemma can be proven directly via computation.
+However, it is more instructive to view this through the representation
+theoretic lens. We note that $D$ has the property that for any
+permutation matrix $\sigma$ corresponding to a reflection about one of
+the hyperrectangle's axes, we have $\sigma D = D\sigma$. Schur's lemma from
+representation theory (see Lemma~\ref{lem:known-abelian}) states that $D$
+  and all $\sigma$ in the reflectional symmetry group of the hyperrectangle have a common set of eigenvectors. It is straightforward
+to verify that the only common set of eigenvectors for all $\sigma$ is
+the columns of the Hadamard matrix, and thus $D$ must have the columns
+of $H_d$ as its eigenvectors.
+\end{proof}
+We note that variants of this lemma are used to prove Delsarte's linear programming
+bound in error correcting codes~\cite{delsarte, ODonnell14}.
+\subsection{Main Result}
+\begin{lemma}[Representation theory of the real hyperrectangle, formal version of Lemma~\ref{lem:fourier_informal}]~\label{lem:fourier_formal}
+Consider a $d$-dimensional hyperrectangle (Definition~\ref{def:hyperrectangle}) parameterized by $a_1, \ldots a_d > 0$. Enumerate the vertices in lexicographical ordering as $p_1, \ldots p_{2^d}$.
+ 
+For any $f: \R \to \R$, let $D$ be the $2^d$ by $2^d$ matrix given by $D_{i,j} =f(\| p_i - p_j \|_1)$. Then:
+ \begin{enumerate}
+     \item $\Sigma := H_d D H_d$ is a diagonal matrix whose entries are the eigenvalues of $D$ multiplied by $2^d$, and $D = 4^{-d} \cdot H_d \Sigma H_d $.
+     \item Let $\chi: [d] \rightarrow \{0, 1\}$. Let $k$ equal the integer corresponding to transforming $\chi$ (written as a $d$ dimensional binary vector) into an integer via binary conversion. For each $\chi$, there is an eigenvector of $D$ equal to the $k$-th column of Hadamard matrix $H_d$, and its associated eigenvalue is:
+     \begin{align}\label{eq:eig0}
+\sum_{T \subseteq [d]} (-1)^{\sum_{t \in T} \chi(t)} f\left(\sum_{t\in T}a_t\right).
+\end{align}
+\end{enumerate}
+\end{lemma}
+
+The second part of this theorem on its surface differs from that in Lemma~\ref{lem:fourier_informal}, but the statements are in fact identical via straightforward computation.
+\begin{proof} By Lemma~\ref{lem:key}, we know that the Hadamard matrix columns are eigenvectors of the matrix $D$. The result follows by direct computation, noting that the formula in Eq.~\eqref{eq:eig0} is the $d$ dimensional analog of
+Eq.~\eqref{eq:eigval}, and can be derived in the same way. \end{proof}
+
+We now give an alternate formulation of the eigenvalues in
+Lemma~\ref{lem:fourier_formal}. This lemma is of independent interest.
+\begin{lemma} \label{lem:box-int}
+Given a box with side lengths $a_1, \ldots a_d$, each eigenvalue
+analogous to those in Eq.~\eqref{eq:eigval} corresponds to a function
+$\chi: [d] \rightarrow \{0, 1\}$.  Let $Q = \{q_1, \ldots q_k\}$ be the
+full set of values on which $\chi$ is $1$.
+Then the Eigenvalues in Eq.~\eqref{eq:eig0} equal:
+\begin{align*}
+  \sum_{T \subseteq [d] \setminus Q}
+  \int_{\sum_{t \in T} a_t}^{a_{q_1}+\sum_{t \in T} a_t} \ldots
+  \int_{\sum_{t \in T} a_t}^{a_{q_k}+\sum_{t \in T} a_k}
+  (-1)^k\frac{\d^k f}{\d x^k} \Big( \sum_{q \in Q} s_q \Big) \d s_1 \ldots \d s_k.
+\end{align*}
+\end{lemma}
+\begin{proof}
+The proof is identical to that of Eq.~\eqref{eq:int}, but for $d$ dimensions. It follows directly from Lemma~\ref{lem:fourier_formal} combined with the fundamental theorem of calculus.
+\end{proof} 

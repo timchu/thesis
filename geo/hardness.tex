@@ -1,0 +1,599 @@
+\section{Matrix-Vector Multiplication}
+
+
+Recall the adjacency and Laplacian matrices of a $\k$ graph: For any function $\k : \R^d \times \R^d \to \R$, and any set $P = \{x_1, \ldots, x_n\} \subseteq \R^d$ of $n$ points, define the matrix $A_{\k,P} \in \R^{n \times n}$ by 
+\begin{align*}
+A_{\k,P}[i,j] = 
+\begin{cases} 
+\k(x_i, x_j), & \text{if } i \neq j ; \\
+ 0, &\text{if } i=j.
+\end{cases}
+\end{align*}
+Similarly, define the matrix $L_{\k,P} \in \R^{n \times n}$ by 
+\begin{align*}
+L_{\k,P}[i,j] = 
+\begin{cases} 
+- \k(x_i, x_j), & \text{if } i \neq j ; \\ 
+\sum_{a \in [n] \setminus \{i\}} \k(x_i, x_a), &\text{if } i=j.
+\end{cases}
+\end{align*}
+$A_{\k,P}$ and $L_{\k,P}$ are the adjacency matrix and Laplacian matrix, respectively, of the complete weighted graph on $n$ nodes where the weight between node $i$ and node $j$ is $\k(x_i, x_j)$. 
+
+In this section, we study the algorithmic problem of computing the linear transformations defined by these matrices:
+
+\begin{problem}[$\k$ Adjacency Evaluation]\label{pro:KAdjE}
+For a given function $\k : \R^d \times \R^d \to \R$, the $\k$ Adjacency Evaluation ($\KAdjE$) problem asks: Given as input a set $P =\{x_1, \ldots, x_n\} \subseteq \R^d$ with $|P|=n$ and a vector $y \in \R^n$, compute a vector $b \in \R^n$ such that $\|b - A_{\k,P} \cdot y \|_\infty \leq \eps \cdot w_{\max} \cdot \|y\|_\infty$.
+\end{problem}
+
+\begin{problem}[$\k$ Laplacian Evaluation]\label{pro:KLapE}
+For a given function $\k : \R^d \times \R^d \to \R$, the $\k$ Laplacian Evaluation ($\KLapE$) problem asks: Given as input a set $P =\{x_1, \ldots, x_n\} \subseteq \R^d$ with $|P|=n$ and a vector $y \in \R^n$, compute a vector $b \in \R^n$ such that $\|b - L_{\k,P} \cdot y \|_\infty \leq \eps \cdot w_{\max} \cdot \|y\|_\infty$.
+\end{problem}
+
+We make a few important notes about these problems:
+\begin{itemize}
+    \item In both of the above, problems, $w_{\max} := \max_{u,v \in P} |\k(u,v)|$.
+    \item We assume $\eps = 2^{-\polylog n}$ when it is omitted in the above problems. As discussed in Section~\ref{sec:equivalence}, this is small enough error so that we can apply such an algorithm for $\k$ Laplacian Evaluation to solve Laplacian systems, and furthermore, if we can prove hardness for any such $\eps$, it implies hardness for solving Laplacian systems.
+    \item Note, by Corollary~\ref{cor:simpleapproxmult}, that when $\eps = 2^{-\polylog n}$, the result of $\KAdjE$ is an $\eps$-approximate multiplication of $A_{\k,P} \cdot y$ (see Definition~\ref{def:approxmult}), and the result of $\KLapE$ is an $\eps$-approximate multiplication of $L_{\k,P} \cdot y$.
+    \item We will also sometimes discuss the $f$ $\KAdjE$ and $f$ $\KLapE$ problems for a single-input function $f : \R \to \R$. In this case, we implicitly pick $\k(u,v) = f(\|u-v\|_2^2)$.
+\end{itemize}
+ 
+
+Suppose the function $\k$ can be evaluated in time $T$ (in this chapter we've been assuming $T = \tilde{O}(1)$). Then, both the $\KAdjE$  and $\KLapE$ problems can be solved in $O(T n^2)$ time, by computing all $n^2$ entries of the matrix and then doing a straightforward matrix-vector multiplication. However, since the input size to the problem is only $O(nd)$ real numbers, we can hope for much faster algorithms when $d = o(n)$. In particular, we will aim for $n^{1 + o(1)}$ time algorithms when $d = n^{o(1)}$.
+
+For some functions $\k$, like $\k(x,y) = \| x - y \|_2^2$, we will show that a running time of $n^{1+o(1)}$ is possible for all $d = n^{o(1)}$. For others, like $\k(x,y) = 1/\|x - y\|_2^2$ and $\k(x,y) = \exp(-\|x - y\|_2^2)$, we will show that such an algorithm is only possible when $d \ll \log(n)$. More precisely, for these $\k$:
+\begin{enumerate}
+    \item When $d = O(\log (n) / \log \log (n))$, we give an algorithm running in time $n^{1 + o(1)}$, and
+    \item For $d = \Omega(\log n)$, we prove a conditional lower bound showing that $n^{2 - o(1)}$ time is necessary. 
+\end{enumerate}
+Finally, for some functions like $\k(x,y) = |\langle x,y \rangle|$, we will show a conditional lower bound showing that $\Omega(n^{2-\delta})$ time is required even when $d = 2^{\Omega(\log^* n)}$ is just barely super-constant.
+
+In fact, assuming $\SETH$, we will characterize the functions $f$ for which the $\KAdjE$ and $\KLapE$ problems can be efficiently solved in high dimensions $d = \Omega(\log n)$ in terms of the \emph{approximate degree} of $f$ (see subsection~\ref{subsec:approxdegree} below). The answer is more complicated in low dimensions $d = o(\log n)$, and for some functions $f$ we make use of the Fast Multipole Method to design efficient algorithms (in fact, we will see that the Fast Multipole Method solves a problem equivalent to our $\KAdjE$ problem). 
+
+
+\subsection{Equivalence between Adjacency and Laplacian Evaluation}
+
+Although our goal in this section is to study the $\k$ Laplacian Evaluation problem, it will make the details easier to instead look at the $\k$ Adjacency Evaluation problem. Here we show that any running time achievable for one of the two problems can also be achieved for the other (up to a $\log n$ factor), and so it will be sufficient in the rest of this section to only give algorithms and lower bounds for the $\k$ Adjacency Evaluation problem.
+
+\begin{proposition} \label{prop:adjtolap}
+Suppose the $\KAdjE$ (Problem~\ref{pro:KAdjE}) can be solved in $\T(n,d,\eps)$ time. Then, the $\KLapE$ (Problem~\ref{pro:KLapE}) can be solved in $O(\T(n,d,\eps/2))$ time.
+\end{proposition}
+
+\begin{proof}
+We use the $\k$ Adjacency Evaluation algorithm with error $\eps/2$ twice, to compute $s := A_{\k, P} \cdot y$ and $g := A_{\k,P} \cdot \vec{1}$, where $\vec{1}$ is the all-1s vector of length $n$. We then output the vector $z \in \R^n$ given by $z_i = g_i \cdot y_i - s_i$, which can be computed in $O(n) = O(\T(n,d,\eps/2))$ time.
+\end{proof}
+
+
+\begin{proposition} \label{prop:laptoadj}
+Suppose the $\KLapE$ (Problem~\ref{pro:KLapE}) can be solved in $\T(n,d,\eps)$ time, and that $\T$ satisfies $\T(n_1 + n_2,d,\eps) \geq \T(n_1,d,\eps)+\T(n_2,d,\eps)$ for all $n_1, n_2, d, \eps$. Then, the $\KAdjE$ (Problem~\ref{pro:KAdjE}) can be solved in $ O( \T(n \log n,d,0.5 \eps/\log n))$ time.
+\end{proposition}
+
+\begin{proof}
+We will show that the $\k$ Adjacency Evaluation problem can be solved in 
+\begin{align*}
+\sum_{i=0}^{\log n} O(2^i \cdot \T(n/2^i,d,0.5 \eps/\log n))
+\end{align*}
+time, and then apply the superadditive identity for $T$ to get the final running time.
+For a fixed $d$, we proceed by strong induction on $n$, and assume the $\k$ Adjacency Evaluation problem can be solved in this running time for all smaller values of $n$.
+
+Let $a', a'' \in \R^n$ be the vectors given by $a'_i = y_i$ and $a''_i = 0$ when $i \in [n/2]$, and $a'_i = 0$ and $a''_i = y_i$ when $i > n/2$. 
+
+We first compute $z' \in \R^n$ and $z'' \in \R^n$ as follows:
+\begin{align*}
+ z' := L_{\k,P} \cdot a' \text{~~~and~~~}z'' := L_{\k,P} \cdot a''
+\end{align*} 
+in $O( \T(n,d,0.5 \eps/\log n))$ time. 
+
+Next, let $y', y'' \in \R^{n/2}$ be the vectors given by $y'_i = y_i$ and $y''_i = y_{n/2 + i}$ for all $i \in [n/2]$, and let $P', P'' \subseteq \R^d$ be given by $P' = \{ x_1, \ldots, x_{n/2}\}$ and $P'' = \{x_{n/2 + 1}, \ldots, x_n \}$. 
+
+We recursively compute $r', r'' \in \R^{n/2}$ given by 
+\begin{align*}
+r' = L_{\k, P'} \cdot y' \text{~~~and~~~} r'' = L_{\k, P''} \cdot y''.
+\end{align*}
+Finally, we can output the vector $z \in \R^n$ given by $z_i = z''_i + r'_i$ and $z_{n/2 + i} = z'_{n/2 + i} + r''_i$ for all $i \in [n/2]$. Each of the two recursive calls took time 
+\begin{align*}
+\sum_{i=1}^{\log_2(n)} O(2^{i-1} \cdot \T(n/2^i,d,0.5 \eps/\log n)),
+\end{align*}
+and our two initial calls took time $O( \T(n,d,0.5 \eps/\log n))$, leading to the desired running time. Each output entry is ultimately the sum of at most $2 \log n$ terms from calls to the given algorithm, and hence has error $\eps$ (since we perform all recursive calls with error $0.5 \eps / \log n$ and the additive error guarantees in recursive calls can only be more stringent).
+\end{proof}
+
+\begin{remark} \label{rem:equivzeroone}
+In both Proposition~\ref{prop:adjtolap} and Proposition~\ref{prop:laptoadj}, if the input to the $\KLapE$ (resp. $\KAdjE$) problem is a $\{0,1\}$ vector, then we only apply the given $\KAdjE$ ($\KLapE$) algorithm on $\{0,1\}$ vectors. Hence, the two problems are equivalent even in the special case where the input vector $y$ must be a $\{0,1\}$ vector.
+\end{remark}
+
+
+
+\subsection{Approximate Degree} \label{subsec:approxdegree}
+
+We will see in this section that the key property of a function $f : \R \to \R$ for determining whether $f$ $\KAdjE$ is easy or hard is how well it can be approximated by a low-degree polynomial.
+
+\begin{definition} \label{def:closetopoly}
+For a positive integer $k$ and a positive real number $\eps>0$, we say a function $f : [0,1] \to \R$ is \emph{$\eps$-close to a polynomial of degree $k$} if there is a polynomial $p : [0,1] \to \R$ of degree at most $k$ such that, for every $x \in [0,1]$, we have $|f(x) - p(x)| \leq \eps$.
+\end{definition}
+
+The Stone-Weierstrass theorem says that, for any $\eps>0$, and any continuous function $f$ which is bounded on $[0,1]$, there is a positive integer $k$ such that $f$ is $\eps$-close to a polynomial of degree $k$. That said, $k$ can be quite large for some natural and important continuous functions $f$. For some examples:
+
+\begin{example}
+For the function $f(x) = 1/(1+x)$, we have $f(x) = \sum_{\ell = 0}^\infty (-1)^\ell x^\ell $ for all $x \in [0,1)$. Truncating this series to degree $O(\log(1/\eps) )$ gives a $\eps$ approximation on the interval $[0,1/2]$. The following proposition shows that this is optimal up to constant factors.
+\end{example}
+
+\begin{proposition}
+Any polynomial $p(x)$ such that $|p(x) - 1/(1+x)| \leq \eps$ for all $x \in [0,1/2]$ has degree at least $\Omega(\log(1/\eps))$.
+\end{proposition}
+
+\begin{proof}
+For such a polynomial $p(x)$, define $q(x) := 1 - x \cdot p(x-1)$. Thus, the polynomial $q$ has the two properties that $|q(x)| <  \eps$ for all $x \in [1,3/2]$, and $q(0)=1$. By standard properties of the Chebyshev polynomials (see e.g.~\cite[Proposition~2.4]{sachdeva2014faster}), the polynomial $q$ with those two properties of minimum degree is an appropriately scaled and shifted Chebyshev polynomial, which requires degree $\Omega(\log(1/\eps))$.
+\end{proof}
+
+\begin{example}
+For the function $f(x) = e^{-x}$, we have $f(x) = \sum_{\ell = 0}^\infty (-1)^\ell x^\ell / \ell!$ for all $x \in \R_+$. Truncating this series to degree $O(\log(1/\eps) / \log\log(1/\eps))$ gives a $\eps$ approximation on any interval $[0,a]$ for constant $a>0$. Such a dependence is believed to be optimal, and is known to be optimal if we must approximate $f(x)$ on the slightly larger interval $[0,\log^2 (1/\eps) / \log^2 \log(1/\eps)]$~\cite[Section~5]{sachdeva2014faster}.
+\end{example}
+
+In both of the above settings, for error $\eps = n^{- \Omega(\log^4 n)}$, the function $f$ is only $\eps$-close to a polynomial of degree $\omega(\log n)$. We will see in Theorem~\ref{thm:hardnessapprox} below that this implies that, for each of these functions $f$, the $\eps$-approximate $f$ $\KAdjE$ problem in dimension $d = \Omega(\log n)$ requires time $n^{2 - o(1)}$ assuming $\SETH$.
+
+
+\subsection{`Kernel Method' Algorithms}
+
+\begin{lemma} \label{lem:low-rank-mmult}
+For any integer $q \geq 0$, let $\k(u,v) = (\|u-v\|_2^2)^q$. The $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) can be solved exactly (with $0$ error) in time $\tilde{O}( n \cdot \binom{2d+2q-1}{2q} )$.
+\end{lemma}
+
+\begin{proof}
+The function 
+\begin{align*}
+\k(u,v) = \left( \sum_{i=1}^d ( u_i - v_i )^2 \right)^q
+\end{align*}
+is a homogeneous polynomial of degree $2q$ in the variables $u_1, \ldots, u_d, v_1, \ldots, v_d$. Let 
+\begin{align*}
+V = \{u_1, \ldots, u_d, v_1, \ldots, v_d\},
+\end{align*}
+and let $T$ be the set of functions $t : V \to \{0,1,2,\ldots\, 2q\}$  such that $\sum_{v \in V} t(v) = 2q$. 
+
+We can count that 
+\begin{align*}
+|T| = \binom{2d+2q-1}{2q}.
+\end{align*}
+Hence, there are coefficients $c_t \in \R$ for each $t \in T$ such that
+\begin{align} \label{eqn:polyexpansion}\k(u,v) = \sum_{t \in T} c_t \cdot \prod_{v \in V} v^{t(v)}.\end{align}
+Let $V_u = \{u_1, \ldots, u_d\}$ and $V_v = V \setminus V_u$. Define $\phi_u : \R^d \to \R^{|T|}$ by, for $t \in T$, 
+\begin{align*}
+\phi_u(u_1, \ldots, u_d)_t = c_t \cdot \prod_{u_i \in V_u} {u_i}^{t(u_i)}.
+\end{align*}
+Similarly define $\phi_v : \R^d \to \R^{|T|}$ by, for $t \in T$, 
+\begin{align*}
+\phi_v(v_1, \ldots, v_d)_t = \prod_{v_i \in V_v} {v_i}^{t(v_i)}.
+\end{align*}
+It follows from (\ref{eqn:polyexpansion}) that, for all $u,v \in \R^d$, we have $\k(u,v) = \langle \phi_u(u), \phi_v(v) \rangle$.
+
+Our algorithm thus constructs the matrix $M_u \in \R^{n \times |T|}$ whose rows are the vectors $\phi_u(x_i)$ for $i \in [n]$, and the matrix $M_v \in \R^{|T| \times n}$ whose columns are the vectors $\phi_v(x_i)$ for $i \in [n]$. Then, on input $y \in \R^n$, it computes $y' := M_v \cdot y \in \R^{|T|}$ in $\tilde{O}(n \cdot |T|)$ time, then $z := M_u \cdot y' \in \R^n$, again in $\tilde{O}(n \cdot |T|)$ time, and outputs $z$. Since $M_u \cdot M_v = A_{\k,\{x_1, \ldots, x_n\}}$, it follows that the vector we output is the desired $z = A_{\k,\{x_1, \ldots, x_n\}} \cdot y$.
+\end{proof}
+
+\begin{remark}
+The running time in Lemma~\ref{lem:low-rank-mmult} can be improved to $\tilde{O}( n \cdot \binom{d+q-1}{q} )$ with more careful work, by noting that each monomial has either `$x$-degree' or `$y$-degree' at most $d$, but we omit this here since the difference is negligible for our parameters of interest.
+\end{remark}
+
+\begin{corollary} \label{cor:exactmonomial}
+Let $q,d$ be positive integers which may be functions of $n$, such that $\binom{2(d+q)}{2q} < n^{o(1)}$. For example:
+\begin{itemize}
+    \item when $d = o(\log n / \log \log n)$ and $q \leq \poly (\log n)$, or
+    \item when $d = o(\log n)$ and $q \leq O(\log n)$, or
+    \item when $d = \Theta(\log n)$ and $q < o(\log n)$.
+\end{itemize}
+If $f : \R \to \R$ is a polynomial of degree at most $q$, and we define $\k(u,v) := f(\|u-v\|_2^2)$, then the $\KAdjE$ problem in dimension $d$ can be solved exactly in $n^{1 + o(1)}$ time.
+\end{corollary}
+
+\begin{proof}
+This follows by applying Lemma~\ref{lem:low-rank-mmult} separately to each monomial of $f$, and summing the results.
+
+When $d = o(\log n)$ and $q \leq O(\log n)$, then we can write $d = \frac{1}{a(n)} \log n$ for some $a(n) = \omega(1)$, and $q = b(n) \cdot \log n$ for some $b(n) = O(1)$. It follows that \begin{align*}
+\binom{2(d+q)}{2q} 
+= & ~ \binom{2(d+q)}{2d} \\
+= & ~ \binom{O(q)}{O(d)} & \text{~by~} d = O(q) \\
+\leq & ~ O(q/d)^{O(d)} \\
+= & ~ 2^{O(d \log(q/d))} \\
+= & ~ 2^{O(\frac{\log(ab)}{a}) \cdot \log n} & \text{~by~} d = \frac{\log n}{a}, q = b \log n \\
+\leq & ~ 2^{O(\frac{\log(a)}{a}) \cdot \log n} & \text{~by~} b = O(1) \\
+< & ~ n^{o(1)}. & \text{~by~} a = \omega(1)
+\end{align*} The other cases are similar.
+\end{proof}
+
+
+
+\begin{corollary} \label{cor:kernelalg}
+Suppose $f : \R \to \R$ is $\eps/n$-close to a polynomial of degree $q$ (Definition~\ref{def:closetopoly}), where $q,d$ are positive integers such that $\binom{2(d+q)}{2q} < n^{o(1)}$ (such as the parameter setting examples in Corollary~\ref{cor:exactmonomial}), and define $\k(u,v) := f(\|u-v\|_2^2)$. Then, the $\KAdjE$ problem in dimension $d$ can be solved $\eps$-approximately in $n^{1 + o(1)}$ time. \Josh{fix this to include that one can compute the polynomial efficiently}
+\end{corollary}
+
+\begin{proof}
+Apply Corollary~\ref{cor:exactmonomial} for the degree $q$ approximation of $f$.
+\end{proof}
+
+
+\subsection{Lower Bound in High Dimensions} \label{sec:lbhighdim}
+
+We now prove that in the high dimensional setting, where $d = \Theta(\log n)$, the algorithm from Corollary~\ref{cor:kernelalg} is essentially tight. In that algorithm, we showed that (recalling Definition~\ref{def:closetopoly}) functions $f$ which are $\eps$-close to a polynomial of degree $o(\log n)$ have efficient algorithms; here we show a lower bound if $f$ is not $\eps$-close to a polynomial of degree $O(\log n)$.
+
+\begin{theorem} \label{thm:hardnessapprox}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$ and let $\kappa: \N \to [0,1]$ be a nonincreasing function. Suppose that, for infinitely many positive integers $k$, $f$ is not $\kappa(k)$-close to a polynomial of degree $k$.
+
+Then, assuming $\SETH$, the $\KAdjE$ problem for $\k(x,y) = f(\|x-y\|_2^2)$ in dimension $d$ and error $(\kappa(d+1))^{O(d^4)}$ on $n=1.01^d$ points requires time $n^{2 - o(1)}$.
+\end{theorem}
+
+This theorem will be a corollary of another result, which is simpler to use in proving lower bounds:
+
+\begin{theorem} \label{thm:hardnessapprox-easy}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$ and let $\kappa: \N \to [0,1]$ be a nonincreasing function. Suppose that, for infinitely many positive integers $k$, there exists an $x_k\in [0,1]$ for which $|f^{(k+1)}(x_k)| > \kappa(k)$.
+
+Then, assuming $\SETH$, the $\KAdjE$ problem for $\k(x,y) = f(\|x-y\|_2^2)$ in dimension $d$ and error $(\kappa(d+1))^{O(d^4)}$ on $n=1.01^d$ points requires time $n^{2 - o(1)}$.
+\end{theorem}
+
+To better understand Theorem \ref{thm:hardnessapprox} in the context of our dichotomy, think about the following example:
+
+\begin{example}
+Consider a function $f$ that is exactly $\kappa(k) = 2^{-k^3}$-far from the closest polynomial of degree $k$ for every $k\in \N$. By Corollary \ref{cor:kernelalg}, there is an $d^{\log^{1/3} n} n < n^{1+o(1)}$-time algorithm for $1/\text{poly}(n)$-approximate adjacency matrix multiplication on an $n$-vertex $f$-graph when $d = \Theta(log n)$. In fact, there is an algorithm even for $2^{-o(\log^3 n)}$-error that takes $n^{1+o(1)}$. However, by Theorem \ref{thm:hardnessapprox}, there is no $n^{2-o(1)}$-time algorithm for $2^{-d^3\cdot d^4} = 2^{-\Theta(\log^7 n)}$-approximate multiplication. 
+\end{example}
+
+We now give a more concrete version of the proof outline described in the introduction. To prove Theorem \ref{thm:hardnessapprox} given Theorem \ref{thm:hardnessapprox-easy}, it suffices to show that for any function that is far from a degree $k$ polynomial, there exists a point with high $(k+1)$-th derivative (Lemma \ref{lem:step1}). To prove Theorem \ref{thm:hardnessapprox-easy}, we start by showing that there exists an interval (not just a single point) with high $(k+1)$-th derivative (Lemma \ref{lem:step2}). This is done by integrating over the $(k+2)$-nd derivative, exploiting the fact that it is bounded for analytic functions (Proposition \ref{prop:derivs}). Then, we further improve this derivative lower bound by showing that there is an interval on which \emph{all} $i$-th derivatives for $i\le k+1$ are bounded from below (Lemma \ref{lem:step3}). This is done by induction, deriving a bound for $i$-th derivatives by integrating over the $(i+1)$-th derivative. The lower bound on the $(i+1)$-th derivative ensures that it can only be close to 0 at a small interval around one point, so picking an interval far from that point suffices for the inductive step.
+
+Up to this point, we have argued that there must be an interval $I\subset [0,1]$ on which all of $f$'s $\le (k+1)$-derivatives are large in absolute value (Lemma \ref{lem:step3}). We exploit this property to solve an exact bichromatic nearest neighbors problem in Hamming distance in $d = \Theta(\log n)$ dimensions (Lemma \ref{lem:step6}). Since even approximate nearest neighbors cannot be solved in $n^{2 - \delta}$-time for $\delta > 0$ assuming $\SETH$ (Theorem \ref{thm:r18}), this suffices. To solve Hamming nearest neighbors a a pair of sets $S$ and $T$ with $|S| = |T| = n$, we set up $d+1$ different $f$-graph adjacency matrix multiplication problems. In problem $i$, we scale the points in $S$ and $T$ by a factor of $\zeta i$ for some $\zeta  0$ and translate them by $c \in [0,1]$ so that they are in the interval $I$. Then, with one adjacency multiplication, one can evaluate an expression $Z_i$, where $Z_i = \sum_{x\in S, y\in T} f(c + i^2\zeta^2 \|x - y\|_2^2)$. For each distance $i\in [d]$, let $u_j = |\{x\in S, y\in T: \|x - y\|_2^2 = j\}|$. To solve bichromatic nearest neighbors, it suffices to compute all of the $u_j$s. This can be done by setting up a linear system in the $u_j$s, where there is one equation for each $Z_i$. The matrix for this linear system has high determinant because $f$ has high $\le (k+1)$-th derivatives on $I$ (Lemma \ref{lem:step4}). Cramer's Rule can be used to bound the error in our estimate of the $u_j$s that comes from the error in the multiplication oracle (Lemma \ref{lem:step5}). Therefore, $O(d)$ calls to a multiplication oracle suffices for computing the number of pairs of vertices in $S\times T$ that are at each distance value. Returning the minimum distance $i$ for which $u_i > 0$ solves bichromatic nearest neighbors, as desired.
+
+In Lemma \ref{lem:step4}, we will make use of the Cauchy-Binet formula:
+
+\begin{lemma}[Cauchy-Binet formula for infinite matrices]\label{lem:cauchy-binet}
+Let $k$ be a positive integer, and for functions $A : [k] \times \N \to \R$ and $B : \N \times [k] \to \R$, define the matrix $C \in \R^{k \times k}$ by, for $i,j \in [k]$, $$C_{ij} := \sum_{\ell=0}^\infty A_{i\ell} \cdot B_{\ell j},$$
+and suppose that the sum defining $C_{ij}$ converges absolutely for all $i,j$. Then,
+$$\det(C) = \sum_{1 \leq \ell_1 < \ell_2 < \cdots < \ell_k} \det(A[\ell_1, \ell_2, \cdots, \ell_k]) \cdot \det(B[\ell_1, \ell_2, \cdots, \ell_k]),$$
+where $A[\ell_1, \ell_2, \cdots, \ell_k] \in \R^{k \times k}$ denotes the matrix whose $i,j$ entry is given by $A_{i\ell_j}$ and $B[\ell_1, \ell_2, \cdots, \ell_k]$ denotes the matrix whose $i,j$ entry is given by $B_{\ell_i j}$.
+\end{lemma}
+
+
+
+In this section, we exploit the following property of analytic functions:
+
+\begin{proposition}\label{prop:derivs}
+Consider a function $f:[0,1]\rightarrow \mathbb{R}$ that is analytic. Then, there is a constant $B > 0$ depending on $f$ such that for all $k \ge 0$ and all $x\in [0,1]$, $|f^{(k)}(x)| < B 4^k k!$
+\end{proposition}
+
+\begin{proof}
+We first show that, for any $x\in [0,1]$, $|f^{(k)}(x)| < B_x 2^k k!$ for some constant $B_x$ depending on $x$. Write $f$'s Taylor expansion around $x$:
+\begin{align*}
+f(y) = \sum_{i=0}^{\infty} f^{(i)}(x) (y - x)^i / i! .
+\end{align*}
+Let $y_0 = \arg \max_{a\in \{0,1\}} |a - x|$. Note that $|y_0 - x| \ge 1/2$. Since $f(y_0)$ is a convergent series, there exists a constant $N_x$ dependent on $x$ such that for all $i > N_x$, the absolute value of the $i$-th term of the series for $f(y_0)$ is at most 1/2. Therefore, for all $i > N_x$, $|f^{(i)}(x)| < 2(2^i) i!$. For all $i \le N_x$, $f^{(i)}(x)$ is a constant depending on $x$, so we are done with this part.
+
+Next, we show that $|f^{(k)}(x)| < B 4^k k!$ for all $x\in [0,1]$ and some constant $B$ depending only on $f$. Let $x_0\in \{i/8\}_{i=0}^8$ be the point that minimizes $|x - x_0|$. Note that $|x - x_0| < 1/16$. Taylor expand $f$ around $x_0$:
+\begin{align*}
+f(x) = \sum_{i = 0}^{\infty} f^{(i)}(x_0) (x - x_0)^i / i! .
+\end{align*}
+Take derivatives for some $k \ge 0$ and use the triangle inequality:
+\begin{align*}
+|f^{(k)}(x)| \le \sum_{i = 0}^{\infty} |f^{(i+k)}(x_0)| |x - x_0|^i / i!
+\end{align*}
+By the first part, $|f^{(i+k)}(x_0)| \le B_{x_0} 2^{i+k} (i+k)!$, so
+\begin{align*}
+|f^{(k)}(x)| \le \sum_{i=0}^{\infty} B_{x_0} 2^{i+k} ((i+k)!/i!) (1/16)^{(i+k)}
+\end{align*}
+Note that $(i + k)!/i! \le (2i)^k$ for $i > k$ (we are done for $i \le k$). There is some constant $C$ for which $\sum_{i=0}^{\infty} i^k 4^{-i} = C$, so letting $B = B_{x_0} C$ suffices, as desired.
+\end{proof}
+
+
+
+
+
+We now move on to proving the main results of this section, which consists of several steps.
+
+
+\begin{lemma}[Step 1: high $(k+1)$-derivative]\label{lem:step1}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$ and let $\kappa: \N \to [0,1]$ be a nonincreasing function. Suppose that, for some positive integer $k$, $f$ is not $\kappa(k)$-close to a polynomial of degree $k$.
+Then, there exists some $x\in [0,1]$ for which $|f^{(k+1)}(x)| > \kappa(k)$.
+\end{lemma}
+
+\begin{proof}
+Define the function $g : [0,1] \to \R$ by $g(x) = f(x) - \sum_{\ell=0}^k \frac{f^{(\ell)}(0) \cdot x^\ell}{\ell!}$. We claim that, for each $i \in \{0,1,\ldots,k+1\}$, there is an $x_i \in [0,1]$ such that $|g^{(i)}(x_i)| > \kappa(k)$. Since $g^{(k+1)}(x) = f^{(k+1)}(x)$, plugging in $i=k+1$ into this will imply our desired result. We prove this by induction on $i$.
+
+For the base case $i=0$: note that $g$ is the difference between $f$ and a polynomial of degree $k$, and so by our assumption that $f$ is not $\kappa(k)$-close to a polynomial of degree $k$, there must be an $x_0 \in [0,1]$ such that $|g(x_0)| > \kappa(k)$.
+
+For the inductive step, consider an integer $i\in [k+1]$. Notice that $g^{(i-1)}(0) = 0$ by definition of $g$ since $i \leq k+1$. By the inductive hypothesis, there is an $x_{i-1} \in [0,1]$ with $|g^{(i-1)}(x_{i-1})| > \kappa(k)$. Hence, by the mean value theorem, there must be an $x_i \in [0,x_{i-1}]$ such that 
+\begin{align*}
+    |g^{(i)}(x_i)| \geq |g^{(i-1)}(x_{i-1}) - g^{(i-1)}(0)|/x_{i-1} \geq |g^{(i-1)}(x_{i-1})| > \kappa(k),
+\end{align*}
+as desired.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:hardnessapprox} given Theorem \ref{thm:hardnessapprox-easy}]
+For each of the infinitely many $k$s for which $f$ is $\kappa(k)$-far from a degree $k$ polynomial, Lemma \ref{lem:step1} implies the existance of an $x_k$ for which $|f^{(k+1)}(x_k)| > \kappa(x_k)$. Thus, $f$ satisfies the input condition of Theorem \ref{thm:hardnessapprox-easy}, so applying Theorem \ref{thm:hardnessapprox-easy} proves Theorem \ref{thm:hardnessapprox} as desired.
+\end{proof}
+
+Now, we focus on Theorem \ref{thm:hardnessapprox-easy}:
+
+\begin{lemma}[Step 2: high $(k+1)$-derivative on interval] \label{lem:step2}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$ and let $\kappa: \N \to [0,1]$ be a nonincreasing function. There is a constant $B>0$ depending only on $f$ such that the following holds.
+
+Suppose that, for some sufficiently large positive integer $k$, there is an $x\in [0,1]$ for which $|f^{(k+1)}(x)| > \kappa(k)$.
+Then, there exists an interval $[a,b]\subseteq [0,1]$ with the property that both $b - a \geq \kappa(k) / (32 Bk4^k \cdot k!)$ and, for all $y\in [a,b]$, $|f^{(k+1)}(y)| > \kappa(k)/2$.
+\end{lemma}
+
+\begin{proof}
+Since $f$ is analytic on $[0,1]$, Proposition \ref{prop:derivs} applies and it follows that there is a constant $B > 0$ dependent on $f$ such that for every $y \in [0,1]$ and every nonnegative integer $m$, we have $|f^{(m)}(y)| \leq Bm4^m \cdot m!$. In particular, for all $y \in [0,1]$, we have $|f^{(k+2)}(y)| \leq 16 Bk4^k \cdot k!$. Let $\delta = \kappa(k)/(32 Bk4^k \cdot k!)$, then let $a = \max\{0, x-\delta\}$, and $b = \min\{1,x+\delta\}$. We have $b-a \geq \delta = \kappa(k)/(32 Bk4^k \cdot k!)$, since when $k$ is large enough, we get that $\delta<1/2$, so we cannot have both $a=0$ and $b=1$. Meanwhile, for any $y \in [a,b]$, we have as desired that
+\begin{align*}
+|f^{(k+1)}(y)| 
+\geq & ~ |f^{(k+1)}(x)| - |x-y| \cdot \sup_{y' \in [a,b]} |f^{(k+2)}(y')| \\
+> & ~ \kappa(k) - \delta \cdot 16 Bk4^k \cdot k! \\
+= & ~ \kappa(k) / 2.
+\end{align*}
+\end{proof}
+
+\begin{lemma}[Step 3: high lower derivatives on subintervals] \label{lem:step3}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$ and let $\kappa: \N \to [0,1]$ be a nonincreasing function. There is a constant $B>1$ depending only on $f$ such that the following holds.
+
+Suppose that, for some sufficiently large positive integer $k$, there exists an $x\in [0,1]$ for which $|f^{(k+1)}(x)| > \kappa(k)$.
+Then, there exists an interval $[c,d]\subseteq [0,1]$ with the property that both $d - c > \kappa(k) / (128 Bk4^{2k+1} \cdot k!)$ and, for all $y\in [c,d]$ and all $i\le k+1$, $|f^{(i)}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i}$.
+\end{lemma}
+
+\begin{proof}
+We will prove that, for all integers  $0 \leq i \leq k+1$, there is an interval $[c_i,d_i] \subseteq [0,1]$ such that $d_i - c_i > \kappa(k) / (32 Bk4^{2k+1 - i} \cdot k!)$, and for all integers $i \leq i' \leq k+1$ and all $y\in [c_i,d_i]$ we have $|f^{(i')}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i'}$. Plugging in $i=0$ gives the desired statement. We will prove this by induction on $i$, from $i=k+1$ to $i=0$. The base case $i=k+1$ is given (with slightly better parameters) by Lemma~\ref{lem:step2}.
+
+For the inductive step, suppose the statement is true for $i+1$. We will pick $[c_i,d_i]$ to be a subinterval of $[c_{i+1},d_{i+1}]$, so the inductive hypothesis says that for every $y \in [c_i,d_i]$ and every integer $i < i' \leq k+1$ we have $|f^{(i')}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i'}$. It thus remains to show that we can further pick $c_i$ and $d_i$ such that $d_i-c_i \geq \frac14 (d_{i+1} - c_{i+1})$ and $|f^{(i)}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i}$ for all $y \in [c_i,d_i]$. 
+
+Recall that $|f^{(i+1)}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i}$ for all $y \in [c_{i+1},d_{i+1}]$. Since $f^{(i+1)}$ is continuous, we must have
+\begin{itemize}
+    \item either $f^{(i+1)}(y) > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i}$ for all such $y$,
+    \item or ~~~$-f^{(i+1)}(y) > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i}$ for all such $y$.
+\end{itemize}  
+Let us assume we are in the first case; the second case is nearly identical. Let $\delta = (d_{i+1} - c_{i+1})/4$, and consider the four subintervals
+\begin{align*}
+    [c_{i+1}, c_{i+1} + \delta], ~~~ [c_{i+1} + \delta, c_{i+1} + 2\delta], ~~~ [c_{i+1} + 2\delta, c_{i+1} + 3\delta], \text{~~~and~~~} [c_{i+1} + 3\delta, c_{i+1} + 4\delta].
+\end{align*} 
+Since $f^{(i+1)}(y) > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i}$ for all $y$ in each of those intervals, we know that for each of the intervals, letting $c'$ denote its left endpoint and $d'$ denote its right endpoint, we have 
+\begin{align*}
+f^{(i)}(d') - f^{(i)}(c') 
+\geq & ~ \delta \cdot \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i} \\
+\geq & ~ \left[ \kappa(k) / (32 Bk4^{2k+1 - i} \cdot k!) \right] \cdot \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+1-i} / 4 \\
+\geq & ~ \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i}.
+\end{align*}
+
+In particular, $f^{(i)}$ is increasing on the interval $[c_{i+1}, d_{i+1}]$, and if we look at the five points $y = c_{i+1} + a \cdot \delta$ for $a \in \{0,1,2,3,4\}$ which form the endpoints of our four subintervals, $f^{(i)}$ increases by more than $\left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i}$ from each to the next. It follows by a simple case analysis (on where in our interval $f^{(i)}$ has a root) that there must be one of our four subintervals with $|f^{(i)}(y)| > \left[ \kappa(k)^2 / (64 Bk4^{2k+1} \cdot k!) \right]^{k+2-i}$ for all $y$ in the subinterval. We can pick that subinterval as desired.
+\end{proof}
+
+To simplify notation in the rest of the proof, we will let $\rho(k) = \left[\kappa(k)^2/(64Bk4^{2k+1}\cdot k!)\right]^{k+2}$. We now use these properties of $f$ to reason about a certain matrix connected to $f$ that can be used to count the number of pairs of points at each distance. 
+
+\begin{definition}[Counting matrix]\label{def:counting_matrix}
+For a function $f : \R \rightarrow \R$, an integer $k \geq 1$, and a function $\rho: \N\rightarrow \mathbb{R}_{>0}$, let $[c,d]$ be the interval from Lemma~\ref{lem:step3}. Define the \emph{counting matrix} be the $k\times k$ matrix $M$ for which 
+\begin{align*}
+M_{ij} = f(c + (\rho(k)/(B(200k)^k))^{10k} \cdot i \cdot j / k^2).
+\end{align*}
+\end{definition}
+
+\begin{lemma}[Step 4: determinant lower bound for functions $f$ that are far from polynomials using Cauchy-Binet] \label{lem:step4}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$, let $\kappa: \N \to [0,1]$ be a nonincreasing function, and let $\rho(\ell) = \left[\kappa(\ell)^2/(64B\ell4^{2\ell+1}\cdot \ell!)\right]^{\ell+2}$ (as discussed before). Let $k$ be an integer for which there exists an $x\in [0,1]$ with $|f^{(k+1)}(x)| > \kappa(k)$.
+
+Let $M$ be the counting matrix (Definition~\ref{def:counting_matrix}) for $f$, $k$, and $\rho$. Then \begin{align*}
+|\det(M)| > (\rho(k))^k(\rho(k)/(Bk^2(200k)^k))^{10k^3}.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+Since $f$ is analytic on $[c,d]$, we can Taylor expand it around $c$:
+
+$$f(x) = \sum_{\ell=0}^{\infty} \frac{f^{(\ell)}(c)}{\ell!} (x - c)^\ell$$
+Let $\delta = (\rho(k)/(B(200k)^k))^{10k}/k^2$. Note that for all values of $i,j\in [k]$, the input to $f$ in $M_{ij}$ is in the interval $[c,d]$ by the lower bound on $d - c$ in Lemma \ref{lem:step3}. In particular, for all $i,j\in [k]$,
+
+$$M_{ij} = \sum_{\ell=0}^{\infty} \frac{f^{(\ell)}(c)}{\ell!} \delta^{\ell} i^{\ell} j^{\ell}$$
+Define two infinite matrices $A: [k]\times \mathbb Z_{\ge 0} \rightarrow \R$ and $C: \mathbb Z_{\ge 0}\times [k] \rightarrow \R$ as follows:
+
+$$A_{i\ell} = \frac{f^{(\ell)}(c)}{\ell!} \delta^{\ell} i^{\ell}$$
+
+$$C_{\ell j} = j^{\ell}$$
+for all $i,j\in [k]$ and $\ell\in \mathbb Z_{\ge 0}$. Then
+
+$$M_{ij} = \sum_{\ell=0}^{\infty} A_{i\ell}C_{\ell j}$$
+for all $i,j\in [k]$ and converges, so we may apply Lemma \ref{lem:cauchy-binet}. By Lemma \ref{lem:cauchy-binet},
+
+$$\det(M) = \sum_{0\le \ell_1 < \ell_2 < \hdots < \ell_k} \det(A[\ell_1, \ell_2, \hdots, \ell_k]) \det(C[\ell_1, \ell_2, \hdots, \ell_k])$$
+To lower bound $|\det(M)|$, we 
+\begin{enumerate}[(1)]
+    \item lower bound the contribution of the term for the tuple $(\ell_1, \ell_2, \hdots, \ell_k) = (0, 1, \hdots, k-1)$,
+    \item upper bound the contribution of every other term,
+    \item  show that the lower bound dominates the sum.
+\end{enumerate} 
+We start with part (1). Let $D$ and $P$ be $k\times k$ matrices, with $D$ diagonal, $D_{\ell\ell} = \frac{f^{(\ell)}(c)\delta^{\ell}}{\ell!}$, and $P_{i\ell} = i^{\ell}$ for all $\ell\in \{0,1,\hdots,k\}$ and $i\in [k]$. Then $A[0,1,\hdots,k-1] = P D$, which means that
+\begin{align*}
+\det(A[0,1,\hdots,k-1]) = \det(P) \cdot \det(D)
+\end{align*}
+$P$ and $C[0,1,\hdots,k-1]$ are Vandermonde matrices, so their determinants has a closed form and, in particular, have the property that $|\det(P)| \ge 1$ and $|\det(C[0,1,\hdots,k-1])| \ge 1$. By Lemma \ref{lem:step3}, $|D_{\ell\ell}| > \delta^\ell \rho(\ell) \ge \delta^{\ell}\rho(k)$ for all $\ell\in \{0,1\hdots,k-1\}$. Therefore,
+\begin{align*}
+|\det(A[0,1,\hdots,k-1])| \cdot |\det(C[0,1,\hdots,k-1])| 
+> & ~ \delta^{1 + 2 + \hdots + (k-1)} \rho(k)^k \\
+= & ~ \delta^{\binom{k}{2}} \rho(k)^k.
+\end{align*}
+This completes part (1). Next, we do part (2). Consider a $k$-tuple $0\le \ell_1 < \ell_2 < \hdots < \ell_k$ and a permutation $\sigma: [k]\rightarrow [k]$. By Proposition \ref{prop:derivs}, there is some constant $B > 0$ depending on $f$ for which $|f^{(\ell)}(c)|\le B 10^{\ell}(\ell!)\le B(10\ell)^{\ell}$ for all $\ell$. Therefore,
+
+$$\left|\prod_{i=1}^k A_{i\ell_{\sigma(i)}} \right|\le B^k (10\delta k)^{\sum_{i=1}^k \ell_i}$$
+We also get that
+
+$$\left|\prod_{j=1}^k C_{\ell_{\sigma(j)}j}\right|\le k^{\sum_{j=1}^k \ell_j}$$
+Summing over all $k!$ permutations $\sigma$ yields an upper bound on the determinants of the blocks of $A$ and $C$, excluding the top block:
+
+\begin{align*}
+ & ~ \sum_{0\le \ell_1 < \ell_2 < \hdots < \ell_k, \ell_k\ne k-1} |\det(A[\ell_1,\ell_2,\hdots,\ell_k])| |\det(C[\ell_1,\ell_2,\hdots,\ell_k])| \\
+\le & ~ \sum_{0\le \ell_1 < \ell_2 < \hdots < \ell_k, \ell_k\ne k-1} (k!)^2 B^k (10\delta k^2)^{\sum_{i=1}^k \ell_i}\\
+\le & ~ \sum_{\tau = 1 + 2 + \hdots + (k-3) + (k-2) + k}^{\infty} \tau^k (k!)^2 B^k (10\delta k^2)^{\tau}\\
+\le & ~ 2\tau_0^k (k!)^2 B^k (10\delta k^2)^{\tau_0},
+\end{align*}
+where $\tau_0 = \binom{k}{2} + 1$. This completes part (2). Now, we do part (3). By Lemma \ref{lem:cauchy-binet},
+
+\begin{align*}
+|\det(M)| &\ge |\det(A[0,1,\hdots,k-1])| |\det(C[0,1,\hdots,k-1])|\\
+&- \sum_{0\le \ell_1<\ell_2<\hdots<\ell_k, \ell_k\ne k-1} |\det(A[\ell_1,\hdots,\ell_k])| |\det(C[\ell_1,\hdots,\ell_k])|
+\end{align*}
+Plugging in the part (1) lower bound and the part (2) upper bound yields
+
+\begin{align*}
+|\det(M)| &\ge \delta^{\tau_0-1}\rho(k)^k - 2\tau_0^k (k!)^2 B^k (10\delta k^2)^{\tau_0}\\
+&= \delta^{\tau_0-1}\left(\rho(k)^k - 2\delta\tau_0^k (k!)^2 B^k (10k^2)^{\tau_0}\right)\\
+&> \delta^{\tau_0-1} \rho(k)^k/2\\
+&> \rho(k)^k(\rho(k)/(Bk^2(200k)^k))^{10k^3}
+\end{align*}
+as desired.
+\end{proof}
+
+\begin{lemma}[Step 5: Cramer's rule-based bound on error in linear system] \label{lem:step5}
+Let $M$ be an invertible $k$ by $k$ matrix with $|M_{ij}|\le B$ for all $i,j\in [k]$. Let $b$ be a $k$-dimensional vector for which $|b_i|\le \epsilon$ for all $i\in [k]$. Then, $\|M^{-1}b\|_{\infty}\le \epsilon k! B^k / |\det(M)|$.
+\label{lemma:step5}
+\end{lemma} 
+
+\begin{proof}
+Cramer's rule says that, for each $i \in [k]$, the entry $i$ of the vector $M^{-1}b$ is given by $$(M^{-1}b)_i = \frac{\det(M_i)}{\det(M)},$$ where $M_i$ is the matrix which one gets by replacing column $i$ of $M$ by $b$. Let us upper-bound $|\det(M_i)|$. We are given that each entry of $M_i$ in column $i$ has magnitude at most $\eps$, and each entry in every other column has magnitude at most $B$. Hence, for any permutation $\sigma \in S_k$ on $[k]$, we have $$\left| \prod_{j=1}^k (M_i)_{j,\sigma(j)} \right| \leq \eps \cdot B^{k-1},$$
+and so $$|\det(M_i)| \leq  \sum_{\sigma \in S_k} \left| \prod_{j=1}^k (M_i)_{j,\sigma(j)} \right| \leq \eps \cdot B^{k-1} \cdot k!.$$ It follows from Cramer's rule that $|(M^{-1}b)_i| \leq \eps \cdot B^{k-1} \cdot k! / |\det(M)|$, as desired.
+\end{proof}
+
+\begin{lemma}[Step 6: reduction] \label{lem:step6}
+Let $f : [0,1] \to \R$ be an analytic function on $[0,1]$, let $\kappa: \N \to [0,1]$ be a nonincreasing function, and let $\rho(\ell) = \left[\kappa(\ell)^2/(64B\ell 4^{2\ell+1}\cdot \ell!)\right]^{\ell+2}$ for any $\ell\in \N$ (as discussed before). Suppose that, for infinitely many positive integers $k$, there exists an $x_k$ for which $|f^{(k+1)}(x)| > \kappa(k)$.
+
+Suppose that there is an algorithm for $\epsilon$-approximate matrix-vector multiplication by an $n\times n$ $f$-matrix for points in $[0,1]^d$ in $T(n,d,\epsilon)$ time. Then, there is a 
+\begin{align*}
+n \cdot \poly(d + \log(1/\kappa(d+1)))  + O(d \cdot T(2n,d+1,(\kappa(d+1))^{O(d^4)}))) \end{align*}
+time algorithm for exact bichromatic Hamming nearest neighbors on $n$-point sets in dimension $d$.
+\end{lemma}
+
+\begin{proof}
+Let $x_1, \ldots, x_n \in \{0,1\}^d$ be the input to the Hamming nearest neighbors problem, so our goal is to compute $\min_{1 \leq i < j \leq n} \|x_i - x_j\|$. Let $t \in \Z_{\geq 0}^{d+1}$ be the 0-indexed vector of nonnegative integers, where $t_\ell := | \{ 1 \leq i < j \leq n \mid \|x_i - x_j\|_2^2 = \ell \} |$ counts the number of pairs of input points with distance $\ell$. Our goal will be to recover the vector $t$, from which we can recover the answer to the Hamming nearest neighbors problem by returning the smallest index where $t$ is nonzero.
+
+Let $k=d+1$ and let $\eps = (\kappa(k))^{\alpha \cdot k^4}$ for a constant $\alpha>0$ to be picked later. In order to recover $t$, we will make $d+1$ calls to our given algorithm. For $\ell \in \{0,1,\ldots,d\}$, the goal of call $\ell$ is to compute a value $u_\ell$ which is an approximation, with additive error at most $\eps$, of entry $\ell$ of the vector $M t$, where $M$ is the counting matrix defined above.
+
+Let us explain why this is sufficient to recover $t$. Suppose we have computed this vector $u$. We claim that if we compute $M^{-1}u$, and round each entry to the nearest integer, the result is the vector $t$. Indeed, by Lemma~\ref{lemma:step5}, each entry of $M^{-1}u$ differs from the corresponding entry of $t$ by at most an additive $\eps \cdot B^{k-1} \cdot k! / |\det(M)|$, where the constant $B$ is from Proposition \ref{prop:derivs} (since $|f(z)|\le B$ for all $z\in [0,1]$). Substituting our lower bound on $|\det(M)|$ from Lemma~\ref{lem:step4}, we see this additive error is at most $1/3$ as long as we've picked a sufficiently large constant $\alpha>0$. Thus, rounding each entry to the nearest integer recovers $t$, as desired.
+
+It remains to show how to compute $u_\ell$, an approximation with additive error at most $\eps$ of entry $\ell$ of the vector $M t$. In other words, we need to approximate the sum $$\sum_{p=0}^d M_{\ell,p} \cdot t_p = \sum_{1 \leq i < j \leq k} f(c + (\rho(k)/(B(200k)^k))^{10k} \cdot \ell \cdot \|x_i - x_j\|_2^2 / k^2).$$ To do this, we will pick points $y_1, \ldots, y_n, z_1, \ldots, z_n \in [0,1]^{d+1}$ such that 
+\begin{align*}
+\|y_i - z_j\|_2^2 = c + (\rho(k)/(B(200k)^k))^{10k} \cdot \ell \cdot \|x_i - x_j\|_2^2 / k^2
+\end{align*}
+for all $i,j \in [n]$, and apply our given algorithm with error $\eps$ to these points. For $i \in [n]$, let $x_i' = (\rho(k)/(B(200k)^k))^{5k} \cdot \sqrt{\ell} \cdot x_i / k$ be a rescaling of $x_i$. We pick $y_i$ to equal $x'_i$ in the first $d$ entries and $0$ in the last entry, and $z_i$  to equal $x'_i$ in the first $d$ entries and $\sqrt{c}$ in the last entry. These points have the desired distances, completing the proof.
+\end{proof}
+
+\begin{proof}[Step 7: proof of Theorem~\ref{thm:hardnessapprox-easy}]
+If the $\KAdjE$ problem for $\k(x,y) = f(\|x-y\|_2^2)$ in dimension $d$ and error $(\kappa(d+1))^{O(d^4)}$ on $n=1.01^d$ points could be solved in time time $n^{2-\delta}$ for any constant $\delta>0$, then one could immediately substitute this into Lemma~\ref{lem:step6} to refute $\SETH$ in light of Theorem~\ref{thm:r18}.
+\end{proof}
+
+
+
+
+
+\subsection{Lower Bounds in Low Dimensions}\label{sec:inner_product_kernel_matrix_vector_hardness}
+
+The landscape of algorithms available in low dimensions $d = o(\log n)$ is a fair bit more complex. The Fast Multipole Method allows us to solve $\KAdjE$ for a number of functions $f$, including $\k (x,y) = \exp ( -  \| x - y \|_2^2 ) $ and $\k (x,y) = 1 / \| x - y \|_2^2$, for which we have a lower bound in high dimensions. Classifying when these multipole methods apply to a function $f$ seems quite difficult, as researchers have introduced more and more tools to expand the class of applicable functions. See Section~\ref{sec:fastmm}, below, in which we give a much more detailed overview of these methods.
+
+That said, in this subsection, we prove lower bounds for a number of functions $\k$ of interest. We show that for a number of functions $\k$ with applications to geometry and statistics, the $\KAdjE$ problem seems to become hard even in dimension $d=3$ (see the end of this subsection for a list of such $\k$).
+
+We begin with the function $\k(x,y) = |\langle x , y \rangle|$. Here, the $\k$ Adjacency Evaluation problem becomes hard even for very small $d$. We give an $n^{1 + o(1)}$ time algorithm only for $d \leq 2$. For $d=3$ we show that such an algorithm would lead to a breakthrough in algorithms for the $\Z$-{\sf MaxIP} problem, and for the only slightly super-constant $d = 2^{\Omega(\log^* n)}$, we show that a $n^{2-\eps}$ time algorithm would refute {\sf SETH}.
+
+\begin{lemma}
+For the function $\k(x,y) = |\langle x , y \rangle|$, the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) can be solved exactly in time $n^{1 + o(1)}$ when $d=2$.
+\end{lemma}
+
+\begin{proof}
+Given as input $x_1, \ldots, x_n \in \R^2$ and $y \in \R^n$, our goal is to compute $z \in \R^n$ given by $z_i := \sum_{j\neq i} |\langle x_i, x_j\rangle| \cdot y_j$. We will first compute $z'_i := \sum_{j} |\langle x_i, x_j\rangle| \cdot y_j$, and then subtract $|\langle x_i, x_i\rangle| \cdot y_i$ for each $i$ to get $z_i$.
+
+We first sort the input vectors by their polar coordinate angle, and relabel so that $x_1, \ldots, x_n$ are in sorted order. Let $\phi_i$ be the polar coordinate angle of $x_i$. We will maintain two vectors $x^+, x^- \in \R^2$.  We will `sweep' an angle $\theta$ from $0$ to $2\pi$, and maintain that $x^+$ is the sum of the $y_i \cdot x_i$ with $\langle x_i, \theta \rangle > 0$, and $x^-$ is the sum of the other $y_i \cdot x_i$. Initially let $\theta = 0$ and let $x^+$ be the sum of the $y_i \cdot x_i$ with $\phi_i \in [-\pi/2,\pi/2)$, and $x^-$ be the sum of the remaining $y_i \cdot x_i$. As we sweep, whenever $\theta$ is in the direction of an $x_i$ we can set $z'_i = \langle x_i, x^+ - x^-\rangle$. Whenever $\theta$ is orthogonal to an $x_i$, we swap $y_i \cdot x_i$ from one of $x^+$ or $x^-$ to the other. Over the whole sweep, each point is swapped at most twice, so the total running time is indeed $n^{1 + o(1)}$.
+\end{proof}
+
+\begin{lemma} \label{lem:solvemaxip}
+For the function $\k(x,y) = |\langle x , y \rangle|$, if the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) with error $1/n^{\omega(1)}$ can be solved in time $\T(n,d)$, and $n>d+1$, then $\Z$-{\sf MaxIP} (Problem~\ref{pro:Z_maxip}) with $d$-dimensional vectors of integer entries of bit length $O(\log n)$ can be solved in time $O(\T(n,d) \log^2 n + nd)$.
+\end{lemma}
+
+\begin{proof}
+Let $x_1, \ldots, x_n \in \Z^d$ be the input vectors. Let $M \leq n^{O(1)}$ be the maximum magnitude of any entry of any input vector. Thus, $\max_{i \neq j} \langle x_i, x_j \rangle$ is an integer in the range $[-dM^2, dM^2]$. We will binary search for the answer in this interval. The total number of binary search steps will be $O(\log(dM^2)) \leq O(\log n)$.
+
+We now show how to do each binary search step. Suppose we are testing whether the answer is $\leq a$, i.e. testing whether $\langle x_i, x_j \rangle \leq a$ for all $i \neq j$. Let $S_1, \ldots, S_{\log n} \subseteq \{ 1, \ldots, n \}$ be subsets such that for each $i \neq j$, there is a $k$ such that $|S_k \cap \{i,j\}| = 1$. For each $k \in \{1, \ldots, \log n\}$ we will show how to test whether there are $i,j$ with $|S_k \cap \{i,j\}| = 1$ such that $\langle x_i, x_j \rangle \leq a$, which will complete the binary search step.
+
+Define the vectors $x'_1, \ldots, x'_n \in \Z^{d+1}$ by $(x'_i)_{j} = (x_i)_{j}$ for $j \leq d$, and $(x'_i)_{d+1} = a-1$ if $i \in P_k$, and $(x'_i)_{d+1} = -1$ if $i \notin P_k$. Hence, for  $i,j$ with $|S_k \cap \{i,j\}| = 1$ we have $\langle x'_i, x'_j \rangle = \langle x_i, x_j \rangle - a+1$, and so our goal is to test whether there are any such $i,j$ with $\langle x'_i, x'_j \rangle > 0$.
+
+Let $v_k \in \{0,1\}^n$ be the vector with $(v_k)_{i} = 1$ when $i \in P_k$ and $(v_k)_{i} = 0$ when $i \notin P_k$. Use the given algorithm to vector $v_k$, we can compute a $(a \pm n^{-\omega(1)})$ approximation to 
+\begin{align*}
+s_1 := \sum_{i \in P_k} \sum_{j \notin P_k} |\langle x'_i, x'_j \rangle|
+\end{align*}
+in time $O(\T(n,d))$. Similarly, using the fact that the corresponding matrix has rank $d$ by definition, we can exactly compute 
+\begin{align*}
+s_2 := \sum_{i \in P_k} \sum_{j \notin P_k} \langle x'_i, x'_j \rangle
+\end{align*}
+in time $O(nd)$. Our goal is to determine whether $s_1 = -s_2$. Since each $s_1$ and $s_2$ is a polynomially-bounded integer, and we have a superpolynomially low error approximation to each, we can determine this as desired.
+\end{proof}
+
+Combining Lemma~\ref{lem:solvemaxip} with Theorem~\ref{thm:maxiphard} we get:
+
+\begin{corollary} \label{cor:lowdimmultabsinnerproduct}
+Assuming {\sf SETH}, there is a constant $c$ such that for the function $\k(x,y) = |\langle x , y \rangle|$, the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) with error $1/n^{\omega(1)}$ and dimension $d = c^{\log^* n}$ vectors of $O(\log n)$ bit entries requires time $n^{2 - o(1)}$.
+\end{corollary}
+
+Similarly, combining with Theorem~\ref{thm:maxiplowdim} we get:
+
+\begin{corollary}
+For the function $\k(x,y) = |\langle x , y \rangle|$, if the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) with error $1/n^{\omega(1)}$ and dimension $d = 3$ vectors of $O(\log n)$ bit entries can be solved in time $n^{4/3 - O(1)}$, then we would get a faster-than-known algorithm for $\Z$-${\sf MaxIP}$ (Problem~\ref{pro:Z_maxip}) in dimension $d=3$.
+\end{corollary}
+
+
+The same proof, but using Theorem~\ref{thm:lownnhard} instead of Theorem~\ref{thm:maxiphard}, can also show hardness of thresholds of distance functions:
+
+\begin{corollary} \label{cor:lowdimmultabsthresholddist}
+Corollary~\ref{cor:lowdimmultabsinnerproduct} also holds for the function $\k(x,y) = \mathrm{TH}(\|x-y\|_2^2)$, where $\mathrm{TH}$ is any threshold function (i.e. $\mathrm{TH}(z) = 1$ for $z \geq \theta$ and $\mathrm{TH}(z) = 0$ otherwise, for some $\theta \in \R_{>0}$).
+\end{corollary}
+
+Using essentially the same proof as for Lemma~\ref{lem:spars-reduc} in Section~\ref{sec:hardnessnonlip}, we can further extend Corollary~\ref{cor:lowdimmultabsthresholddist} to any non-Lipschitz functions $f$:
+
+\begin{proposition}\label{prop:low-mult-hard}
+Suppose $f : \R_+ \to \R$ is any function which is not $(C,L)$-multiplicatively Lipschitz for any constants $C,L \geq 1$. Then, assuming {\sf SETH}, the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) with error $1/n^{\omega(1)}$ and dimension $d = c^{\log^* n}$ requires time $n^{2 - o(1)}$.
+\end{proposition}
+
+\subsection{Hardness of the \texorpdfstring{$n$}{}-Body Problem}
+
+We now prove Corollary~\ref{cor:nbodyhardness} from the Introduction, showing that our hardness results for the $\KAdjE$ problem (Problem~\ref{pro:KAdjE}) also imply hardness for the $n$-body problem.
+
+\begin{corollary}[Restatement of Corollary~\ref{cor:nbodyhardness}]
+Assuming $\SETH$, there is no 
+\begin{align*}
+\poly( d,\log(\alpha) ) \cdot n^{1+o(1)}
+\end{align*}-time algorithm for one step of the $n$-body problem. 
+\end{corollary}
+
+\begin{proof}
+We reduce from the $\k$ graph Laplacian multiplication problem, where $\k(u,v) = f(\|u - v\|_2^2)$ and $f(z) = \frac{1}{(1 + z)^{3/2}}$. A $\k$ graph Laplacian multiplication instance consists of the $\k$ graph $G$ on a set of $n$ points $X\subseteq \mathbb{R}^d$ and a vector $y\in \{0,1\}^n$ for which we wish to compute $L_Gy$. Think of $y$ as vector with coordinates in the set $X$. Compute this multiplication using an $n$-body problem as follows:
+
+\begin{enumerate}
+    \item For each $b\in \{0,1\}$, let $X_b = \{x\in X ~|~ y_x = b\}$. Let $Z\subseteq \mathbb{R}^{d+1}$ be the set of all $(x,0)$ for $x\in X_0$ and $(x,1)$ for $x \in X_1$.
+    \item Solve the one-step $n$-body problem on $Z$ with unit masses. Let $z \in \mathbb{R}^n$ be the vector of the $(d+1)$-th coordinate of these forces, with forces negated for coordinates $x \in X_0$.
+    \item Return $-z/G_{\text{grav}}$ (Note that $G_{\text{grav}}$ is the Gravitational constant)
+\end{enumerate}
+
+We now show that $z = L_G y$. For $x\in X_b$, $(L_G y)_{x} = (-1)^{1-b} \sum_{x'\in X_{1-b}} \k(x,x')$. We now check that $z_x$ is equal to this by going through pairs $\{x,x'\}$ individually. Note that the $(d+1)$-th coordinate of the force between $(x,b)$ and $(x',b)$ is 0. The $(d+1)$-th coordinate of the force exerted by $(x',1)$ on $(x,0)$ is 
+\begin{align*}
+\frac{ G_{\text{grav}} }{\|(x,0)-(x',1)\|_2^2} \cdot \frac{(1-0)}{\|(x,0)-(x',1)\|_2} = G_{\text{grav}} \cdot \k(x,x')
+\end{align*}
+Negating this gives the force exerted by $(x',0)$ on $(x,1)$. All of these contributions agree with the corresponding contributions to the sum $(L_Gy)_x$, so $-z/G_{\text{grav}} = L_G \cdot y$ as desired.
+
+The runtime of this reduction is $O(n)$ plus the runtime of the $n$-body problem. However, Theorem \ref{thm:informal-high} shows that no almost-linear time algorithm exists for $\k$-Laplacian multiplication, since $f$ is not approximable by a polynomial with degree less than $\Theta(\log n)$. Therefore, no almost-linear time algorithm exists for $n$-body either assuming $\SETH$, as desired.
+\end{proof}
+
+
+
+\subsection{Hardness of Kernel PCA} \label{subsec:kernelPCA}
+
+For any function $\k : \R^d \times \R^d \to \R$, and any set $P = \{x_1, \ldots, x_n\} \subseteq \R^d$ of $n$ points, define the matrix $K_{\k,P} \in \R^{n \times n}$ by 
+\begin{align*}
+K_{\k,P}[i,j] = \k(x_i, x_j)
+\end{align*}
+
+
+$A_{\k,P}$ and $K_{\k,P}$ differ only on their diagonal entries, so a $n^{1 + o(1)}$ time algorithm for multiplying by one can be easily converted into such an algorithm for the other. Kernel PCA studies 
+
+\begin{problem}[$\k$ PCA]\label{pro:KPCA}
+For a given function $\k : \R^d \times \R^d \to \R$, the $\k$ PCA problem asks: Given as input a set $P =\{x_1, \ldots, x_n\} \subseteq \R^d$ with $|P|=n$, output the $n$ eigenvalues of the matrix $(I_n-J_n) \times K_{\k,P} \times (I_n - J_n)$, where $J_n$ is the $n \times n$ matrix whose entries are all $1/n$. In $\eps$-approximate $\k$ PCA, we want to return a $(1 \pm \eps)$-multiplicative approximation to each eigenvalue.
+\end{problem}
+
+We can now show a general hardness result for $\k$ PCA:
+
+\begin{theorem}[Approximate] \label{thm:hardnessapproxpca}
+For every function $f:\mathbb{R}\rightarrow \mathbb{R}$ which is equal to a Taylor expansion $f(x) = \sum_{i=0}^{\infty} c_i x^i$ on an interval $(0,1)$, if $f$ is not $\eps$-approximated by a polynomial of degree $O(\log n)$ (Definition~\ref{def:closetopoly}) on an interval $(0,1)$ for $\eps = 2^{-\log^4 n}$, then, assuming {\sf SETH}, the $\eps$-approximate $\k$ PCA problem (Problem~\ref{pro:KAdjE}) in dimension $d = O(\log n)$ requires time $n^{2-o(1)}$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Theorem~\ref{thm:hardnessapproxpca} follows almost directly from Theorem~\ref{thm:hardnessapprox} when combined with the reduction from \cite[{Section~5}]{bcis18}. The idea is as follows: Suppose we are able to estimate the $n$ eigenvalues of $(I_n-J_n) \times K_{\k,P} \times (I_n - J_n)$. Then, in particular, we can estimate their sum, which is equal to:
+$$\tr((I_n-J_n) \times K_{\k,P} \times (I_n - J_n)) = \tr(K_{\k,P} \times (I_n - J_n)^2)  = \tr(K_{\k,P} \times (I_n - J_n)) = \tr(K_{\k,P}) - S(K_{\k,P})/n,$$
+where $S(K_{\k,P})$ denotes the sum of the entries of $K_{\k,P}$. We can compute $\tr(K_{\k,P})$ exactly in time $n^{1+o(1)}$, so we are able to get an approximation to $S(K_{\k,P})$. However, in the proof of Theorem~\ref{thm:hardnessapprox}, we showed hardness for approximating $S(K_{\k,P})$, which concludes our proof sketch.
+\end{proof}

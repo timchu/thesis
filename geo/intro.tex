@@ -1,0 +1,413 @@
+\section{Introduction}\label{sec:intro}
+
+Linear algebra has a myriad of applications throughout computer science and physics. Consider the following seemingly unrelated tasks:
+
+\vspace{1mm}
+\begin{compactenum}
+    \item \textbf{$n$-body simulation (one step)}: Given $n$ bodies $X$ located at points in $\mathbb{R}^d$, compute the gravitational force on each body induced by the other bodies.
+    \item \textbf{Spectral clustering}: Given $n$ points $X$ in $\mathbb{R}^d$, partition $X$ by building a graph $G$ on the points in $X$, computing the top $k$ eigenvectors of the Laplacian matrix $L_G$ of $G$ for some $k\ge 1$ to embed $X$ into $\mathbb{R}^k$, and run $k$-means on the resulting points.
+    \item \textbf{Semi-supervised learning}: Given $n$ points $X$ in $\mathbb{R}^d$ and a function $g:X\rightarrow \mathbb{R}$ whose values on some of $X$ are known, extend $g$ to the rest of $X$.
+\end{compactenum}
+
+\vspace{1mm}
+
+Each of these tasks has seen much work throughout numerical analysis, theoretical computer science, and machine learning. The first task is a celebrated application of the fast multipole method of Greengard and Rokhlin~\cite{gr87, gr88, gr89}, voted one of the top ten algorithms of the twentieth century by the editors of \emph{Computing in Science and Engineering}~\cite{dongarra2000guest}.
+The second task is \emph{spectral clustering} \cite{njw02, lwdh13}, a popular algorithm for clustering data. The third task is to label a full set of data given only a small set of partial labels~\cite{z05survey, csbz09, zl05}, which has seen increasing use in machine learning. One notable method for performing semi-supervised learning is the graph-based Laplacian regularizer method~\cite{lszlh19,zl05, bns06,z05}.
+
+Popular techniques for each of these problems benefit from primitives in spectral graph theory on a special class of dense graphs called \emph{geometric graphs}. For a function $\k:\mathbb{R}^d\times \mathbb{R}^d\rightarrow \mathbb{R}$ and a set of points $X\subseteq \mathbb{R}^d$, the \emph{$\k$-graph on $X$} is a graph with vertex set $X$ and edges with weight $\k(u,v)$ for each pair $u,v\in X$. Adjacency matrix-vector multiplication, spectral sparsification, and Laplacian system solving in geometric graphs are directly relevant to each of the above problems, respectively:
+
+\vspace{1mm}
+\begin{compactenum}
+\item \textbf{$n$-body simulation (one step)}: For each $i\in \{1,2,\hdots,d\}$, make a weighted graph $G_i$ on the points in $X$, in which the weight of the edge between the points $u,v\in X$ in $G_i$ is $\k_i(u,v) := (\frac{G_{\text{grav}} \cdot m_u \cdot m_v}{\|u - v\|_2^2})(\frac{v_i - u_i}{\|u - v\|_2})$,  where $G_{\text{grav}}$ is the gravitational constant and $m_x$ is the mass of the point $x\in X$. Let $A_i$ denote the weighted adjacency matrix of $G_i$. Then $A_i\textbf{1}$ is the vector of $i$th coordinates of force vectors. In particular, gravitational force can be computed by doing $O(d)$ adjacency matrix-vector multiplications, where each adjacency matrix is that of the $\k_i$-graph on $X$ for some $i$.
+
+\item \textbf{Spectral clustering}: Make a $\k$ graph $G$ on $X$. In applications, $\k(u,v) = f(\|u-v\|_2^2)$, where $f$ is often chosen to be $f(z) = e^{-z}$~\cite{l07,njw02}. Instead of directly running a spectral clustering algorithm on $L_G$, one popular method is to construct a sparse matrix $M$ approximating $L_G$ and run spectral clustering on $M$ instead~\cite{chl16,csblc11, kmt12}. Standard sparsification methods in the literature are heuristical, and include the widely used Nystrom method which uniformly samples rows and columns from the original matrix~\cite{cjkmm13}. 
+
+If $H$ is a spectral sparsifier of $G$, it has been suggested that spectral clustering with the top $k$ eigenvectors of $L_H$ performs just as well in practice as spectral clustering with the top $k$ eigenvectors of $L_G$~\cite{chl16}. 
+One justification is that since $H$ is a spectral sparsifier of $G$, the eigenvalues of $L_H$ are at most a constant factor larger than those of $L_G$, so cuts with similar conductance guarantees are produced. Moreover, spectral clustering using sparse matrices like $L_H$ is known to be faster than spectral clustering on dense matrices like $L_G$ ~\cite{chl16, cjkmm13, kmt12}.
+
+\item \textbf{Semi-supervised learning}: An important subroutine in semi-supervised learning is completion based on $\ell_2$-minimization~\cite{z05, z05survey, lszlh19}. Specifically, given values $g_v$ for $v\in Y$, where $Y$ is a subset of $X$, find the vector $g\in \mathbb{R}^n$ (variable over $X\setminus Y$) that minimizes
+$\sum_{u,v\in X,u\ne v} \k(u,v) (g_u - g_v)^2.$
+The vector $g$ can be found by solving a Laplacian system on the $\k$-graph for $X$.
+\end{compactenum}
+\vspace{1mm}
+
+In the first, second, and third tasks above, a small number of calls to matrix-vector multiplication, spectral sparsification, and Laplacian system solving, respectively, were made on geometric graphs. One could solve these problems by first explicitly writing down the graph $G$ and then using near-linear time algorithms \cite{ss11,ckmpprx14} to multiply, sparsify, and solve systems. However, this requires a minimum of $\Omega(n^2)$ time, as $G$ is a dense graph.
+
+In this chapter, we initiate a theoretical study of the geometric graphs for which efficient spectral graph theory is possible. In particular, we attempt to determine for which (a) functions $\k$ and (b) dimensions $d$ there is a much faster, $n^{1+o(1)}$-time algorithm for each of (c) multiplication, sparsification, and Laplacian solving. Before describing our results, we elaborate on the choices of (a), (b), and (c) that we consider in this work.
+
+We start by discussing the functions $\k$ that we consider (part (a)). Our results primarily focus on the class of functions of the form $\k(u,v) = f(\|u-v\|_2^2)$ for a function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}$ for $u,v\in \mathbb{R}^d$. Study of these functions dates back at least eighty years, to the early work of Bochner, Schoenberg, and John Von Neumann on metric embeddings into Hilbert Spaces~\cite{b33, s37, ns41}. These choices of $\k$ are ubiquitous in applications, like the three described above, since they naturally capture many kernel functions $\k$ from statistics and machine learning, including the Gaussian kernel $(e^{-\|u-v\|_2^2})$, the exponential kernel $(e^{-\|u-v\|_2})$, the power kernel $(\|u-v\|_2^q)$ for both positive and negative $q$, the logarithmic kernel ($\log (\|u-v\|_2^q + c)$), and more~\cite{s10, z05, btb05}.  See Section~\ref{subsec:relatedwork} below for even more popular examples. In computational geometry, many transformations of distance functions are also captured by such functions $\k$, notably in the case when $\k(u,v) = \|u-v\|_2^q$~\cite{l82, as14,acx19, cms20}. 
+
+We would also like to emphasize that many kernel functions which do not at first appear to be of the form $f(\|u-v\|_2^2)$ can be rearranged appropriately to be of this form. For instance, in
+\ifdefined\isfocs
+the full version
+\else
+Section~\ref{sec:ntk} below 
+\fi
+we show that the recently popular Neural Tangent Kernel is of this form, so our results apply to it as well.
+That said, to emphasize that our results are very general, we will mention later how they also apply to some functions of the form $\k(u,v) = f(\langle u,v\rangle )$, including $\k(u,v) = |\langle u,v\rangle |$.
+
+Next, we briefly elaborate on the problems that we consider (part (c)). For more details, see 
+\ifdefined\isfocs
+the full version. 
+\else
+Section \ref{sec:preli}. 
+\fi
+The points in $X$ are assumed to be real numbers stated with $\polylog(n)$ bits of precision. Our algorithms and hardness results pertain to algorithms that are allowed some degree of approximation. For an error parameter $\epsilon > 0$, our multiplication and Laplacian system solving algorithms produce solutions with $\epsilon$-additive error, and our sparsification algorithms produce a graph $H$ for which the Laplacian quadratic form $(1 \pm \epsilon)$-approximates that of $G$.
+
+Matrix-vector multiplication, spectral sparsification, and Laplacian system solving are very natural linear algebraic problems in this setting, and have many applications beyond the three we have focused on ($n$-body simulation, spectral clustering, and semi-supervised learning). See Section~\ref{subsec:relatedwork} below where we expand on more applications.
+
+Finally, we discuss dependencies on the dimension $d$ and the accuracy $\epsilon$ for which $n^{1+o(1)}$ algorithms are possible (part (b)). Define $\alpha$, a measure of the `diameter' of the point set and $f$, as
+$$\alpha := \frac{ \max_{u,v \in X} f( \| u - v \|_2^2 ) }{ \min_{u,v \in X} f( \| u - v \|_2^2 ) } + \frac{ \max_{u,v \in X}  \| u - v \|_2^2  }{ \min_{u,v \in X}  \| u - v \|_2^2  }.$$
+It is helpful to have the following two questions in mind when reading our results:
+
+\vspace{2mm}
+\begin{compactitem}
+\item (High-dimensional algorithms, e.g. $d = \Theta(\log n)$) Is there an algorithm which runs in time $\poly(d, \log(n\alpha/\epsilon)) n^{1+o(1)}$ for multiplication and Laplacian solving? Is there an algorithm which runs in time $\poly(d, \log(n\alpha))n^{1+o(1)}$ for sparsification when $\epsilon=1/2$?
+
+\item (Low-dimensional algorithms, e.g. $d = o(\log n)$) Is there an algorithm which runs in time $(\log(n\alpha/\epsilon))^{O(d)} n^{1+o(1)}$ for multiplication and Laplacian solving? Is there a sparsification algorithm which runs in time $(\log(n\alpha))^{O(d)} n^{1+o(1)}$ when $\epsilon=1/2$?
+\end{compactitem}
+\vspace{2mm}
+
+We will see that there are many important functions $\k$ for which there are such efficient low-dimensional algorithms, but no such efficient high-dimensional algorithms. In other words, these functions $\k$ suffer from the classic `curse of dimensionality.' At the same time, other functions $\k$ will allow for efficient low-dimensional and high-dimensional algorithms, while others won't allow for either.
+
+We now state our results. We will give very general classifications of functions $\k$ for which our results hold, but afterwards in Section~\ref{sec:resultstable} we summarize the results for a few particular functions $\k$ of interest. The main goal of our results is as follows:
+
+
+\textbf{Goal}: For each problem of interest (part (c)) and dimension $d$ (part (b)), find a natural parameter $p_f > 0$ associated with the function $f$ for which the following dichotomy holds:
+
+\begin{compactitem}
+    \item If $p_f$ is high, then the problem cannot be solved in subquadratic time assuming $\SETH$ on points in dimension $d$.
+    \item If $p_f$ is low, then the problem of interest can be solved in almost-linear time ($n^{1+o(1)}$ time) on points in dimension $d$.
+\end{compactitem}
+
+
+
+As we will see shortly, the two parameters $p_f$ which will characterize the difficulties of our problems of interest in most settings are the \emph{approximate degree} of $f$, and a parameter related to how \emph{multiplicatively Lipschitz} $f$ is. We define both of these in the next section.
+
+
+
+\subsection{High-dimensional results}\label{subsubsec:highdimmult}
+
+We begin in this subsection by stating our results about which functions have $\poly(d,\log(\alpha),\log(1/\epsilon)) \cdot$ $n^{1+o(1)}$-time algorithms for multiplication and Laplacian solving and $\poly(d,\log(\alpha),1/\epsilon)\cdot n^{1+o(1)}$-time algorithms for sparsification. When reading these results, it is helpful to think of $d = \Theta(\log n)$, $\alpha = 2^{\text{polylog}(n)}$, $\epsilon = 1/2^{\polylog(n)}$ for multiplication and Laplacian solving, and $\epsilon = 1/2$ for sparsification. With these parameter settings, $\poly(d)n^{1+o(1)}$ is almost-linear time, while $2^{O(d)}n^{1+o(1)}$ time is not. For results about algorithms with runtimes that are exponential in $d$, see 
+\ifdefined\isfocs
+the full version.
+\else
+Section \ref{sec:low-dim-summary}.
+\fi
+
+\subsubsection{Multiplication} 
+
+In high dimensions, we give a full classification of when the matrix-vector multiplication problems are easy for kernels of the form $\k(u,v) = f(\|u - v\|_2^2)$ for some function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is analytic on an interval. We show that the problem can be efficiently solved only when $\k$ is very well-approximated by a simple polynomial kernel. That is, we let $p_f$ denote the minimum degree of a polynomial that $\eps$-additively-approximates the function $f$.
+
+\begin{theorem}
+[Informal version of Theorem~\ref{thm:hardnessapprox} and Corollary~\ref{cor:kernelalg}]\label{thm:informal-high}
+%\ifdefined\isfocs\else[Informal version of Theorem~\ref{thm:hardnessapprox} and Corollary~\ref{cor:kernelalg}]\fi\label{thm:informal-high} 
+For any function $f : \R_+ \to \R_+$ which is analytic on an interval $(0,\delta)$ for any $\delta$ $>0$, and any $0 < \eps < 2^{-\polylog(n)}$, consider the following problem: given as input $x_1, \ldots, x_n \in \R^d$ with $d = \Theta(\log n)$ which define a $\k$ graph $G$ via $\k(x_i, x_j) = f(\|x_i -x_j\|_2^2)$, and a vector $y \in \{0,1\}^n$, compute an $\eps$-additive-approximation to $L_G \cdot y$. 
+\begin{compactitem}
+    \item If $f$ can be $\eps$-additively-approximated by a polynomial of degree at most $o(\log n)$, then the problem can be solved in $n^{1+o(1)}$ time.
+    \item Otherwise, assuming $\SETH$, the problem requires time $n^{2 - o(1)}$.
+\end{compactitem}
+The same holds for $L_G$, the Laplacian matrix of $G$, replaced by $A_G$, the adjacency matrix of $G$.
+\end{theorem}
+
+While Theorem \ref{thm:informal-high} yields a parameter $p_f$ that characterizes hardness of multiplication in high dimensions, it is somewhat cumbersome to use, as it can be challenging to show that a function is far from a polynomial. We also show Theorem \ref{thm:hardnessapprox-easy}, which shows that if $f$ has a single point with large $\Theta(\log n)$-th derivative, then the problem requires time $n^{2-o(1)}$ assuming $\SETH$. The Strong Exponential Time Hypothesis ($\SETH$) is a common assumption in fine-grained complexity regarding the difficulty of solving the Boolean satisfiability problem; see 
+\ifdefined\isfocs
+the full version
+\else
+section~\ref{sec:fine_grained}
+\fi 
+for more details. Theorem~\ref{thm:informal-high} informally says that assuming $\SETH$, the curse of dimensionality is inherent in performing adjacency matrix-vector multiplication. In particular, we directly apply this result to the $n$-body problem discussed at the beginning:
+
+\begin{corollary} \label{cor:nbodyhardness}
+Assuming $\SETH$, in dimension $d = \Theta(\log n)$ one step of the $n$-body problem requires time $n^{2 - o(1)}$.
+\end{corollary}
+
+The fast multipole method of Greengard and Rokhlin~\cite{gr87, gr89} solves one step of this $n$-body problem in time $(\log(n/\epsilon))^{O(d)} n^{1+o(1)}$. Our Corollary~\ref{cor:nbodyhardness} shows that assuming $\SETH$, such an exponential dependence on $d$ is required and cannot be improved. To the best of our knowledge, this is the first time such a formal limitation on fast multipole methods has been proved. This hardness result also applies to fast multipole methods for other popular kernels, like the Gaussian kernel $\k(u,v) = \exp(-\|u - v\|_2^2)$, as well.
+
+
+
+
+
+\subsubsection{Sparsification}
+
+We next show that sparsification can be performed in almost-linear time in high dimensions for kernels that are ``multiplicatively Lipschitz'' functions of the $\ell_2$-distance. We say $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ is $(C,L)$-\emph{multiplicatively Lipschitz} for $C > 1, L > 1$ if for all $x\in \mathbb{R}_{\ge 0}$ and all $\rho\in (1/C,C)$,
+$$C^{-L} f(x)\le f(\rho x)\le C^L f(x).$$
+Here are some popular functions that are helpful to think about in the context of our results:\\
+${}$\hspace{4mm}1. $f(z) = z^L$ for any positive or negative constant $L$. This function is $(C,|L|)$-multiplicatively Lipschitz for any $C > 1$. \\
+${}$\hspace{4mm}2. $f(z) = e^{-z}$. This function is not $(C,L)$-multiplicatively Lipschitz for any $L > 1$ and $C > 1$. We call this the \emph{exponential function}.\\
+${}$\hspace{4mm}3.  The piecewise function $f(z) = e^{-z}$ for $z\le L$ and $f(z) = e^{-L}$ for $z > L$. This function is $(C,O(L))$-multiplicatively Lipschitz for any $C > 1$. We call this a \emph{piecewise exponential function}. \\
+${}$\hspace{4mm}4. The piecewise function $f(z) = 1$ for $z\le k$ and $f(z) = 0$ for $z > k$, where $k\in \mathbb{R}_{\ge 0}$. This function is not $(C,L)$-multiplicatively Lipschitz for any $C > 1$ or $L > 1$. This is a \emph{threshold function}.
+
+
+We show that multiplicatively Lipschitz functions can be sparsified in $n^{1+o(1)} \poly(d)$ time: 
+
+\begin{theorem}[Informal version of Theorem~\ref{thm:sparsify-lipschitz}]\label{thm:informal-sparsify-lipschitz}
+%\ifdefined\isfocs\else[Informal version of Theorem~\ref{thm:sparsify-lipschitz}]\fi\label{thm:informal-sparsify-lipschitz} 
+For any function $f$ such that $f$ is $(2, L)$-multiplicatively Lipschitz, building a $(1\pm\epsilon)$-spectral sparsifier of the $\k$-graph on $n$ points in $\mathbb{R}^d$ where $\k(u,v) = f(\|u - v\|_2^2)$, with $O(n \log n / \eps^2)$ edges, can be done in time
+\begin{align*}
+ O(nd \sqrt{L \log n}) + n \log n \cdot 2^{O(\sqrt{L \log n})} \cdot (\log\alpha)/\eps^2 .
+\end{align*}
+\end{theorem}
+This Theorem applies even when $d = \Omega(\log n)$. When $L$ is constant, the running time simplifies to $O(nd \sqrt{ \log n} + n^{1+o(1)} \log \alpha/ \eps^2)$. This covers the case when $f(x)$ is any rational function with non-negative coefficients, like $f(z) = z^L$ or $f(z) = z^{-L}$. 
+
+It may seem more natural to instead define $L$-multiplicatively Lipschitz functions, without the parameter $C$, as functions with $\rho^{-L} f(x)\le f(\rho x)\le \rho^L f(x)$ 
+for all $\rho$ and $x$. Indeed, an $L$-multiplicatively Lipschitz function is also $(C,L)$-multiplicative Lipschitz for any $C>1$, so our results show that efficient sparsification is possible for such functions. However, the parameter $C$ is necessary to characterize when efficient sparsification is possible. Indeed, as in Theorem~\ref{thm:informal-sparsify-lipschitz} above, it is sufficient for $f$ to be $(C,L)$-multiplicative Lipschitz for a $C$ that is bounded away from 1. To complement this result, we also show a lower bound for sparsification for any function $f$ which is not $(C,L)$-multiplicatively Lipschitz for any $L$ and sufficiently large $C$:
+
+
+\begin{theorem}[Informal version of Theorem \ref{thm:high-spars-hard}]\label{thm:informal-high-spars-hard}
+%\ifdefined\isfocs \else[Informal version of Theorem \ref{thm:high-spars-hard}]\fi\label{thm:informal-high-spars-hard}
+Consider an $L > 1$. There is some sufficiently large value $C_L > 1$ depending on $L$ such that for any decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(C_L,L)$-multiplicatively Lipschitz, no $O(n2^{L^{.48}})$-time algorithm for constructing an $O(1)$-spectral sparsifier of the $\k$-graph of a set of $n$ points in $O(\log n)$ dimensions exists assuming $\SETH$, where $\k(x,y) = f(\|x-y\|_2^2)$.
+\end{theorem}
+
+For example, when $L = \Theta(\log^{2+\delta} n)$ for some constant $\delta > 0$, Theorem~\ref{thm:informal-high-spars-hard} shows that there is a $C$ for which, whenever $f$ is not $(C,L)$-multiplicatively Lipschitz, the sparsification problem cannot be solved in time $n^{1+o(1)}$ assuming $\SETH$.
+
+Bounding $C$ in terms of $L$ above is important. For example, if $C$ is small enough that $C^L = 2$, then $f$ could be close to constant. Such $\k$-graphs are easy to sparsify by uniformly sampling edges, so one cannot hope to show hardness for such functions.
+
+Theorem~\ref{thm:informal-high-spars-hard} shows that geometric graphs for threshold functions, the exponential function, and the Gaussian kernel do not have efficient sparsification algorithms. Furthermore, this hardness result essentially completes the story of which \emph{decreasing} functions can be sparsified in high dimensions, modulo a gap of $L^{.48}$ versus $L$ in the exponent. The tractability landscape is likely much more complicated for non-decreasing functions. That said, many of the kernels used in practice, like the Gaussian kernel, are decreasing functions of distance, so our dichotomy applies to them.
+
+We also show that our techniques for sparsification extend beyond kernels that are functions of $\ell_2$ norms; specifically $\k(u,v) = |\langle u,v\rangle|$:
+
+\begin{lemma}[Informal version of Lemma \ref{lem:inner-sparsify}]\label{thm:sparsabsinnerproduct} %\ifdefined\isfocs\else[Informal version of Lemma \ref{lem:inner-sparsify}]\fi \label{thm:sparsabsinnerproduct}
+The $\k(u,v) = |\langle u,v\rangle|$-graph on $n$ points in $\mathbb{R}^d$ can be $\epsilon$-approximately sparsified in $n^{1+o(1)} \poly(d) /\epsilon^2$ time.
+\end{lemma}
+
+\subsubsection{Laplacian solving}
+
+Laplacian system solving has a similar tractability landscape to that of adjacency matrix multiplication. We prove the following algorithmic result for solving Laplacian systems:
+
+\begin{theorem}[Informal version of Corollary~\ref{cor:exactmonomial} and Proposition~\ref{prop:woodbury}]\label{thm:informal-lapl-poly}
+%\ifdefined\isfocs \else[Informal version of Corollary~\ref{cor:exactmonomial} and Proposition~\ref{prop:woodbury}]\fi\label{thm:informal-lapl-poly}
+There is an algorithm that takes $ n^{1+o(1)} \poly(d,\log(n\alpha/\epsilon))$ time to $\epsilon$-approximately solve Laplacian systems on $n$-vertex $\k$-graphs, where $\k(u,v) = f(\|u-v\|_2^2)$ for some (nonnegative) polynomial $f$.\footnote{$f$ is a nonnegative function if $f(x) \geq 0$ for all $x \geq 0$.}
+\end{theorem}
+
+We show that this theorem is nearly tight via two hardness results. The first applies to multiplicatively Lipschitz kernels, while the second applies to kernels that are not multiplicatively Lipschitz. The second hardness result only works for kernels that are decreasing functions of $\ell_2$ distance. We now state our first hardness result: 
+
+\begin{corollary}\label{cor:introsystemhardhighdim}
+Consider a function $f$ that is $(2,o(\log n))$-multiplicatively Lipschitz for which $f$ cannot be $(\epsilon=2^{-\poly(\log  n)})$-approximated by a polynomial of degree at most $o(\log n)$. Then, assuming $\SETH$, there is no $n^{1+o(1)} \poly(d, \log(\alpha n/\epsilon))$-time algorithm for $\epsilon$-approximately solving Laplacian systems in the $\k$-graph on $n$ points, where $\k(u,v) = f(\|u-v\|_2^2)$.
+\end{corollary}
+\ifdefined\isfocs
+In the full version, 
+\else
+In Section~\ref{sec:equivalence},
+\fi
+we will see, using an iterative refinement approach, that if a $\k$ graph can be efficiently sparsified, then there is an efficient Laplacian multiplier for $\k$ graphs if and only if there is an efficient Laplacian system solver for $\k$ graphs. Corollary~\ref{cor:introsystemhardhighdim} then follows using this connection: it describes functions which we have shown have efficient sparsifiers but not efficient multipliers.
+
+Corollary~\ref{cor:introsystemhardhighdim}, which is the first of our two hardness results in this setting, applies to slowly-growing functions that do not have low-degree polynomial approximations, like $f(z) = 1/(1 + z)$. Next, we state our second hardness result:
+
+\begin{theorem}[Informal version of Theorem \ref{thm:high-lsolve-hard}]\label{thm:informal-high-lsolve-hard}
+%\ifdefined\isfocs \else[Informal version of Theorem \ref{thm:high-lsolve-hard}]\fi\label{thm:informal-high-lsolve-hard}
+Consider an $L > 1$. There is some sufficiently large value $C_L > 1$ depending on $L$ such that for any decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(C_L,L)$-multiplicatively Lipschitz, no $O(n  2^{L^{.48}} \log \alpha)$-time algorithm exists for solving Laplacian systems $2^{-\poly(\log n)}$ approximately in the $\k$-graph of a set of $n$ points in $O(\log n)$ dimensions assuming $\SETH$, where $\k(u,v) = f(\|u-v\|_2^2)$. 
+\end{theorem}
+
+This yields a quadratic time hardness result when $L = \Omega(\log^2 n)$. By comparison, the first hardness result, Corollary~\ref{cor:introsystemhardhighdim}, only applied for $L = o(\log n)$. In particular, this shows that for non-Lipschitz functions like the Gaussian kernel, the problem of solving Laplacian systems and, in particular, doing semi-supervised learning, cannot be done in almost-linear time assuming $\SETH$.
+
+
+
+
+
+\subsection{Our Techniques}
+
+\subsubsection{Multiplication}
+
+Our goal in matrix-vector multiplication is, given points $P = \{ x_1, \ldots, x_n\} \subset \R^d$ and a vector $y \in \R^n$, to compute a $(1 \pm \eps)$-approximation to the vector $L_G \cdot y$ where $L_G$ is the Laplacian matrix of the $\k$ graph on $P$, for $\eps = n^{-\Omega(1)}$ (see
+\ifdefined\isfocs
+the full version
+\else
+Definition~\ref{def:approxmult}\fi for the precise error guarantees on $\eps$). We call this the $\k$ Laplacian Evaluation ($\KLapE$) problem. A related problem, in which the Laplacian matrix $L_G$ is replaced by the adjacency matrix $A_G$, is the $\k$ Adjacency Evaluation ($\KAdjE$) problem.
+
+We begin by showing a simple, generic equivalence between $\KLapE$ and $\KAdjE$ for any $\k$: an algorithm for either one can be used as a black box to design an algorithm for the other with only negligible blowups to the running time and error. It thus suffices to design algorithms and prove lower bounds for $\KAdjE$.
+
+\paragraph*{Algorithmic Techniques}
+
+We use two primary algorithmic tools: the Fast Multipole Method (FMM), and a `kernel method' for approximating $A_G$ by a low-rank matrix.
+
+FMM is an algorithmic technique for computing aggregate interactions between $n$ bodies which has applications in many different areas of science. Indeed, when the interactions between bodies is described by our function $\k$, then the problem solved by FMM coincides with our $\KAdjE$ problem. 
+
+Most past work on FMM either considers the low-dimensional case, in which $d$ is a small constant, or else the low-error case, in which $\eps$ is a constant. Thus, much of the literature does not consider the simultaneous running time dependence of FMM on $\eps$ and $d$. In order to solve $\KAdjE$, we need to consider the high-dimensional, high-error case. We thus give a clean mathematical overview and detailed analysis of the running time of FMM in 
+\ifdefined\isfocs
+the full version,
+\else Section~\ref{sec:fastmm},
+\fi
+following the seminal work of Greengard and Strain~\cite{gs91}, which may be of independent interest.  
+
+As discussed in section~\ref{subsubsec:highdimmult} above, the running time of FMM depends exponentially on $d$, and so it is most useful in the low-dimensional setting. Our main algorithmic tool in high dimensions is a low-rank approximation technique: we show that when $f(x)$ can be approximated by a sufficiently low-degree polynomial (e.g. any degree $o(\log n)$ suffices in dimension $\Theta(\log n)$), then we can quickly find a low-rank approximation of the adjacency matrix $A_G$, and use this to efficiently multiply by a vector. Although this seems fairly simple, in Theorem~\ref{thm:informal-high} we show it is optimal: when such a low-rank approximation is not possible in high dimensions, then $\SETH$ implies that $n^{2 - o(1)}$ time is required for $\KAdjE$.
+
+The simplest way to show that $f(x)$ can be approximated by a low-degree polynomial is by truncating its Taylor series. In fact, the FMM \emph{also} requires that a truncation of the Taylor series of $f$ gives a good approximation to $f$. By comparison, the FMM puts more lenient restrictions on what degree the series must be truncated to in low dimensions, but in exchange adds other constraints on $f$, including that $f$ must be monotone. \ifdefined\isfocs
+See the full version 
+\else
+See Section~\ref{sec:fastmm_general} and Corollary~\ref{cor:kernelalg} 
+\fi 
+for more details.
+
+
+\paragraph*{Lower Bound Techniques}
+
+We now sketch the proof of Theorem~\ref{thm:informal-high}, our lower bound for $\KAdjE$ for many functions $\k$ in high enough dimensions (typically $d = \Omega(\log n)$), assuming $\SETH$. Although $\SETH$ is a hardness hypothesis about the Boolean satisfiability problem, a number of recent results~\cite{aw15,r18,c18,sm19} have showed that it implies hardness for a variety of \emph{nearest neighbor search} problems. Our lower bound approach is hence to show that $\KAdjE$ is useful for solving nearest neighbor search problems.
+
+The high-level idea is as follows. Suppose we are given as input points $X = \{ x_1, \ldots, x_n\} \subset \{0,1\}^d$, and our goal is to find the closest pair of them. For each $\ell \in \{1,2,\ldots,d\}$, let $c_\ell$ denote the number of pairs of distinct points $x_i, x_j \in X$ with distance $\|x_i - x_j\|_2^2 = \ell$. Using an algorithm for $\KAdjE$ for our function $\k(x,y) = f(\| x-y \|_2^2)$, we can estimate
+$$1^\top A_G 1 = \sum_{i \neq j} \k(x_i, x_j) = \sum_{\ell=1}^d c_\ell \cdot f(\ell).$$
+Similarly, for any nonnegative reals $a,b \geq 0$, we can take an appropriate affine transformation of $X$ so that an algorithm for $\KAdjE$ can estimate
+\begin{align}\label{introeq}\sum_{\ell=1}^d c_\ell \cdot f(a\cdot \ell + b).\end{align}
+
+Suppose we pick real values $a_1, \ldots,a_d,b_1,\ldots,b_d \geq 0$ and define the $d \times d$ matrix $M$ by $M[i,\ell] = f(a_i \cdot \ell + b_i)$. By estimating the sum (\ref{introeq}) for each pair $(a_i,b_i)$, we get an estimate of the matrix-vector product $Mc$, where $c \in \mathbb{R}^d$ is the vector of the $c_\ell$ values. We show that if $M$ has a large enough determinant relative to the magnitudes of its entries, then one can recover an estimate of $c$ itself from this, and hence solve the nearest neighbor problem. 
+
+The main tool we need for this approach is a way to pick $a_1, \ldots,a_d,b_1,\ldots,b_d$ for a function $f$ which cannot be approximated by a low degree polynomial so that $M$ has large determinant. We do this by decomposing $\det(M)$ in terms of the derivatives of $f$ using the Cauchy-Binet formula, and then noting that if $f$ cannot be approximated by a polynomial, then many of the contributions in this sum must be large. The specifics of this construction are quite technical; 
+\ifdefined\isfocs
+see the full version for the details.
+\else
+see section~\ref{sec:lbhighdim} for the details.
+\fi
+
+
+
+\paragraph*{Comparison with Previous Lower Bound Techniques}
+
+Prior work (e.g. \cite{cs17}, \cite{bis17}, \cite{bcis18}) has shown $\SETH$-based fine-grained complexity results for matrix-related computations. For instance, \cite{bis17} showed hardness results for exact algorithms for many machine-learning related tasks, like kernel PCA and gradient computation in training neural networks, while \cite{cs17} and \cite{bcis18} showed hardness results for kernel density estimation. In all of this work, the authors are only able to show hardness for a limited set of kernels. For example, \cite{bis17} shows hardness for kernel PCA only for Gaussian kernels. These limitations arise from the technique used. To show hardness, \cite{bis17} exploits the fact that the Gaussian kernel decays rapidly to obtain a gap between the completeness and soundness cases in approximate nearest neighbors, just as we do for functions $f$ like $f(x) = (1/x)^{\Omega(\log n)}$. The hardness results of \cite{cs17} and \cite{bcis18} employ a similar idea.
+
+As discussed in \emph{Lower Bound Techniques}, we circumvent these limitations by showing that applying the multiplication algorithm for one kernel a small number of times and linearly combining the results is enough to solve Hamming closest pair. This idea is enough to give a nearly tight characterization of the analytic kernels for which subquadratic-time multiplication is possible in dimension $d = \Theta(\log n)$. As a result, by combining with reductions similar to those from past work, our lower bound also applies to a variety of similar problems, including kernel PCA, for a much broader set of kernels than previously known; 
+\ifdefined\isfocs
+see the full version.
+\else
+see Section~\ref{subsec:kernelPCA} below for the details.
+\fi
+
+Our lower bound is also interesting when compared with the Online Matrix-Vector Multiplication (OMV) Conjecture of Henzinger et al.~\cite{henzinger2015unifying}. In the OMV problem, one is given an $n \times n$ matrix $M$ to preprocess, then afterwards one is given a stream $v_1, \ldots, v_n$ of length-$n$ vectors, and for each $v_i$, one must output $M \times v_i$ before being given $v_{i+1}$. The OMV Conjecture posits that one cannot solve this problem in total time $n^{3-\Omega(1)}$ for a general matrix $M$. 
+At first glance, our lower bound may seem to have implications for the OMV Conjecture: For some kernels $\k$, our lower bound shows that for an input set of points $P$ and corresponding adjacency matrix $A_G$, and input vector $v_i$, there is no algorithm running in time $n^{2-\Omega(1)}$ for multiplying $A_G \times v_i$, so perhaps multiplying by $n$ vectors cannot be done in time $n^{3-\Omega(1)}$. However, this is not necessarily the case, since the OMV problem allows $O(n^{2.99})$ time for preprocessing $A_G$, which our lower bound does not incorporate. More broadly, the matrices $A_G$ which we study, which have very concise descriptions compared to general matrices, are likely not the best candidates for proving the OMV Conjecture. That said, perhaps our results can lead to a form of the OMV Conjecture for geometric graphs with concise descriptions.
+
+\subsubsection{Sparsification}
+
+\paragraph*{Algorithmic techniques}
+
+Our algorithm for constructing high-dimensional sparsifiers for $\k(x,y) = f(\|x-y\|_2^2)$, when $f$ is a $(2, L)$ multiplicatively Lipschitz function, involves using three classic ideas: the Johnson Lindenstrauss lemma of random projection~\cite{jl84, im98}, the notion of well-separated pair decomposition from Callahan and Kosaraju~\cite{ck93, ck95}, and spectral sparsification via oversampling~\cite{ss11, kmp10}. Combining these techniques carefully gives us the bounds in Theorem~\ref{thm:informal-sparsify-lipschitz}.
+
+To overcome the `curse of dimensionality', we use the Lindenstrauss lemma to project onto $\sqrt{L \log n}$ dimensions. This preserves all pairs distance, with a distortion of at most $2^{O(\sqrt{\log n/L})}$. Then, using a $1/2$-well-separated pair decomposition partitions the set of projected distances into bicliques, such that each biclique has edges that are no more than $2^{O(\sqrt{\log n/L})}$ larger than the smallest edge in the biclique. This ratio will upper bound the maximum leverage score of an edge in this biclique in the original $\k$-graph. 
+Each biclique in the set of projected distances has a one-to-one correspondence to a biclique in the original $\k$-graph. Thus to sparsify our $\k$-graph, we sparsify each biclique in the $\k$-graph by uniform sampling, and take the union of the resulting sparsified bicliques. Due to the $(2, L)$-Lipschitz nature of our function, it is guaranteed that the longest edge in any biclique (measured using $\k(x,y)$) is at most $2^{O(\sqrt{L \log n})}$. This upper bounds the maximum leverage score of an edge in this biclique with respect to the $\k$-graph, which then can be used to upper bound the number of edges we need to sample from each biclique via uniform sampling.
+We take the union of these sampled edges over all bicliques, which gives our results for high-dimensional sparsification summarized in Theorem~\ref{thm:informal-sparsify-lipschitz}.
+\ifdefined\isfocs
+Details can be found in the full version. 
+\else
+Details can be found in the proof of Theorem~\ref{thm:sparsify-lipschitz} in Section~\ref{sec:sparsify-lipschitz}.
+\fi
+When $L$ is constant, we get almost linear time sparsification algorithms.
+
+For low dimensional sparsification, we skip the Johnson Lindenstrauss step, and use a $(1+1/L)$-well separated pair decomposition. This gives us a nearly linear time algorithm for sparsifying $(C, L)$ multiplicative Lipschitz functions, when $(2L)^{O(d)}$ is small, which covers the case when $d$ is constant and $L=n^{o(1)}$. 
+\ifdefined\isfocs 
+See the full version for details.
+\else 
+See Theorem~\ref{thm:low-sparsify-lipschitz} for details.
+\fi
+
+For $\k(u,v) = |\langle u,v\rangle|$, our sparsification algorithm is quite different from the multiplicative Lipschitz setting. In particular, the fact that $\k(u,v) = 0$ on a large family of pairs $u,v\in \mathbb{R}^d$ presents challenges. Luckily, though, this kernel does have some nice structure. For simplicity, just consider defining the $\k$-graph on a set of unit vectors. The weight of any edge in this graph is at most 1 by Cauchy-Schwarz. The key structural property of this graph is that for every set $S$ with $|S| > d+1$, there is a pair $u,v\in S$ for which the $u$-$v$ edge has weight at least $\Omega(1/d)$. In other words, the unweighted graph consisting of edges with weight between $\Omega(1/d)$ and 1 does not have independent sets with size greater than $d+1$. It turns out that all such graphs are dense  \ifdefined\isfocs(see the full version)\else(see Proposition \ref{prop:k-dep-dense})\fi and that all dense graphs have an expander subgraph consisting of a large fraction of the vertices \ifdefined\isfocs(see the full version)\else(see Proposition \ref{prop:dense-has-expander})\fi. Thus, if this expander could be found in $O(n)$ time, we could partition the graph into expander clusters, sparsify the expanders via uniform sampling, and sparsify the edges between expanders via uniform sampling. It is unclear to us how to identify this expander efficiently, so we instead identify clusters with effective resistance diameter $O(\poly(d\log n)/n)$. This can be done via uniform sampling and Johnson-Lindenstrauss \cite{ss11}. As part of the proof, we prove a novel Markov-style lower bound on the probability that effective resistances deviate too low in a randomly sampled graph, which may be of independent interest  
+\ifdefined\isfocs
+(see the full version).
+\else(see Lemma \ref{lem:sparse-lower-tail}).
+\fi
+
+\paragraph*{Lower bound techniques}
+
+To prove lower bounds on sparsification for decreasing functions that are not $(C_L,L)$-multiplicatively Lipschitz, we reduce from exact bichromatic nearest neighbors on two sets of points $A$ and $B$. In high dimensions, nearest neighbors is hard even for Hamming distance \cite{r18}, so we may assume that $A,B\subseteq \{0,1\}^d$. In low dimensions, we may assume that the coordinates of points in $A$ and $B$ consist of integers on at most $O(\log n)$ bits. In both cases, the set of possible distances between points in $A$ and $B$ is discrete. We take advantage of the discrete nature of these distance sets to prove a lower bound. In particular, $C_L$ is set so that $C_L$ is the smallest ratio between any two possible distances between points in $A$ and $B$. To see this in more detail, see 
+\ifdefined\isfocs
+the full version.
+\else
+Lemma \ref{lem:spars-reduc}.
+\fi
+
+Let $x_f$ be a point at which the function $f$ is not $(C_L,L)$-multiplicatively Lipschitz and suppose that we want to solve the decision problem of determining whether or not $\min_{a\in A, b\in B} \|a - b\|_2\le k$. We can do this using sparsification by scaling the points in $A$ and $B$ by a factor of $k/x_f$, sparsifying the $\k$-graph on the resulting points, and thresholding based on the total weight of the resulting $A$-$B$ cut. If there is a pair with distance at most $k$, there is an edge crossing the cut with weight at least $f(x_f)$ because $f$ is a decreasing function. Therefore, the sparsifier has total weight at least $f(x_f)/(1+\epsilon) = f(x_f)/2$ crossing the $A$-$B$ cut by the cut sparsification approximation guarantee. If there is not a pair with distance at most $k$, no edges crossing the cut with weight larger than $f(C_L x_f)\le C_L^{-L} f(x_f)\le ( 1/n^{10} ) \cdot f(x_f)$ by choice of $C_L$. Therefore, the total weight of the $A$-$B$ cut is at most $(1/n^8 ) \cdot f(x_f)$, which means that it is at most $( (1 + \epsilon)/n^8 ) \cdot f(x_f) < f(x_f)/4$ in the sparsifier. In particular, thresholding correctly solves the decision problem and one sparsification is enough to solve bichromatic nearest neighbors.
+
+
+
+
+\subsection{Brief summary of our results in terms of \texorpdfstring{$p_f$}{}}
+
+Before proceeding to the body of the chapter, we summarize our results.
+Recall that we consider three linear-algebraic problems in this chapter, along with two different dimension settings (low and high). This gives six different settings to consider. We now define $p_f$ in each of these settings. In all high-dimensional settings, we have found a definition of $p_f$ that characterizes the complexity of the problem. In some low-dimensional settings, we do not know of a suitable definition for $p_f$ and leave this as an open problem. For simplicity, we focus here only on decreasing functions $f$, although all of our algorithms, and most of our hardness results,  hold for more general functions as well.
+
+\begin{table*}[!ht]
+\centering
+\begin{tabular}{|l|l|l|l|}
+    \hline
+    {\bf Dimension} & {\bf Multiplication} & {\bf Sparsification} & {\bf Solving} \\ \hline
+     $d = \poly(\log n)$ & $f_1$ & $f_1,f_2$ & $f_1$\\ \hline
+     $c^{\log^* n} < d < O(\log^{1-\delta} n)$ for  $\delta > 0$ & $f_1,f_2,f_3$ & $f_1,f_2,f_3$ & $f_1,f_2,f_3$ \\ \hline
+\end{tabular}\caption{Functions among $f_1,f_2,f_3,f_4$ that have almost-linear time algorithms}\label{tab:examples}
+\end{table*}
+
+
+\begin{compactenum}
+    \item Adjacency matrix-vector multiplication
+    \begin{enumerate}
+        \item High dimensions: $p_f$ is the minimum degree of any polynomial that $1/2^{\text{poly}(\log n)}$-additively approximates $f$. $p_f > \Omega(\log n)$ implies subquadratic-time hardness (Theorem \ref{thm:informal-high} part 2), while $p_f < o(\log n)$ implies an almost-linear time algorithm (Theorem \ref{thm:informal-high}, part 1).
+        \item Low dimensions: Not completely understood. The fast multipole method yields an almost-linear time algorithm for some functions, like the Gaussian kernel \ifdefined\isfocs(see the full version)\else(Theorem \ref{thm:fast_gaussian_transform_intro})\fi, but functions exist that are hard in low dimensions \ifdefined\isfocs(see the full version).
+        \else(Proposition \ref{prop:low-mult-hard}).\fi
+    \end{enumerate}
+    \item Sparsification. In both settings, $p_f$ is the minimum value for which $f$ is $(C, p_f)$-multiplicatively Lipschitz, where $C = 1 + 1/p_f^c$ for some constant $c > 0$ independent of $f$.
+    \begin{enumerate}
+        \item High dimensions: If $p_f > \Omega(\log^2 n)$ and $f$ is nonincreasing, then no subquadratic time algorithm exists (Theorem \ref{thm:informal-high-spars-hard}). If $p_f < o(\log n)$, then an almost-linear time algorithm for sparsification exists (Theorem \ref{thm:informal-sparsify-lipschitz}).
+        \item Low dimensions: There is some constant $t > 1$ such that if $p_f > \Omega(n^t)$ and $f$ is nonincreasing, then no subquadratic time algorithm exists \ifdefined\isfocs(see the full version). \else(Theorem \ref{thm:informal-low-spars-hard}).\fi If $p_f < n^{o(1/d)}$, then there is a subquadratic time algorithm \ifdefined\isfocs(see the full version)\else(Theorem \ref{thm:informal-low-sparsify-lipschitz})\fi.
+    \end{enumerate}
+    \item Laplacian solving.
+    \begin{enumerate}
+        \item High dimensions: $p_f$ is the maximum of the $p_f$ values in the \emph{Adjacency matrix-vector multiplication} and \emph{Sparsification} settings, with hardness occurring for decreasing functions $f$ if $p_f > \Omega(\log^2 n)$ (Corollary \ref{cor:introsystemhardhighdim} combined with Theorem \ref{thm:informal-high-lsolve-hard}) and an algorithm existing when $p_f < o(\log n)$ (Theorem \ref{thm:informal-lapl-poly}).
+        \item Low dimensions: Not completely understood, as in the low-dimensional multiplication setting. As in the sparsification setting, we are able to show that there is a constant $t$ such that if $f$ is nonincreasing and $p_f > \Omega(n^t)$ where $p_f$ is defined as in the \emph{Sparsifiction} setting, then no subquadratic time algorithm exists \ifdefined\isfocs(see the full version).
+        \else
+        (Theorem \ref{thm:low-lsolve-hard}).
+        \fi
+    \end{enumerate}
+\end{compactenum}
+
+Many of our results are not tight for two reasons: (a) some of the hardness results only apply to decreasing functions, and (b) there are gaps in $p_f$ values between the upper and lower bounds. However, neither of these concerns are important in most applications, as (a) weight often decreases as a function of distance and (b) $p_f$ values for natural functions are often either very low or very high. For example, $p_f > \Omega(\text{polylog}(n))$ for all problems for the Gaussian kernel ($f(x) = e^{-x}$), while $p_f = O(1)$ for sparsification and $p_f > \Omega(\text{polylog}(n))$ for multiplication for the gravitational potential ($f(x) = 1/x$). Resolving the gap may also be difficult, as for intermediate values of $p_f$, the true best running time is likely an intermediate running time of $n^{1 + c + o(1)}$ for some constant $0<c<1$. Nailing down and proving such a lower bound seems beyond the current techniques in fine-grained complexity.
+
+\subsection{Summary of our Results on Examples} \label{sec:resultstable}
+
+To understand our results better, we illustrate how they apply to some examples. For each of the functions $f_i$ given below, make the $\k$-graph, where $\k_i(u,v) = f_i(\|u-v\|_2^2)$:
+
+\begin{compactenum}
+\item $f_1(z) = z^k$ for a positive integer constant $k$.
+\item $f_2(z) = z^c$ for a negative constant or a positive non-integer constant $c$.
+\item $f_3(z) = e^{-z}$ (the Gaussian kernel).
+\item $f_4(z) = 1$ if $z\le \theta$ and $f_4(z) = 0$ if $z > \theta$ for some parameter $\theta > 0$ (the threshold kernel).
+%\item $f_5(z) = \frac{1}{\pi} (\pi - \cos^{-1}(1-0.5 z) ) \cdot (1-0.5 z) $ (corresponds to the neural tangent kernel \cite{jgh18}; see Section~\ref{sec:ntk})
+\end{compactenum}
+
+
+
+\josh{We need to put $f_5$ in the appropriate places in the table}
+
+In Table \ref{tab:examples}, we summarize for which of the above functions there are efficient algorithms and for which we have hardness results. There are six regimes, corresponding to three problems (multiplication, sparsification, and solving) and two dimension regimes ($d = \poly(\log n)$ and $d = c^{\log^* n}$). A function is placed in a table cell if an almost-linear time algorithm exists, where runtimes are $n^{1+o(1)}(\log(\alpha n/\epsilon))^t$ in the case of multiplication and system solving and $n^{1+o(1)}(\log(\alpha n))^t/\epsilon^2$ in the case of sparsification for some $t\le O(\log^{1-\delta} n)$ for some $\delta > 0$. Moreover, for each of these functions $f_1, f_2, f_3,$ and $f_4$, if it does not appear in a table cell, then we show a lower bound that no subquadratic time algorithm exists in that regime assuming $\SETH$.
+
+
+
+\josh{Note: we don't care if the stuff below is on page 11 or later}
+
+\subsection{Other Related Work} \label{subsec:relatedwork}
+
+\paragraph*{Linear Program Solvers}
+
+Linear Program is a fundamental problem in convex optimization. There is a long list of work focused on designing fast algorithms for linear program \cite{d47,k80,k84,v87,v89_lp,ls14,ls15,cls19,lsz19,song19,b20,blss20,sy20,jswz20}. For the dense input matrix, the state-of-the-art algorithm \cite{jswz20} takes $n^{\max\{\omega,2+1/18\}} \log (1/\eps)$ time, $\omega$ is the exponent of matrix multiplication \cite{aw21}. The solver can run faster when matrix $A$ has some structures, e.g. Laplacian matrix. 
+
+\paragraph*{Laplacian System Solvers}
+It is well understood that a Laplacian linear system can be solved in time $\tilde{O} (m \log ( 1 / \eps ) )$, where $m$ is the number of edges in the graph generating the Laplacian~\cite{st04,kmp10,kmp11,kosz13,ls13,ckmpprx14,klpss16,ks16}. This algorithm is very efficient when the graph is sparse. However, in our setting where the $\k$ graph is dense but succinctly describable by only $n$ points in $\R^d$, we aim for much faster algorithms. 
+
+\paragraph*{Algorithms for Kernel Density Function Approximation} A recent line of work by Charikar et al.~\cite{cs17,bcis18} also studies the algorithmic KDE problem. They show, among other things, that kernel density functions for ``smooth'' kernels $\k$ can be estimated in time which depends only polynomially on the dimension $d$, but which depends polynomially on the error $\eps$. We are unfortunately unable to use their algorithms in our setting, where we need to solve $\KAdjE$ with $\eps = n^{-\Omega(1)}$, and the algorithms of Charikar et al. do not run in subquadratic time. We instead design and make use of algorithms whose running times have only polylogarithmic dependences on $\eps$, but often have exponential dependences on $d$.
+
+
+\paragraph{Kernel Functions}
+Kernel functions are useful functions in data analysis, with applications in physics, machine learning, and computational biology~\cite{s10}. There are many kernels studied and applied in the literature; we list here most of the popular examples.
+
+The following kernels are of the form $\k(x,y) = f(\|x-y\|_2^2)$, which
+we study in this chapter: the Gaussian kernel \cite{njw02,rr08}, exponential kernel, Laplace kernel \cite{rr08}, rational quadratic kernel, multiquadric kernel \cite{bg97}, inverse multiquadric kernel \cite{m84,m12}, circular kernel \cite{btfb05}, spherical kernel, power kernel \cite{fs03}, log kernel \cite{bg97,m12}, Cauchy kernel \cite{rr08}, and generalized T-Student kernel \cite{btf04}.
+
+For these next kernels, it is straightforward that their corresponding graphs have low-rank adjacency matrices, and so efficient linear algebra is possible using the Woodbury Identity \ifdefined\isfocs(see the full version)\else(see Section~\ref{sec:woodbury_identity} below)\fi: the linear kernel \cite{ssa98,mssmsr99,h07,s14} and the polynomial kernel \cite{cv95,ge08,bossr08,chcrl10}.
+
+Finally, the following relatively popular kernels are not of the form we
+directly study in this chapter, and we leave extending our results to them as an important open problem: the Hyperbolic tangent (Sigmoid) kernel \cite{hs97,btb05,jkl09,ksh12,zsjbd17,zsd17,ssbcv17,zsjd19}, spline kernel \cite{g98,u99}, B-spline kernel \cite{h04,m10}, Chi-Square kernel \cite{vz12}, and the histogram intersection kernel and generalized histogram intersection \cite{btb05a}. More interestingly, our result also can be applied to Neural Tangent Kernel \cite{jgh18}, which plays a crucial role in the recent work about convergence of neural network training \cite{ll18,dzps19,als18,als19,sy19,bpsw20,lsswy20,jmsz20}. For more details, we refer the readers to
+\ifdefined\isfocs
+the full version.
+\else
+Section~\ref{sec:ntk}.
+\fi
+
+\paragraph{Acknowledgements}
+
+The authors would like to thank Lijie Chen for helpful suggestions in the hardness section and explanation of his papers. The authors would like to thank Sanjeev Arora, Simon Du, and Jason Lee for useful discussions about the neural tangent kernel.
+

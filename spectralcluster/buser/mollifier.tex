@@ -1,0 +1,88 @@
+
+\subsection{Gradient of Mollifier}\label{sec:dimension-dep}
+Let $\phi$ be a standard mollifier i.e. $\phi\in C_c^\infty(\RR^d)$
+is a function from $\RR^d\to [0,\infty)$ satisfying $\int_{\RR^d}
+  \phi\,dx = 1$ and $\supp(\phi)\subseteq B(0,1)$.  We will define
+  $\phi$ by its profile. Namely, let $\phihat(r):[0,\infty)
+    \rightarrow [0,1]$ be a fixed monotone decreasing profile with
+    $\phihat(0)=1$, $0 < \phihat(r) < 1$ for $0 < r < 1$, and
+    $\phihat(r) = 0$ for $r \geq 1$. Then define $\phi:\Re^d
+    \rightarrow \Re$ by $\phi(x) = c \phihat(|x|)$ with $c > 0$ chosen
+    so that $\int_{\Re^d} \phi(x) \, dx = 1$; that is,
+
+\[
+1 = \int_{\Re^d} \phi(x) \, dx
+= c |S^{d-1}| \int_0^1 \phihat(r) r^{d-1} \, dr
+\qquad \Rightarrow \qquad
+c = \frac{1}{|S^{d-1}| \int_0^1 \phihat(r) r^{d-1} \, dr},
+\]
+
+where $|S^{d-1}|$ is the $(d-1)$--area of the unit sphere in $\Re^d$.
+We claim the $L_1$ norm of the gradient of $\nabla \phi(x)$ is linear in $d$.
+\begin{lemma}\label{lem:molli}
+  \[
+  \int_{\Re^d} |\nabla \phi(x)| \, dx   
+\leq (d-1) \left( \frac{d 2^d}{\phihat(1/2)} \right)^{1/(d-1)}
+\stackrel{d \rightarrow \infty}{\longrightarrow} 2(d-1).
+\]
+For the classic mollifier $\phihat(r)=\exp(-1/(1-r^2))$ we get
+  \[
+  \int_{\Re^d} |\nabla \phi(x)| \, dx  \leq 2d.
+\]
+\end{lemma}
+
+From the formula $\nabla \phi(x) = c \phihat'(|x|) (x/|x|)$ we compute
+\begin{eqnarray*}
+\int_{\Re^d} |\nabla \phi(x)| \, dx
+&=& c |S^{d-1}| \int_0^1 |\phihat'(r)| r^{d-1} \, dr \\
+&=& c |S^{d-1}| \int_0^1 -\phihat'(r) r^{d-1} \, dr \\
+&=& c |S^{d-1}| \int_0^1 \phihat(r) (d-1) r^{d-2} \, dr \\
+&=& (d-1) \frac{\int_0^1 \phihat(r) r^{d-2} \, dr}
+{\int_0^1 \phihat(r) r^{d-1} \, dr}.
+\end{eqnarray*}
+To estimate the numerator use Holder's inequality: for
+$1 \leq s, s' \leq \infty$ with $1/s + 1/s' = 1$ 
+$$
+\int f g 
+\leq \left(\int |f|^s \right)^{1/s} \left(\int |g|^{s'} \right)^{1/s'}.
+$$
+Set $s = (d-1)/(d-2)$ and $s' = d-1$ to get
+$$
+\int_0^1 \phihat(r) r^{d-2} \, dr
+= \int_0^1 \phihat(r)^{1/s} r^{d-2} \times \phihat(r)^{1/s'}  \, dr
+\leq \left(\int_0^1 \phihat(r) r^{d-1} \, dr \right)^{1/s}
+\left(\int_0^1 \phihat(r) \, dr \right)^{1/s'}.
+$$
+It follows that
+\begin{equation}\label{eq:molli0}
+\int_{\Re^d} |\nabla \phi(x)| \, dx
+\leq (d-1) \left( \frac{\int_0^1 \phihat(r) \, dr}
+{\int_0^1 \phihat(r) r^{d-1} \, dr} \right)^{1/(d-1)}.
+\end{equation}
+Since $0 \leq \phihat(r) \leq 1$ we can bound the numerator
+by $1$, and since $\phihat(r)$ is monotone decreasing we have
+$\phihat(r) \geq \phihat(1/2)$ on $(0,1/2)$, so 
+\begin{equation}\label{eq:molli}
+\int_{\Re^d} |\nabla \phi(x)| \, dx
+\leq (d-1)
+\left( \frac{1}{\phihat(1/2) \int_0^{1/2} r^{d-1} \, dr} \right)^{1/(d-1)} 
+\leq (d-1) \left( \frac{d 2^d}{\phihat(1/2)} \right)^{1/(d-1)}
+\stackrel{d \rightarrow \infty}{\longrightarrow} 2(d-1).
+\end{equation}
+
+It will be convenient to write equation~\ref{eq:molli} as a simple
+inequality. Observer that
+\[
+ \left( \frac{d 2^d}{\phihat(1/2)} \right)^{1/(d-1)}
+\]
+is monotone decreasing. We now pick the classic
+$\phihat(r) = \exp(-1/(1-r^2))$ we have $\phihat(1/2) \geq 1/4$ and if
+$d \geq 5$ the right hand side of equation (\ref{eq:molli} is bounded
+by $2d$. If $d < 5$ explicit computations of the integrals shows the
+right hand side of equation (\ref{eq:molli0} is bounded by $2d$.
+
+
+
+
+
+

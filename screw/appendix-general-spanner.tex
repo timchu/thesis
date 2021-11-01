@@ -1,0 +1,71 @@
+\section{Proving Faster and Sparser-than-Euclidean Approximate
+  Spanners}\label{ap:general-spanner}
+In this appendix, we finish the proof of
+Theorem~\ref{thm:general-spanner} based on the outline given in
+Section~\ref{sec:general-spanner}.
+
+\subsection{$1+O(\delta^2)$ spanners can be generated from a
+$1/\delta$ WSPD}
+
+\begin{definition}\label{def:critical} Let $e$ be a \textbf{critical} edge in a
+  shortest path metric on any graph if the
+  (possibly-not-unique) shortest path between the endpoints of $e$ is the edge $e$.
+\end{definition}
+\begin{lemma} The set of critical edges on any graph forms a $1$-spanner of the
+shortest path metric. \end{lemma}
+The above lemma is known in the literature.
+
+% \tim{Make an algorithm box for this process.}
+To check that any graph $H$ is a $(1+O(\delta^2)$ spanner of any graph $G$, it suffices
+to prove that all critical edges in the edge-squared metric have a stretch
+no larger than $1+O( \delta^2)$.
+Let $G$ be the edge-squared graph arising from points $P \subset \mathbb{R}^d$. Build a well-separated pair decomposition on P, with pairs given as $\{A_1, B_1\}, \{A_2, B_2\}, \ldots \{A_m, B_m\}$.
+Create a spanner $H$ as follows: for each pair $\{A_i, B_i\}$, connect
+an edge $\{a, b\}, a\in A_i, b\in B_i$ such that the Euclidean distance
+between $a$ and $b$ is a $(1+c\delta^2)$ approximation of the shortest distance
+between point sets $A_i$ and $B_i$, for some constant $c$ independent of
+$i$. This can be accomplished in $O(1)$ time assuming a preprocessing
+step of $O(\delta^{-d} \log\left(\frac{1}{\delta}\right)$ time, as noted
+in Callahan's paper on constructing a Euclidean MST~\cite{Callahan1995}. Do this for all $ 1 \leq i \leq m$.
+
+For each critical edge $(s,t)$, consider the well-separated pair $\{A, B\}$ that $(s,t)$ is part of. Let $ s\in A$ and $t \in B$. Let $(a,b)$ be a $(1+c\delta^2)$-approximate shortest edge between $A$ and $B$ ($a \in A, b\in B$).
+Scale $||a-b||_2$ to be 1. $A$ and $B$ have Euclidean radius at most
+$\delta$, by the definition of a well separated pair. By induction on
+Euclidean distance, $H$ is an edge-squared $2$-spanner of the
+edge-squared metric for all points in $A$ and $B$ and all points in $B$
+(assuming sufficiently small $\delta$).
+
+\begin{lemma}
+\begin{align*}
+  dist_H(s,t)
+    &\leq dist_H(s,a)+dist_H(a,b)+dist_H(b,t)\\
+    & \leq 1+O(\delta^2)
+\end{align*}
+\end{lemma}
+\begin{proof}
+We know $dist_H(a,b)$ = 1 by our scaling, and $$dist_H(s,a) \leq 2 \cdot (dist_G(s,a)) \leq 2 \cdot ||s-a||^2 \leq 8\delta^2$$
+The first inequality follows by the inductive hypothesis that $H$ is a 2-spanner of $G$ in $A$. The third inequality follows since both $s$ and $a$ are contained in a ball of radius $\delta$.
+
+The same bound applies for $dist_H(b,t)$.
+\end{proof}
+
+\begin{lemma} \label{lm}
+$$(1+c\delta^2)(dist_G(s,t)) \geq dist_G(a,b) = 1$$
+$$ \Rightarrow dist_G(s,t)  \geq \frac{1}{1+c\delta^2}$$
+\end{lemma}
+
+Lemma \ref{lm} follows from the fact that $(a,b)$ is a $(1+c\delta^2)$ approximate shortest distance between $A$ and $B$.
+
+Therefore
+
+\begin{align*}
+  stretch_H(s,t)
+    &\leq \frac{dist_H(s,t)}{dist_G(s,t)} \\
+    &\leq (1+16\delta^2)(1+c\delta^2) \\
+    &= 1+O(\delta^2)
+\end{align*}
+
+
+Thus we have proven that $H$ is a $1+16\delta^2$ spanner. Now set
+$\epsilon = \delta^2$, which completes
+proof of Theorem~\ref{thm:general-spanner}.

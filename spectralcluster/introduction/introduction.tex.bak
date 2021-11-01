@@ -1,0 +1,75 @@
+\section{Introduction}
+
+The Cheeger and Buser inequalities relate isoperimetric cuts with eigenvalues.
+Up to a constant factor, the Cheeger inequality lower bounds the
+fundamental eigenvalue of a Laplacian with the square of
+the isoperimetric constant~\cite{Cheeger70, AlonM84}, and the Buser inequality upper
+bounds the eigenvalue with the isoperimetric constant~\cite{Buser82, AlonM84}.
+
+These inequalities appear in two settings: the graph
+setting~\cite{AlonM84} and the manifold setting~\cite{Cheeger70,
+Buser82}.  In graphs, these inequalities are the foundation of spectral
+graph theory~\cite{ChungBook97, AlonM84}. Spectral graph theory
+has provided surprising insights on problems including maximum
+flow~\cite{CKMST}, fast Laplacian solving~\cite{KMP}, expander
+decompositions~\cite{wulff17expander, sw19expander}, sparse
+cuts~\cite{AlonM84, arv04, chawla05sparse}, and longstanding
+mathematical conjectures like the Kaddison Singer conjecture~\cite{MSS}.
+In this setting, the Buser inequality is trivial, and the Cheeger
+inequality is mathematically substantial~\cite{AlonM84,ChungBook97}.  In
+manifold theory, the Cheeger and Buser inequalities have proven useful
+for probability theory on manifolds~\cite{ledoux2004spectral}, machine
+learning~\cite{belkin2004semisup}, and more~\cite{belkin2005towards, ledoux2004spectral}.
+Unlike in the graph setting, the Buser inequality on manifolds is highly
+nontrivial, and historically came as a surprise to manifold
+theorists~\cite{Buser82, ledoux2004spectral}.
+
+Our paper introduces Cheeger and Buser inequalities in a new setting:
+Lipschitz probability density functions. 
+Here, a
+probability density function refers to a function $\rho: \RR^d
+\rightarrow \RR_{\geq 0}$ where $\int_{\RR^d} \rho = 1$. A Lipschitz
+probability density refers to a probability density $\rho$ where
+$|\rho(x)-\rho(y)| < L\|x-y\|_2$ for some constant $L$.
+Cheeger inequalities
+have been used in the probability density setting in the
+past~\cite{Lee18survey}, but primarily in the setting where there are
+strong parametric assumptions on the density (such as when the density
+is Gaussian or log-concave)~\cite{Lee18survey}. 
+We show that for general Lipschitz probability densities,  
+either the Cheeger or the Buser inequality must fail using past
+definitions of eigenvalue and isoperimetric constant.  
+
+Since past definitions of eigenvalue and isoperimetric constant are
+inadequate in the probability density setting, we present new
+definitions of these quantities for which a Cheeger and Buser inequality
+will hold. Using our new definitions, the Cheeger inequality can be
+proven using standard techniques. Akin to the manifold setting, the
+Buser inequality here is more difficult to prove. New mathematical ideas
+are required to prove the Buser inequality. We prove both the
+Cheeger and Buser inequalities on Lipschitz probability densities, using
+our new definitions.
+
+\subsubsection{Applications}
+We will use our inequalities to show that a spectral sweep cut of a
+Lipschitz
+probability density functions will partition it into two pieces with
+good sparsity guarantees.  We then discuss potential applications to
+machine learning and spectral clustering. 
+
+Spectral clustering~\cite{ShiMalik97,
+NgSpectral01} is one of the most widely used techniques in machine
+learning~\cite{von2007tutorial}. It is known to have a close connection to
+past definitions for eigenvalues of a probability density
+function~\cite{TrillosVariational15}. However, spectral clustering is
+not known to have any good theoretical sparsity guarantees on partition quality as the number
+of samples grows large,
+in part due to the lack of a Cheeger and Buser inequality for past
+definitions of eigenvalues.  Our new Cheeger and Buser inequalities may
+motivate theoretically principled spectral clustering methods.
+
+\input{introduction/definitions}
+\input{introduction/past-work}
+\input{introduction/contributions}
+% \input{introduction/theorem}
+\input{introduction/technical-contribution}

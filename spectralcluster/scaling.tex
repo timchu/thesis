@@ -1,0 +1,150 @@
+
+\subsection{Scaling}\label{sec:scaling}
+
+In this section we show that if one scales the density function $\rho$ then
+the isoperimetric value $\Phi(A)$ and the Rayleigh quotient $R(u)$
+scale nicely. More formally Let $A \subset \Omega \subseteq
+\Re^d$, $\rho$ a density function over a domain $\Omega$, and
+$u$ an arbitrary differentiable  function over $\Omega$.
+
+Consider the transformation
+$\xhat = \ell x$ with $\ell > 0$ which maps $\Omega$ to the domain
+$\Omegahat = \{\ell x \sst x \in \Omega\}$. Given $u:\Omega \rightarrow
+\Re$, we define $\uhat: \Omegahat \rightarrow \Re$ by $\uhat(\xhat) =
+u(x)$. We will future scale $\rho$ by $\alpha \rhohat(\xhat) = \ell \, \rho(x)$ where
+$\alpha > 0$.
+
+\begin{theorem}\label{thm:scaling}
+  When scaling by $\alpha$ and $\ell$ then
+  \[   \Phi(A) = \alpha \Phihat(\Ahat) \] and
+  \[  R(u)  = \alpha^2 \Rhat(\uhat) \quad \text{and thus} \quad\lambda_2 = \alpha^2 \hat{\lambda}_2\].
+\end{theorem}
+
+We will use this scaling theorem to improve the bounds
+of theorem~\ref{thm:buser_n}. 
+
+That is, if we have a density function $\rho$ over
+a domain $\Omega$ the isoperimetric number that the fundamental eigenvalue only
+change as a function  of the scaling.  Thus the optimal cut and eigenvector are
+unchanged by scaling up to the transformation.
+
+%% Given a domain $\Omega \subset \Re^d$, consider the transformation
+%% $\xhat = \ell x$ with $\ell > 0$ which maps $\Omega$ to the domain
+%% $\Omegahat = \{\ell x \sst x \in \Omega\}$. If $u:\Omega \rightarrow
+%% \Re$, define $\uhat: \Omegahat \rightarrow \Re$ by $\uhat(\xhat) =
+%% u(x)$.
+
+If $u$ and $l$ are as defined above then we get the simple but basic identity. 
+Suppose that $u: \R \rightarrow \R$ then: \[
+\dbydp{u}{x} 
+= \dbydp{\uhat}{\xhat} \dbydp{\xhat}{x}
+= \dbydp{\uhat}{\xhat} \ell,
+\qquad \text{ in general we get } \qquad
+|\nabla u(x)| = \ell |\hat{\nabla} \uhat(\xhat)|.
+\]
+
+In the case of $\rho:\Omega \rightarrow (0,\infty)$, where
+$\rhohat: \Omegahat \rightarrow (0,\infty)$ is defined by
+$ \alpha \rhohat(\xhat) = \ell \, \rho(x)$ we get that
+\[
+|\nabla \rho(x)| = \alpha |\hat{\nabla} \rhohat(\xhat)|.
+\]
+
+It follows that $L_{\rhohat}$ and $L_\rho$, the Lipschitz constants
+for $\rhohat$ and $\rho$,  satisfy $L_{\rhohat} = (1/\alpha) L_\rho$.
+
+\begin{itemize}
+\item
+  Since $d\xhat = \ell^{d} \, dx$ we have
+  \[
+  \int_\Omega \rho \, dx = \frac{\alpha}{\ell^{d+1}} \int_{\Omegahat} \rhohat \, d\xhat, 
+  \]
+  %% so it is always possible to choose a scaling to get $\int_{\Omegahat}
+  %% \rhohat = 1$.
+
+\item
+  If $A \subset \Omega$ and $\Ahat = \ell A \subset \Omegahat$,
+  let $f_A(x) = 1$ if $x \in A$ and zero otherwise, and similarly
+  $f_{\Ahat} = 1$ if $\xhat \in \Ahat$ and zero otherwise. We next perform
+  a set of standard integral calculations.
+  \begin{align}
+  \int_\Omega \rho^2 |\nabla f_A| \, dx &=
+  \int_{\Omegahat} (\frac{\alpha}{\ell})^2 \rhohat^2 \ell |\hat{\nabla} f_{\Ahat}|
+  \, \frac{1}{\ell^d} d\xhat \label{eq:subsitution}\\
+  &= \frac{\alpha^2}{\ell^{d+1}} \int_{\Omegahat} \rhohat^2  |\hat{\nabla} f_{\Ahat}|
+  \, d\xhat \label{eq:integral1}
+  \end{align}
+
+  Equation~\ref{eq:subsitution} follows by making the substitutions:
+  \[ \rho(x) = (\frac{\alpha}{\ell}) \rhohat(\xhat) \quad
+  |\nabla f_A| = \ell |\hat{\nabla} f_{\Ahat}| \quad
+  dx =  \frac{1}{\ell^d} d\xhat
+  \]
+  Observing the $f_A(x) = f_{\Ahat}(\xhat)$ we get the following identity.
+\begin{equation}\label{eq:integral2}
+ \int_\Omega \rho f_A \, dx
+ = \int_{\Omegahat} \frac{\alpha}{\ell}  \rhohat f_{\Ahat} \frac{1}{\ell^d} \, d\xhat
+   = \frac{\alpha}{\ell^{d+1}} \int_{\Omegahat} \rhohat f_{\uhat} \, d\xhat
+\end{equation}
+
+Combining equation~\ref{eq:integral1} and equation~\ref{eq:integral2}
+we get that:
+
+\begin{equation}
+  \Phi(A) = \alpha \Phihat(\Ahat)
+\end{equation}
+
+\item
+  We next do a similar calculation for the Rayleigh quotient.
+  If $u:\Omega \rightarrow \Re$ and $\uhat(\xhat) = u(x)$, 
+  the Rayleigh quotients can be computed as follows,
+  \[
+  \int_\Omega \rho^3 |\nabla u|^2 \, dx
+  = \int_{\Omegahat} (\frac{\alpha}{\ell})^3 \rhohat^3
+  \ell^2 |\hat{\nabla} \uhat|^2 \, \frac{1}{\ell^d} d\xhat
+    = \frac{\alpha^3}{\ell^{d+1}} \int_{\Omegahat} \rhohat^3 |\hat{\nabla} \uhat|^2 \, d\xhat
+ \]
+
+\[
+\int_\Omega \rho u^2 \, dx
+= \int_{\Omegahat} \frac{\alpha}{\ell} \rhohat \uhat^2 \frac{1}{\ell^d} \, dx
+= \frac{\alpha}{\ell^{d+1}} \int_{\Omegahat} \rhohat \uhat^2 \, dx
+\]
+Thus \[  R(u)  = \alpha^2 \Rhat(\uhat) \].
+\end{itemize}
+
+We next use our scaling result in the $(1,2,3)$ case
+to our Buser-type bound, Theorem~\ref{thm:buser_n}.
+Theorem~\ref{thm:buser_n} states that the following hold:
+
+\begin{align}\label{eq:simple123}
+  \lambda_2 \leq 24 d (1+L) 
+  \max\left(L \Phi(A), 12 \Phi(A)^2 \vph\right).
+\end{align}
+
+We now make substitutions into equation~\ref{eq:simple123}
+from Theorem~\ref{thm:scaling} and its proof for some parameter $\alpha$ to be determined.
+
+
+\begin{align*}
+  \lambda_2 = \alpha^2 \hat{\lambda}_2 &\leq  \alpha^2  24 d (1+\hat{L}) 
+  \max\left(\hat{L} \Phihat(\Ahat), 12 \Phihat(\Ahat)^2 \vph\right) \\
+  &=  \alpha^2  24 d (1+ (L/\alpha))
+  \max\left((L/\alpha) (\Phi(A)/\alpha), 12 (\Phi(A)/\alpha)^2 \vph\right) \\
+  &=  24 d (1+ (L/\alpha))
+  \max\left(L \Phi(A), 12 \Phi(A)^2 \vph\right) \\
+  &=  24 d \max\left(L \Phi(A), 12 \Phi(A)^2 \vph\right)
+\end{align*}
+where the last line holds when taking $\alpha$ to infinity.
+
+Thus we get that $\lambda_2$ only depends linear in the dimension and  the Lipschitz constant:
+
+\begin{corollary}\label{cor:strongBuser}
+  \[
+  \lambda_2 \leq  24 d \max\left(L \Phi, 12 \Phi^2 \vph\right)
+  \]
+\end{corollary}
+
+
+
+

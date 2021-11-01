@@ -1,0 +1,41 @@
+\subsection{Fast, Sparse Spanner for the Edge-Squared
+Metric}
+\label{sec:general-spanner}
+
+Now we outline a proof for Theorem~\ref{thm:general-spanner}, which shows
+that one can construct a $(1+\eps)$ nearest neighbor metric spanner of size
+$O(n \eps^{-d/2})$ in
+time $O\left(n \log n + n \eps^{-d/2} \log \left(\frac{1}{\eps}\right)\right)$, 
+for points in constant dimensional space. The full proof is in
+Appendix~\ref{ap:general-spanner}. We critically rely on
+Theorem~\ref{thm:NN} for this work, which shows
+a spanner for the edge-squared metric is equivalent to a spanner for the
+nearest neighbor metric.
+
+Note that this spanner is sparser and faster in terms of epsilon dependency
+than the theoretical optimal spanner for Euclidean distances~\cite{Le19}.
+We rely extensively on well-separated pair decompositions
+(WSPDs),
+and this outline assumes familiarity with that notation.
+For a comprehensive set of definitions and notations on well separated
+pairs, refer to any of \cite{Callahan1995, Arya2016, Callahan1993,
+arya95euclid}.  
+Our proof consists of three parts.
+\begin{enumerate}
+\item Showing that connecting a $(1+O(\delta^2))$-approximate shortest edge
+in a $1/\delta$ well separated pair for all the pairs in the decomposition
+gives a $1+O(\delta^2)$ edge-squared spanner.
+The processing for this step takes $O(n \log n + \delta^{-d}n)$ time.
+\item Previous work contains an algorithm computing
+  $1+O(\delta^2)$-approximate shortest edge in a $1/\delta$ well
+    separated pair for all the pairs in a WSPD, and takes
+    $O(1)$ time per pair. The pre-processing for this step will be
+    bounded by $O(\delta^{-d}n\log\left(\frac{1}{\delta}\right))$ time. The $\log\left(\frac{1}{\delta}\right)$ factor goes away given a fast floor function. 
+    This procedure was first introduced in~\cite{Callahan1995}.
+
+\item Putting these two together, and setting $\epsilon = \delta^2$
+gives us a $1+\epsilon$ spanner with
+$O(\epsilon^{-d/2}n)$ edges in
+    $O(n \log n + \epsilon^{-d/2}n)$ time.
+\end{enumerate}
+Full details of this proof are contained in Appendix~\ref{ap:general-spanner}

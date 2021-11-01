@@ -1,0 +1,448 @@
+\section{Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians} \label{sec:hardnessnonlip}
+
+We now define some terms to state our hardness results:
+
+\begin{definition}
+For a decreasing function $f$ that is not $(C,L)$-multiplicatively Lipschitz, there exists a point $x$ for which $f(Cx) \le C^{-L} f(x)$. Let $x_0$ denote one such point.
+A set of real numbers $S\subseteq \mathbb{R}_{\ge 0}$ is called \emph{$\rho$-discrete} for some $\rho > 1$ if for any pair $a,b\in S$ with $b > a$, $b\le \rho a$. A set of points $X\subseteq \mathbb{R}^d$ is called \emph{$\rho$-spaced} for some $\rho > 1$ if there is some $\rho$-discrete set $S\subseteq \mathbb{R}_{\ge 0}$ with the property that for any pair $x,y\in X$, $\|x - y\|_2\in S$. $S$ is called the \emph{distance set} for $X$.
+\end{definition}
+
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+   Dim. & Thm. & $d$ & $g(p)$ & $\rho$ & Time \\ \hline
+   Low & \ref{thm:low-spars-hard} & $c^{\log^* n}$ & $p$ & $1+16 \log( 10 (L^{1/(4c_0)}) ) / L$ & $O(n L^{1/(8c_0)})$ \\ \hline
+   High & \ref{thm:high-spars-hard} & $\log n$ & $e^p$ &  $1+2 \log(10 (2^{L^{0.48}})) /L$ & $O(n 2^{L^{.48}})$\\ \hline
+\end{tabular}\caption{Sparsification Hardness}\label{tab:spars-hard}
+\end{table}
+
+In this section, we show the following two hardness results:
+
+\begin{theorem}[Low-dimensional sparsification hardness]\label{thm:low-spars-hard}
+Consider a decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$
+that is not $(\rho,L)$-multiplicatively lipschitz for some $L > 1$, where $c$ and $c_0$ are the constants given in Theorem \ref{thm:lownnhard} and $\rho = 1 +  2\log (10L^{1/(4c_0)}) / L$. There is no algorithm that, given a set of $n$ points $X$ in $d = c^{\log^* n}$ dimensions, returns a sparsifier of the $f$-graph for $X$ in less than $O(nL^{1/(8c_0)})$ time assuming {\sf SETH}.
+\end{theorem}
+
+\begin{theorem}[High-dimensional sparsification hardness]\label{thm:high-spars-hard}
+Consider a decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ 
+that is not $(\rho,L)$-multiplicatively Lipschitz for some $L > 1$, where $\rho = 1 + 2\log (10 (2^{L^{0.48}}))/L$. There is no algorithm that, given a set of $n$ points $X$ in $d = O(\log n)$ dimensions, returns a sparsifier of the $f$-graph for $X$ in less than $O(n 2^{L^{.48}})$ time assuming {\sf SETH}.
+\end{theorem}
+
+Both of these results follow from the following reduction:
+
+\begin{lemma}\label{lem:spars-reduc}
+Consider a decreasing function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(\rho,L)$-multiplicatively Lipschitz for some $L > 1$, where $\rho = 1 + 2\log (10 n ) /L$ and $n > 1$. Suppose that there is an algorithm $\mathcal A$ that, when given a set of $n$ points $X\subseteq \mathbb{R}^d$, returns a 2-approximate sparsifier for the $f$-graph of $X$ with $O( n )$ edges in $\T(n, L, d)$ time. Then, there is an algorithm (Algorithm~\ref{alg:spars-reduc}) that, given two sets $A,B\subseteq \mathbb{R}^d$ for which $A\cup B$ is $\rho$-spaced with distance set $S$, $k\in S$, and $|A \cup B| = n$, returns whether or not $\min_{a\in A, b\in B} \|a - b\|_2 \le k$ in 
+\begin{align*}
+O(\T(|A\cup B|,L,d) + |A \cup B|)
+\end{align*}
+time.
+\end{lemma}
+The reduction described starts by scaling the points in $A \cup B$ by a factor of $x_0/k$ to obtain $\wt{A}$ and $\wt{B}$ respectively. Then, it sparsifies the $f$-graph for $\wt{A} \cup \wt{B}$. Finally, it computes the weight of the edges in the $\wt{A}$-$\wt{B}$ cut. Because $f$ is not multiplicatively Lipschitz and the distance set for $\wt{A} \cup \wt{B}$ is spaced, thresholding suffices for solving the $A\times B$ nearest neighbor problem.
+
+\begin{proof}[Proof of Lemma \ref{lem:spars-reduc}]
+
+Consider the following algorithm, \textsc{BichromaticNearestNeighbor} (Algorithm~\ref{alg:spars-reduc}), given below:
+
+\begin{algorithm}\caption{}\label{alg:spars-reduc}
+\begin{algorithmic}[1]
+\Procedure{\textsc{BichromaticNearestNeighbor}}{$A,B,k$} \Comment{Lemma~\ref{lem:spars-reduc}}
+
+    \State \textbf{Given}: $A,B\subset \mathbb{R}^d$ with the property that $A\cup B$ is $\rho$-spaced, where $\rho = 1 + 2(\log (10 n))/L$, and $k\in S$
+    
+    \State \textbf{Returns}: whether there are $a\in A, b\in B$ for which $\|a - b\|_2 \le k$
+    
+    \State $\wt{A} \gets \{a \cdot \sqrt{x_0} / k  ~|~ \forall a\in A\}$ \Comment{$\wt{A} \subset \R^d$}
+    
+    \State $\wt{B} \gets \{b \cdot \sqrt{x_0} / k  ~|~ \forall b\in B\}$ \Comment{$\wt{B} \subset \R^d$}
+    
+    \State $H\gets \mathcal A(\wt{A} \cup \wt{B})$ \Comment{$H$ is a 2-approximate sparsifier for the $f$-graph $G$ of $\wt{A} \cup \wt{B}$}
+    
+    \If{the total weight of edges between $\wt{A}$ and $\wt{B}$ in $H$ is at least $f(x_0)/2$}
+        
+        \State \Return $\mathsf{true}$
+        
+    \Else
+    
+        \State \Return $\mathsf{false}$
+        
+    \EndIf
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+We start by bounding the runtime of this algorithm. Constructing $\wt{A}$ and $\wt{B}$ and calculating the total weight of edges between $\wt{A}$ and $\wt{B}$ takes $O( n )$ time since $H$ has $O( n )$ edges. Since the sparsification algorithm is only called once, the total runtime is therefore $\T(n, L, d) + O( n )$, as desired. For the rest of the proof, we may therefore focus on correctness.
+
+First, suppose that $\min_{a\in A, b\in B} \|a - b\|_2 \le k$. There exists a pair of points $\wt{a} \in \wt{A}$, $\wt{b} \in \wt{B}$ with $\| \wt{a} - \wt{b} \|_2 \le \sqrt{x_0}$. Since $f$ is a decreasing function, the edge between $\wt{a}$ and $\wt{b}$ in $G$ has weight at least $f(x_0)$, which means that the total weight of edges in the $\wt{A}$-$\wt{B}$ cut in $G$ is at least $f(x_0)$. Since $H$ is a 2-approximate sparsifier for $G$, the total weight of edges in the $\wt{A}$-$\wt{B}$ cut is at least $f(x_0)/2$. This means that $\mathsf{true}$ is returned, as desired.
+
+Next, suppose that $\min_{a\in A, b\in B} \|a - b\|_2 > k$. Since $A\cup B$ is $\rho$-spaced with distance set $S$ and $k\in S$, $\| a - b \|_2 \ge \rho \cdot k$ for all $a\in A$ and $b\in B$. Therefore, $\| \wt{a} - \wt{b} \|_2 \ge \rho \cdot \sqrt{x_0}$ for all $\wt{a} \in \wt{A}$ and $\wt{b} \in \wt{B}$. 
+
+Since $f$ is decreasing and not $(\rho,L)$-multiplicatively Lipschitz, the weight of any edge between $\wt{A}$ and $\wt{B}$ in $G$ is at most 
+\begin{align*}
+f(\rho \cdot x_0) \le f(x_0)/(100 n^2).
+\end{align*} 
+
+The total weight of edges between $\wt{A}$ and $\wt{B}$ is therefore at most 
+\begin{align*}
+n^2 \cdot (f(x_0)/(100 n^2)) < f(x_0)/8.
+\end{align*}
+Since $H$ is a 2-approximate sparsifier for $G$, the total weight between $C$ and $D$ is at most $f(x_0)/4 < f(x_0)/2$, so the algorithm returns $\mathsf{false}$, as desired.
+\end{proof}
+
+We now prove the theorems:
+
+\begin{proof}[Proof of Theorem \ref{thm:low-spars-hard}]
+Consider an instance of $\ell_2$-bichromatic closest pair for $n = L^{1/(4c_0)}$ and $d = c^{\log^* n}$, where $c$ is the constant given in the dimension bound of Theorem \ref{thm:lownnhard} and $c_0$ is such that integers have bit length $c_0\log n$ in Theorem \ref{thm:lownnhard}. This consists of two sets of points $A,B\subseteq \mathbb{R}^d$ with $|A\cup B| = n$ for which we wish to compute $\min_{a\in A, b\in B} \|a - b\|_2$. By Theorem \ref{thm:lownnhard}, the coordinates of points in $A$ are also $c_0\log n$ bit integers. Therefore, the set $S$ of possible $\ell_2$ distances between points in $A$ and $B$ is a set of square roots of integers with $\log d + c_0\log n\le 2c_0\log n$ bits. Therefore, $S$ is a $\rho$-discrete (recall $\rho = 1 + (2\log (10n))/L$), since $1 + 1/n^{2c_0} > 1 + (2\log (10n))/L$. Furthermore, note that $f$ is not $(\rho,L)$-multiplicatively Lipschitz.
+
+We now describe an algorithm for solving $\ell_2$-closest pair on $A\times B$. Use binary search on the values in $S$ to compute the minimum distance between points in $A,B$. For each query point $k\in S$, by Lemma \ref{lem:spars-reduc}, there is a 
+\begin{align*}
+\T(n,L,d) = O(\T(L^{1/(4c_0)},L,c^{\log^* L}) + L^{1/(4c_0)})
+\end{align*}
+-time algorithm for determining whether or not the closest pair has distance at most $k$. Therefore, there is a 
+\begin{align*}
+O( \log |S| \cdot (\T(L^{1/(4c_0)},L,c^{\log^* L}) + L^{1/4c_0})) = \tilde{O}(L^{1/(4c_0)}L^{1/(8c_0)}) < O( n^{3/2} )
+\end{align*}
+time algorithm for solving $\ell_2$-closest pair on pairs of sets with $n$ points. But this is impossible given {\sf SETH} by Theorem \ref{thm:lownnhard}, a contradiction. This completes the result.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:high-spars-hard}]
+\Aaron{Check constants}
+Consider an instance of bichromatic Hamming nearest neighbor search for $n = 2^{L^{0.49}}$ and $d = c_1\log n$ for the constant $c_1$ in the dimension bound in Theorem \ref{thm:r18}. This consists of two sets of points $A , B \subseteq \mathbb{R}^d$ with $|A\cup B| = n$ for which we wish to compute $\min_{a\in A, b\in B} \|a - b\|_2$. The coordinates of points in $A$ and $B$ are 0-1. Therefore, the set $S$ of possible $\ell_2$ distances between points in $A$ and $B$ is the set of square roots of integers between 0 and $c_1\log n$, which differ by a factor of at least $1 + 1/(2c_1\log n) > \rho$ (recall $\rho = 1 + (2\log (10n))/L$). Therefore, $A\cup B$ is $\rho$-spaced. Note that $f$ is also no $(\rho,L)$-multiplicatively Lipschitz by definition.
+
+We now give an algorithm for solving $\ell_2$-closest pair on $A\times B$. Use binary search on $S$. For each query $k\in S$, Lemma \ref{lem:spars-reduc} implies that one can check if there is a pair with distance at most $k$ in 
+\begin{align*}
+\T(n,L,d)
+= & ~ O(\T(2^{L^{.49}},L,c_1 L^{.49}) + 2^{L^{.49}}) \\
+\le & ~ O(2^{L^{.49} + L^{.48}}) \\ 
+= & ~ n^{1 + o(1)}
+\end{align*}
+time on pairs of sets with $n$ points. But this is impossible given {\sf SETH} by Theorem \ref{thm:r18}. This completes the result.
+\end{proof}
+
+Next, we prove hardness results for solving Laplacian systems. In these hardness results, we insist that kernels are bounded:
+
+\begin{definition}
+Call a function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ \emph{$g(p)$-bounded} for a function $g:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ iff for any pair $a,b > 0$ with $b > a$, $f(b) \ge f(a) \cdot g(b/a)$. Call a set $S\subseteq \mathbb{R}_{\ge 0}$ \emph{$\gamma$-bounded} iff $\max_{s\in S} s \le \gamma \min_{s\in S,s\ne 0} s$. A set of points $X\subseteq \mathbb{R}^d$ is called \emph{$\gamma$-boxed} iff the set of distances between points in $X$ is $\gamma$-bounded.
+\end{definition}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+   Dim. & Thm. & $d$ & $g(p)$ & $\rho$ & Time & $\epsilon$ \\ \hline
+   Low & \ref{thm:low-lsolve-hard} & $c^{\log^* n}$ & $p$ & $1+16 \log( 10 (L^{1/(4c_0)}) ) / L$ & $n \log (g(\gamma)) L^{1/(64c_0)} $ & $1/ ( g(\gamma)^3 2^{\poly(\log n)} )$ \\ \hline
+   High & \ref{thm:high-lsolve-hard} & $\log n$ & $e^p$ &  $1+2 \log(10 (2^{L^{0.48}})) /L$ & $n \log(g(\gamma)) 2^{L^{.48}}$ & $1/ ( g(\gamma)^3 2^{\poly(\log n)} )$ \\ \hline
+\end{tabular}\caption{Linear System Hardness}\label{tab:lsolve-hard}
+\end{table}
+
+We show the following results:
+
+
+\begin{theorem}[Partial low-dimensional linear system hardness]\label{thm:low-lsolve-hard}
+Consider a decreasing $g(p)=p$-bounded function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$
+that is not $(\rho,L)$-multiplicatively Lipschitz for some $L > 1$, where $c$ and $c_0$ are the constants given in Theorem \ref{thm:lownnhard} and $\rho = 1 + 16\log(10 (L^{1/(32c_0)}))/L$. Assuming {\sf SETH}, there is no algorithm that, given a $\gamma$-boxed set of $n$ points $X$ in $d = c^{\log^* n}$ dimensions with $f$-graph $G$ and a vector $b\in \mathbb{R}^n$, returns a $\epsilon = 1/(g(\gamma)^3 2^{\poly(\log n)})$-approximate solution $x\in \mathbb{R}^n$ to the geometric Laplacian system $L_G x = b$ in less than $O(n \log(g(\gamma)) L^{1/(64c_0)})$ time.
+\end{theorem}
+
+
+\begin{theorem}[Partial high-dimensional linear system hardness]\label{thm:high-lsolve-hard}
+Consider a decreasing $g(p)=e^p$-bounded function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(\rho,L)$-multiplicatively Lipschitz for some $L > 1$, where $\rho = 1 + 16\log(10(2^{L^{0.48}}))/L$. Assuming {\sf SETH}, there is no algorithm that, given a $\gamma$-boxed set of $n$ points $X$ in $d = O(\log n)$ dimensions with $f$-graph $G$ and a vector $b\in \mathbb{R}^n$, returns a $\epsilon = 1/(g(\gamma)^3 2^{\poly(\log n)})$-approximate solution $x\in \mathbb{R}^n$ to the geometric Laplacian system $L_G x = b$ in less than $O(n \log(g(\gamma)) 2^{L^{.48}})$ time assuming {\sf SETH}.
+\end{theorem}
+
+To prove these theorems, we use the following reduction from bichromatic nearest neighbors:
+
+\begin{lemma}\label{lem:lsolve-reduc}
+Consider a decreasing $g(p)$-bounded function $f:\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$ that is not $(\rho,L)$-multiplicatively Lipschitz for some $L > 1$, where $\rho = 1 + 16(\log (10 n ))/L$ and $n > 1$. Suppose that there is an algorithm $\mathcal A$ that, given a $\gamma$-boxed set of $n$ points $X$ in $d$ dimensions with $f$-graph $G$ and a vector $b\in \mathbb{R}^n$, returns an $\epsilon = 1/(g(\gamma)^3 2^{\poly(\log n)})$-approximate solution $x\in \mathbb{R}^n$ to the geometric Laplacian system $L_G x = b$ in $\T(n,L,g(\gamma),d)$ time. Then, there is an algorithm that, given two sets $A,B\subseteq \mathbb{R}^d$ for which $A\cup B$ is $\rho$-spaced with $|S|^{O(1)}$-bounded distance set $S$\Aaron{determine $O(1)$}, $k\in S$, and $|A\cup B| = n$, returns whether or not $\min_{a\in A, b\in B} \|a - b\|_2 \le k$ in 
+\begin{align*}
+    O((\log n)\T(n,L,g(|S|^{O(1)}),d) + |A\cup B|)
+\end{align*} 
+time.
+\end{lemma}
+
+This reduction works in a similar way to the effective resistance data structure of Spielman and Srivastava \cite{ss11}, but with minor differences due to the fact that their data structure requires multiplication by incidence matrix of the graph, which in our case is dense. Our reduction uses Johnson-Lindenstrauss to embed the points
+\begin{align*}
+v_s = L^{\dagger} b_s
+\end{align*}
+for vertices $s$ in the graph $G$ into $O(\log n)$ dimensions in a way that distorts the distances
+\begin{align*}
+b_{st}^\top (L^{\dagger})^2 b_{st}
+\end{align*}
+for vertices $s,t$ in $G$ by a factor of at most 2. After computing this embedding, we build an $O(\log n)$-approximate nearest neighbor data structure on the resulting points. This allows us to determine whether or not a vertex in $A$ has a high-weight edge in $G$ to $B$ in almost-constant time. After looping through all of the edges in $A$ in total time $n^{1 + o(1)}$, we determine whether or not there are any high-weight edges between $A$ and $B$ in $G$, allowing us to answer the bichromatic nearest neighbors decision problem.
+
+We start by proving a result that links norms of $v_s$ to effective resistances:
+
+\begin{proposition}\label{prop:res2-res}
+In an $n$-vertex graph $G$ with vertices $s$ and $t$,
+\begin{align*}
+0.5 \cdot (\Reff_G(s,t))^2 \le \|v_s - v_t\|_2^2 \le n \cdot (\Reff_G(s,t))^2
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+
+{\bf Lower bound.}
+Let $x = v_t - v_s = L_G^{\dagger} b_{st} \in \R^n$. By definition,
+\begin{align*}
+\| v_s - v_t \|_2^2 
+= & ~ \| x \|_2^2\\
+\ge & ~ (x_s)^2 + (x_t)^2\\
+= & ~ (x_s)^2 + (x_s - b_{st}^\top L_G^{\dagger} b_{st})^2\\
+\ge & ~ (b_{st}^\top L_G^{\dagger} b_{st})^2/2,
+\end{align*}
+where third step follows from $x_t = x_s - b_{st}^\top L_G^\dagger b_{st}$.
+
+Thus we complete the proof of the lower bound.
+
+{\bf Upper bound.}
+Next, we prove the upper bound. The maximum and minimum coordinates of $x$ are $x_t$ and $x_s$ respectively. By definition of the pseudoinverse\Aaron{Justify further in preliminaries?}, $\text{image}(L_G^{\dagger}) = \text{image}(L_G)$. Therefore, $\textbf{1}^\top x = 0$, $x_s \le 0$, and $x_t \ge 0$. $x_s \le 0$ implies that for all $i\in [n]$, 
+\begin{align*}
+x_i \le x_s + b_{st}^\top L_G^{\dagger} b_{st} \le b_{st}^\top L_G^{\dagger} b_{st}.
+\end{align*}
+$x_t \ge 0$ implies that for all $i\in [n]$, 
+\begin{align*}
+x_i \ge x_t - b_{st}^\top L_G^{\dagger} b_{st} \ge -b_{st}^\top L_G^{\dagger} b_{st}.
+\end{align*}
+Therefore, $|x_i|\le b_{st}^\top L_G^{\dagger} b_{st} = \Reff_G(s,t)$ for all $i\in [n]$. Summing across $i\in [n]$ yields the desired upper bound.
+\end{proof}
+
+Furthermore, the minimum effective resistance of an edge across a cut is related to the maximum weight edge across the cut:
+
+\begin{proposition}\label{prop:weight-res}
+In an $m$-edge graph $G$ with vertex set $S$,
+\begin{align*}
+\min_{s\in S,t\notin S} \Reff_G(s,t)\le \min_{e\in \partial S} (1/w_e)\le m \min_{s\in S,t\notin S} \Reff_G(s,t) .
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+
+{\bf Lower bound.}
+The lower bound on $\min_e 1/w_e$ follows immediately from the fact that for any edge $e = \{s,t\}$, $\Reff_G(s,t)\le r_e$.
+
+
+
+{\bf Upper bound.}
+For the upper bound, recall that
+
+\begin{align*}
+\Reff_G(s,t) &= \min_{f\in \mathbb{R}^m : B^\top f = b_{st}} \sum_{e\in E(G)} f_e^2/w_e\\
+&\ge \min_{f\in \mathbb{R}^m : B^\top f = b_{st}} \sum_{e\in \partial S} f_e^2/w_e\\
+&\ge \left(\min_{f\in \mathbb{R}^m : B^\top f = b_{st}} \sum_{e\in \partial S} f_e^2\right)\left(\min_{e\in \partial S} 1/w_e\right)\\
+&\ge \frac{1}{|\partial S|} \left(\min_{f\in \mathbb{R}^m : B^\top f = b_{st}} \sum_{e\in \partial S} |f_e|\right)^2\left(\min_{e\in \partial S} 1/w_e\right)
+\end{align*}
+where the first step follows from definition of effective resistance, 
+the third step follows from taking $w$ out, and the last step follows from Cauchy-Schwarz.
+
+Since $s\in S$ and $t\notin S$, $\sum_{e\in \partial S} |f_e|\ge 1$. Therefore,
+\begin{align*}
+\Reff_G(s,t) \ge \frac{1}{m}\min_{e\in \partial S} 1/w_e
+\end{align*}
+completing the upper bound.
+\end{proof}
+
+\begin{proposition}\label{prop:lapl-error}
+Consider an $n$-vertex connected graph $G$ with edge weights $\{w_e\}_{e\in G}$, two matrices $Z,\tilde{Z}\in \mathbb{R}^{k\times n}$ with rows $\{z_i\}_{i=1}^k$ and $\{\tilde{z}_i\}_{i=1}^k$ respectively for $k\le n$, and $\epsilon\in (1/n,1)$. Suppose that both of the following properties hold:
+\begin{enumerate}
+    \item $\|z_i - \tilde{z}_i\|_{L_G} \le 0.01 n^{-12} w_{\min}^2 w_{\max}^{-2}\|z_i\|_{L_G}$ 
+for all $i\in [k]$, where $w_{\min}$ and $w_{\max}$ are the minimum and maximum weights of edges in $G$ respectively
+    \item $(1 - \epsilon/10) \cdot \| L_G^{\dagger} b_{st}\|_2 \le \|Zb_{st}\|_2 \le (1 + \epsilon/10) \cdot \|L_G^{\dagger}b_{st}\|$ for any vertices $s,t$ in $G$
+\end{enumerate}
+
+Then for any vertices $s,t$ in $G$,
+\begin{align*}
+(1 - \epsilon) \cdot \|L_G^{\dagger} b_{st}\|_2 \le \|\tilde{Z} b_{st}\|_2 \le (1 + \epsilon) \cdot \|L_G^{\dagger} b_{st}\|_2.
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+We start by bounding
+\begin{align*}
+((z_i - \tilde{z}_i)^\top b_{st})^2
+\end{align*}
+for each $i\in [k]$. Since $G$ is connected, there is a path from $s$ to $t$ consisting of edges $e_1,e_2,\hdots,e_{\ell}$ in that order, where $\ell\le n$. By the Cauchy-Schwarz inequality,
+\begin{align*}
+((z_i - \tilde{z}_i)^\top b_{st})^2 
+\le & ~ n \sum_{j=1}^{\ell} ((z_i - \tilde{z}_i)^\top b_{e_j})^2\\
+\le & ~ (n/w_{\min}) \cdot \|z_i - \tilde{z}_i\|_{L_G}^2\\
+\le & ~ 0.01 n^{-23} w_{\min}^3 w_{\max}^{-4} \cdot \|z_i\|_{L_G}^2\\
+\end{align*}
+where the last step from property 1 in proposition statement.
+
+
+By the upper bound on $\|Zb_{s't'}\|_2$ for any vertices $s',t'$ in $G$, $(z_i^\top b_e)^2\le (1 + \epsilon)^2 b_e^\top (L_G^{\dagger})^2 b_e$ for all edges $e$ in $G$, so 
+\begin{align*}
+0.01 n^{-23} w_{\min}^3 w_{\max}^{-4} \cdot \|z_i\|_{L_G}^2 
+= & ~ 0.01 n^{-23} w_{\min}^3 w_{\max}^{-4} \cdot \sum_{e\in E(G)} w_e((z_i)^\top b_e)^2\\
+\le & ~ 0.01 n^{-23} w_{\min}^3 w_{\max}^{-3} \cdot \sum_{e\in E(G)} ((z_i)^\top b_e)^2\\
+\le & ~ 0.01 n^{-23} w_{\min}^3 w_{\max}^{-3} \cdot \sum_{e\in E(G)} (1 + \epsilon)^2 b_e^\top (L_G^{\dagger})^2 b_e \\
+\le & ~ 0.01 n^{-21} w_{\min}^3 w_{\max}^{-3} (1 + \epsilon)^2 \max_{e\in E(G)} (b_e^\top (L_G^{\dagger})^2 b_e)\\
+\le & ~ 0.04 n^{-21} w_{\min}^3 w_{\max}^{-3} \max_{e\in E(G)} (b_e^\top (L_G^{\dagger})^2 b_e) .
+\end{align*}
+where the first step follows from $\| z_i \|_{L_G}^2 = \sum_{e \in E} z_i^\top w_e b_e b_e^\top z_i $, the second step follows from $w_{\max} = \max_{e\in G} w_e$, and the third step follows from $(z_i^\top b_e)^2 \leq (1+\epsilon)^2 b_e^\top (L_G^\dagger) b_e$, the forth step follows from summation has at most $n^2$ terms, the last step follows from $(1+\epsilon)^2 \leq 4$, $\forall \epsilon \in (0,1)$.
+
+\Aaron{Cite Prop 6.9 instead of going through this paragraph}
+$L_G^{\dagger} b_e$ is a vector that is maximized and minimized at the endpoints of $e$. Furthermore, $\textbf{1}\in \text{kernel}(L_G^{\dagger})$ by definition of the pseudoinverse. Thus, we know $L_G^\dagger b_e $ has both positive and negative coordinates and that $\|L_G^{\dagger}b_e\|_{\infty} \leq \max_{i\neq j} | (L_G^\dagger b_e)_i - (L_G^\dagger b_e)_j | \le b_e^\top L_G^{\dagger} b_e$ .
+
+
+We have
+\begin{align*}
+& ~ 0.04 n^{-21} w_{\min}^3 w_{\max}^{-3} \cdot \max_{e\in E(G)} b_e^\top (L_G^{\dagger})^2 b_e \\
+\le & ~ 0.04 n^{-20} w_{\min}^3 w_{\max}^{-3} \cdot \max_{e\in E(G)} (b_e^\top L_G^{\dagger} b_e)^2\\
+\le & ~ 0.4 n^{-20} w_{\min} w_{\max}^{-3}\\
+\le & ~ 0.4 n^{-16} w_{\min} w_{\max}^{-1} \cdot (b_{st}^\top L_G^{\dagger} b_{st})^2 \\
+\le & ~ 0.8 n^{-16} w_{\min} w_{\max}^{-1} \cdot \| L_G^\dagger b_{st} \|_2^2
+\end{align*}
+where the first step follows from $\max_{e \in E(G)} b_e^\top (L_G^\dagger)^2 b_e = \max_{e\in E} \| L_G^\dagger b_e \|_2^2 \leq n \max_{e\in E} \| L_G^\dagger b_e \|_{\infty}^2 \leq n \max_{e \in E(G)} ( b_e^\top L_G^\dagger b_e )^2$, the second step follows from $\max_e (b_e^\top L_G^\dagger b_e)^2 \leq w_{\min}^{-2}$ (the lower bound in Proposition \ref{prop:weight-res}), and the third step follows from $w_{\max}^{-2} \leq n^4 (b_{st} L_G^\dagger b_{st})^2$ (the upper bound in Proposition \ref{prop:weight-res}), and the last step follows from $(b_{st}^\top L_G^{\dagger} b_{st})^2 \le 2 \| L_G^\dagger b_{st} \|_2^2$ (Since $L_G^{\dagger} b_{st}$ is maximized and minimized at $t$ and $s$ respectively).
+
+Combining these inequalities shows that
+\begin{align*}
+((z_i - \tilde{z}_i)^\top b_{st})^2\le 0.8 n^{-16} w_{\min}w_{\max}^{-1} \cdot \|L_G^{\dagger}b_{st}\|_2^2
+\end{align*}
+Summing over all $i$ and using the fact that $k\le n$, $\epsilon > 1/n$, and $w_{\min}\le w_{\max}$ shows that
+\begin{align*}
+    \|(Z - \tilde{Z})b_{st}\|_2^2
+    = & ~ \sum_{i=1}^k ((z_i - \tilde{z}_i)^\top b_{st})^2\\
+    \leq & ~ 0.8 k n^{-16} w_{\min}w_{\max}^{-1} \cdot \|L_G^{\dagger}b_{st}\|_2^2 \\
+    \leq & ~ 0.8 \epsilon^2 n^{-13} w_{\min} w_{\max}^{-1} \cdot \|L_G^{\dagger}b_{st}\|_2^2 ~ \\
+    \le & ~ 0.8 \epsilon^2 n^{-13} \cdot \|L_G^{\dagger} b_{st}\|_2^2
+\end{align*}
+
+
+Combining this with the given upper and lower bounds on $\| Z b_{st} \|_2$ using the triangle inequality yields the desired result.
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem:lsolve-reduc}]
+Consider the following algorithm \textsc{BichromaticNearestNeighbor}, given below:
+\begin{algorithm}\caption{  }\label{alg:bichromatic_nearest_neighor_proj}
+\begin{algorithmic}[1]
+\Procedure{\textsc{BichromaticNearestNeighborProj}}{$A,B,k$} \Comment{Lemma~\ref{lem:lsolve-reduc}}
+
+    \State \textbf{Given}: $A,B\in \mathbb{R}^d$ with the property that $A\cup B$ is $\rho$-spaced with $|S|^{O(1)}$-bounded distance set\Aaron{Determine $O(1)$}
+    , where $\rho = 1 + 16(\log (10 n ))/L$, and $k\in S$
+    
+    \State \textbf{Returns}: whether there are $a\in A, b\in B$ for which $\|a - b\|_2 \le k$
+    
+    \State $C\gets \{a \cdot \sqrt{x_0} / k ~|~ \forall a\in A\}$ 
+    
+    \State $D\gets \{b \cdot \sqrt{x_0} / k ~|~ \forall b\in B\}$
+    
+    \State $\ell\gets 200\log n$
+
+    \State Construct matrix $P \in \R^{\ell \times d}$, where each entry is $1/\sqrt{\ell}$ with prob $1/2$ and $-1/\sqrt{\ell}$ with prob $1/2$ 
+    
+    \State $\tilde{Z}_{i,*} \gets \mathcal A( C \cup D , P_{i,*} )$ for each $i\in [\ell]$ \Comment{$P_{i,*},\tilde{Z}_{i,*}$ denotes row $i$ of $P \in \R^{\ell \times d} ,\tilde{Z} \in \R^{\ell \times n}$}
+    
+    \State $\widehat{C}\gets \{\tilde{Z} \cdot b_c ~|~ \forall c\in C\}$ \Comment{$b_c\in \mathbb{R}^n$ denotes the indicator vector of the vertex $c$, i.e. $(b_c)_c = 1$ and $(b_c)_i = 0$ for all $i\ne c$}
+    
+    \State $\widehat{D}\gets \{\tilde{Z} \cdot b_c ~|~ \forall c\in D\}$
+    
+    \State $t\gets (\log n)$-approximation to closest $\widehat{C}$-$\widehat{D}$ $\ell_2$-distance using Theorem \ref{thm:l2-ann}
+    
+    \If{$t \le 3\sqrt{n}(\log n)/f(x_0)$}
+        
+        \State \Return $\mathsf{true}$
+        
+    \Else
+    
+        \State \Return $\mathsf{false}$
+        
+    \EndIf
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+First, we bound the runtime of $\textsc{BichromaticNearestNeighborProj}$ (Algorithm~\ref{alg:bichromatic_nearest_neighor_proj}). Computing the sets $C,D$ and the matrix $P$ trivially takes $\tilde{O}( n )$ time. Computing the matrix $\tilde{Z}$ takes 
+\begin{align*}
+O(\log n) \T(n,L,g(|S|^{O(1)}),d)
+\end{align*}
+time since the point set $C\cup D$ is $|S|^{O(1)}$-boxed. Computing $\widehat{C}$ and $\widehat{D}$ takes $\tilde{O}( n )$ time, as computing $\widehat{Z}b_i$ takes $O(\log n)$ time for each $i\in C\cup D$ since $b_i$ is supported on just one vertex. Computing $t$ takes $n^{1 + o(1)}$ time by Theorem \ref{thm:l2-ann}. In particular, one computes $t$ by preprocessing a $O(\log n)$-approximate nearest neighbors data structure on $\widehat{D}$ (takes $n^{1+o(1)}$ time), queries the data structure on all points in $\widehat{C}$ (takes $n (n^{o(1)}) = n^{1+o(1)}$ time), and returns the minimum of all of the queries. The subsequent if statement takes constant time. Therefore, the reduction takes \begin{align*}
+O((\log n) \cdot \T(n,L,|S|^{O(1)},d) + n^{1 + o(1)}
+\end{align*}
+time overall, as desired.
+
+Next, suppose that there exists $a\in A$ and $b\in B$ for which $\| a - b \|_2 \le k$. We show that the reduction returns $\mathsf{true}$ with probability at least $1 - 1/n$. Let $G$ denote the $f$-graph on $C\cup D$. By definition of $C$ and $D$ and the fact that $f$ is decreasing, there exists a pair of points in $C$ and $D$ with edge weight at least $f(x_0)$. 
+
+By the lower bound on Proposition \ref{prop:weight-res}, 
+\begin{align*}
+\exists
+p\in C,q\in D \text{~s.t.~} \Reff_G(p,q)\le 1/f(x_0).
+\end{align*}
+
+By the upper bound of Proposition \ref{prop:res2-res}, 
+\begin{align*}
+b_{pq}^\top  (L_G^{\dagger})^2 b_{pq} \le n \cdot (\Reff_G(p,q))^2 \le n/f(x_0)^2 .
+\end{align*}
+
+Let $Z \in \R^{\ell \times n}$ be defined as $Z = P \cdot L_G^{\dagger}$. By Theorem \ref{thm:jl} with $\epsilon = 1/2$ applied to the collection of vectors $\{L_G^{\dagger} b_s\}_{s\in C\cup D}$ and projection matrix $P$, 
+\begin{align*}
+\frac{1}{2} \|L_G^{\dagger}b_{st}\|_2 \le \|Z b_{st}\|_2 \le \frac{3}{2} \|L_G^{\dagger}b_{st}\|_2
+\end{align*}
+for all pairs $s,t\in C\cup D$ with high probability. Therefore, the second input guarantee of Proposition \ref{prop:lapl-error} is satisfied with high probability. Furthermore, for each $i\in [\ell]$, $\tilde{z}_i$, the $i$th row of $\tilde{Z}$, satisfies the first input guarantee by the output error guarantee of the algorithm $\mathcal A$. Therefore, Proposition \ref{prop:lapl-error} applies and shows that
+\begin{align*}
+\|\tilde{Z} \cdot b_{pq}\|_2 \le \frac{9}{4} \|L_G^{\dagger} \cdot b_{pq}\|_2 \le 3\sqrt{n} / f(x_0).
+\end{align*}
+This means that there exists of vectors $a\in \widehat{C},b\in \widehat{D}$ with 
+\begin{align*}
+\|a - b\|_2 \le 3\sqrt{n} / f(x_0).
+\end{align*}
+By the approximation guarantee of the nearest neighbors data structure, $t \le ( 3\sqrt{n} / f(x_0) )\log n $ and the reduction returns $\mathsf{true}$ with probability at least $1 - 1/n$, as desired.
+
+Next, suppose that there do not exist $a\in A$ and $b\in B$ for which $\|a - b\|_2 \le k$. We show that the reduction returns $\mathsf{false}$ with probability at least $1 - 1/n$. Since $k\in S$ and $A\cup B$ is $\rho$-spaced, $\|a - b\|_2 \ge \rho \cdot k$ for all $a\in A$ and $b\in B$. Therefore, all edges between $C$ and $D$ in the $f$-graph $G$ for $C\cup D$ have weight at most $f(\rho x_0)\le \frac{f(x_0)}{100 n^{16}}$ since $f$ is not $(\rho,L)$-multiplicatively Lipschitz. 
+
+By the upper bound of Proposition \ref{prop:weight-res}, 
+\begin{align*}
+\Reff_G(s,t) \ge \frac{1}{ n^2 f(\rho x_0) }\ge \frac{ 100 n^{14} }{f(x_0)}
+\end{align*}
+for any pair of vertices $s\in C, t\in D$. 
+
+By the lower bound of Proposition \ref{prop:res2-res}, 
+\begin{align*}
+b_{st}^\top (L_G^{\dagger})^2 b_{st} \ge (\Reff_G(s,t))^2/2 \ge (\frac{50n^{14}}{f(x_0)})^2
+\end{align*}
+for all $s\in C, t\in D$. 
+
+
+Recall from the discussion of the $\|a - b\|\le k$ case that Theorem \ref{thm:jl} and Proposition \ref{prop:lapl-error} apply. Therefore, with probability at least $1 - 1/n$, by the lower bound of Proposition \ref{prop:lapl-error},
+\begin{align*}
+\|\tilde{Z}b_{st}\|_2 \ge \frac{1}{4} \| L_G^{\dagger} b_{st} \|_2 \ge \frac{12n^{14}}{f(x_f)}
+\end{align*}
+for any $s\in C,t\in D$. 
+
+Therefore, by the approximate nearest neighbors guarantee, 
+\begin{align*}
+t \ge \frac{12 n^{14}}{ (\log n) \cdot f(x_0) } > \frac{ 3\sqrt{n} (\log n) }{ f(x_0) },
+\end{align*}
+so the algorithm returns $\mathsf{false}$ with probability at least $1 - 1/n$, as desired.
+\end{proof}
+
+We now prove the theorems:
+
+\begin{proof}[Proof of Theorem \ref{thm:low-lsolve-hard}]
+Consider an instance of bichromatic $\ell_2$-closest pair for $n = L^{1/(32c_0)}$ and $d = c^{\log^* n}$, where $c$ is the constant given in the dimension bound of Theorem \ref{thm:lownnhard} and $c_0$ is such that integers have bit length $c_0\log n$ in Theorem \ref{thm:lownnhard}. This consists of two sets of points $A,B\subseteq \mathbb{R}^d$ with $|A\cup B| = n$ for which we wish to compute $\min_{a\in A, b\in B} \|a - b\|_2$. By Theorem \ref{thm:lownnhard}, the coordinates of points in $A$ are also $c_0\log n$ bit integers. Therefore, the set $S$ of possible $\ell_2$ distances between points in $A$ and $B$ is a set of square roots of integers with $\log d + c_0\log n\le 2c_0\log n$ bits. Therefore, $S$ is a $\rho$-discrete (recall $\rho = 1 + (16\log (10n))/L$) since $1 + 1/n^{2c_0} > 1 + (16\log n)/L$. Furthermore, note that $f$ is not $(\rho,L)$-multiplicatively Lipschitz by assumption.
+
+We now describe an algorithm for solving $\ell_2$-closest pair on $A\times B$. Use binary search on the values in $S$ to compute the minimum distance between points in $A,B$. $S$ consists of integers between 1 and $n^{c_0}$ (pairs with distance 0 can be found in linear time), so $\gamma \le n^{c_0}$. For each query point $k\in S$, by Lemma \ref{lem:lsolve-reduc}, there is a 
+\begin{align*}
+O((\log n)\cdot \T(n,L,g(\gamma),d) + n) = O((\log n) \cdot \T(L^{1/(32c_0)},L,L^{1/32},c^{\log^* L}) + L^{1/(32c_0)})
+\end{align*}
+-time algorithm for determining whether or not the closest pair has distance at most $k$. Therefore, there is a 
+\begin{align*}
+O((\log n) \T(L^{1/(32c_0)},L,L^{1/32},c^{\log^* L}) + L^{1/(32c_0)}) = \tilde{O}(L^{1/(32c_0)}L^{1/(64c_0)} \log(L^{1/32})) < \tilde{O}(n^{3/2})
+\end{align*}
+time algorithm for solving $\ell_2$-closest pair on pairs of sets with $n$ points. But this is impossible given {\sf SETH} by Theorem \ref{thm:lownnhard}, a contradiction. This completes the result.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:high-lsolve-hard}]
+\Aaron{Check constants}
+Consider an instance of bichromatic Hamming nearest neighbor search for $n = 2^{L^{0.49}}$ and $d = c_1\log n$ for the constant $c_1$ in the dimension bound in Theorem \ref{thm:r18}. This consists of two sets of points $A,B\subseteq \mathbb{R}^d$ with $|A\cup B| = n$ for which we wish to compute $\min_{a\in A, b\in B} \|a - b\|_2$. The coordinates of points in $A$ and $B$ are 0-1. Therefore, the set $S$ of possible $\ell_2$ distances between points in $A$ and $B$ is the set of square roots of integers between 0 and $c_1\log n$, which differ by a factor of at least $1 + 1/(16c_1\log n) > \rho$ (recall $\rho = 1 + (16\log (10n))/L$). Therefore, $A\cup B$ is $\rho$-spaced. Note that $f$ is not $(\rho,L)$-multiplicatively Lipschitz by assumption. Furthermore, $A\cup B$ is $\sqrt{c_1\log n}\le L^{.25}$-boxed.
+
+We now give an algorithm for solving $\ell_2$-closest pair on $A\times B$. Use binary search on $S$. For each query $k\in S$, Lemma \ref{lem:lsolve-reduc} implies that one can check if there is a pair with distance at most $k$ in 
+\begin{align*}
+\T(n,L,d)
+= & ~ O(\T(2^{L^{.49}},L,e^{L^{.25}},2^{c_1 L^{.49}}) + 2^{L^{.49}}) \\
+\le & ~ O(2^{L^{.49} + L^{.48}}) \\ 
+= & ~ n^{1 + o(1)}
+\end{align*}
+time on pairs of sets with $n$ points. But this is impossible given {\sf SETH} by Theorem \ref{thm:r18}. This completes the result.
+\end{proof}

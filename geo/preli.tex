@@ -1,0 +1,296 @@
+\section{Preliminaries}\label{sec:preli}
+
+Our results build off of algorithms and hardness results from many different areas of theoretical computer science. We begin by defining the relevant notation and describing the important past work.
+
+\subsection{Notation}
+
+For an $n\in \mathbb{N}_{+}$, let $[n]$ denote the set $\{1,2,\cdots,n\}$.
+
+For any function $f$, we write $\wt{O}(f)$ to denote $f\cdot \log^{O(1)}(f)$. In addition to $O(\cdot)$ notation, for two functions $f,g$, we use the shorthand $f\lesssim g$ (resp. $\gtrsim$) to indicate that $f\leq C g$ (resp. $\geq$) for an absolute constant $C$. We use $f\eqsim g$ to mean $cf\leq g\leq Cf$ for constants $c,C$.
+
+For a matrix $A$, we use $\|A\|_2$ to denote the spectral norm of $A$. Let $A^\top$ denote the transpose of $A$. Let $A^\dagger$ denote the Moore-Penrose pseudoinverse of $A$. Let $A^{-1}$ denote the inverse of a full rank square matrix. 
+
+We say matrix $A$ is positive semi-definite (PSD) if $A = A^\top$ and $x^\top A x \geq 0$ for all $x \in \R^n$. We use $\preceq$, $\succeq$ to denote the semidefinite ordering, e.g. $A \succeq 0$ denotes that $A$ is PSD, and $A \succeq B $ means $A- B \succeq 0$. We say matrix $A$ is positive definite (PD) if $A = A^\top$ and $x^\top A x > 0$ for all $x \in \R^n -\{0\}$. $A \succ B$ means $A-B$ is PD.
+
+For a vector $v$, we denote $\| v \|_p$ as the standard $\ell_p$ norm. For a vector $v$ and PSD matrix $A$, we let $\| v \|_A = (v^\top A v)^{1/2}$.
+
+The iterated logarithm $\log^* : \R \to \Z$ is given by \begin{align*}
+    \log^*(n) = \begin{cases}
+    0, &\text{ if } n \leq 1 ; \\
+    1 + \log^*(\log n), &\text{ otherwise.}
+    \end{cases}
+\end{align*}
+
+We use $G_{\text{grav}}$ to denote the Gravitational constant.
+
+We define $\alpha$ slightly differently in different sections. Note that both are less than the value of $\alpha$ used in Theorem \ref{thm:informal-sparsify-lipschitz}: 
+\begin{table}[!h]\caption{}
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    Notation & Meaning & Location \\ \hline
+    $\alpha$ & $\frac{ \max_{i,j} f(\| x_i - x_j \|_2^2) }{ \min_{i,j} f( \| x_i - x_j \|_2^2 ) }$  & Section~\ref{sec:equivalence}  \\ \hline
+    $\alpha$ & $\frac{\max_{i,j} \| x_i - x_j \|_2 }{\min_{i,j} \| x_i - x_j \|_2}$ & Section~\ref{sec:sparsify-lipschitz} \\ \hline %%% This is Tim section and actually kappa
+\end{tabular}
+\end{table}
+
+
+\subsection{Graph and Laplacian Notation}\label{sec:graph_Laplacian_notation}
+
+Let $G = (V,E,w)$ be a connected weighted undirected graph with $n$ vertices and $m$ edges and edge weights $w_e > 0$. We say $r_e = 1/w_e$ is the resistance of edge $e$.
+If we give a direction to the edges of $G$ arbitrarily, we can write its Laplacian as $L_G = B^\top W B$, where $W \in \R^{m \times m}$ is the diagonal matrix $W(e,e) = w_e$ and $B \in \R^{m \times n}$ is the signed edge-vertex incidence matrix and can be defined in the following way
+\begin{align}\label{eq:def_Laplacian_B}
+B(e,v) = \begin{cases}
+1,  & \text{~if~$v$~is~$e$'s~head}; \\
+-1, & \text{~if~$v$~is~$e$'s~tail};\\
+0,  & \text{~otherwise.}
+\end{cases}
+\end{align}
+
+A useful notion related to Laplacian matrices is the effective resistance of a pair of nodes:
+\begin{definition}[Effective resistance]\label{def:effective_resistance}
+The effective resistance of a pair of vertices $u,v \in V_G$ is defined as 
+\begin{align*}
+\Reff_G(u,v) = b_{u,v}^\top L^\dagger b_{u,v}
+\end{align*}
+where $b_{u,v} \in \R^{|V_G|}$ is an all zero vector except for entries of $1$ at $u$ and $-1$ at $v$.
+\end{definition}
+
+Using effective resistance, we can define leverage score
+\begin{definition}[Leverage score]\label{def:leverage_score}
+The leverage score of an edge $e = (u,v) \in E_G$ is defined as 
+\begin{align*}
+l_e = w_e \cdot \Reff_G(u,v).
+\end{align*}
+\end{definition}
+
+We define a useful notation called electrical flow
+\begin{definition}[Electrical flow]\label{def:electrical_flow}
+Let $B \in \R^{m \times n}$ be defined as Eq.~\eqref{eq:def_Laplacian_B}, for a given demand vector $d \in \R^n$, we define electrical flow $f \in \R^m$ as follows:
+\begin{align*}
+f = \arg\min_{ f : B^\top f = d } \sum_{ e \in E_G } f_e^2 /w_e .
+\end{align*}
+\end{definition}
+
+We let $d(i)$ denote the degree of vertex $i$. For any set $S \subseteq V$, we define volume of $S$: $\mu(S) = \sum_{i \in S} d(i)$. It is obvious that $\mu(V) = 2|E|$. For any two sets $S, T \subseteq V$, let $E(S,T)$ be the set of edges connecting a vertex in $S$ with a vertex in $T$. We call $\Phi(S)$ to be the conductance of a set of vertices $S$, and can be formally defined as
+\begin{align*}
+\Phi(S) = \frac{ | E(S, V \setminus S) | }{ \min ( \mu (S) , \mu ( V \setminus S ) ) }.
+\end{align*}
+We define the notation conductance, which is standard in the literature of graph partitioning and graph clustering \cite{st04,kvv04,acl06,ap09,lrtv11,zlm13,lz14}.
+\begin{definition}[Conductance]\label{def:conductance}
+The conductance of a graph $G$ is defined as follows:
+\begin{align*}
+\Phi_G = \min_{ S \subset V } \Phi(S).
+\end{align*}
+\end{definition}
+
+\begin{lemma}[\cite{st04,aalg17}]\label{lem:conductance_cut}
+A graph $G$ with minimum conductance $\Phi_G$ has the property that for every pair of vertices $u,v$,
+\begin{align*}
+\Reff_G(u,v)\le O \left( \Big( \frac{1}{c_u} + \frac{1}{c_v} \Big) \cdot \frac{1}{\Phi_G^2} \right)
+\end{align*}
+where $c_u$ is the sum of the weights of edges incident with $u$. Furthermore, for every pair of vertices $u,v$,
+$$\Reff_G(u,v)\ge \max(1/c_u,1/c_v)$$
+\end{lemma}
+
+For a function $\k:\mathbb{R}^d\times \mathbb{R}^d\rightarrow \mathbb{R}$, the $\k$-graph on a set of points $X\subseteq \mathbb{R}^d$ is the graph with vertex set $X$ and edge weights $\k(u,v)$ for $u,v\in X$. For a function $f\mathbb{R}_{\ge 0}\rightarrow \mathbb{R}_{\ge 0}$, the $f$-graph on a set of points $X$ is defined to be the $\k$ graph on $X$ for $\k(u,v) = f(\|u-v\|_2)$.
+
+
+\subsection{Spectral Sparsification via Random Sampling}
+
+
+
+Here, we state some well known results on spectral sparsification via random sampling, from previous works. The theorems below are essential for our results on sparsifying geometric graphs quickly.
+
+\begin{theorem}[Oversampling \cite{kmp11}]\label{thm:oversampling}
+Consider a graph $G = (V,E)$ with edge weights $w_e > 0$ and probabilities $p_e\in (0,1]$ assigned to each edge and parameters $\delta \in (0,1),\epsilon\in (0,1)$. Generate a reweighted subgraph $H$ of $G$ with $q$ edges, with each edge $e$ sampled with probability $p_e/t$ and added to $H$ with weight $w_e t/(p_e q)$, where $t = \sum_{e \in E} p_e$. If
+\begin{enumerate}
+    \item $q\ge C \cdot \epsilon^{-2} \cdot t\log t \cdot \log (1/\delta)$, where $C > 1$ is a sufficiently large constant
+    \item $p_e\ge w_e \cdot \Reff_G(u,v)$ for all edges $e = \{u,v\}$ in $G$
+\end{enumerate}
+then $(1 - \epsilon) L_G \preceq L_H \preceq (1 + \epsilon) L_G$ with probability at least $1 - \delta$.
+\end{theorem}
+
+\begin{algorithm}
+\begin{algorithmic}[1]\caption{}
+\Procedure{\textsc{Oversampling}}{$G,w,p,\epsilon,\delta$} \Comment{Theorem~\ref{thm:oversampling}}
+    \State $t \leftarrow \sum_{e \in E} p_e$
+    \State $q \leftarrow C \cdot \epsilon^{-2} \cdot t \log t \cdot \log(1/\delta)$
+    \State Initialize $H$ to be an empty graph
+    \For{$i = 1 \to q$}
+        \State Sample one $e \in E$ with probability $p_e/t$
+        \State Add that edge with weight $w_e t / (p_e q)$ to graph $H$
+    \EndFor
+    \State \Return $H$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{theorem}[\cite{ss11} effective resistance data structure]\label{thm:ss11}
+There is a $\tilde{O}(m(\log \alpha)/\eps^2)$ time algorithm which on input $\eps > 0$ and $G = (V,E,w)$ with $\alpha = w_{\max}/w_{\min}$ computes a $(24 \log n/\eps^2)\times n$ matrix $\tilde{Z}$ such that with probability at least $1 - 1/n$,
+
+$$(1 - \eps) \Reff_G(u,v) \le \|\tilde{Z}b_{uv}\|_2^2 \le (1 + \eps) \Reff_G(u,v)$$
+for every pair of vertices $u,v\in V$.
+\end{theorem}
+
+The following is an immediate corollary of Theorems \ref{thm:oversampling} and \ref{thm:ss11}:
+
+\begin{corollary}[\cite{ss11}]\label{cor:ss11}
+There is a $\tilde{O}(m(\log \alpha)/\eps^2)$ time algorithm which on input $\eps > 0$ and $G = (V,E,w)$ with $\alpha = w_{\max}/w_{\min}$, produces an $(1 \pm \eps)$-approximate sparsifier for $G$.
+\end{corollary}
+
+\subsection{Woodbury Identity}\label{sec:woodbury_identity}
+
+\begin{proposition}[\cite{w49,w50}]\label{prop:woodbury}
+The Woodbury matrix identity is
+\begin{align*}
+(A+ U C V)^{-1} = A^{-1} - A^{-1} U (C^{-1} + V A^{-1} U)^{-1} V A^{-1}
+\end{align*}
+where $A, U, C$ and $V$ all denote matrices of the correct (conformable) sizes: For integers $n$ and $k$, $A$ is $n\times n$, $U$ is $n\times k$, $C$ is $k \times k$ and $V$ is $k \times n$.
+\end{proposition}
+
+The Woodbury identity is useful for solving linear systems in a matrix $M$ which can be written as the sum of a diagonal matrix $A$ and a low-rank matrix $UV$ for $k\ll n$ (setting $C=I$).
+
+\subsection{Tail Bounds}
+
+We will use several well-known tail bounds from probability theory.
+\begin{theorem}[Chernoff Bounds \cite{c52}]\label{thm:chernoff}
+Let $X = \sum_{i=1}^n X_i$, where $X_i=1$ with probability $p_i$ and $X_i = 0$ with probability $1-p_i$, and all $X_i$ are independent. Let $\mu = \E[X] = \sum_{i=1}^n p_i$. Then \\
+1. $ \Pr[ X \geq (1+\delta) \mu ] \leq \exp ( - \delta^2 \mu / 3 ) $, $\forall \delta > 0$ ; \\
+2. $ \Pr[ X \leq (1-\delta) \mu ] \leq \exp ( - \delta^2 \mu / 2 ) $, $\forall 0 < \delta < 1$. 
+\end{theorem}
+
+\begin{theorem}[Hoeffding bound \cite{h63}]\label{thm:hoeffding}
+Let $X_1, \cdots, X_n$ denote $n$ independent bounded variables in $[a_i,b_i]$. Let $X= \sum_{i=1}^n X_i$, then we have
+\begin{align*}
+\Pr[ | X - \E[X] | \geq t ] \leq 2\exp \left( - \frac{2t^2}{ \sum_{i=1}^n (b_i - a_i)^2 } \right)
+\end{align*}
+\end{theorem}
+
+
+\subsection{Fine-Grained Hypotheses}\label{sec:fine_grained}
+\paragraph*{Strong Exponential Time Hypothesis}
+
+Impagliazzo and Paturi \cite{ip01} introduced the Strong Exponential Time Hypothesis ($\SETH$) to address the complexity of CNF-SAT. Although it was originally stated only for deterministic algorithms, it is now common to extend $\SETH$ to randomized algorithms as well.
+
+\begin{hypothesis}[Strong Exponential Time Hypothesis ($\SETH$)]
+For every $\epsilon > 0$ there exists an integer $k \geq 3$ such that CNF-SAT on formulas with clause size at most $k$ (the so called $k$-SAT problem) and $n$ variables cannot be solved in $O(2^{(1-\epsilon)n})$ time even by a randomized algorithm.
+\end{hypothesis}
+
+\paragraph*{Orthogonal Vectors Conjecture}
+
+The Orthogonal Vectors (OV) problem asks: given $n$ vectors $x_1, \cdots, x_n \in \{0,1\}^d$, are there $i,j$ such that $\langle v_i, v_j \rangle = 0$ (where the inner product is taken over $\Z$)? It is easy to see that $O(n^2 d)$ time suffices for solving OV, and slightly subquadratic-time algorithms are known in the case of small $d$ \cite{awy15,cw16}. It is conjectured that there is no OV algorithm running in $n^{1.99}$ time when $d = \omega (\log n)$.
+
+\begin{conjecture}[Orthogonal Vectors Conjecture (OVC) \cite{w05,avw14}]
+For every $\epsilon > 0$, there is a $c \geq 1$ such that OV cannot be solved in $n^{2-\epsilon}$ time on instances with $d = c \log n$.
+\end{conjecture}
+
+In particular, it is known that $\SETH$ implies OVC~\cite{w05}.
+$\SETH$ and OVC are the most common hardness assumption in fine-grained complexity theory, and they are known to imply tight lower bounds for a number of algorithmic problems throughout computer science. See, for instance, the survey~\cite{williams2018some} for more background.
+
+\subsection{Dimensionality Reduction}
+
+We make use of the following binary version of the Johnson-Lindenstrauss lemma due to Achlioptas \cite{a03}:
+
+\begin{theorem}[\cite{jl84,a03}]\label{thm:jl}
+Given fixed vectors $v_1,\hdots,v_n\in \mathbb{R}^d$ and $\epsilon > 0$, let $Q \in \mathbb{R}^{k\times d}$ be a random $\pm 1/\sqrt{k}$ matrix (i.e. independent Bernoulli entries) with $k\ge 24 (\log n)/\epsilon^2$. Then with probability at least $1 - 1/n$,
+\begin{align*}
+(1 - \epsilon)\|v_i - v_j\|^2\le \|Qv_i - Qv_j\|^2\le (1 + \epsilon)\|v_i - v_j\|^2
+\end{align*}
+for all pairs $i,j\in [n]$.
+\end{theorem}
+
+We will also use the following variant of Johnson Lindenstrauss for Euclidean space, for random projections onto $o(\log n)$ dimensions:
+
+\begin{lemma}[Ultralow Dimensional Projection \cite{jl84,dg03}, see Theorem 8.2 in \cite{s16} for example]
+\label{lem:low-dim-jl}  
+For $k = o(\log n)$, with high probability the maximum distortion in pairwise distance obtained from projecting $n$ points into $k$ dimensions (with appropriate scaling) is at most $n^{O(1/k)}$.
+\end{lemma}
+
+\subsection{Nearest Neighbor Search}\label{sec:ann}
+
+Our results will make use of a number of prior results, both algorithms and lower bounds, for nearest neighbor search problems.
+
+
+
+\paragraph*{Nearest Neighbor Search Data Structures}
+
+\begin{problem}[\cite{a09,r17} data-structure $\ANN$]
+Given an $n$-point dataset $P$ in $\R^d$ with $d = n^{o(1)}$, the goal is to preprocess it to answer the following queries. Given a query point $q \in \R^d$ such that there exists a data point within $\ell_p$ distance $r$ from $q$, return a data point within $\ell_p$ distance $cr$ from $q$.
+\end{problem}
+
+
+\begin{theorem}[\cite{ai06}]\label{thm:l2-ann}
+There exists a data structure that returns a $2c$-approximation to the nearest neighbor distance in $\ell_2^d$ with preprocessing time and space $O_c(n^{1+1/c^2+o_c(1)} + nd)$ and query time $O_c(dn^{1/c^2+o_c(1)})$
+\end{theorem}
+
+\paragraph*{Hardness for Approximate Hamming Nearest Neighbor Search}
+
+We provide the definition of the Approximate Nearest Neighbor search problem
+
+\begin{problem}[monochromatic $\ANN$]\label{pro:single_ANN}
+The monochromatic Approximate Nearest Neighbor ($\ANN$) problem is defined as : given a set of $n$ points $x_1, \cdots, x_n \in \R^d$ with $n^{o(1)}$, the goal is to compute $\alpha$-approximation of $\min_{i\neq j} \dist(x_i, x_j)$.
+\end{problem}
+
+\begin{theorem}[\cite{sm19}]\label{thm:sm19}
+Let $\dist(x,y)$ be $\ell_p$ distance. Assuming ${\sf SETH}$, for every $\delta > 0$, there is a $\epsilon > 0$ such that the monochromatic $(1+\epsilon)$-${\sf ANN}$ problem for dimension $d = \Omega(\log n)$ requires time $n^{1.5-\delta}$.
+\end{theorem}
+
+\begin{problem}[bichromatic $\ANN$]\label{pro:hamming_ANN}
+Let $\dist(\cdot, \cdot)$ denote the some distance function. Let $\alpha > 1$ denote some approximation factor. 
+The bichromatic Approximate Nearest Neighbor ($\ANN$) problem is defined as: given two sets $A,B$ of vectors $\R^d$, the goal is to compute $\alpha$-approximation of $\min_{a\in A,b\in B} \dist( a , b )$.
+
+\end{problem}
+
+\begin{theorem}[\cite{r18}]\label{thm:r18}
+Let $\dist(x,y)$ be any of Euclidean, Manhattan, Hamming($\| x - y \|_0$), and edit distance. Assuming ${\sf SETH}$, for every $\delta > 0$, there is a $\epsilon > 0$ such that the bichromatic $(1+\epsilon)$-${\sf ANN}$ problem for dimension $d = \Omega(\log n)$ requires time $n^{2-\delta}$.
+\end{theorem}
+
+By comparison, the best known algorithm for $d = \Omega(\log n)$ for each of these distance measures other than edit distance runs in time about $dn + n^{2 - \Omega(\eps^{1/3}/\log(1/\eps))}$ \cite{acw16}.
+
+
+
+\paragraph*{Hardness for $\Z$-Max-IP}
+
+
+
+
+\begin{problem}\label{pro:Z_maxip}
+For $n,d \in \mathbb{N}$, the $\mathbb{Z}$-${\sf MaxIP}$ problem for dimension $d$ asks: given two sets $A,B$ of vectors from $\mathbb{Z}^d$, compute
+\begin{align*}
+\max_{ a \in A, b \in B } \langle a , b \rangle.
+\end{align*}
+\end{problem}
+
+$\mathbb{Z}$-${\sf MaxIP}$ is known to be hard even when the dimension $d$ is barely superconstant:
+
+\begin{theorem}[Theorem 1.14 in \cite{c18}] \label{thm:maxiphard}
+Assuming ${\sf SETH}$ (or {\sf OVC}), there is a constant $c$ such that any exact algorithm for $\Z$-${\sf MaxIP}$ for $d = c^{\log^* n}$ dimensions requires $n^{2-o(1)}$ time, with vectors of $O(\log n)$-bit entries.
+\end{theorem}
+
+It is believed that $\Z$-${\sf MaxIP}$ cannot be solved in truly subquadratic time even in constant dimension~\cite{c18}. Even for $d=3$, the best known algorithm runs in $O(n^{4/3})$ time and has not been improved for decades:
+
+\begin{theorem}[\cite{mat92,aesw91,y82}]\label{thm:maxiplowdim}
+$\Z$-${\sf MaxIP}$ for $d=3$ can be solved in time $O(n^{4/3})$. For general $d$, it can be solved in $n^{2- \Theta(1/d)}$.
+\end{theorem}
+
+The closely related problem of $\ell_2$-nearest neighbor search is also hard in barely superconstant dimension:
+
+\begin{theorem}[Theorem 1.16 in \cite{c18}]\label{thm:lownnhard}
+Assuming ${\sf SETH}$ (or {\sf OVC}), there is a constant $c$ such that any exact algorithm for bichromatic $\ell_2$-closest pair for $d = c^{\log^* n}$ dimensions requires $n^{2-o(1)}$ time, with vectors of $c_0\log n$-bit entries for some constants $c > 1$ and $c_0 > 1$.
+\end{theorem}
+
+
+\subsection{Geometric Laplacian System}
+
+Building off of a long line of work on Laplacian system solving~\cite{st04,kmp10,kmp11,kosz13,ckmpprx14}, we study the problem of solving geometric Laplacian systems:
+\begin{problem}\label{pro:geometric_Laplacian_system}
+Let $\k : \R^d \times \R^d \rightarrow \R$. Given a set of points $x_1, \cdots, x_n \in \R^d$, a vector $ b\in \R^n$ and accuracy parameter $\epsilon$. Let graph $G$ denote the graph that has $n$ vertices and each edge$(i,j)$'s weight is $\k(x_i,x_j)$. Let $L_G$ denote the Laplacian matrix of graph $G$. The goal is to output a vector $u \in \R^n$ such that
+\begin{align*}
+\| u - L_G^\dagger b \|_{L_G} \leq \epsilon \| L_G^\dagger b \|_{L_G} 
+\end{align*}
+where $L_G^\dagger$ denotes the pseudo-inverse of $L_G$ and matrix norm is defined as $\| c \|_A = \sqrt{ c^\top A c }$.
+\end{problem}
+

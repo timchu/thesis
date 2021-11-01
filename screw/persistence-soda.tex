@@ -1,0 +1,94 @@
+\section{Persistent Homology of the Nearest-neighbor Geodesic Distance}
+  \label{sec:persistence}
+
+% \tim{This section should be prefaced somewhere -- here or in a previous
+% section -- with a statement as to why the nearest neighbor metric may
+% still be of independent interest. My main claim is that it's useful
+% since it's defined on all points rather than just two.}
+%
+% \tim{My main issue with this section is that I don't have a clean
+% theorem saying how to compute persistent homology, both in ambient and
+% intrinsic setting. Having one or two top-level theorems that say this
+% would be great, rather than having it be written in the exposition. As
+% it stands, I have no clue how Lemma 4.5 is used, or Lemma 4.6, to
+% compute the homologies.}
+  In this section, we show how to compute the so-called persistent homology~\cite{edelsbrunner02topological} of the nearest neighbor metric in two different ways, one ambient and the other intrinsic.
+  The latter relies on Theorem~\ref{thm:NN} and would be quite surprising without it.
+
+  The input for persistence computation is a \emph{filtration}---a nested sequence of spaces, usually parameterized by a real number $\alpha\ge 0$.
+  The output is a set of points in the plane called a \emph{persistence diagram} that encodes the birth and death of topological features like connected components, holes, and voids.
+
+  \paragraph*{The Ambient Persistent Homology}
+
+    Perhaps the most popular filtration to consider on a Euclidean space is the sublevel set filtration of the distance to a sample $P$.
+    This filtration is $(F_\alpha)_{\alpha\ge 0}$, where
+    \[
+      F_\alpha := \{x\in \R^d \mid \distto_P(x) \le \alpha\},
+    \]
+    for all $\alpha \ge 0$.
+    If one wanted to consider instead the nearest neighbor metric $\dist_N$, one gets instead a filtration $(G_\alpha)_{\alpha\ge 0}$, where
+    \[
+      G_\alpha := \{x\in \R^d \mid \min_{p \in P} \dist_N(x,p) \le \alpha\},
+    \]
+    for all $\alpha \ge 0$.
+
+    Both the filtrations $(F_\alpha)$ and $(G_\alpha)$ are unions of metric balls.
+    In the former, they are Euclidean.
+    In the latter, they are the metric balls of $\dist_N$.
+    These balls can look very different, for example, for $\dist_N$, the metric balls are likely not even convex.
+    However, these filtrations are very closely related.
+    \begin{lemma}
+      For all $\alpha \ge 0$, $F_\alpha = G_{2\alpha^2}$.
+    \end{lemma}
+    \begin{proof}
+      The key to this exercise is to observe that the nearest point $p \in P$ to a point $x$ is also the point that minimizes $\dist_N(x,p)$.
+      To prove this, we will show that for any $p\in P$ and any path $\gamma\in \ourpath(x,p)$, we have $\len(\gamma)\ge \frac{1}{2}\distto_P(x)^2$.
+      Consider any such $x$, $p$, and $\gamma$.
+      The euclidean length of $\gamma$ must be at least $\distto_P(x)$, so we will assume that $\|\gamma'\| = \distto_P(x)$ and will prove the lower bound on the subpath starting at $x$ of length exactly $\distto_P(x)$.
+      This will imply a lower bound on the whole path.
+      Because $\distto_P$ is $1$-Lipschitz, we have $\distto_P(\gamma(t))\ge (1-t)\distto_P(x)$ for all $t\in [0,1]$.  It follows that
+      \begin{align*}
+        \len(\gamma) &= \int_0^1 \distto_P(\gamma(t))\|\gamma'(t)\|dt \\
+         &  \ge \distto_P(x)^2 \int_0^1 (1-t)dt
+          =  \frac{1}{2}\distto_P(x)^2
+      \end{align*}
+      The bound above applies to any path from $x$ to a point $p\in P$, and so,
+      \[
+        \dist_N(x,p) = 4 \inf_{\gamma\in \ourpath(x,p)} \len(\gamma) \ge 2\distto_P(x).
+      \]
+      If $p$ is the nearest neighbor of $x$ in $P$, then $\dist_N(x,p) = 2\distto_P(x)$, by taking the path to be a straight line.
+      It follows that $\min_{p\in P}\dist_N(x,p) = 2\distto_P(x)$.
+    \end{proof}
+
+    The preceding lemma shows that the two filtrations are equal up to a monotone change in parameters.
+    By standard results in persistent homology, this means that their persistence diagrams are also equal up to the same change in parameters.
+    This means that one could use standard techniques such as $\alpha$-complexes~\cite{edelsbrunner02topological} to compute the persistence diagram of the Euclidean distance and convert it to the nearest neighbor metric afterwards.
+    Moreover, one observes that the same equivalence will hold for variants of the nearest neighbor metric that take other powers of the distance.
+
+    % (some are considered in Section~\ref{sec:higher_powers}).
+
+
+  \paragraph*{Intrinsic Persistent Homology}
+    Recently, several researchers have considered intrinsic nerve complexes on metric data, especially data coming from metric graphs~\cite{adamszek16nerve,gasparovic17complete}.
+    These complexes are defined in terms of the intersections of metric balls in the input.
+    The vertex set is the input point set.
+    The edges at scale $\alpha$ are pairs of points whose $\alpha$-radius balls intersect.
+    In the intrinsic \v Cech complex, triangles are defined for three way intersections, tetrahedra for four-way intersections, etc.
+
+    In Euclidean settings, little attention was given to the difference between the intrinsic and the ambient persistence, because a classic result, the Nerve Theorem~\cite{borsuk48imbedding}, and its persistent version~\cite{chazal08towards} guaranteed there is no difference.
+    The Nerve theorem, however, requires the common intersections to be contractible, a property easily satisfied by convex sets such as Euclidean balls.
+    However, in many other topological metric spaces, the metric
+    balls might not be so well-behaved.
+    In particular, the nearest neighbor metric has metric balls which may take on very strange shapes, depending on the density of the sample.
+    This is similarly true for graph metrics.
+    So, in these cases, there is a difference between the information in the ambient and the intrinsic persistent homology.
+
+    \begin{theorem}
+      Let $P\subset \R^d$ be finite and let $\dist_N$ be the nearest neighbor metric with respect to $P$.
+      The edges of the intrinsic \v Cech filtration with respect to $\dist_N$ can be computed exactly in polynomial time.
+    \end{theorem}
+    \begin{proof}
+      The statement is equivalent to the claim that $\dist_N$ can be computed exactly between pairs of points of $P$, a corollary of Theorem~\ref{thm:equality}.
+      Two radius $\alpha$ balls will intersect if and only of the distance between their centers is at most $2\alpha$.
+      The bound on the distance necessarily implies a path and the common intersection will be the midpoint of the path.
+    \end{proof}

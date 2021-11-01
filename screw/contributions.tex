@@ -1,0 +1,89 @@
+\subsection{Contributions and Past Work}
+Our primary contribution is Theorem~\ref{thm:NN}, which lets us exactly
+compute the nearest neighbor metric. This significantly strengthens a core
+result of Cohen et al~\cite{cohen15approximating}. This theorem should be considered
+quite surprising: it equates the nearest neighbor metric with the
+edge-squared metric, even when the point set is a collections of compact,
+path-connected objects in arbitrarily large dimension. There are no
+restrictions on the convexity or simple-connectedness of such objects, so
+in general the Voronoi diagram of these objects (on which the nearest
+neighbor metric critically depends) can be extremely complicated.
+
+ Besides for exactly computing the nearest neighbor metric, we present the
+following theorems on approximate computation:
+
+ \input{screw/spanner-theorems}
+These theorems rely on Theorem~\ref{thm:NN} and considerably strengthen the
+spanner results on the nearest neighbor metric
+from~\cite{cohen15approximating}. They critically rely on
+Theorem~\ref{thm:NN}, which show it suffices to compute spanners of the
+edge-squared metric.
+Previously, sparse spanners of the edge-squared metric were shown to exist in two
+dimensions via Yao graphs and Gabriel graphs~\cite{LiWan2001}, but these
+did not generalize well to constant dimension: Yao
+graphs are not very efficient to compute, and Gabriel graphs can have
+quadratically many edges even in $3$ dimensions~\cite{chazelle94selecting}.
+The spanners we produce are sparser than the
+theoretical optimal for Euclidean spanners~\cite{Le19}.
+
+Theorem~\ref{thm:distribution-spanner} proves that a $1$-spanner of
+the nearest neighbor metric can be found assuming points are samples from a
+probability density, by using a $k$-$NN$ graph for
+appropriate $k$. Our result is tight when $d$ is constant. This
+is not possible for Euclidean distance, as a $1$-spanner is almost
+surely the complete graph. Although the restrictions on the probability
+density may seem limiting,
+they are in fact quite flexible and standard in
+machine learning theory and practice~\cite{hwang2016, alamgir12shortest}. For example, although they do not cover the case
+of a Gaussian (unbounded support), they do cover the case of a Gaussian
+where the very thin tail is cut off, and this recovers most of the relevant
+data in a Gaussian distribution. Past work on similar results
+include~\cite{Balister05, Gonzales2003}.
+
+Theorem~\ref{thm:NN} will additionally allow us
+to compute the persistent homology of $\dist_N$, a task useful for
+topological data analysis~\cite{edelsbrunner02topological}.
+We also show how the nearest neighbor metric generalizes Euclidean
+distance and maximum-edge Euclidean MST distance ~\cite{LiWan2001}
+
+The core mathematical contribution of our work is the
+statement and proof of Theorem~\ref{thm:NN}.  The techniques to prove
+our other results are simpler and mostly leverage Theorem~\ref{thm:NN} and
+past work. We have included them nonetheless to provide a more complete
+picture of the nearest neighbor metric, and to provide possible directions for future
+work.
+
+%% Old outline: check this outline before submitting.
+%% \begin{enumerate}
+%% \item Definition of edge-squared.
+%% \item Preliminaries
+%% \item Outline/Overview/Previous Work
+%% \item Interpretations based on known Machine Learning tools.
+%% \begin{enumerate}
+%% \item Gaussian Kernel similarity.
+%% \item Generalization of Level-Set and Single-Linkage clustering. (\tim{This
+%%     is not a very good point.})
+%% \item Interpretation as $l_2$ on paths?
+%% \end{enumerate}
+%% \item Equality to a natural geodesic distance.
+%% \begin{enumerate}
+%% \item Define NN-metric.
+%% \item Core Proof.
+%% \item NN has a fast sparse spanner. Any spanner of the NN metric is a
+%% spanner of edge-squared. (This result is theoretically
+%%     superseded by our later result, but is of independent interest).
+%% \item Persistent homology of the nearest neighbor metric can be
+%% computed.
+%% \end{enumerate}
+%% \item Fast practical spanners for points in a distribution. ($k$-NN
+%%     graph for $k = O( \log n)$.
+%% \item Theoretically sparse, fast spanners for points in low dimension.  \tim{Low intrinsic dimension? Can cover trees do this for me?}
+%% \item Remaining open questions.
+%% \item Appendix:
+%% \begin{enumerate}
+%% \item Persistent homology can be put here, maybe.
+%% \item Links to Heirarchies of Metrics: Edge-Squared is a natural
+%% extension of negative type metrics, with potentially high doubling dimension.
+%% \end{enumerate}
+%%
+%% \end{enumerate}

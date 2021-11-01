@@ -1,0 +1,48 @@
+\subsection{Main Theorems}
+We are now ready to state a formal version of
+Theorem~\ref{thm:informal}.
+\begin{theorem}\label{thm:formal} (Distributional Cheeger)
+For an $L$-Lipschitz function $\rho: \Re^d
+  \rightarrow \Re_{\geq 0}$, for variables $(\alpha, \beta, \gamma)$
+  where $\beta = \alpha +1$ and $\gamma = \alpha+2$, we have:
+
+\[ \Phi^2/4 \leq \lambda_2 \leq 3 \cdot 2^{\beta+1}d \cdot
+\max(L\Phi ,2^{\beta + 1}\Phi^2). \]
+  where $\lambda_2$ is the $(\alpha, \gamma)$ eigenvalue of $\rho$,
+  and $\Phi$ is the $(\alpha, \beta)$-sparsity of the $(\alpha,
+  \beta)$-isoperimetric
+  cut for $\rho$.
+\end{theorem}
+When $(\alpha = 1, \beta = 2, \gamma = 3)$, we have:
+\[ \Phi^2/4 \leq \lambda_2 \leq 24d 
+\max(L\Phi, 8\Phi^2). \]
+
+We denote the lower bound on $\lambda_2$ as the \textbf{Cheeger
+Inequality}, as this is the bound that Cheeger
+proved for manifolds~\cite{Cheeger70}. We call the upper bound on
+$\lambda_2$ the \textbf{Buser inequality}
+~\cite{Buser82}.
+Assuming constant dimension, both the Buser inequality and the
+Cheeger inequality in Theorem~\ref{thm:formal}
+are tight up to constant factors. We will see this in
+Section~\ref{sec:examples}.
+
+Note that theorem~\ref{thm:formal} has a partial converse: when $\alpha, \beta,
+\gamma$ are set improperly, no such Cheeger-like statement can
+hold.
+\begin{lemma}\label{lem:converse}
+If $\gamma - 2 \leq \alpha$, then
+  there exists $\rho: \Re^d \to \Re_{\geq 0}$ which is a $1$-Lipschitz function in
+  $1$ dimension, such that either:
+  \[
+    \lambda_2 =  o(\Phi^2)
+    \]
+  or 
+  \[ 
+    \max(\Phi, \Phi^2) = o(\lambda_2).
+  \]
+\end{lemma}
+Together, Theorem~\ref{thm:formal} and Lemma~\ref{lem:converse}
+give restrictions on what $(\alpha, \beta, \gamma)$ must
+equal, for both a Cheeger and Buser inequality to hold on an $L$-Lipschitz
+distribution.

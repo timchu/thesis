@@ -1,0 +1,43 @@
+% !TeX root = main.tex
+
+\subsubsection{Boxes} % (fold)
+\label{sec:boxes}
+
+  Let $Q$ be the vertices of a box in $\R^n$.
+  That is, there exist some positive real numbers $\alpha_1,\ldots , \alpha_n$ such that each $q\in Q$ can be written as $q = \sum_{i\in I} \alpha_i e_i$, for some $I\subseteq [n]$.
+
+  Let the source $s$ be the origin.
+  Let $\distto_Q:\R^n\to \R$ be the distance function to the set $Q$.
+  Setting $r_i(x) := \min\{x_i, \alpha_i - x_i\}$ (a lower bound on the difference in the $i$th coordinate to a vertex of the box), it follows that
+  \begin{equation}
+    \label{eq:distto_bded_by_ris}
+    \distto_Q(x) \ge \sqrt{\sum_{i= 1}^n r_i(x)^2}.
+  \end{equation}
+
+  Let $\gamma:[0,1]\to \R^n$ be a curve in $\R^n$.
+  Define $\gamma_i(t)$ to be the projection of $\gamma$ onto its $i$th coordinate.
+  Thus,
+  \begin{equation}\label{eq:ri_as_min}
+    r_i(\gamma(t)) = \min\{\gamma_i(t), \alpha_i - \gamma_i(t)\}
+  \end{equation}
+  and
+  \begin{equation}\label{eq:gamma_decomposed}
+    \|\gamma'(t)\| = \sqrt{\sum_{i = 1}^n \gamma_i'(t)^2}.
+  \end{equation}
+  %
+  We can bound the length of $\gamma$ as follows. For simplicity of exposition we only present the case
+  of a path from the origin to the far corner, $p = \sum_{i=1}^n \alpha_i e_i$. 
+  %
+  \begin{align*}
+    \len(\gamma)
+      &= \int_0^1 \distto_Q(\gamma(t))\|\gamma'(t)\|dt \because{by definition}\\
+      &\ge \int_0^1 \left(\sqrt{\sum_{i= 1}^n r_i(\gamma(t))^2} \sqrt{\sum_{i = 1}^n \gamma_i'(t)^2}\right) dt \because{by \eqref{eq:distto_bded_by_ris} and \eqref{eq:gamma_decomposed}}\\
+      &\ge \sum_{i=1}^n \int_0^1 r_i(\gamma(t)) \gamma_i'(t) dt \because{Cauchy-Schwarz}\\
+      &\ge \sum_{i=1}^n \left(\int_0^{\ell_i} \gamma_i(t) \gamma_i'(t)dt + \int_{\ell_i'}^1 (\alpha_i - \gamma_i(t)) \gamma_i'(t) dt\right) \\ \because{by \eqref{eq:ri_as_min} where $\gamma_i(\ell_i) = \alpha_i/2$ for the first time and $\gamma_i(\ell_i') = \alpha_i/2$ for the last time.}\\
+      &= \sum_{i=1}^n 2\int_0^{\ell_i} \gamma_i(t) \gamma_i'(t) dt \because{by symmetry}\\
+      &\ge \sum_{i=1}^n \frac{\alpha_i^2}{4} \because{basic calculus}
+  \end{align*}
+
+  It follows that if $\gamma$ is any curve that starts at $s$ and ends at $p = \sum_{i=1}^n \alpha_i e_i$, then $\dist_N(s,p) = \dist_2(s,p)$.
+
+% section boxes (end)

@@ -1,0 +1,704 @@
+\newcommand{\e}{\varepsilon}
+%\newcommand{\eps}{\varepsilon}
+\newcommand{\volt}{\overrightarrow{v}}
+%\newcommand{\EE}{\textbf{E}}
+\newcommand{\LGinv}{L_G^\dag}
+\newcommand{\inv}{(\LGinv)^{1/2}}
+\newcommand{\Br}{\overline{B}}
+\newcommand{\vr}{\overline{v}}
+\newcommand{\xr}{\overline{x}}
+%\newcommand{\pr}{\overline{p}}
+\newcommand{\Rr}{\overline{R}}
+\newcommand{\Gr}{\overline{G}}
+\newcommand{\Conv}{\mathcal{C}}
+\newcommand{\Convr}{\overline{\mathcal{C}}}
+\newcommand{\g}{\textbf{g}}
+\newcommand{\B}{\mathbb{B}}
+% \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+% \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\DeclareMathOperator{\volscrew}{Vol}
+\DeclareMathOperator{\kNN}{kNN}
+\DeclareMathOperator{\NN}{NN}
+
+
+\newcommand{\len}{\ell}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ourpath}{\mathrm{path}}
+\newcommand{\dist}{\mathbf{d}}
+\newcommand{\distto}{\mathbf{r}}
+\renewcommand{\because}[1]{&\left[\text{\small{#1}}\right]}
+
+\newcommand\prob[2]{\operatorname*{\mathbb{P}}_{#1}\left[ #2 \right]}
+\newcommand{\M}{M}
+
+\newtheorem{claim}{Claim}
+\newtheorem{observation}{Observation}
+\newtheorem{problem}{Problem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{remark}{Remark}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+
+\newenvironment{fminipage}%
+  {\begin{Sbox}\begin{minipage}}%
+  {\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+
+\newenvironment{algbox}[0]{\vskip 0.2in
+\noindent 
+\begin{fminipage}{6.3in}
+}{
+\end{fminipage}
+\vskip 0.2in
+}
+
+
+%%%%%%%%%%%%%% Use for definitions
+\newcommand{\defeq}{\stackrel{\textup{def}}{=}}
+
+%%%%%%%%%%%%%% Probability stuff
+\DeclareMathOperator*{\pr}{\bf Pr}
+\DeclareMathOperator*{\av}{\bf E}
+\DeclareMathOperator*{\var}{\bf Var}
+
+%%%%%%%%%%%%%% Matrix stuff
+\newcommand{\tr}[1]{\mathop{\mbox{Tr}}\left({#1}\right)}
+\newcommand{\diag}[1]{{\bf Diag}\left({#1}\right)}
+
+%% Notation for integers, natural numbers, reals, fractions, sets, cardinalities
+%%and so on
+\newcommand{\nfrac}[2]{\nicefrac{#1}{#2}}
+\def\abs#1{\left| #1 \right|}
+\newcommand{\norm}[1]{\ensuremath{\left\lVert #1 \right\rVert}}
+
+\newcommand{\floor}[1]{\left\lfloor\, {#1}\,\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil\, {#1}\,\right\rceil}
+
+\newcommand{\pair}[1]{\left\langle{#1}\right\rangle} %for inner product
+
+%\newcommand\B{\{0,1\}}      % boolean alphabet  use in math mode
+\newcommand\bz{\mathbb Z}
+\newcommand\nat{\mathbb N}
+\newcommand\rea{\mathbb R}
+\newcommand\com{\mathbb{C}}
+\newcommand\plusminus{\{\pm 1\}}
+\newcommand\Bs{\{0,1\}^*}   % B star use in math mode
+
+\newcommand{\V}[1]{\mathbf{#1}} % Used to denote bold commands
+                                % e.g. vectors, matrices
+\DeclareRobustCommand{\fracp}[2]{{#1 \overwithdelims()#2}}
+\DeclareRobustCommand{\fracb}[2]{{#1 \overwithdelims[]#2}}
+\newcommand{\marginlabel}[1]%
+{\mbox{}\marginpar{\it{\raggedleft\hspace{0pt}#1}}}
+\newcommand\card[1]{\left| #1 \right|} %cardinality of set S; usage \card{S}
+\newcommand\set[1]{\left\{#1\right\}} %usage \set{1,2,3,,}
+\renewcommand\complement{\ensuremath{\mathsf{c}}}
+%\newcommand\poly{{\textrm{poly}}}  %usage \poly(n)
+\newcommand{\comp}[1]{\overline{#1}}
+\newcommand{\smallpair}[1]{\langle{#1}\rangle}
+\newcommand{\ol}[1]{\ensuremath{\overline{#1}}\xspace}
+
+%%%%%%%%%%%%%% Mathcal shortcuts
+\newcommand\calF{\mathcal{F}}
+\newcommand\calS{\mathcal{S}}
+\newcommand\calG{\mathcal{G}}
+\newcommand\calH{\mathcal{H}}
+\newcommand\calC{\mathcal{C}}
+\newcommand\calD{\mathcal{D}}
+\newcommand\calI{\mathcal{I}}
+\newcommand\calV{\mathcal{V}}
+\newcommand\calK{\mathcal{K}}
+\newcommand\calN{\mathcal{N}}
+\newcommand\calX{\mathcal{X}}
+\newcommand\calU{\mathcal{U}}
+\newcommand\calE{\mathcal{E}}
+\newcommand\calA{\mathcal{A}}
+
+%%%%%%%%%%%%%% {{{ authornotes }}}
+\definecolor{Mygray}{gray}{0.8}
+
+ \ifcsname ifcommentflag\endcsname\else
+  \expandafter\let\csname ifcommentflag\expandafter\endcsname
+                  \csname iffalse\endcsname
+\fi
+
+% \ifnum\showauthornotes=1
+% \newcommand{\todo}[1]{\colorbox{Mygray}{\color{red}\parbox{\textwidth}{#1}}}
+% \else
+% \newcommand{\todo}[1]{}
+% \fi
+
+
+%%%%%%%%%%%%%% Logical operators
+%\newcommand\true{\mbox{\sc True}}
+%\newcommand\false{\mbox{\sc False}}
+\def\scand{\mbox{\sc and}}
+\def\scor{\mbox{\sc or}}
+\def\scnot{\mbox{\sc not}}
+\def\scyes{\mbox{\sc yes}}
+\def\scno{\mbox{\sc no}}
+
+%% Parantheses
+\newcommand{\paren}[1]{\left({#1}\right)}
+\newcommand{\sqparen}[1]{\left[{#1}\right]}
+\newcommand{\curlyparen}[1]{\left\{{#1}\right\}}
+\newcommand{\smallparen}[1]{({#1})}
+\newcommand{\smallsqparen}[1]{[{#1}]}
+\newcommand{\smallcurlyparen}[1]{\{{#1}\}}
+
+%% short-hands for relational simbols
+
+\newcommand{\from}{:}
+\newcommand\xor{\oplus}
+\newcommand\bigxor{\bigoplus}
+\newcommand{\logred}{\leq_{\log}}
+\def\iff{\Leftrightarrow}
+\def\implies{\Rightarrow}
+
+
+
+
+%% macros to write pseudo-code
+
+\newlength{\pgmtab}  %  \pgmtab is the width of each tab in the
+\setlength{\pgmtab}{1em}  %  program environment
+ \newenvironment{program}{\renewcommand{\baselinestretch}{1}%
+\begin{tabbing}\hspace{0em}\=\hspace{0em}\=%
+\hspace{\pgmtab}\=\hspace{\pgmtab}\=\hspace{\pgmtab}\=\hspace{\pgmtab}\=%
+\hspace{\pgmtab}\=\hspace{\pgmtab}\=\hspace{\pgmtab}\=\hspace{\pgmtab}\=%
+\+\+\kill}{\end{tabbing}\renewcommand{\baselinestretch}{\intl}}
+\newcommand {\BEGIN}{{\bf begin\ }}
+\newcommand {\ELSE}{{\bf else\ }}
+\newcommand {\IF}{{\bf if\ }}
+\newcommand {\FOR}{{\bf for\ }}
+\newcommand {\TO}{{\bf to\ }}
+\newcommand {\DO}{{\bf do\ }}
+\newcommand {\WHILE}{{\bf while\ }}
+\newcommand {\ACCEPT}{{\bf accept}}
+\newcommand {\REJECT}{\mbox{\bf reject}}
+\newcommand {\THEN}{\mbox{\bf then\ }}
+\newcommand {\END}{{\bf end}}
+\newcommand {\RETURN}{\mbox{\bf return\ }}
+\newcommand {\HALT}{\mbox{\bf halt}}
+\newcommand {\REPEAT}{\mbox{\bf repeat\ }}
+\newcommand {\UNTIL}{\mbox{\bf until\ }}
+\newcommand {\TRUE}{\mbox{\bf true\ }}
+\newcommand {\FALSE}{\mbox{\bf false\ }}
+\newcommand {\FORALL}{\mbox{\bf for all\ }}
+\newcommand {\DOWNTO}{\mbox{\bf down to\ }}
+
+% Theorem-type environments
+% \theoremstyle{break} 
+% \theoremheaderfont{\scshape}
+% \theorembodyfont{\slshape}
+% \newtheorem{Thm}{Theorem}[section]
+% \newtheorem{Lem}[Thm]{Lemma}
+% \newtheorem{Cor}[Thm]{Corollary}
+% \newtheorem{Prop}[Thm]{Proposition}
+% % \theoremstyle{plain} 
+% % \theorembodyfont{\rmfamily} 
+% \newtheorem{Ex}[Thm]{Exercise}
+% \newtheorem{Exa}[Thm]{Example}
+% \newtheorem{Rem}[Thm]{Remark}
+% % \theorembodyfont{\itshape}
+% \newtheorem{Def}[Thm]{Definition}
+% \newtheorem{Conj}[Thm]{Conjecture}
+% \newtheorem{Obs}[Thm]{Observation}
+% \newtheorem{Ques}[Thm]{Question}
+%\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$ \medskip} 
+\newenvironment{problems} % Definition of problems
+ {\renewcommand{\labelenumi}{\S\theenumi}
+	\begin{enumerate}}{\end{enumerate}}
+
+
+%%%%%%%%%%%%%%%%% Proof Environments
+
+\def\FullBox{\hbox{\vrule width 6pt height 6pt depth 0pt}}
+%
+%\def\qed{\ifmmode\qquad\FullBox\else{\unskip\nobreak\hfil
+%\penalty50\hskip1em\null\nobreak\hfil\FullBox
+%\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\def\qedsketch{\ifmmode\Box\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil$\Box$
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+%\newenvironment{proof}{\begin{trivlist} \item {\bf Proof:~~}}
+ %  {\qed\end{trivlist}}
+
+\newenvironment{proofsketch}{\begin{trivlist} \item {\bf
+Proof Sketch:~~}}
+  {\qedsketch\end{trivlist}}
+
+\newenvironment{proofof}[1]{\begin{trivlist} \item {\bf Proof
+#1:~~}}
+  {\qed\end{trivlist}}
+
+\newenvironment{claimproof}{\begin{quotation} \noindent
+{\bf Proof of claim:~~}}{\qedsketch\end{quotation}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\newlength{\tpush}
+\setlength{\tpush}{2\headheight}
+\addtolength{\tpush}{\headsep}
+
+\newcommand{\handout}[5]{
+   \noindent
+   \begin{center}
+   \framebox{ \vbox{ \hbox to \textwidth { {\bf \coursenum\ :\  \coursename} \hfill #5 }
+       \vspace{3mm}
+       \hbox to \textwidth { {\Large \hfill #2  \hfill} }
+       \vspace{1mm}
+       \hbox to \textwidth { {\it #3 \hfill #4} }
+     }
+   }
+   \end{center}
+   \vspace*{4mm}
+   \newcommand{\lecturenum}{#1}
+   \addcontentsline{toc}{chapter}{Lecture #1 -- #2}
+}
+
+\newcommand{\lecturetitle}[4]{\handout{#1}{#2}{Lecturer: \courseprof
+  }{Scribe: #3}{Lecture #1 : #4}}
+\newcommand{\guestlecturetitle}[5]{\handout{#1}{#2}{Lecturer:
+    #4}{Scribe: #3}{Lecture #1 - #5}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Commands to include figures
+
+
+%% PSfigure
+
+\newcommand{\PSfigure}[3]{\begin{figure}[t] 
+  \centerline{\vbox to #2 {\vfil \psfig{figure=#1.eps,height=#2} }} 
+  \caption{#3}\label{#1} 
+  \end{figure}} 
+\newcommand{\twoPSfigures}[5]{\begin{figure*}[t]
+  \centerline{%
+    \hfil
+    \begin{tabular}{c}
+        \vbox to #3 {\vfil\psfig{figure=#1.eps,height=#3}} \\ (a)
+    \end{tabular}
+    \hfil\hfil\hfil
+    \begin{tabular}{c}
+        \vbox to #3 {\vfil\psfig{figure=#2.eps,height=#3}} \\ (b)
+    \end{tabular}
+    \hfil}
+  \caption{#4}
+  \label{#5}
+%  \sublabel{#1}{(a)}
+%  \sublabel{#2}{(b)}
+  \end{figure*}}
+
+
+\newcounter{fignum}
+
+% fig
+%command to insert figure. usage \fig{name}{h}{caption}
+%where name.eps is the postscript file and h is the height in inches
+%The figure is can be referred to using \ref{name}
+\newcommand{\fig}[3]{%
+\begin{minipage}{\textwidth}
+\centering\epsfig{file=#1.eps,height=#2}
+\caption{#3} \label{#1}
+\end{minipage}
+}%
+
+
+% ffigure
+% Usage: \ffigure{name of file}{height}{caption}{label}
+\newcommand{\ffigure}[4]{\begin{figure} 
+  \centerline{\vbox to #2 {\hfil \psfig{figure=#1.eps,height=#2} }} 
+  \caption{#3}\label{#4} 
+  \end{figure}} 
+
+% ffigureh
+% Usage: \ffigureh{name of file}{height}{caption}{label}
+\newcommand{\ffigureh}[4]{\begin{figure}[!h] 
+  \centerline{\vbox to #2 {\vfil \psfig{figure=#1.eps,height=#2} }} 
+  \caption{#3}\label{#4} 
+  \end{figure}} 
+
+
+% {{{ draftbox }}}
+
+%% Complexity classes
+\newcommand\p{\mbox{\bf P}\xspace}
+\newcommand\np{\mbox{\bf NP}\xspace}
+\newcommand\cnp{\mbox{\bf coNP}\xspace}
+\newcommand\sigmatwo{\mbox{\bf $\Sigma_2$}\xspace}
+\newcommand\ppoly{\mbox{\bf $\p_{\bf /poly}$}\xspace}
+\newcommand\sigmathree{\mbox{\bf $\Sigma_3$}\xspace}
+\newcommand\pitwo{\mbox{\bf $\Pi_2$}\xspace}
+\newcommand\rp{\mbox{\bf RP}\xspace}
+\newcommand\zpp{\mbox{\bf ZPP}\xspace}
+\newcommand\bpp{\mbox{\bf BPP}\xspace}
+\newcommand\ph{\mbox{\bf PH}\xspace}
+\newcommand\pspace{\mbox{\bf PSPACE}\xspace}
+\newcommand\npspace{\mbox{\bf NPSPACE}\xspace}
+\newcommand\dl{\mbox{\bf L}\xspace}
+\newcommand\ma{\mbox{\bf MA}\xspace}
+\newcommand\am{\mbox{\bf AM}\xspace}
+\newcommand\nl{\mbox{\bf NL}\xspace}
+\newcommand\conl{\mbox{\bf coNL}\xspace}
+\newcommand\sharpp{\mbox{\#{\bf P}}\xspace}
+\newcommand\parityp{\mbox{$\oplus$ {\bf P}}\xspace}
+\newcommand\ip{\mbox{\bf IP}\xspace}
+\newcommand\pcp{\mbox{\bf PCP}}
+\newcommand\dtime{\mbox{\bf DTIME}}
+\newcommand\ntime{\mbox{\bf NTIME}}
+\newcommand\dspace{\mbox{\bf SPACE}\xspace}
+\newcommand\nspace{\mbox{\bf NSPACE}\xspace}
+\newcommand\cnspace{\mbox{\bf coNSPACE}\xspace}
+\newcommand\exptime{\mbox{\bf EXP}\xspace}
+\newcommand\nexptime{\mbox{\bf NEXP}\xspace}
+\newcommand\genclass{\mbox{$\cal C$}\xspace}
+\newcommand\cogenclass{\mbox{\bf co$\cal C$}\xspace}
+\newcommand\size{\mbox{\bf SIZE}\xspace}
+\newcommand\sig{\mathbf \Sigma}
+\newcommand\pip{\mathbf \Pi}
+
+%%Computational problems
+\newcommand\sat{\mbox{SAT}\xspace}
+\newcommand\tsat{\mbox{3SAT}\xspace}
+\newcommand\tqbf{\mbox{TQBF}\xspace}
+
+
+%\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\chat}{\widehat{c}}
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\khat}{\widehat{k}}
+\newcommand{\lhat}{\widehat{l}}
+\newcommand{\gns}{\gamma_{\textsc{NS}}}
+\newcommand{\gst}{\gamma_{\textsc{ST}}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\schur}{\ensuremath{\mathsf{Schur}}}
+\newcommand{\ent}[1]{\mathop{\mbox{Ent}}\left({#1}\right)}
+\newcommand{\lap}{\ensuremath{\boldsymbol{L}}}
+
+\newcommand\Ctil{\widetilde{\mathit{C}}}
+\newcommand\Otil[1]{\ensuremath{\widetilde{O}\left(#1\right)}}
+\newcommand\otil[1]{\ensuremath{\widetilde{\mathit{O}}(#1)}}
+
+\newcommand\Ccal{\mathcal{C}}
+\newcommand\Hcal{\mathcal{H}}
+
+
+\renewcommand\AA{\boldsymbol{\mathit{A}}}
+\newcommand\DD{\boldsymbol{\mathit{D}}}
+\newcommand\EE{\boldsymbol{\mathit{E}}}
+\newcommand\MM{\boldsymbol{\mathit{M}}}
+\newcommand\MMcal{\boldsymbol{\mathcal{M}}}
+\newcommand\MMbar{\boldsymbol{\overline{\mathit{M}}}}
+\newcommand\MMhat{\boldsymbol{\widehat{\mathit{M}}}}
+\newcommand\II{\boldsymbol{\mathit{I}}}
+\newcommand\LL{\boldsymbol{\mathit{L}}}
+\newcommand\LLtil{\widetilde{\boldsymbol{L}}}
+\newcommand\PP{\boldsymbol{\mathit{P}}}
+\newcommand\QQ{\boldsymbol{\mathit{Q}}}
+\renewcommand\SS{\boldsymbol{\mathit{S}}}
+\newcommand\TT{\boldsymbol{\mathit{T}}}
+\newcommand\UU{\boldsymbol{\mathit{U}}}
+\newcommand\XX{\boldsymbol{\mathit{X}}}
+\newcommand\XXcal{\boldsymbol{\mathcal{X}}}
+\newcommand\XXJcal{\boldsymbol{\mathcal{X}}\mathcal{J}}
+\newcommand\YY{\boldsymbol{\mathit{Y}}}
+%\newcommand\YYcal{\mathcal{Y}}
+\newcommand\ZZ{\boldsymbol{\mathit{Z}}}
+\newcommand\ZZhat{\boldsymbol{\widehat{\mathit{Z}}}}
+
+\newcommand\cchi{\boldsymbol{\chi}}
+
+\newcommand\simuniform{{\sim_{{\rm uniform}}}}
+
+\newcommand\Ical{\mathcal{I}}
+
+\newcommand\nhat{\widehat{n}}
+\newcommand\mhat{\widehat{m}}
+
+\newcommand\xhat{\widehat{x}}
+\newcommand\yhat{\widehat{y}}
+
+\newcommand\Hhat{\widehat{H}}
+
+\newcommand\Gtil{\widetilde{G}}
+\newcommand\Ktil{\widetilde{K}}
+
+\newcommand\Kcal{\mathcal{K}}
+\newcommand\Kcaltil{\widetilde{\mathcal{K}}}
+
+\newcommand\Scal{\mathcal{S}}
+\newcommand\Scalhat{\widehat{\mathcal{S}}}
+
+\newcommand\epsbar{\overline{\eps}}
+\newcommand\epshat{\widehat{\eps}}
+
+\newcommand\AbsMatrix[1]{\mbox{Abs}_{2}\left| #1 \right|}
+
+\newcommand\dd{\boldsymbol{\mathit{d}}}
+\newcommand\ww{\boldsymbol{\mathit{w}}}
+\newcommand\xx{\boldsymbol{\mathit{x}}}
+\newcommand\yy{\boldsymbol{\mathit{y}}}
+
+\newcommand\rrtil{\boldsymbol{\widetilde{\mathit{r}}}}
+\newcommand\rr{\boldsymbol{\mathit{r}}}
+
+\newcommand\PPi{\boldsymbol{\mathit{\Pi}}}
+\newcommand\one{\vec{1}}
+
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+\newcommand{\DegPreserveSparsify}{{\textsc{DegreePreservingSparsify}}}
+\newcommand{\SpectralSketch}{{{\textsc{SpectralSketch}}}}
+\newcommand{\MoveEdges}{{\textsc{MoveEdges}}}
+\newcommand{\MoveEdgesExpander}{{\textsc{MoveEdgesExpander}}}
+\newcommand{\ExtractBoundedDegreeGraph}{{\textsc{ExtractBoundedDegreeGraph}}}
+\newcommand{\NaiveCycleDecomposition}{{\textsc{NaiveCycleDecomposition}}}
+\newcommand{\ShortCycleAlgo}{{\textsc{ShortCycleDecomposition}}}
+\newcommand{\CycleDecomposition}{{\textsc{CycleDecomposition}}}
+\newcommand{\ExpanderDecompose}{{\textsc{ExpanderDecompose}}}
+\newcommand{\NSExpanderDecompose}{{\textsc{NSExpanderDecompose}}}
+\newcommand{\SparsifyOnce}{{\textsc{SparsifyOnce}}}
+\newcommand{\SampleMatchings}{{\textsc{SampleMatchings}}}
+\newcommand{\ImplicitPartitionAndSample}{{\textsc{ImplicitPartitionAndSample}}}
+\newcommand{\SC}{{\textsc{SC}}}
+\newcommand{\MakeBalanced}{{\textsc{MakeBalanced}}}
+\newcommand{\DecomposeAndSample}{{\textsc{DecomposeAndSample}}}
+\newcommand{\SampleBiCliques}{{\textsc{SampleBiCliques}}}
+\newcommand{\SampleMatching}{{\textsc{SampleMatching}}}
+\newcommand{\EulerianSparsify}{{\textsc{EulerianSparsify}}}
+\newcommand{\DirectedSparsifyOnce}{{\textsc{DirectedSparsifyOnce}}}
+\newcommand{\ImplicitSketchUnweightedBiCliques}{{\textsc{ImplicitSketchUnweightedBiCliques}}}
+\newcommand{\UnweightedDecompose}{{\textsc{UnweightedDecompose}}}
+\newcommand{\SchurSparse}{{\textsc{SchurSparse}}}
+
+\newcommand{\vol}[1]{\operatorname{vol}\left({#1}\right)}
+\newcommand{\reff}{\mathop{R}_{\textrm{eff}}}
+
+\newcommand{\trace}{\mbox{Trace}}
+
+\newcommand{\dir}[1]{{\vec{#1}}}
+\newcommand{\undir}[1]{\mathit{undir}\left( #1 \right)}
+\newcommand{\undirInline}[1]{\mathit{undir}\left( #1 \right)}
+
+
+
+\newcommand\expec[2]{\operatorname*{\mathbb{E}}_{#1}\left[ #2 \right]}
+
+\newcommand{\etal}{\emph{et al.}}
+
+
+\newcommand{\LCycle}{\textsc{L}_{\textsc{CycleDecomp}}}
+\newcommand{\TCycle}{\textsc{T}_{\textsc{CycleDecomp}}}
+
+\newenvironment{tight_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{1pt}
+  \setlength{\partopsep}{1pt}
+}{\end{enumerate}}
+\newenvironment{tight_itemize}{
+\begin{itemize}
+  \setlength{\itemsep}{2pt}
+  \setlength{\parskip}{1pt}
+  \setlength{\partopsep}{1pt}
+}{\end{itemize}}
+
+\newcommand{\Err}{\mathrm{Err}}
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\sign}{\mathrm{sign}}
+\renewcommand{\tr}{\mathrm{tr}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\Ceff}{\mathtt{Ceff}}
+\newcommand{\Ham}{\mathrm{Ham}}
+\newcommand{\wh}{\widehat}
+\newcommand{\wt}{\widetilde}
+\newcommand{\ov}{\overline}
+\newcommand{\mc}{\mathcal}
+\renewcommand{\tilde}{\wt}
+\renewcommand{\hat}{\wh}
+\renewcommand{\bar}{\ov}
+\renewcommand{\k}{\mathsf{K}}
+\newcommand{\Reff}{\mathtt{Reff}}
+\newcommand{\true}{\mathtt{true}}
+\newcommand{\false}{\mathtt{false}}
+\newcommand{\KAdjE}{\mathsf{KAdjE}}
+\newcommand{\KLapE}{\mathsf{KLapE}}
+\newcommand{\KDF}{\mathrm{KDF}}
+\newcommand{\KDE}{\mathrm{KDE}}
+\newcommand{\cts}{\mathrm{cts}}
+\newcommand{\dis}{\mathrm{dis}}
+\newcommand{\WSPD}{\mathrm{WSPD}}
+%\newcommand{\dist}{\mathrm{dist}}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\bdeg}{\mathrm{bdeg}}
+\newcommand{\SETH}{\mathsf{SETH}}
+\newcommand{\ANN}{\mathsf{ANN}}
+\newcommand{\RecoverExpander}{\textsc{RecoverExpander}}
+\newcommand{\SparsifyInner}{\textsc{SparsifyInner}}
+\newcommand{\LowDiamSet}{\textsc{LowDiamSet}}
+\newcommand{\ReffQuery}{\textsc{ReffQuery}}
+\newcommand{\ReffPreproc}{\textsc{ReffPreproc}}
+\newcommand{\UnweightedCover}{\textsc{UnweightedCover}}
+\newcommand{\BoundedCover}{\textsc{BoundedCover}}
+\newcommand{\TwoBoundedCover}{\textsc{TwoBoundedCover}}
+\newcommand{\LogCover}{\textsc{LogCover}}
+\newcommand{\DesiredCover}{\textsc{DesiredCover}}
+\newcommand{\IntervalFamily}{\textsc{IntervalFamily}}
+\newcommand{\OversamplingWithCover}{\textsc{OversamplingWithCover}}
+\newcommand\X{{\cal X}}
+\newcommand\Y{{\cal Y}}
+\newcommand{\rank}{\operatorname{rank}}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{fact}[theorem]{Fact}
+
+\makeatletter
+\newcounter{savesection}
+\newcounter{apdxsection}
+\renewcommand\appendix{\par
+  \setcounter{savesection}{\value{section}}%
+  \setcounter{section}{\value{apdxsection}}%
+  \setcounter{subsection}{0}%
+  \gdef\thesection{\@Alph\c@section}}
+\newcommand\unappendix{\par
+  \setcounter{apdxsection}{\value{section}}%
+  \setcounter{section}{\value{savesection}}%
+  \setcounter{subsection}{0}%
+  \gdef\thesection{\@arabic\c@section}}
+\makeatother
+    \newcommand{\boundary}{\partial}
+    \newcommand{\smid}{\,\middle|\,}
+
+\newcommand{\Lone}{{L^1}}
+%\newcommand{\Lone}{{L^1(\Omega)}}
+\newcommand{\lone}[1]{\norm{#1}_\Lone}
+\newcommand{\Ltwo}{{L^2}}
+%\newcommand{\Ltwo}{{L^2(\Omega)}}
+\newcommand{\ltwo}[1]{\norm{#1}_\Ltwo}
+\newcommand{\Ltwoo}{{L^2(\Omega)/\Re}}
+\newcommand{\ltwoo}[1]{\norm{#1}_\Ltwoo}
+\newcommand{\lltwo}[1]{\left\|#1\right\|_\Ltwo}
+\newcommand{\Linf}{{L^\infty}}
+%\newcommand{\Linf}{{L^\infty(\Omega)}}
+\newcommand{\linf}[1]{\norm{#1}_{\Linf}}
+\newcommand{\Lp}{{L^p(\Omega)}}
+\newcommand{\lp}[1]{\norm{#1}_\Lp}
+\newcommand{\Lpp}{{L^{p'}(\Omega)}}
+\newcommand{\lpp}[1]{\norm{#1}_\Lpp}
+\newcommand{\vph}{\vphantom{A^{A}_{A}}}
+\newcommand{\ubar}{{\bar{u}}}
+\newcommand{\eqnref}[1]{(\ref{eqn#1})}
+    \newcommand{\grad}{\nabla}
+    \DeclareMathOperator{\supp}{supp}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\Lonea}{{L^1_\alpha}}
+%\newcommand{\Lonea}{{L^1_\alpha(\Omega)}}
+\newcommand{\lonea}[1]{\norm{#1}_\Lonea}
+\newcommand{\Ltwoa}{{L^2_\alpha}}
+%\newcommand{\Ltwoa}{{L^2_\alpha(\Omega)}}
+\newcommand{\ltwoa}[1]{\norm{#1}_\Ltwoa}
+
+\newcommand{\alphahat}{\hat{\alpha}}
+\newcommand{\betahat}{\hat{\beta}}
+\newcommand{\gammahat}{\hat{\gamma}}
+\newcommand{\deltahat}{\hat{\delta}}
+\newcommand{\epsilinhat}{\hat{\epsilon}}
+\newcommand{\varepsilinhat}{\hat{\varepsilon}}
+\newcommand{\zetahat}{\hat{\zeta}}
+\newcommand{\etahat}{\hat{\eta}}
+\newcommand{\thetahat}{\hat{\theta}}
+\newcommand{\varthetahat}{\hat{\vartheta}}
+\newcommand{\iotahat}{\hat{\iota}}
+\newcommand{\kappahat}{\hat{\kappa}}
+\newcommand{\lambdahat}{\hat{\lambda}}
+\newcommand{\muhat}{\hat{\mu}}
+\newcommand{\nuhat}{\hat{\nu}}
+\newcommand{\xihat}{\hat{\xi}}
+\newcommand{\pihat}{\hat{\pi}}
+\newcommand{\varpihat}{\hat{\varpi}}
+\newcommand{\rhohat}{\hat{\rho}}
+\newcommand{\varrhohat}{\hat{\varrho}}
+\newcommand{\sigmahat}{\hat{\sigma}}
+\newcommand{\varsigmahat}{\hat{\varsigma}}
+\newcommand{\tauhat}{\hat{\tau}}
+\newcommand{\upsilonhat}{\hat{\upsilon}}
+\newcommand{\phihat}{\hat{\phi}}
+\newcommand{\varphihat}{\hat{\varphi}}
+\newcommand{\chihat}{\hat{\chi}}
+\newcommand{\psihat}{\hat{\psi}}
+\newcommand{\omegahat}{\hat{\omega}}
+
+\newcommand{\Gammahat}{\hat{\Gamma}}
+\newcommand{\Deltahat}{\hat{\Delta}}
+\newcommand{\Thetahat}{\hat{\Theta}}
+\newcommand{\Lambdahat}{\hat{\Lambda}}
+\newcommand{\Xihat}{\hat{\Xi}}
+\newcommand{\Pihat}{\hat{\Pi}}
+\newcommand{\Sigmahat}{\hat{\Sigma}}
+\newcommand{\Upsilonhat}{\hat{\Upsilon}}
+\newcommand{\Phihat}{\hat{\Phi}}
+\newcommand{\Psihat}{\hat{\Psi}}
+\newcommand{\Omegahat}{\hat{\Omega}}
+\newcommand{\sst}{\,\mid\,}
+
+\newcommand{\ahat}{\hat{a}}
+\newcommand{\bhat}{\hat{b}}
+\newcommand{\dhat}{\hat{d}}
+\newcommand{\ehat}{\hat{e}}
+\newcommand{\ghat}{\hat{g}}
+\newcommand{\hhat}{\hat{h}}
+\newcommand{\ihat}{\hat{i}}
+\newcommand{\jhat}{\hat{j}}
+\newcommand{\ellhat}{\hat{\ell}}
+\newcommand{\ohat}{\hat{o}}
+\newcommand{\phat}{\hat{p}}
+\newcommand{\qhat}{\hat{q}}
+\newcommand{\rhat}{\hat{r}}
+\newcommand{\shat}{\hat{s}}
+\newcommand{\that}{\hat{t}}
+\newcommand{\uhat}{\hat{u}}
+\newcommand{\vhat}{\hat{v}}
+\newcommand{\what}{\hat{w}}
+\newcommand{\zhat}{\hat{z}}
+
+\newcommand{\Ahat}{\hat{A}}
+\newcommand{\Bhat}{\hat{B}}
+\newcommand{\Chat}{\hat{C}}
+\newcommand{\Dhat}{\hat{D}}
+\newcommand{\Ehat}{\hat{E}}
+\newcommand{\Fhat}{\hat{F}}
+\newcommand{\Ghat}{\hat{G}}
+\newcommand{\Ihat}{\hat{I}}
+\newcommand{\Jhat}{\hat{J}}
+\newcommand{\Khat}{\hat{K}}
+\newcommand{\Lhat}{\hat{L}}
+\newcommand{\Mhat}{\hat{M}}
+\newcommand{\Nhat}{\hat{N}}
+\newcommand{\Ohat}{\hat{O}}
+\newcommand{\Phat}{\hat{P}}
+\newcommand{\Qhat}{\hat{Q}}
+\newcommand{\Rhat}{\hat{R}}
+\newcommand{\Shat}{\hat{S}}
+\newcommand{\That}{\hat{T}}
+\newcommand{\Uhat}{\hat{U}}
+\newcommand{\Vhat}{\hat{V}}
+\newcommand{\What}{\hat{W}}
+\newcommand{\Xhat}{\hat{X}}
+\newcommand{\Yhat}{\hat{Y}}
+\newcommand{\Zhat}{\hat{Z}}
+
+\newcommand{\dbydp}[2]{\frac{\partial #1}{\partial #2}}

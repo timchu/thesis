@@ -1,0 +1,254 @@
+\section{Equivalence of Matrix-Vector Multiplication and Solving Linear Systems} \label{sec:equivalence}
+
+In this section, we show that for linear systems with sparse preconditioners, approximately solving them is equivalent to approximate matrix multiplication. We begin by formalizing our notion of approximation.
+
+\begin{definition} \label{def:approxmult}
+Given a matrix $M$ and a vector $x$, we say that $b$ is an $\epsilon$-\emph{approximate multiplication of $Mx$} if
+\begin{align*}
+(b - Mx)^\top M^{\dag}(b - Mx)\le \epsilon \cdot x^\top Mx.
+\end{align*}
+Given a vector $d$, we say that a vector $y$ is an $\epsilon$-\emph{approximate solution to $My = d$} if $y$ is an $\epsilon$-approximate multiplication of $M^{\dag}d$.
+\end{definition}
+
+Before stating the desired reductions, we state a folklore fact about the Laplacian norm:
+\begin{proposition}[property of Laplacian norm]\label{prop:lapl-apx}
+Consider a $w$-weighted $n$-vertex connected graph $G$ and let $w_{\min} = \min_{u,v\in G} w_{uv}$, $w_{\max} = \max_{u,v\in G} w_{uv}$, and $\alpha = w_{\max}/w_{\min}$. Then, for any vector $x\in \mathbb{R}^n$ that is orthogonal to the all ones vector,
+$$ 
+\frac{w_{\min}}{2n^4 \alpha^2} \|x\|_{\infty}^2 \le \|x\|_{L_G}^2 \le n^2 w_{\max} \|x\|_{\infty}^2
+$$
+and for any vector $b\in \mathbb{R}^n$ orthogonal to all ones,
+$$
+\frac{1}{n^2 w_{\max}} \|b\|_{\infty}^2 \le \|b\|_{L_G^{\dag}}^2 \le  \frac{2n^4 \alpha^2}{w_{\min}} \|b\|_{\infty}^2
+$$
+\end{proposition}
+
+\begin{proof}
+\textbf{Lower Bound for $L_G$}: Let $\lambda_{\min}$ and $\lambda_{\max}$ denote the minimum nonzero and maximum eigenvalues of $D_G^{-1/2}L_GD_G^{-1/2}$ respectively, where $D_G$ is the diagonal matrix of vertex degrees. Since $G$ is connected, all cuts have conductance at least $w_{\min}/(n^2 w_{\max}) = 1/(n^2\alpha)$. Therefore, by Cheeger's Inequality \cite{c70}, $\lambda_{\min} \ge 1/(2n^4 \alpha^2)$. It follows that,
+\begin{align*}
+\|x\|_{L_G}^2 &= x^{\top} L_G x\\
+&\ge (x^{\top} D_G x)/(2n^4 \alpha^2)\\
+&\ge \|x\|_{\infty}^2 w_{\min}/(2n^4 \alpha^2)
+\end{align*}
+as desired.
+
+\textbf{Upper bound for $L_G$}: $\lambda_{\max}\le 1$. Therefore,
+\begin{align*}
+\|x\|_{L_G}^2 
+\le x^{\top} D_G x 
+\le n^2 w_{\max} \|x\|_{\infty}^2
+\end{align*}
+as desired.
+
+\textbf{Lower bound for $L_G^{\dag}$}:
+\begin{align*}
+\|b\|_{L_G^{\dag}}^2 
+\ge (1/\lambda_{\max}) \|b\|_{D_G^{-1}}^2
+\ge 1/(n^2 w_{\max}) \|b\|_{\infty}^2
+\end{align*}
+
+\textbf{Upper bound for $L_G^{\dag}$}:
+\begin{align*}
+\|b\|_{L_G^{\dag}}^2 \le (1/\lambda_{\min}) \|b\|_{D_G^{-1}}^2
+\le (2n^4\alpha^2/w_{\min}) \|b\|_{\infty}^2
+\end{align*}
+\end{proof}
+
+Proposition \ref{prop:lapl-apx} implies the following equivalent definition of $\epsilon$-approximate multiplication:
+
+\begin{corollary}\label{cor:simpleapproxmult}
+Let $G$ be a connected $n$-vertex graph with edge weights $\{w_e\}_{e\in E(G)}$ with $w_{\min} = \min_{e\in E(G)} w_e$, $w_{\max} = \max_{e\in E(G)} w_e$, and $\alpha = w_{\max}/w_{\min}$ and consider any vectors $b,x\in \mathbb{R}^n$. If
+
+$$\|b - L_Gx\|_{\infty} \le \epsilon w_{\max} \|x\|_{\infty}$$
+,$b^\top {\bf 1} = 0$, and $x^\top {\bf 1} = 0$, then $b$ is an $2n^3\alpha^2\epsilon$-approximate multiplication of $L_Gx$.
+\end{corollary}
+
+\begin{proof}
+Since $b^\top {\bf 1} = 0$, $(b - L_Gx)^\top {\bf 1} = 0$ also. By the upper bound for $L_G^{\dagger}$-norms in Proposition \ref{prop:lapl-apx},
+
+$$\|b - L_Gx\|_{L_G^{\dagger}}^2\le \frac{2n^4\alpha^2}{w_{\min}} \|b - L_Gx\|_{\infty}^2\le 2n^4\alpha^4\epsilon^2w_{\min} \|x\|_{\infty}^2$$
+
+Since $x^\top {\bf 1} = 0$, $x$ has both nonnegative and nonpositive coordinates. Therefore, since $G$ is connected, there exists vertices $a,b$ in $G$ for which $\{a,b\}$ is an edge and for which $|x_a - x_b| \ge \|x\|_{\infty}/n$. Therefore,
+
+$$x^\top L_G x \ge w_{ab}(x_a - x_b)^2\ge (w_{\min}/n^2) \|x\|_{\infty}^2$$
+Substitution shows that
+
+$$\|b - L_G x\|_{L_G^{\dagger}}^2\le 2n^4\alpha^4\epsilon^2(n^2 x^\top L_G x)$$
+This is the desired result by definition of $\epsilon$-approximate multiplication.
+\end{proof}
+
+\begin{corollary}
+Let $G$ be a connected $n$-vertex graph with edge weights $\{w_e\}_{e\in E(G)}$ with $w_{\min} = \min_{e\in E(G)} w_e$, $w_{\max} = \max_{e\in E(G)} w_e$, and $\alpha = w_{\max}/w_{\min}$ and consider any vectors $b,x\in \mathbb{R}^n$. If $b$ is an $\epsilon/(2n^3\alpha^2)$-approximate multiplication of $L_Gx$ and $b^\top {\bf1} = 0$, then
+
+$$\|b - L_Gx\|_{\infty} \le \epsilon w_{\min}\|x\|_{\infty}$$
+\end{corollary}
+
+\begin{proof}
+Since $b^\top {\bf 1} = 0$, $(b - L_Gx)^\top {\bf 1} = 0$ as well. By the lower bound for $L_G^{\dagger}$-norms in Proposition \ref{prop:lapl-apx} and the fact that $b$ is an approximate multiplication for $L_Gx$,
+
+\begin{align*}
+\|b - L_G x\|_{\infty}^2\le n^2 \alpha w_{\min} \|b - L_G x\|_{L_G^{\dagger}}^2\le \frac{\epsilon^2 w_{\min}}{4n^4\alpha^3} x^\top L_G x .
+\end{align*}
+Notice that
+\begin{align*}
+x^\top L_Gx = \sum_{\{a,b\}\in E(G)} w_{ab}(x_a - x_b)^2\le n^2 w_{\max} (4\|x\|_{\infty}^2) .
+\end{align*}
+Therefore, by substitution,
+\begin{align*}
+\|b - L_G x\|_{\infty}^2\le (\frac{\epsilon^2w_{\min}}{4n^4\alpha^3})(n^2 \alpha w_{\min} (4\|x\|_{\infty}^2))\le w_{\min}^2 \epsilon^2 \|x\|_{\infty}^2 .
+\end{align*}
+Taking square roots gives the desired result.
+\end{proof}
+
+\subsection{Solving Linear Systems Implies Matrix-Vector Multiplication}
+\begin{lemma}\label{lem:mul-given-solve}
+Consider an $n$-vertex $w$-weighted graph $G$, let $w_{\min} = \min_{e\in G} w_e $, $w_{\max} = \max_{e\in G} w_e$, $\alpha = w_{\max} / w_{\min}$, and $H$ be a known graph for which \begin{align*}
+    (1 - 1/900)L_G
+    \preceq 
+    L_H
+    \preceq 
+    (1 + 1/900)L_G.
+\end{align*} Suppose that $H$ has at most $Z$ edges and suppose that there is a $\T(n,\delta)$-time algorithm $\textsc{SolveG}(b,\delta)$ that, when given a vector $b\in \mathbb{R}^n$ and $\delta\in (0,1)$, returns a vector $x\in \mathbb{R}^n$ with
+\begin{align*}
+\|x - L_G^{\dag} b\|_{L_G}\le \delta \cdot \|L_G^{\dag}b\|_{L_G}.
+\end{align*}
+Then, given a vector $x \in \mathbb{R}^n$ and an $\epsilon \in (0,1)$, there is a 
+\begin{align*}
+\tilde{O}((Z + \T(n,\epsilon/(n^2\alpha)))\log(Zn\alpha/\epsilon))
+\end{align*}
+-time algorithm $\textsc{MultiplyG}(x,\epsilon)$ (Algorithm~\ref{alg:multiplyG}) that returns a vector $b\in \mathbb{R}^n$ for which
+\begin{align*}
+\|b - L_G x\|_{\infty}\le \epsilon \cdot w_{\min} \cdot \|x\|_{\infty}.
+\end{align*} 
+\end{lemma}
+
+The algorithm $\textsc{MultiplyG}$ (Algorithm~\ref{alg:multiplyG}) uses standard preconditioned iterative refinement. It is applied in the opposite from the usual way. Instead of using iterative refinement to solve a linear system given matrix-vector multiplication, we use iterative refinement to do matrix-vector multiplication given access to a linear system solver.
+
+\begin{algorithm}\caption{\textsc{MultiplyG} and \textsc{MultiplyGAdditive}}\label{alg:multiplyG}
+\begin{algorithmic}[1]
+\Procedure{\textsc{MultiplyG}}{$x,\epsilon$} \Comment{Lemma~\ref{lem:mul-given-solve}, Theorem~\ref{lem:solve-given-mul}}
+
+    \State \textbf{Given}: $x\in \mathbb{R}^n$, $\epsilon\in (0,1)$, the sparsifier $H$ for $G$, and a system solver for $G$
+    
+    \State \textbf{Returns}: an approximation $b$ to $L_G x$
+    
+    \State \Return $\textsc{MultiplyGAdditive}(x,\epsilon \|x\|_{\infty}/( \log^2(\alpha n/\epsilon)) )$
+
+\EndProcedure
+\Procedure{\textsc{MultiplyGAdditive}}{$x,\tau$}
+
+    \If{$\|x\|_{\infty}\le \tau/(n^{10}\alpha^5)$}
+    
+        \State \Return $0$
+    
+    \EndIf
+    
+    \State $x_{\text{main}}\gets \textsc{SolveG}(L_H x,\tau \sqrt{w_{\min}}/(n^{10}\alpha^5))$
+    
+    \State $x_{\text{res}}\gets x - x_{\text{main}}$
+    
+    \State $b_{\text{res}}\gets \textsc{MultiplyGAdditive}(x_{\text{res}},\tau)$
+    
+    \State \Return $L_H x + b_{\text{res}}$ 
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+In this proof, assume that ${\bf 1}^{\top}x = 0$. If this is not the case, then shifting $x$ so that it is orthogonal to ${\bf 1}$ only decreases its $\ell_2$-norm, which means that the $\ell_{\infty}$ norm only increases by a factor of $\sqrt{n}$, so the error only increases by $O(\log n)$ additional solves.
+
+{\bf Reduction in residual and iteration bound}: First, we show that
+\begin{align*}
+\|x_{\text{res}}\|_{L_G}\le (1/14) \|x\|_{L_G}
+\end{align*}
+Since $(I - L_H L_G^{\dag})L_G(I - L_G^{\dag}L_H)\preceq 3(1/900) L_G$,
+\begin{align*}
+\|x_{\text{res}}\|_{L_G} &= \|x - x_{\text{main}}\|_{L_G}\\
+&\le \|x - L_G^{\dag}L_H x\|_{L_G} + \|L_G^{\dag}L_H x - x_{\text{main}}\|_{L_G}\\
+&\le (1/15) \|x\|_{L_G} + (1/10000) \|L_G^{\dag}L_H x\|_{L_G}\\
+&\le (1/14) \|x\|_{L_G}\\ 
+\end{align*}
+Let $x_{\text{final}}$ be the lowest element of the call stack and let $k$ be the number of recursive calls to $\textsc{MultiplyGAdditive}$ (Algorithm~\ref{alg:multiplyG}). By Proposition \ref{prop:lapl-apx},
+\begin{align*}
+    \|x\|_{L_G}\le \|x\|_{\infty} \sqrt{w_{\max}} \cdot n
+    \text{~~~and~~~} \|x_{\text{final}}\|_{L_G}\ge \|x_{\text{final}}\|_{\infty} \sqrt{w_{\min}}/(2n^2\alpha).
+\end{align*}
+
+By definition of $x_{\text{final}}$, 
+\begin{align*}\|x_{\text{final}}\|_{\infty}
+\ge \frac{\tau}{ (14 n^{10}\alpha^5) } = \frac{\epsilon \sqrt{w_{\min}} \|x\|_{\infty}}{ 28 n^{12}\alpha^5 \log(\alpha n/\epsilon)}.
+\end{align*}
+Therefore,
+\begin{align*}
+k\le \log_{14}(\|x\|_{L_G}/\|x_{\text{final}}\|_{L_G}) \le \log^2 (\alpha n/\epsilon)
+\end{align*}
+as desired.
+
+\textbf{Error}: We start by bounding error in the $L_G^{\dag}$ norm. Let $b$ be the output of $\textsc{MultiplyGAdditive}(x,\tau)$ (Algorithm~\ref{alg:multiplyG}). We bound the desired error recursively:
+
+\begin{align*}
+\|b - L_G x\|_{L_G^{\dag}} &= \|L_H x + b_{\text{res}} - L_G x\|_{L_G^{\dag}}\\
+&= \|b_{\text{res}} - L_G (x - L_G^{\dag} L_H x) \|_{L_G^{\dag}}\\
+&= \|b_{\text{res}} - L_G (x - x_{\text{main}}) - L_G(x_{\text{main}} - L_G^{\dag} L_H x)\|_{L_G^{\dag}}\\
+&\le \|b_{\text{res}} - L_G (x - x_{\text{main}})\|_{L_G^{\dag}} + \|L_G(x_{\text{main}} - L_G^{\dag} L_H x)\|_{L_G^{\dag}}\\
+&= \|b_{\text{res}} - L_G x_{\text{res}}\|_{L_G^{\dag}} + \|x_{\text{main}} - L_G^{\dag} L_H x\|_{L_G}\\
+&\le \|b_{\text{res}} - L_G x_{\text{res}}\|_{L_G^{\dag}} + \sqrt{w_{\min}}\tau/(n^{10}\alpha^5)
+\end{align*}
+Because $0 = \textsc{MultiplyGAdditive}(x_{\text{final}},\tau)$ (Algorithm~\ref{alg:multiplyG}),
+
+\begin{align*}
+\|b - L_G x\|_{L_G^{\dag}} &\le \|x_{\text{final}}\|_{L_G} + k\sqrt{w_{\min}}\tau/(n^{10}\alpha^5)\\
+&\le n \sqrt{w_{\max}}\|x_{\text{final}}\|_{\infty} + k\sqrt{w_{\min}}\tau/(n^{10}\alpha^5)\\
+&\le \sqrt{w_{\min}} \tau/(n^8 \alpha^4)\\
+&\le \epsilon \sqrt{w_{\min}} \|x\|_{\infty}/(n^8 \alpha^4) & \text{~by~} \tau \leq \eps \| x \|_{\infty}
+\end{align*}
+By Proposition \ref{prop:lapl-apx} applied to $L_G^{\dag}$, $\|b - L_Gx\|_{L_G^{\dag}} \ge \|b - L_Gx\|_{\infty}/(n\sqrt{w_{\max}} )$. 
+Therefore,
+\begin{align*}\|b - L_Gx\|_{\infty} 
+\leq & ~ n \sqrt{w_{\max}} \| b - L_G x \|_{L_G^\dag} \\
+\leq & ~ n \sqrt{w_{\max}} \epsilon \sqrt{w_{\min}} \frac{1}{n^8 \alpha^4} \| x \|_{\infty} \\
+\leq & ~ \epsilon w_{\min} \|x\|_{\infty} \cdot \frac{1}{n^7 \alpha^{3.5}} & \text{~by~} \alpha = w_{\max} / w_{\min} \\
+\leq & ~ \epsilon w_{\min}   \|x\|_{\infty}
+\end{align*}
+as desired.
+
+\textbf{Runtime}: There is one call to $\textsc{SolveG}$ and one multiplication by $L_H$ per call to $\textsc{MultiplyGAdditive}$ (Algorithm~\ref{alg:multiplyG}). Each multiplication by $L_H$ takes $O(Z)$ time. As we have shown, there are only $k\le O(\log (n\alpha/\epsilon))$ calls to $\textsc{MultiplyGAdditive}$ (Algorithm~\ref{alg:multiplyG}). Therefore, we are done.
+\end{proof}
+
+\subsection{Matrix-Vector Multiplication Implies Solving Linear Systems}
+
+The converse is well-known to be true \cite{st04,kmp11}:
+
+\begin{lemma}[\cite{st04}]\label{lem:solve-given-mul} 
+Consider an $n$-vertex $w$-weighted graph $G$, let $w_{\min} = \min_{e\in G} w_e $, $w_{\max} = \max_{e\in G} w_e$, $\alpha =  w_{\max} / w_{\min}$, and $H$ be a known graph with at most $Z$ edges for which \begin{align*}
+    (1 - 1/900)L_G
+    \preceq 
+    L_H
+    \preceq 
+    (1 + 1/900)L_G.
+\end{align*} 
+Suppose that, given an $\epsilon \in (0,1)$, there is a $ \T(n,\epsilon)$-time algorithm $\textsc{MultiplyG}(x,\epsilon)$ (Algorithm~\ref{alg:multiplyG}) that, given a vector $x\in \mathbb{R}^n$, returns a vector $b\in \mathbb{R}^n$ for which
+\begin{align*}
+\|b - L_G x\|_{\infty}\le \epsilon \cdot w_{\min} \cdot \|x\|_{\infty}.
+\end{align*} Then, there is an algorithm $\textsc{SolveG}(b,\delta)$  that, when given a vector $b\in \mathbb{R}^n$ and $\delta\in (0,1)$, returns a vector $x\in \mathbb{R}^n$ with
+\begin{align*}
+\|x - L_G^{\dag} b\|_{L_G}\le \delta \cdot \|L_G^{\dag}b\|_{L_G}.
+\end{align*}
+in 
+\begin{align*}
+\tilde{O}( Z + \T(n, \delta / ( n^4 \alpha^2 ) ) ) \log(Zn\alpha/\delta)
+\end{align*}
+time.
+\end{lemma}
+
+\subsection{Lower bound for high-dimensional linear system solving}
+
+We have shown in this section that if a $\k$ graph can be efficiently sparsified, then there is an efficient Laplacian multiplier for $\k$ graphs if and only if ther is an efficient Laplacian system solver for $\k$ graphs. Here we give one example of how this connection can be used to prove \emph{lower bounds} for Laplacian system solving:
+
+\begin{corollary}[Restatement of Corollary~\ref{cor:introsystemhardhighdim}]
+Consider a function $f$ that is $(2,o(\log n))$-multiplicatively Lipschitz for which $f$ cannot be $\epsilon$-approximated by a polynomial of degree at most $o(\log n)$. Then, assuming $\SETH$, there is no $\poly(d\log(\alpha n/\epsilon))n^{1+o(1)}$-time algorithm for $\epsilon$-approximately solving Laplacian systems in the $\k$-graph on $n$ points, where $\k(u,v) = f(\|u-v\|_2^2)$.
+\end{corollary}
+
+\begin{proof}
+By Theorem \ref{thm:sparsify-lipschitz}, there is a $\poly(d\log(\alpha))n^{1+o(1)}$-time algorithm for sparsifying the $\k$-graph on $n$ points. Since sparsification is efficient, Lemma \ref{lem:mul-given-solve} implies that the existence of a $\poly(d\log(\alpha n/\epsilon))n^{1+o(1)}$-time Laplacian solver yields access to a $\poly(d\log(\alpha n/\epsilon))n^{1+o(1)}$-time Laplacian multiplier. The existence of this multiplier contradicts Theorem \ref{thm:hardnessapprox} assuming $\SETH$, as desired.
+\end{proof}

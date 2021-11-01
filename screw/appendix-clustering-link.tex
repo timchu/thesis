@@ -1,0 +1,60 @@
+  \section{Nearest Neighbor Metric and Edge-Power Metrics relate to Single Linkage Clustering, Level Sets, and k-Centers
+  clustering}\label{ap:clustering-link}
+
+  Many popular clustering algorithms, including $k$-centers, $k$-means,
+  and $k$-medians clustering, use Euclidean distance as a measure of
+  distance between points in $\mathbb{R}^d$. These methods are useful
+  when clusters are spherical and well-separated. However, it is believed by
+  practitioners that
+  data-sensitive distances more accurately capture intrinsic
+  distances between data \cite{alamgir12shortest}.
+
+  The celebrated single-linkage clustering algorithm~\cite{Gower1969, Yaro2017},
+  which is clustering based on an MST, is a widely used tool in
+  machine learning, and gets around many of the problems of the
+ Euclidean distance clustering. In single-linkage clustering,
+   two points are considered similar if the maximum length
+   edge on the path between them in the MST is small. This turns out to be equivalent to 
+  computing the normalized $\infty$-power metric between the two
+  points. Therefore, single linkage clustering can be seen
+  as clustering using the normalized $\infty$-power metric.
+  Generally, normalized $p$-power metrics can be seen as an
+  intermediary between Euclidean distances ($1$-power metrics) and
+  Euclidean MST-based clustering.
+
+  Clustering with $p$-power metric relates to another popular
+ clustering method in machine learning, known as level-set clustering.
+  Loosely speaking, level set clustering involves finding an estimate
+  for the probability density that points are drawn from, finding a
+  cut threshold $t$, and then taking as clusters all regions with
+  probability density $ > t$. Level set clustering
+  has appeared in many incarnations~\cite{Wishart69, Stuetzle2003, Stuetzle2007}, including the celebrated and
+  widely used DBScan method~\cite{Ester1996} and its
+  considerable number of variations~\cite{OPTICS96}.
+It is known
+  that level-set clustering is related to single-linkage clustering, as
+  the latter is an approximation of the former~\cite{Wishart69,
+  Stuetzle2007}.  
+  Level-set methods
+  have the advantage that they can find arbitrarily shaped
+  clusters~\cite{Ester1996}, but can cause two points that are very
+  close in Euclidean distance to be considered far apart. 
+
+  Clustering with the $p$-power metric incorporates the
+  advantages of both Euclidean distance clustering and level set
+  clustering, as it is both data-sensitive and takes into account
+  overall
+  Euclidean distance between two points.
+  Here, $p$ can be toggled to change the sensitivity of the metric
+  to the underlying density.
+  As the number of samples
+  drawn from our probability density grows large, it has been proven that the behavior of
+  normalized $p$-power metrics converges to a natural geodesic distance on the
+  underlying probability density~\cite{hwang2016}. Clustering with
+  this geodesic distance for $p=1$ is exactly Euclidean clustering, and for
+  $p=\infty$ is exactly the level set method. 
+   Thus, clustering with $p$-power metric converges to
+  a clustering method that smoothly interpolates between
+  Euclidean-distance clustering and level set clustering. 
+% \tim{Maybe you want to mention the self-sparsifying graph when you raise
+% $p$ from $1$ to $\infty$}

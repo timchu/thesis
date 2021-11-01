@@ -1,0 +1,59 @@
+\section{Conclusion and Future Directions}\label{sec:conclusion}
+We define a new notion of spectral sweep cuts, eigenvalues,
+Rayleigh quotients, and sparsity for probability densities. We
+present the first known Cheeger and Buser inequality on Lipschitz
+probability density functions, and use this to show an
+$(\alpha=1, \gamma=3)$ spectral
+sweep cut on a $L$-Lipschitz probability density function has
+provably low $(\alpha=1,\gamma=2)$-sparsity. This work is the first spectral sweep
+cut algorithm on non-parametric probability densities with any guarantees on the cut quality.
+
+Further, we show that existing spectral sweep cut methods (such
+as those implicit in spectral clustering) compute
+$(1, 1)$ or $(1,2)$ spectral sweep cuts, neither of which
+has any sparsity guarantees. We prove that $(1,2)$ spectral sweep
+cuts, which are implicitly used in traditional spectral
+clustering, can lead to undesirable partitions of simple 
+$1$-Lipschitz probability densities. Meanwhile, our work showed
+that using $(1,3)$ spectral sweep cuts give provably good $(1,2)$
+sparse cuts.
+
+For future directions, we conjecture that $\beta =
+\alpha+1$ and $\gamma = \alpha+2$ is the only settings of
+$(\alpha, \beta, \gamma)$ in which both Cheeger and Buser
+inequalities are provable. This would be a stronger theorem than
+we currently have for Lemma~\ref{lem:cheeger-converse} and
+Lemma~\ref{lem:buser-converse}.
+
+In the Buser inequality, we would like to iron out the exact dimensional
+dependence on the dimension,
+$d$ (Theorem~\ref{thm:buser_n}). The
+authors believe that this dependence can be
+reduced to $\sqrt{d}$. It is an open question whether
+\textit{any}
+dimension dependence is required.  In particular, the latest
+version of
+Buser's inequality for manifolds has no dimension
+dependence~\cite{ledoux2004spectral}. It is an open question how to
+generalize their techniques into the density setting, as the
+Bochner formula does not easily generalize to densities.
+
+Another open question is whether multi-way Cheeger and Buser inequalities
+can be proven on densities, mirroring the work on
+graphs~\cite{Louis12, kw16, LeeMultiway14, Lee2014}. This would
+allow our clustering algorithms to generalize into $k$-way
+clusterings. We additionally would like to know whether one can
+understand \textbf{balanced cuts} on proability densities for our
+new definitions of sparsity. Balanced cuts in this setting may
+have applications to machine learning.
+
+Finally, we would like to know whether Buser and Cheeger inequalities may exist for $L$-Lipschitz
+probability densities supported on manifolds with bounded
+curvature. If true, this would fully generalize the work
+of Cheeger and Buser on manifolds, which may lead to deeper
+insight into manifold theory. Moreover, it could have
+foundational impact:
+a fundamental assumption underlying modern machine learning is
+that most data comes from probability density supported on a manifold, and a Cheeger and Buser inequality in this
+setting would give provable sparsity guarantees about
+spectral sweep cuts in this setting.

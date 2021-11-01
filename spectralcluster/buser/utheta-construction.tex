@@ -1,0 +1,28 @@
+\subsection{Proof Strategy: Mollification by Disks of Radius
+  Proportional to \texorpdfstring{$\rho$}{rho}}
+To prove Theorem \ref{thm:buser_n}, for $A \subset \Re^d$ fixed, we
+construct an approximation $u_\theta$ of the characteristic function,
+$u$, of $A$ for which the numerator and denominator of the Rayleigh
+quotient, $R(u_\theta)$, approximate respectively the numerator and
+denominator of this expression.  Specifically, $u_\theta$ will
+constructed as a mollification of $u$, Recall the following two
+equivalent definitions of a mollification.  They are equivalent by the
+change of variables $z = x-\theta \rho(x) y$.
+
+\begin{equation} \label{eqn:utheta}
+u_\theta(x) 
+\coloneqq \int_{B(0,1)} \!\!\! u(x-\theta \rho(x) y) \phi(y) \, dy
+= \int \! u(z) \phi_{\theta \rho(x)}(x-z) \, dz,
+\quad \text{ where } \quad
+\phi_{\eta}(z) 
+= \frac{1}{\eta^d} \phi\left(\frac{z}{\eta}\right),
+\end{equation}
+
+with $\theta > 0$ a parameter to be chosen and $\phi:\Re^d \rightarrow
+[0,\infty)$ a smooth radially symmetric function supported in the unit
+open ball $B(0,1)=\{x \in \Re^d \;| \; |x| < 1\}$ with unit mass
+$\int_{\Re^d} \phi = 1$. When $\rho$ is constant it follows from the
+Tonelli theorem that $\lone{u_\theta} = \lone{u}$; when $\rho$ is not
+constant the following lemma shows that the latter still bounds the
+former.
+

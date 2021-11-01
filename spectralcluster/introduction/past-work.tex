@@ -1,0 +1,101 @@
+\subsection{Past Work}\label{sec:past-work}
+
+\subsubsection{Cheeger and Buser Inequalities for Graphs and Manifolds}
+
+Cheeger and Buser inequalities for graphs are the foundation of spectral
+graph theory~\cite{ChungBook97}. These inequalities were first
+discovered by Alon and Millman~\cite{AlonM84} based on similar
+inequalities in the manifold setting~\cite{Cheeger70, Buser82}. These
+inequalities have been applied to graph partitioning,
+random walks, and spectral graph theory~\cite{ChungBook97,
+kw16, Orecchia08, Louis12, Lee2014, Orecchia2011, 
+  SpielmanTeng2004}. In the graph setting, the Buser inequality is
+  trivial~\cite{ChungBook97}, while the Cheeger inequality is
+  mathematically substantial~\cite{AlonM84}.
+
+  Cheeger inequality for manifolds have been extensively used in
+  Riemannian geometry~\cite{Cheeger70, belkin2004semisup,
+  belkin2005towards}.  Buser's inequality on manifolds is 
+  mathematically non-trivial, unlike the graph case. This inequality
+  depends on a Ricci curvature term, and it is false if the manifold has
+  unbounded Ricci curvature~\cite{Buser82, ledoux2004spectral}. This
+  inequality has been applied to diffusion
+  processes on Manifolds~\cite{ledoux2004spectral}, machine
+  learning~\cite{belkin2004semisup, grady2006isoperimetric}, and more~\cite{ledoux2004spectral}.
+
+  For formal definitions of Cheeger and Buser inequalities for graphs
+  and manifolds, refer to~\cite{AlonM84} and~\cite{Buser82}
+  respectively.
+
+\subsubsection{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability
+Densities}\label{sec:past-prob}
+
+Recently, eigenvalues and sparse cuts have been used in the probability
+density setting~\cite{Lee18, Lee18survey}, in connection with the
+Kannan-Lovasz-Simonovits conjecture. There is a Cheeger and Buser inequality in
+this setting, as long as strong parametric assumptions (such as log
+concavity) are given~\cite{Lee18survey}. These inequalities use
+what we call $(\alpha=1, \gamma=1)$ eigenvectors, and $(\alpha=1, \beta=1)$
+isoperimetric constants.  
+We will show in our paper that any Buser
+inequality using $(\alpha = 1, \beta = 1, \gamma=1)$ must fail for
+simple Lipschitz densities.
+No Cheeger-Buser inequality was previously known for
+probability densities without strong
+parametric assumptions.
+
+In another line of work by Von Luxburg et al and Rosasco et
+al~\cite{von2008consistency,rosasco2010learning}, the authors use
+perturbation theory results to show that the second eigenvalue of
+a graph Laplacian generated from samples on a probability
+density converges to what we call the $(\alpha = 1, \gamma =
+2)$-principal eigenvalue of the density. Trillos et
+al.~\cite{TrillosRate15,TrillosVariational15} improved the convergence
+rate and showed that the (extensions of the) eigenvectors of the graph
+Laplacian approach the eigenfunctions of the weighted Laplacian
+operator for a probability density. 
+
+These results show that
+spectral clustering algorithms like the one in
+\cite{NgSpectral01} can be thought of as taking an iid sample
+from a distribution, constructing a graph Laplacian, and computing its
+fundamental eigenvector as an approximation for finding the
+eigenfunction over the original
+distribution. The eigenfunction that they end up approximating is
+the $(\alpha = 1, \gamma = 2)$ eigenfunction. The clustering algorithm
+then takes a sweep cut with respect to this eigenfunction.
+
+Unfortunately, sweep cut
+algorithms based on the $(1, 2)$ eigenfunction can produce cuts
+of probability densities with bad isoperimetry properties. See
+Theorem~\ref{thm:counterexample}. The strength of our Cheeger and Buser
+inequalities are that they will imply new sweep cut algorithms on
+probability densities, with provably good isoperimetry.
+% \textbf{Spectral Clustering and Sweep Cut Algorithms on Data}
+% 
+% The spectral clustering algorithms of Shi and Malik~\cite{ShiMalik97}
+% and those of Ng, Jordan, and Weiss~\cite{NgSpectral01} are some of the
+% most popular clustering algorithms on data (over 10,000 citations).
+% If we want to split data points into two clusters, their algorithm works
+% as follows: for $n$ data points, compute an $n \times n$ matrix $M$ on
+% the data, and compute the principal eigenvector $e$ of the matrix. Then, find a
+% threshold value $t$ such that all points $p$ where $e(p) \leq t$
+% are considered to be on one side of the cut, and all other points
+% where $e(p)  > t$ are on the other. Often, the matrix is a
+% Laplacian matrix of some graph built from the
+% data~\cite{von2007tutorial}.  
+% 
+% Von Luxburg, Belkin, and Bosquet~\cite{von2008consistency} proved that
+% if the data is modeled as $n$ i.i.d samples from a probability density
+% $\rho$, the matrix $M$ is a Laplacian matrix with certain structural
+% assumptions, and certain regularity
+% assumptions on $\rho$ hold, then classical spectral clustering
+% algorithms converge to a $(\alpha = 1, \gamma = 2)$-spectral sweep cut
+% on $\rho$~\footnote{We note that these authors used different terminology to describe this
+% result, as their papers did
+% not define $(\alpha, \gamma)$-spectral sweep cuts.}. These results were refined in~\cite{rosasco2010learning,
+% TrillosRate15, TrillosVariational15}. We note that there are no sparsity
+% guarantees known for a $(\alpha = 1, \gamma=2)$-spectral sweep cut, and
+% we show $1$-Lipschitz examples of $\rho$ where this spectral sweep cut leads to undesirable
+% behavior.
+% 

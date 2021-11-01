@@ -1,0 +1,245 @@
+% \section{Proof of Theorem \ref{thm:buser_n}}
+% \label{app:proof}
+
+Classical calculus will be used to compute the integrals over the
+boundary of the sets in Definition \ref{def:betaBdy}.  Specifically,
+given a bounded convex domain $\Omega \subset \Re^d$
+% with Lipschitz boundary
+and a set $A \subset \Omega$ with finite perimeter, let $u\coloneqq \chi_A$, the characteristic function of $A$, i.e., $u(x) =
+1$ if $x \in A$ and zero otherwise.  Then there exists a sequence of
+functions $\{u_n\}_{n=1}^\infty \subset C^\infty(\Re^d)$ with $u_n
+\rightarrow u$ in $\Lone$ for which \cite{EvansMeasure15}
+% $$
+% \int_{\partial A} \rho^\beta
+% = \lim_{n \rightarrow \infty} \int_\Omega |\nabla u_n| \rho^\beta
+% \eqqcolon  \int_\Omega |\nabla u| \rho^\beta.
+% $$
+\begin{equation} \label{eqn:Aapprox}
+\abs{\boundary A}_\beta
+= \lim_{n \rightarrow \infty} \int_\Omega  \rho^\beta|\nabla u_n|
+\eqqcolon  \int_\Omega  \rho^\beta|\nabla u|.
+\end{equation}
+Interchanging $A$ and $\Omega \setminus A$ if necessary, it follows that
+$\Phi(A)$ defined in Definition \ref{def:betaBdy} can be written as
+% $$
+% \Phi(A) 
+% = \frac{\int_\Omega \rho^\beta |\nabla u|}{\int_\Omega \rho^\alpha u}
+% = \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha u}}
+% \qquad
+% \text{ where } u = \chi_A.
+% $$
+$$
+\Phi(A) 
+= \frac{\int_\Omega \rho^\beta |\nabla u|}{\int_\Omega \rho^\alpha u}
+= \lim_{n\to\infty}\frac{\int_\Omega \rho^\beta\abs{\grad u_n}}{\int_\Omega\rho^\alpha \abs{u_n}}.
+$$
+To prove Theorem \ref{thm:Abuser_n} we construct an approximation $u_\theta$ of
+$u$ for which the numerator and denominator of the Raleigh quotient, $R(u_\theta)$,
+approximate respectively the numerator and denominator of this expression.
+Specifically, $u_\theta$ will constructed as a mollification of $u$,
+\begin{equation} \label{eqn:Autheta}
+u_\theta(x) 
+\coloneqq \int_{B(0,1)} \!\!\! u(x-\theta \rho(x) y) \phi(y) \, dy
+= \int_{\Re^n} \! u(z) \phi_{\theta \rho(x)}(x-z) \, dz,
+\quad \text{ where } \quad
+\phi_{\eta}(z) 
+= \frac{1}{\eta^d} \phi\left(\frac{z}{\eta}\right),
+\end{equation}
+with $\theta > 0$ a parameter to be chosen and $\phi:\Re^d \rightarrow
+[0,\infty)$ a smooth function supported in the unit ball $B(0,1)=\{x
+\in \Re^d| |x| < 1\}$ with unit mass $\int_{\Re^d} \phi = 1$. When
+$\rho$ is constant it follows from the Tonelli theorem that
+$\lone{u_\theta} \leq \lone{u}$; when $\rho$ is not constant Lemma
+\ref{lem:lonetheta} shows that the latter still bounds the former.
+
+
+\begin{proof} (of Theorem \ref{thm:Abuser_n})
+Fix $A \subset \Omega$ with $|A|_\alpha \leq |\Omega|_\alpha / 2$ and let
+$u(x) = \chi_A(x)$ be the characteristic function of $A$. Setting 
+$\ubar$ to be the weighted average of $u$,
+$$
+\ubar 
+= \frac{\int_\Omega \rho^\alpha u}{\int_\Omega \rho^\alpha}
+= \frac{\int_A \rho^\alpha}{\int_\Omega \rho^\alpha}
+= \frac{|A|_\alpha}{|\Omega|_\alpha} \in [0,1/2],
+\qquad \text{ then } \qquad
+\int_\Omega \rho^\alpha (u-\ubar) = 0,
+$$
+and
+$$
+\lone{\rho^\alpha(u-\ubar)} 
+= \int_\Omega \rho^\alpha |u-\ubar| = |A|_\alpha (1-\ubar)
+= 2 \int_\Omega \rho^\alpha |u-\ubar|^2.
+$$
+Since $|A|_\alpha = \lonea{u}$ and $1-\ubar \in [0,1/2]$ it follows that
+\begin{equation} \label{eqn:APhiA}
+  (1/2) \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha(u-\ubar)}} 
+  \leq \Phi(A) = \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha u}}
+  \leq \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha(u-\ubar)}}.
+\end{equation}
+In the calculations below we omit the limiting argument with smooth
+approximations of $u$ in equation \eqnref{:Aapprox} which justify
+formula involving $\nabla u$. In particular, only the $\Lone$ norm
+of $\rho^\beta |\nabla u|$ has meaning; the $\Ltwo$ norm is undefined.
+
+Next, let $u_\theta$ be the mollification of (an extension of) $u$
+given by equation \eqnref{:Autheta}. Then $u_\theta(x)$ is a local
+average average of $u$ so $u_\theta(x) \geq 0$, $\linf{u_\theta} \leq
+1$ and $\linf{u-u_\theta} \leq 1$.  Letting $L$ denote the Lipschitz
+constant of $\rho$, the parameter $\theta$ will to be chosen 
+less than $1/(2L)$ so that that Lemma \ref{lem:lonetheta} is applicable
+with constant $c = 1/2$.
+
+The remainder of the proof constructs an upper bound on the numerator
+$\int_\Omega \rho^\gamma |\nabla u_\theta|^2$ of the Raleigh quotient
+for $u_\theta - \ubar_\theta$ by $\lone{\rho^\beta \nabla u}$ and to
+lower bound the denominator $\int_\Omega \rho^\alpha (u_\theta -
+\ubar_\theta)^2$ by $\lone{\rho^\alpha (u-\ubar)}$. The conclusion
+of the theorem then follows from equation \eqnref{:APhiA}.
+
+\begin{itemize}
+\item {\em Upper Bounding the Numerator:} To bound the $L^2$ norm in
+  the numerator of the Raleigh quotient by the $L^1$ norm in the
+  numerator of the expression for $\Phi(A)$ it is necessary to obtain
+  uniform bound on $\nabla u_\theta$. To do this take the gradient of
+  the second representation of $u_\theta$ in equation \eqnref{:Autheta}
+  to get
+  $$
+  \nabla u_\theta(x) 
+  = \int u(z) \left\{
+    \frac{-d}{\theta \rho} \phi_{\delta}(x-z) \nabla \rho
+    + \frac{1}{(\theta \rho)^{d+1}} 
+    \left( I 
+      + \nabla \rho \otimes \frac{x-z}{\theta \rho} \right)
+    \nabla \phi \left(\frac{x-z}{\theta \rho} \right) \right\} \, dz.
+  $$
+  Multiplying by $\rho$ and noting that $|u(x)| \leq 1$ gives the bound
+  $$
+  |\rho(x) \nabla u_\theta(x)|
+  \leq \frac{C(\phi)}{\theta} (1+L) \linf{u},
+  \quad \text{ where } \quad
+  C(\phi) = \int_{\Re^d} |\nabla \phi(y)| \, dy,
+  $$
+  and $L = \linf{\nabla \rho}$ is the Lipschitz constant for $\rho$. 
+
+  Next, taking the gradient of the first representation of $u_\theta$
+  in equation \eqnref{:Autheta} and using the chain rule shows
+  $$
+  \nabla u_\theta(x) 
+  = \int_{\Re^d} 
+  (I - \theta \nabla \rho \otimes y) \nabla u(x-\theta \rho u) \phi(y) \, dy,
+  $$
+  so
+  $$
+  \rho^\beta(x) \nabla u_\theta(x) 
+  = \int_{\Re^d} 
+  (I - \theta \nabla \rho \otimes y)
+  \frac{\rho^\beta(x)}{\rho^\beta(x-\theta \rho y)}
+  \rho^\beta(x-\theta \rho y) \nabla u(x-\theta \rho y) \phi(y) \, dy.
+  $$
+  The ratio in the integrand is bounded using the Lipschitz assumption
+  on $\rho$ (and $|y| \leq 1$),
+  \begin{equation} \label{eqn:ArhoRatio}
+    \frac{\rho(x)}{\rho(x-\theta \rho y)}
+    \leq \frac{\rho(x)}{\rho(x) - L \theta \rho(x)}
+    = \frac{1}{1 - L \theta} \leq 2,
+    \qquad \text{ when } \theta < 1 / (2L).
+  \end{equation}
+  Similarly, the $\ell^2$ matrix norm of $I - \theta \nabla \rho \otimes
+  y$ is bounded by $3/2$, and and application of Lemma
+  \ref{lem:lonetheta} then shows
+  $$
+  \lone{\rho^\beta \nabla u_\theta} 
+  \leq C(\beta) \lone{\rho^\beta \nabla u},
+  \qquad \text{ when } \theta < 1 / (2L).
+  $$
+  Combining the two estimates gives an upper bound for the Raleigh
+  quotient 
+  $$
+  \int_\Omega \rho^\beta |\nabla u_\theta|^2
+  = \int_\Omega \rho^{\gamma-\beta-1} \,
+  \rho |\nabla u_\theta| \, \rho^\beta |\nabla u_\theta|
+  \leq C(\phi,\beta) \linf{\rho^{\gamma-\beta-1}} \frac{1+L}{\theta} 
+  \linf{u} \lone{\rho^\beta \nabla u},
+  $$
+  under the assumption $\theta \leq 1/(2L)$. Since $\linf{u} \leq 1$
+  it can be dropped from the right hand side.
+
+\item {\em Lower Bound on the Denominator:} Let $\ubar$ and
+  $\ubar_\theta$ be the $\rho^\alpha$--weighted averages of $u$ and
+  $u_\theta$ and let $\ltwoa{.}$ denote the $L^2$ space with this
+  weight. Using the property that subtracting the average from a
+  function reduces the $L^2$ norm it follows that
+  $$
+  \ltwoa{u_\theta - \ubar_\theta}
+  \geq \ltwoa{u-\ubar} - \ltwoa{u_\theta - u - (\ubar_\theta-0)}
+  \geq \ltwoa{u-\ubar} - \ltwoa{u_\theta - u}.
+  $$
+  If $a \geq b-c$ then $a^2 \geq b^2/2 - c^2$, so a lower bound for
+  the denominator of the Raleigh quotient
+  \begin{equation} \label{eqn:Autmu}
+    \ltwoa{u_\theta - \ubar_\theta}^2
+    \geq (1/2) \ltwoa{u}^2 - \ltwoa{u_\theta - u}^2
+    \geq (1/4) \lonea{u} - \lonea{u_\theta - u},
+  \end{equation}
+  where the identity $\ltwoa{u}^2 = \lonea{u}/2$ and bound
+  $\linf{u_\theta - u} \leq 1$ were used in the last step.
+
+  To estimate the difference $\lonea{u_\theta - u}$ use the fundamental
+  theorem of calculus to write
+  \begin{eqnarray*}
+    u_\theta(x) - u(x)
+    &=& \int (u(x - \theta \rho y) - u(x)) \phi(y) \, dy \\
+    &=& \int \! \int_0^1
+    -\theta \rho \nabla u(x - t \theta \rho y).y \phi(y) \, dy \, dt \\
+    &=& \int \! \int_0^1
+    \frac{-\theta \rho(x)}{\rho^\beta(x-t\theta \rho y)} 
+    \rho^\beta(x - t\delta y) \nabla u(x - t \delta y).y \phi(y) \, dy \, dt,
+  \end{eqnarray*}
+  so that 
+  $$
+  \rho^{\alpha}(x) ( u_\delta(x) - u(x) )
+  = \int \! \int_0^1
+  \frac{-\theta \rho^{\alpha+1}(x)}{\rho^\beta(x-t\delta y)} 
+  \rho^\beta(x - t\delta y) 
+  \nabla u(x - t \theta \rho y).y \phi(y) \, dy \, dt.
+  $$
+  Equation \eqnref{:ArhoRatio} bounds the ratio $\rho(x)/ \rho(x - t\delta y)$
+  and an application of Lemma \ref{lem:lonetheta} then shows
+  $$
+  \lonea{u_\theta - u}
+  \leq C(\beta) \linf{\rho^{\alpha+1-\beta}} \theta \lone{\rho^\beta \nabla u}
+  \qquad \text{ when } \theta < 1 / (2L).
+  $$
+  Using this estimate in \eqnref{:Autmu} gives a lower bound on the
+  denominator of the Raleigh quotient,
+  $$
+  \ltwoa{u_\theta - \ubar_\theta}^2
+  \geq (1/4) \lonea{u} 
+  - C(\beta) \theta \linf{\rho^{\alpha+1-\beta}} \lone{\rho^\beta \nabla u},
+  \qquad \text{ when } \theta < 1 / (2L).
+  $$
+  {\em Bounding the Raleigh Quotient:} Combining the two steps above
+  provides an upper bound for the Raleigh quotient of $u_\theta - \ubar_\theta$,
+  \begin{eqnarray*}
+    \lambda_2 
+    &\leq& \frac{\int_\Omega \rho^\gamma |\nabla u_\theta|^2}
+    {\int_\Omega \rho^\alpha (u_\theta - \ubar_\theta)^2} \\
+    &\leq&  \frac{C(\phi,\beta)}{\theta}
+    \frac{\linf{\rho^{\gamma-\beta-1}} (1+L) \lone{\rho^\beta \nabla u}}
+    {\lonea{u} 
+      - C(\beta) \theta \linf{\rho^{\alpha+1-\beta}} \lone{\rho^\beta \nabla u}} \\
+    &\leq&  \frac{C(\phi,\beta)}{\theta}
+    \frac{\linf{\rho^{\gamma-\beta-1}} (1+L)}
+    {1 - C(\beta) \theta \linf{\rho^{\alpha+1-\beta}} \Phi(A)} \Phi(A).
+  \end{eqnarray*}
+  Selecting $\theta = (1/2)
+  \min\left(1/(C(\beta)\linf{\rho^{\alpha+1-\beta}} \Phi(A)), 1/L
+  \right)$ shows
+  \[
+  \lambda_2 \leq 2 C(\phi,\beta)\linf{\rho^{\gamma-\beta-1}}(1+L) 
+  \max\left(L \Phi(A), C(\beta)\linf{\rho^{\alpha+1-\beta}} \Phi(A)^2 \vph\right).
+  \qedhere
+  \]
+\end{itemize}
+\end{proof}

@@ -1,0 +1,85 @@
+\subsubsection{Lifting the points to $\R^n$} % (fold)
+\label{sec:lifting}
+
+  Define a mapping $m: P \to \R^n$.  We do this by adding the points $p_1, \ldots, p_n$, as defined above, one point at a time.
+  For each new point we will introduce a new dimension. We start by setting $m(p_1) = 0$ and by induction:
+  \begin{equation}\label{eq:defn_of_m}
+    m(p_i) = m(p_{i-1}) + \sqrt{\dist_2(s, p_i) - \dist_2(s, p_{i-1})} e_i,
+  \end{equation}
+  where the vectors $e_i$ are the standard basis vectors in $\R^n$.
+  A similar embedding works for some other functions and was extensively studied by Schoenberg and Von Neumann in the theory of screw functions.
+
+  \begin{lemma}\label{lem:m_and_dist}
+    For all $p_i, p_j\in P$, we have
+    \begin{enumerate}
+      \item[(i)] $\|m(p_j) - m(p_i)\| = \sqrt{|\dist_2(s,p_j) - \dist_2(s,p_i)|}$, and
+      \item[(ii)]$\|m(s) - m(p_j)\|^2 \le \|m(p_i)\|^2 + \|m(p_i) - m(p_j)\|^2$.
+    \end{enumerate}
+  \end{lemma}
+  \begin{proof}
+    \emph{Proof of (i).}
+    Without loss of generality, let $i \le j$.
+    Then, by the definition of $m$, expanding the norm, and telescoping the sum, we get the following.
+    \begin{align*}
+      & \|m(p_j) - m(p_i)\| \\
+      &= \left\|\sum_{k=i+1}^j \sqrt{\dist_2(s, p_k) - \dist_2(s, p_{k-1})} e_k \right\| \\
+      &= \sqrt{\sum_{k=i+1}^j (\dist_2(s, p_k) - \dist_2(s, p_{k-1}))}\\
+      &= \sqrt{\dist_2(s, p_j) - \dist_2(s, p_i)}.
+    \end{align*}
+
+    \noindent\emph{Proof of (ii).}
+    As $m(s) = 0$, it suffice to observe that
+    \begin{align*}
+      \|m(p_j)\|^2
+        &= \dist_2(s, p_j) \because{by \emph{(i)}}\\
+        % & \text{[by \emph{(i)}]}\\
+        &\le \dist_2(s, p_i) + |\dist_2(s,p_j) - \dist_2(s,p_i)| \\
+        % & \text{[by basic arithmetic]}\\
+        &= \|m_(p_i)\|^2 + \|m(p_i) - m(p_j)\|^2  \because{by \emph{(i)}}
+        % & \text{[by \emph{(i)}]}
+    \end{align*}
+  \end{proof}
+
+  We can now show that $m$ has all of the desired properties.
+
+  \begin{prop}\label{prop:m_is_good}
+    Let $P\subset\R^d$ be a set of $n$ points, let $s\in P$ be a designated source point, and let $m:P\to \R^n$ be the map defined as in \eqref{eq:defn_of_m}.
+    Let $\dist'$ denote the edge squared metric for the point set $m(P)$ in $\R^n$.
+    Then,
+    \begin{enumerate}
+      \item[(i)] $m$ is $1$-Lipschitz as a map between Euclidean metrics,
+      \item[(ii)] $m$ maps the points of $P$ to the vertices of a box, and
+      \item[(iii)] $m$ preserves the edge squared distance to $s$, i.e.\ $\dist'(m(s), m(p)) = \dist_2(s,p)$ for all $p\in P$.
+    \end{enumerate}
+  \end{prop}
+  \begin{proof}
+    \emph{Proof of (i).} To prove the Lipschitz condition, fix any $a,b\in P$ and bound the distance as follows.
+    \begin{align*}
+      \|m(a) - m(b)\|
+        &= \sqrt{|\dist_2(s,a) - \dist_2(s,b)|} \because{Lem.~\ref{lem:m_and_dist}(i)}\\
+        % & \text{[by Lemma~\ref{lem:m_and_dist}(i)]}\\
+        &\le \sqrt{\dist_2(a,b)} \because{triangle ineq.}\\
+        % & \text{[by triangle inequality]}\\
+        &\le \|a-b\|. \because{by def. of $\dist_2$}\\
+        % & \text{[$\dist_2(a,b)\le \|a-b\|^2$ by the definition of $\dist$]}
+    \end{align*}
+
+    \noindent
+    \emph{Proof of (ii).} That $m$ maps $P$ to the vertices of a box is immediate from the definition.
+    The box has side lengths $\|m_i - m_{i-1}\|$ for all $i>1$ and $p_i = \sum_{k=1}^i \|m_k - m_{k-1}\| e_k$.
+
+    \noindent
+    \emph{Proof of (iii).} We can now show that the edge squared distance to $s$ is preserved.
+    Let $q_0,\ldots, q_k$ be the shortest sequence of points of $m(P)$ that realizes the edge-squared distance from $m(s)$ to $m(p)$, i.e., $q_0 = m(s)$, $q_k = m(p)$, and
+    \[
+      \dist'(m(s), m(p)) = \sum_{i = 1}^k \|m(q_i) - m(q_{i-1})\|^2.
+    \]
+    If $k> 1$, then Lemma~\ref{lem:m_and_dist}(ii) implies that removing $q_1$ gives a shorter sequence.
+    Thus, we may assume $k = 1$ and therefore, by Lemma~\ref{lem:m_and_dist}(i),
+    \[
+      \dist'(m(s), m(p)) = \|m(s) - m(p)\|^2 = \dist_2(s,p). %\qedhere
+    \]
+  \end{proof}
+
+
+% section lifting (end)

@@ -1,0 +1,190 @@
+%!TEX root = ms.tex
+
+\section{Higher dimensions}
+\label{sec:Ahigher_dim}
+In this section the theory of functions of bounded variaion is used to
+provide the abstract notions needed to justify certain formal
+calculations in the proof of Theorem \ref{:??}.
+
+\begin{definition}
+For a measurable set $A\subseteq \Omega$, define
+\begin{align*}
+\abs{A}_\alpha \coloneqq \int_A \rho^\alpha(x)\,dx.
+\end{align*}
+\end{definition}
+We define the weight of the boundary distributionally~\cite{betta2008weighted,parini2011introduction}.
+\begin{definition}
+\label{def:betaBdy}
+For $A\subseteq\Omega$ a set of finite perimeter, define
+\begin{align*}
+\abs{\boundary A}_\beta \coloneqq \sup\set{\int_\Omega \chi_A(x) \div(\rho^\beta (x) \phi(x))\,dx\smid \phi\in C_c^1(\Omega),\, \norm{\phi}_{\infty}\leq 1}.
+\end{align*}
+\end{definition}
+
+\begin{remark}
+  This definition corresponds to the intuitive definition of the
+  boundary integral of $\rho^\beta$ when $\boundary A$ is sufficiently
+  regular.  Specifically, if $A\subseteq\Omega$ has smooth boundary
+  and then,
+  $$
+  \abs{\boundary A}_\beta = \int_{\boundary A} \rho^\beta(x)\,d \mc H^{n-1}(x),
+  $$
+  where $\mc H^{n-1}$ denotes surface (Hausdorf) measure.
+\end{remark}
+
+
+\begin{definition}
+Let $A\subseteq\Omega$ be a set of finite perimeter such that $\abs{A}_\alpha,\abs{\Omega\setminus A}_\alpha >0$. The \textit{isoperimetric ratio} of the cut induced by $A$ is
+\begin{align*}
+\Phi(A) &\coloneqq \frac{\abs{\boundary A}_\beta}{\min\left(\abs{A}_\alpha,\abs{\Omega\setminus A}_\alpha\right)}
+\end{align*}
+and the \textit{isoperimetric constant} of $\Omega$ with weight $\rho$ is
+\begin{align*}
+\Phi(\Omega)\coloneqq \inf_{A\subseteq\overline{\Omega}} \Phi(A).
+\end{align*}
+Here, $A$ is taken over sets of finite perimeter such that $\abs{A}_\alpha,\abs{\Omega\setminus A}_\alpha>0$.
+\end{definition}
+
+Again we define $\lambda_2$ variationally.
+\begin{definition}
+Let $u\in W^{1,2}(\Omega)$. The \textit{Rayleigh quotient} of $u$ is
+\begin{align*}
+R(u) &= \frac{\int_\Omega \rho^\gamma\norm{\grad u}^2\,dx}{\int_\Omega \rho^\alpha u^2\,dx}
+\end{align*}
+and the \textit{second eigenvalue of the Laplacian} on $\Omega$ with weight $\rho$ is
+\begin{align*}
+\lambda_2(\Omega) &\coloneqq \inf_{u\in W^{1,2}}\set{R(u) \smid \int_\Omega \rho^\alpha u \,dx = 0,\, u\neq 0}.
+\end{align*}
+\end{definition}
+
+We now prove a weighted Cheeger inequality in higher dimensions. The proof is almost identical to the proof in one dimension. The only change in the proof is replacing the change of variables formula with a coarea formula.
+\begin{theorem} \label{thm:Acheeger_n}
+Let $\Omega\subseteq\RR^n$ be a bounded convex domain with Lipschitz boundary. Let $\rho:{\Omega}\to\RR_{>0}$ be a Lipschitz function. Then,
+\begin{align*}
+\Phi^2(\Omega) \leq 4 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}^2_\infty \lambda_2(\Omega).
+\end{align*}
+In particular, when $(\alpha,\beta,\gamma) = (1,2,3)$ we have
+\begin{align*}
+\Phi^{2}(\Omega) \leq 4\lambda_2(\Omega).
+\end{align*}
+\end{theorem}
+\begin{proof}
+Let $w\in W^{1,2}$ nonzero with $\int_\Omega \rho^\alpha w\,dx = 0$. Let $v = w+a1$ where $a$ is chosen such that $\abs{\set{v<0}}_\alpha = \abs{\set{v>0}}$. Note that
+\begin{align*}
+R(w) &= \frac{\int_\Omega \rho^\gamma \abs{\grad w}^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx}\\
+&\geq \frac{\int_\Omega \rho^\gamma \abs{\grad w}^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx+ a^2\abs{\Omega}_\alpha}\\
+&= R(v).
+\end{align*}
+Without loss of generality, the function $u = \max(v,0)$ satisfies $R(u)\leq R(v)$.
+
+Let $\Omega_0 = \set{v>0}$. Let $g = u^2$. Noting that $\grad g = 2u\grad u$ a.e., we can apply Cauchy-Schwarz to obtain
+\begin{align*}
+\int_{\Omega_0}\rho^\beta \abs{\grad g}\,dx &= 2\int_{\Omega_0}\rho^\beta \abs{u}\abs{\grad u}\,dx\\
+&\leq 2 \sqrt{\int_{\Omega_0} \rho^{2\beta - \alpha} \abs{\grad u}^2\,dx}\sqrt{\int_{\Omega_0} \rho^{\alpha} u^2\,dx}\\
+&\leq 2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{\int_{\Omega_0} \rho^\gamma \abs{\grad u}^2\,dx}\sqrt{\int_{\Omega_0} \rho^{\alpha} u^2\,dx}.
+\end{align*}
+Then, dividing by $\int_{\Omega_0} \rho^\alpha g\,dx$, we have
+\begin{align*}
+\frac{\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx}{\int_{\Omega_0} \rho^\alpha g\,dx} &\leq2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{R(w)}.
+\end{align*}
+Let $A_t = \set{g>t}$. Then, by the weighted coarea formula,
+\begin{align*}
+\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx = \int_0^\infty \abs{\boundary A_t}_\beta\,dt.
+\end{align*}
+Writing $g(x) = \int_0^{g(x)} 1 \,dt$ and applying Tonelli's thoerem, we rewrite the denominator
+\begin{align*}
+\int_{\Omega_0} \rho^\alpha g\,dx = \int_{0}^\infty \abs{A_t}_\alpha\,dt.
+\end{align*}
+Thus, by averaging, there exists some $t^*$ such that
+\begin{align*}
+\Phi(\Omega) &\leq \Phi(A_{t^*})\\
+&\leq \frac{\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx}{\int_{\Omega_0} \rho^\alpha g\,dx}\\
+&\leq2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{R(w)}.
+\end{align*}
+Optimizing over the set $\set{w\in W^{1,2}\smid w\neq 0,\,\int_\Omega \rho^\alpha w\,dx = 0}$ completes the proof.
+\end{proof}
+
+We now prove our weighted Buser-type inequality.
+
+\begin{theorem} \label{thm:Abuser_n}
+  Let $\Omega\subseteq\RR^n$ be a
+  bounded convex domain with Lipschitz boundary. Let
+  $\rho:\overline{\Omega}\to\RR_{>0}$ be a Lipschitz function with
+  Lipschitz constant $L$. Then,
+\begin{align*}
+\lambda_2(\Omega) \leq 2 C(\phi,\beta)\linf{\rho^{\gamma-\beta-1}}(1+L) 
+  \max\left(L \Phi(A), C(\beta)\linf{\rho^{\alpha+1-\beta}} \Phi(A)^2 \vph\right)
+\end{align*}
+\end{theorem}
+% \begin{proof}
+% Let $A\subseteq\overline{\Omega}$ be a set of finite perimeter such that $\abs{A}_\alpha,\abs{\Omega\setminus A}_\alpha>0$. We will show that there exists a $u$ with small Rayleigh quotient compared to $\Phi(A)$. Let $B = \Omega\setminus A$. Without loss of generality $\abs{A}_\alpha\leq \abs{B}_\alpha$ and hence $\Phi(A) = \frac{\abs{\boundary A}_\beta}{\abs{A}_\alpha}$. For notational convenience we will write $\Phi = \Phi(A)$ in this proof.
+
+% Let
+% \begin{align*}
+% u(x) = \begin{cases}
+% 	\abs{A}_\alpha/\abs{\Omega}_\alpha & x\in B\\
+% 	-\abs{B}_\alpha/\abs{\Omega}_\alpha & x\in A\\
+% 	0 & x\notin \Omega.
+% \end{cases}
+% \end{align*}
+
+% Let $\theta>0$ be a constant independent of $x$ to be picked later and let $\delta = \theta\rho$.
+
+% Let $\phi$ be the standard mollifier i.e. $\phi\in C_c^\infty(\RR^n)$ is a function from $\RR^n\to [0,\infty)$ satisfying $\int_{\RR^n} \phi\,dx = 1$ and $\supp(\phi)\subseteq B(0,1)$. Let $\phi_\epsilon(z) = (1/\epsilon^n)\phi(z/\epsilon)$.
+% \begin{align*}
+% u_\delta(x) &= \int_{\RR^n} u(x-\delta(x) y) \phi(y)\,dy\\
+% &= \int_{\RR^n} u(z)\phi_{\delta(x)}(x-z)\,dz.
+% \end{align*}
+
+% At times we will need other smoothed versions of $u$. By lemma \alex{todo}, there exists a sequence $u_k \in BV(\Omega)\cap C^\infty(\Omega)$ such that $u_k\to u$ in $L^1(U)$ and
+% \begin{align*}
+% \int_\Omega \rho^\beta \abs{\grad u_k}\,dx \to \abs{\boundary A}_\beta
+% \end{align*}
+% as $k\to\infty$.
+
+% We begin by bounding the numerator in $\mc R(u_\delta)$. We split the numerator into three terms $\rho^\gamma \abs{\grad u_\delta}^2 = \rho^{\gamma - \beta - 1} \left(\rho \abs{\grad{u_\delta}}\right)\left(\rho^\beta \abs{\grad{u_\delta}}\right)$. We will bound the first two terms uniformly in terms of $n,\theta, L$. We will show that the third term looks like ``$\grad u$.''
+
+% A calculation shows
+% \begin{align*}
+% \grad u_\delta(x) &= \grad_x\int u(z)\phi_{\delta(x)}(x-z)\,dz\\
+% &= \int u(z)\grad_x\left(\phi_{\delta(x)}(x-z)\right)\,dz\\
+% &= \int u(z)\grad_x\left(\frac{1}{\delta(x)^n}\phi\left(\frac{x-z}{\delta(x)}\right)\right)\,dz\\
+% % &= \int u(z)\left(\frac{-n}{\delta}\phi_{\delta}(x-z)\grad \delta + \frac{1}{\delta^n}\grad \phi\left(\frac{x-z}{\delta}\right)\frac{\delta I - \grad \delta \otimes (x-z)}{\delta^2}\right)\,dz\\
+% &= \int u(z)\left(\frac{-n}{\delta}\phi_{\delta}(x-z)\grad \delta + \frac{1}{\delta^{n+1}}\left(I - \grad \delta \otimes \frac{x-z}{\delta}\right)\right)\grad \phi\left(\frac{x-z}{\delta}\right)\,dz.
+% \end{align*}
+% Multiplying by $\rho(x)$ and taking the magnitude of the resulting vector, we deduce
+% \begin{align*}
+% \rho(x)\abs{\grad u_\delta(x)} &\leq \norm{\frac{\rho}{\delta}}_\infty \norm{u}_\infty
+% \int n\phi_{\delta}(x-z)\abs{\grad \delta} + \frac{1}{\delta^{n}}(1+\abs{\grad \delta})\abs{\grad \phi\left(\frac{x-z}{\delta}\right)}\,dz.
+% \end{align*}
+% Note that $\int \phi_\delta(x-z)\,dz = 1$ and $\int \frac{1}{\delta^n}\abs{\grad \phi\left(\tfrac{x-z}{\delta}\right)}\,dz = \int \abs{\grad \phi(z)}\,dz$ is a constant depending only on $n$. Define $c_n = n + \int\abs{\grad \phi(z)}\,dz$. Thus we can bound $\rho \abs{\grad u_\delta}$ uniformly as
+% \begin{align*}
+% \rho(x)\abs{\grad u_\delta(x)} &\leq c_n \norm{\frac{\rho}{\delta}}_\infty \norm{u}_\infty (1+\norm{\grad \delta}_\infty)\\
+% &\leq c_n (1+L)/\theta.
+% \end{align*}
+% Next bound $\grad u_\delta$ by $\grad u_k$.
+% \begin{align*}
+% \grad u_\delta(x) &= \grad_x \int u(x-\delta(x)y) \phi(y)\,dy\\
+% &= \lim_{k\to\infty} \grad_x \int u_k(x-\delta(x)y)\phi(y)\,dy\\
+% &= \lim_{k\to\infty} \int (I - y\otimes \grad \delta(x))\grad u_k(x-\delta(x)y)\phi(y)\,dy.
+% \end{align*}
+% We multiply this bound by $\rho^\beta(x)$ and use the estimate $\rho(x-\delta(x)y) \geq (1-L\theta)\rho(x)$ to obtain
+% \begin{align*}
+% \rho^\beta(x)\abs{\grad u_\delta(x)} &\leq (1+\norm{\grad\delta}_\infty)\lim_{k\to\infty} \int \rho^\beta(x)\abs{\grad u_k(x-\delta(x)y)}\phi(y)\,dy\\
+% &\leq \frac{1+\norm{\grad\delta}_\infty}{(1-L\theta)^\beta}\lim_{k\to\infty} \int \rho^\beta(x-\delta(x)y)\abs{\grad u_k(x-\delta(x)y)}\phi(y)\,dy\\
+% &= \frac{1+\norm{\grad\delta}_\infty}{(1-L\theta)^\beta}\lim_{k\to\infty} \int \rho^\beta(z)\abs{\grad u_k(z)}\phi_{\delta(x)}(x-z)\,dz.
+% \end{align*}
+% Integrating this estimate over $\Omega$ and applying Lemma \alex{todo}
+% \begin{align*}
+% \int_\Omega \rho^\beta(x) \abs{\grad u_\delta(x)}\,dx &\leq \frac{1+\norm{\grad\delta}_\infty}{(1-L\theta)^\beta} \lim_{k\to\infty} \int_{\Omega} \int \rho^\beta(z)\abs{\grad u_k(z)}\phi_{\delta(x)}(x-z)\,dz\,dx\\
+% &\leq \frac{1+\norm{\grad\delta}_\infty}{(1-L\theta)^{\beta + 1}} \lim_{k\to\infty} \int_{\RR^n} \rho^\beta(z)\abs{\grad u_k(z)}\,dz\\
+% &= \text{\alex{?}} \frac{1+\norm{\grad\delta}_\infty}{(1-L\theta)^{\beta + 1}} \abs{\boundary A}_\beta.
+% \end{align*}
+% Thus we can bound the numerator of $\mc R(u_\delta)$ as
+% \begin{align*}
+% \int_\Omega \rho^{\gamma} \abs{\grad u_\delta}^2 \,dx &\leq c_n\norm{\rho^{\gamma-\beta-1}}_\infty\frac{(1+L)(1+L\theta)}{\theta(1-L\theta)^{\beta+1}} \abs{\boundary A}_\beta. 
+% \end{align*}
+
+% \end{proof}
+
+\input{alex_proof}

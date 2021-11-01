@@ -1,0 +1,147 @@
+\section{Spanners in the Probability Density Setting: Full
+  Proof}\label{ap:distribution-spanner}
+
+We prove Theorem~\ref{thm:distribution-spanner} in full.
+Through this section, we assume that $D$ is a probability density
+function with support on smooth connected compact manifold with intrinsic dimension
+$d$ embedded in ambient space $\mathbb{R}^s$,
+with smooth boundary of bounded curvature. This
+probability density function is further assumed to be bounded
+above and below, and to be Lipschitz. For simplicity, we assume that
+$s=d$, and we can prove all our results when $s > d$ by taking
+coordinate charts from the manifold into Euclidean space.  We
+will show at the end of the section that if the distribution is
+supported on a convex set of full dimension in the ambient space,
+then the $k$-NN graph is Gabriel for the same $k$. It is not
+difficult to see that Gabriel graphs are $1$-spanners of the
+edge-squared metric~\cite{SridharMaster}.
+
+\begin{lemma}
+  Let $\M$ be a compact object in $\mathbb{R}^d$, whose
+  boundary is a smooth manifold of dimension $d-1$ with bounded
+  curvature.
+  Let $\B$ be any ball with sufficiently small radius
+  $r_B$ with center in $\M$, that intersects the boundary of $D$
+  at some point $x$.
+  Let $H$ be the halfspace tangent to $\M$ at $x$ containing the center
+  of the ball.
+
+For any point $Q \in \M$, let $Q'$ be the point in $B$
+closest to $Q$. If $d(Q', H) / r_B > c$ for arbitrary constant $c$,
+then $d(Q, H) \geq c'$ for some constant $c'$.
+\end{lemma}
+
+This is a basic fact about the smoothness and bounded curvature
+of the boundary.
+
+\begin{lemma} Pick $n$ points from $D$. W.h.p, any two points in
+  $Support(D)$ with Euclidean distance $ \geq \Omega(1)$
+  have nearest neighbor metric of $o(1)$.
+\end{lemma}
+
+This is implicit in~\cite{hwang2016}.
+\begin{lemma} For any ball $\B$ with center $O$ and any point $Q'$ on the
+  boundary of $B$, let $B_{Q'O}$ be the ball with diameter $Q'O$.
+  Let $H$ be any halfspace containing $O$.
+  If $d(Q', H) / r_B \leq c$ for some constant
+  $c$ possibly depending on the dimension $d$, then
+  $\volscrew(\B_{Q'O} \cap H) \geq \frac{1-c'}{2^d} \volscrew(\B \cap H)$
+  for some
+  constant $c'$, where $c'$ goes to $0$ as $c$ goes to $0$.
+\end{lemma}
+
+\begin{proof} First, let us consider the case where $d(Q' H) =
+0$, that is, $Q'$ is contained in halfspace $H'$.  In this case,
+  dilating $B_{Q'O} \cap H$ by a factor of $2$ about point $Q'$
+  gives a superset of $B\cap H$, as $B_{Q'O}$ maps to $B$ and $H$
+  maps to a halfspace strictly containing $H$. In this case,
+  $\volscrew(\B_{Q'O} \cap H) \geq \frac{1}{2^d} \volscrew(\B \cap H)$ as
+  desired.
+  The case when
+  $d(Q', H)/r_B$ is bounded follows in a straightforward manner.
+  \end{proof}
+
+
+This leads us to our following theorem:
+\begin{theorem} For any $n$ point set $P$ picked i.i.d from $D$, consider any
+  point $O$. Let $\B$ be the $k$-NN ball of $O$.
+  Let $Q \in Support(D)$ be any point outside
+  $\B$, and let the closest point to $Q$ in $\B$ be $Q'$. For a
+  point $x$ inside $B$ on the boundary of $D$ (assuming such a
+  point exists), let $H$ be the tangent halfplane containing the
+  center of $\B$.
+
+  Then: either $d(Q', H) /
+  r_B \leq c'$ for some constant $c'$ or there exists a constant
+  $c$ where $|QO| > c$. Here, $c$ and $c'$ are
+  independent of the number of points chosen, and $c'$ can be set
+  arbitrarily small.
+
+  In the latter case, w.h.p. $QO$ is not in the edge-squared
+  $1$-spanner. In the former case, setting $c'$ to be a very
+  small constant $\epsilon$ lets us say:
+
+  \begin{align} \label{eq:vol}
+    \volscrew(\B_{Q'O} \cap H) \geq \frac{1-\epsilon}{2^d} \volscrew(\B
+    \cap H),
+  \end{align}
+  or equivalently:
+  \begin{align} \label{eq:prob}
+    & \prob{x\sim D}{x \in \B_{QO} | x \in \B}
+  \\
+    \label{eq:prob-2}
+    \geq & \prob{x\sim D}{x \in \B_{Q'O} | x \in \B}
+  \\ \label{eq:prob-3}
+    \geq & \frac{1-\eps-o(1)}{2^d}
+  \end{align}
+\end{theorem}
+Expression~\ref{eq:prob-2} $>$ Expression~\ref{eq:prob-3} follows from Equation~\ref{eq:vol}, and
+the fact that the radius of the $k$-NN ball goes to $0$ as $n$
+gets large, and thus the probability density of sampling $x$ from
+$D$ conditioned on $x$ being in $\B$ approaches the uniform
+density in $\B \cap Support(D)$. Also, $B \cap H$ approaches $B \cap Support(D)$ as the
+radius of $B$ goes to $0$.
+
+Expression~\ref{eq:prob} $>$
+Expression~\ref{eq:prob-2} since $\B_{QO} \supset B_{Q'O}$.
+(Here, the $k$-NN ball $B$ w.r.t. point $O$ is defined as the ball
+centered at $O$ with radius equal to the distance of the $k^{th}$
+nearest neighbor to $O$).
+
+Note that the $k-1$ nearest neighbors of $O$, conditioned only on
+the radius of $B$, are distributed
+equivalently to $k-1$ i.i.d samples of $D$ conditioned on containment
+in $\B$. It follows
+that for any point $Q$ outside $B$ and in the support of $D$,
+where $|QO|< c$:
+
+\begin{align*}
+  \prob{P \sim D^k}{QO \text{ is not Gabriel w.r.t. $P$} | Q \not\in B}\\
+  \geq 1- \left(1 - \frac{1-\eps-o(1) }{2^d} \right)^k
+\end{align*}
+
+Thus, setting $\epsilon = 0.1$ and $ k > O(\log n/2^d) $, and
+factoring in the case where $|QO| > c$, then w.h.p.:
+\[
+  \prob{P \sim D^k}{QO \text{ is not critical w.r.t. $P$} | Q \not\in B}
+  \]
+Here, we recall that an edge $AB$ is Gabriel with respect to a
+point set $P$ if and only if $\B_{AB}$ does not contain any points
+in $P$. Note that every non-Gabriel edge is non-critical, where a
+critical edge is an edge that must be in the $1$-spanner (as
+in Definition~\ref{def:critical}).
+ Thus taking the union bound over $Q, O \in P$ gives us that
+no edge outside the $k$-NN graph is critical w.h.p, and thus the
+$k$-NN graph contains all critical edges and is a $1$-spanner
+w.h.p.
+
+This proves Theorem~\ref{thm:distribution-spanner} when the
+support of $D$ has the same intrinsic dimension as the ambient
+space. If the support of $D$ has  dimension $d < d'$ (where $d'$
+is the ambient dimension of the space), simply take coordinate charts from
+$D$ onto $\mathbb{R}^d$ and the previous arguments will still
+carry through
+.
+We should note that if no point $x$ inside $B$ on the boundary of
+$D$ exists, then we can ignore $H$ and all the steps of
+the proof still follow.

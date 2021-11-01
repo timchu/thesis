@@ -1,0 +1,86 @@
+\section{Cheeger Inequality for Probability Density Functions}\label{sec:cheeger}
+
+In this section, we prove the Cheeger inequality from
+Theorem~\ref{thm:Cheeger-Buser}. That is a weighted Cheeger inequality in higher dimensions.
+This is the easier to prove than Buser's inequality, which
+contrasts with what happens in the graph case (the graph Buser
+    inequality is trivial).
+
+For a simplified proof of the Cheeger inequality for distributions
+in one-dimension, see Appendix~\ref{sec:one_dim}.
+
+As we will see from simple counterexamples in
+Section~\ref{sec:examples}, the Cheeger-direction does not
+hold for all setting of $(\alpha,\beta,\gamma)$. The proof we give is
+requires fewer assumptions than the Buser inequality for
+probability densities. One, the Cheeger inequality is
+independent of the Lipschitz constant of $\rho$ and two, the proof
+also holds when $\rho$ is supported on a set
+$\Omega \subset \mathbb{R}^d$.
+
+The proof is almost identical to the proof in one dimension and only a
+slight modification of standard proofs The only change in the proof is
+replacing the change of variables formula with a co-area formula.  Let
+$\rho:\Omega \to \RR_>$ be an Lipschitz density function that is
+$(\alpha,\beta,\gamma)$-integrable over an open set $\Omega \subseteq
+\RR^d$.  Note a stronger hypothesis  on $\Omega$ is that it is the support of
+$\rho$ when  $\rho:\RR^d \to \RR_\leq$. 
+
+\begin{theorem}
+\label{thm:cheeger_n}
+Let $\rho:{\Omega}\to\RR_{>0}$ be a Lipschitz function. Then,
+\begin{align*}
+\Phi^2 \leq 4 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}^2_\infty \lambda_2.
+\end{align*}
+In particular, when $(\alpha,\beta,\gamma) = (1,2,3)$ we have
+\begin{align*}
+\Phi^{2} \leq 4\lambda_2.
+\end{align*}
+\end{theorem}
+Here, $\Phi$ is the optimal $(\alpha,\beta)$-sparsity of a cut
+through $\rho$. We note that we can say something a little stronger:
+\begin{theorem}
+\label{thm:cheeger-sweep}
+Let $\rho:{\Omega}\to\RR_{>0}$ be a Lipschitz function. 
+Let $\Phi_{(\alpha,\beta,\gamma)}$ be the $(\alpha,\beta)$
+sparsity of the $(\alpha, \gamma)$ spectral sweep cut. If $\alpha = \beta-1 = \gamma-2$,  then:
+\begin{align*}
+\Phi_{(\alpha, \beta, \gamma)}^2 \leq 4 \lambda_2
+\end{align*}
+\end{theorem}
+\begin{proof} (of both theorems): 
+Let $w\in W^{1,2}$, functions whose gradient is square integrable, nonzero with $\int_\Omega \rho^\alpha w\,dx = 0$. Let $v = w+a1$ where $a$ is chosen such that $\abs{\set{v<0}}_\alpha = \abs{\set{v>0}}$. Note that
+\begin{align*}
+R(w) &= \frac{\int_\Omega \rho^\gamma \abs{\grad w}^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx}\\
+&\geq \frac{\int_\Omega \rho^\gamma \abs{\grad w}^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx+ a^2\abs{\Omega}_\alpha}\\
+&= R(v).
+\end{align*}
+Without loss of generality, the function $u = \max(v,0)$ satisfies $R(u)\leq R(v)$.
+
+Let $\Omega_0 = \set{v>0}$. Let $g = u^2$. Noting that $\grad g = 2u\grad u$ a.e., we can apply Cauchy-Schwarz to obtain
+\begin{align*}
+\int_{\Omega_0}\rho^\beta \abs{\grad g}\,dx &= 2\int_{\Omega_0}\rho^\beta \abs{u}\abs{\grad u}\,dx\\
+&\leq 2 \sqrt{\int_{\Omega_0} \rho^{2\beta - \alpha} \abs{\grad u}^2\,dx}\sqrt{\int_{\Omega_0} \rho^{\alpha} u^2\,dx}\\
+&\leq 2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{\int_{\Omega_0} \rho^\gamma \abs{\grad u}^2\,dx}\sqrt{\int_{\Omega_0} \rho^{\alpha} u^2\,dx}.
+\end{align*}
+Then, dividing by $\int_{\Omega_0} \rho^\alpha g\,dx$, we have
+\begin{align*}
+\frac{\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx}{\int_{\Omega_0} \rho^\alpha g\,dx} &\leq2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{R(w)}.
+\end{align*}
+Let $A_t = \set{g>t}$. Then, by the weighted co-area formula,
+\begin{align*}
+\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx = \int_0^\infty \abs{\boundary A_t}_\beta\,dt.
+\end{align*}
+Writing $g(x) = \int_0^{g(x)} 1 \,dt$ and applying Tonelli's theorem, we rewrite the denominator
+\begin{align*}
+\int_{\Omega_0} \rho^\alpha g\,dx = \int_{0}^\infty \abs{A_t}_\alpha\,dt.
+\end{align*}
+Thus, by averaging, there exists some $t^*$ such that
+\begin{align*}
+\Phi &\leq \Phi(A_{t^*})\\
+&\leq \frac{\int_{\Omega_0} \rho^\beta \abs{\grad g}\,dx}{\int_{\Omega_0} \rho^\alpha g\,dx}\\
+&\leq2 \norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty \sqrt{R(w)}.
+\end{align*}
+Optimizing over the set $\set{w\in W^{1,2}\smid w\neq 0,\,\int_\Omega \rho^\alpha w\,dx = 0}$ completes the proof.
+\end{proof}
+

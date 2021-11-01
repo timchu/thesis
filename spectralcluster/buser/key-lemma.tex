@@ -1,0 +1,117 @@
+\subsection{Key Technical Lemma: Bounding $L_1$ norm of a
+  function with the $L_1$ norm of its
+    mollification}\label{sec:key_lemma}
+The following is our primary technical lemma, which roughly bounds the
+$L_1$ norm of a mollified function $f$ by the $L_1$
+norm of the original $f$. Here, the mollification radius is
+determined by a function $\delta(x)$.
+\begin{lemma} \label{lem:lonetheta} 
+
+  Let
+  $\delta:\RR^d\to\RR$ be Lipschitz continuous with Lipschitz constant
+  $|\grad\delta(x)| \leq c < 1$ for almost every $x \in \bbR^d$. Let
+  $\phi:\RR^d\to\RR_{\geq 0}$ be smooth, $\int_{\RR^d}\phi = 1$, and
+  $\supp(\phi)\subseteq B(0,1)$.  Then
+  \[
+  \frac{1}{1+c}\norm{f}_{L^1}
+  \leq \int_{\RR^d} \int_{B(0,1)} 
+  \abs{f(x-\delta(x) y)}\phi(y)\,dy\,dx\leq
+  \frac{1}{1-c}\norm{f}_{L^1},
+  \qquad
+  f \in L^1(\RR^d).
+  \]
+\end{lemma}
+
+\begin{proof} (of Lemma~\ref{lem:lonetheta})
+An application of Tonelli's theorem shows
+\begin{align}
+\int_{\RR^d} \int_{B(0,1)} \abs{f(x-\delta(x) y)}\phi(y)\,dy\,dx
+=  \int_{B(0,1)}\phi(y)\int_{\RR^d} \abs{f(x-\delta(x)y)}\,dx\,dy.
+\end{align}
+Fix $y\in B(0,1)$ and consider the change of variables $z = x-\delta(x)y$. The
+Jacobian of this mapping is $I - y \otimes \nabla \delta(x)$ which by Sylvester's determinant theorem has
+determinant $1-y.\nabla \delta(x) > 0$. It follows that
+\begin{align}
+\int_{\RR^d} \int_{B(0,1)} 
+\abs{f(x-\delta(x) y)}\phi(y)\,dy\,dx
+=  \int_{B(0,1)}\phi(y)\int_{\RR^d} 
+\frac{|f(z)|}{1-y.\nabla \delta(x)} \, dx \,dy,
+\end{align}
+and the lemma follows since $1-c \leq 1-y.\nabla \delta(x) \leq 1+c$.
+\end{proof}
+(Here, $a.b$ denotes the dot product between $a$ and $b$.)
+
+We present the following simple corollaries, which is the primary
+way our proof makes use of Lemma~\ref{lem:lonetheta}
+
+\begin{corollary}\label{cor:lonetheta}
+For any Lipschitz continuous function $\rho: \bbR^d \rightarrow \bbR^{\geq 0}$
+with Lipschitz constant $L$ and any $\theta$ with $0 < \theta L < 1$, we have:
+$$
+\frac{1}{1+\theta L} \lone{\rho^\beta\nabla u}
+\leq \int_{\bbR^d} \int_{B(0,1)} \rho^\beta ( x - \theta \rho(x) y)
+  |\nabla u(x-\theta \rho(x)y)| \phi(y)\,dy\,dx
+ \leq \frac{1}{1-\theta L} \lone{ \rho^\beta\nabla u},
+$$
+when $\rho^\beta |\nabla u| \in \Lone$.
+\end{corollary}
+
+\begin{proof} (of Corollary~\ref{cor:lonetheta}) Apply
+  Lemma~\ref{lem:lonetheta} with $\delta(x) = \theta \rho(x)$, and
+  $f(x) = \rho^\beta(x) \nabla u(x)$.
+\end{proof}
+
+This corollary will be used to bound the numerator of our
+Rayleigh quotient.
+Note that the expression
+\[ \int_{\bbR^d} \int_{B(0,1)} \rho^\beta ( x - \theta \rho(x) y)
+|\nabla u(x-\theta \rho(x)y)| \phi(y) dy dx
+\]
+is close to $\int_{\bbR^d} \rho^\beta(x) \nabla |u_\theta(x)| dx$ when
+$\theta \leq \frac{1}{2L}$. This is the guiding intuition behind how
+Corollary~\ref{cor:lonetheta} and Lemma~\ref{lem:lonetheta} will be
+used, and will be formalized later in our proof of
+Theorem~\ref{thm:buser_n}.
+
+We present another simple corollary whose proof is equally
+straightforward. This corollary will be used to bound the denominator,
+and is a small generalization of Corollary~\ref{cor:lonetheta}. We
+write down both corollaries anyhow, since this will make it easier to
+interpret our bounds on the Rayleigh quotient.
+
+\begin{corollary}\label{cor:lone-t-theta}
+For any Lipschitz continuous function $\rho: \bbR^d \rightarrow \bbR^{\geq 0}$
+with Lipschitz constant $L$, any $0 < t < 1$, and any $\theta$ with $0 < \theta L < 1$, we have:
+$$
+\frac{1}{1+\theta L} \lone{\rho^\beta \nabla u}
+\leq \int_{\bbR^d} \int_{B(0,1)} \rho^\beta ( x - \theta t \rho(x) y)
+|\nabla u(x-\theta t \rho(x)y)| \phi(y)\,dy\,dx
+\leq \frac{1}{1-\theta L} \lone{ \rho^\beta \nabla u}
+$$
+\end{corollary}
+
+\begin{proof} (of Corollary~\ref{cor:lone-t-theta})
+    Apply Lemma~\ref{lem:lonetheta} with
+    $\delta(x) = \theta t \rho(x)$, and $f(x) = \rho^\beta(x) \nabla u(x)$.
+\end{proof}
+
+A key technical step is to observe that the above two corollaries hold
+when $u$ is a function of bounded variation provided the left and right
+terms are interpreted as their variation. In particular, consider $A
+\subset \Re^d$ with finite perimeter and let $u$ be the
+characteristic function of $A$. ($u(x) = 1$ if $x \in A$ and zero
+otherwise). Then there exists a sequence of functions
+$\{u_n\}_{n=1}^\infty \subset C^\infty(\Re^d)$ with $u_n \rightarrow
+u$ in $\Lone$ for which \cite{EvansMeasure15}
+\begin{equation} \label{eqn:Aapprox}
+\abs{\boundary A}_\beta
+= \lim_{n \rightarrow \infty} \int_\Omega  \rho^\beta|\nabla u_n|
+\eqqcolon  \int_\Omega  \rho^\beta|\nabla u|.
+\end{equation}
+Interchanging $A$ and $\Omega \setminus A$ if necessary, it follows that
+$\Phi(A)$ defined in Definition \ref{def:betaBdy} can be written as
+$$
+\Phi(A) 
+= \frac{\int_\Omega \rho^\beta |\nabla u|}{\int_\Omega \rho^\alpha u}
+= \lim_{n\to\infty}\frac{\int_\Omega \rho^\beta\abs{\grad u_n}}{\int_\Omega\rho^\alpha \abs{u_n}}.
+$$

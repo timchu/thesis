@@ -1,0 +1,50 @@
+\section{Calculating Eigenvalues and Isoperimetry constants for Simple
+  Examples}\label{app:examples}
+Recall from Section~\ref{sec:examples} the definitions of $\rho_1$ and
+$\rho_2$. This section is devoted to computing the eigenvalues and
+isoperimetric constants of these densities. We note that the eigenvalue
+and isoperimetry computation for $\rho_1$ is straightforward, so we omit
+it. The isoperimetry constant for $\rho_2$ is also straightforward, as
+the isoperimetric cut will be at $x = 0$. The only non-trivial
+computation is the $(\alpha,\beta)$-eigenvalue for $\rho_2$.
+
+\subsection{Notation}
+We will write $a\gtrsim b$ if $a\geq cb$ for some absolute constant $0<c<\infty$. Similarly define $a \lesssim b$. We will write $a\asymp b$ if both relations hold.
+
+\subsection{A Lipschitz weight}
+\label{subsec:lipschitz_example}
+
+It is clear that
+\begin{align*}
+\Phi \asymp \epsilon^\beta.
+\end{align*}
+Next, we apply the Hardy-Muckenhoupt inequality~\cite{MillerHardy18} to estimate $\lambda_2$
+for $\rho_2$. 
+
+We upper bound $\H$ as:
+
+\begin{align*}
+\H &\leq\R(1)\M(0)\\
+  &\asymp  \int_0^1 \frac{1}{(x+\epsilon)^{\gamma}}\,dx\\
+& \lesssim \begin{cases}
+  1 & \text{if } \gamma<1\\
+  \ln\left(1/\epsilon\right)& \text{if } \gamma = 1\\
+  O\epsilon^{1-\gamma}& \text{if } \gamma>1.
+\end{cases}
+\end{align*}
+By the Hardy-Muckenhoupt inequality, we can lower bound $\lambda_2$ with
+the inverse of an upper bound on $\H$. Thus, as claimed in
+Section~\ref{sec:examples}, we can lower bound $\lambda_2$ with
+$\epsilon^{\gamma - 1}$ when $\gamma \geq 1$.
+
+Thus, if we want a Buser-type inequality to hold, then $(\alpha,\beta,\gamma)$ needs to satisfy,
+\begin{align*}
+\begin{cases}
+  1\lesssim \lambda_2 \lesssim \max(\Phi,\Phi^2)  \asymp \epsilon^\beta & \text{if } \gamma<1\\
+  \frac{1}{\ln\left(1/\epsilon\right)}\lesssim \lambda_2 \lesssim \max(\Phi,\Phi^2)  \asymp \epsilon^\beta& \text{if } \gamma = 1\\
+  \epsilon^{\gamma-1}\lesssim \lambda_2 \lesssim \max(\Phi,\Phi^2)  \asymp \epsilon^\beta& \text{if } \gamma>1.
+\end{cases}
+\end{align*}
+By letting $\epsilon$ go to zero, it is clear that $\gamma-1\geq \beta$,
+   as desired.
+

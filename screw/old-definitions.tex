@@ -1,0 +1,63 @@
+% !TeX root = main.tex
+
+\section{Definitions} % (fold)
+\label{sec:definitions}
+
+\subsection{Definitions for Theorem~\ref{thm:NN}}
+  For $x\in \R^d$, let $\|x\|$ denote the Euclidean norm.
+  For a set of points $P\subset \R^d$, we can consider some other metrics as well.
+  
+  
+  \begin{definition}
+  The \textbf{edge-squared metric} for $a,b\in P$ is
+  \[
+    \dist_2(a,b) = \min_{(p_0,\ldots, p_k)}\sum_{i=1}^k \|p_i - p_{i-1}\|^2,
+  \]
+  where the minimum is over sequences of points $p_0,\ldots, p_k\in P$ with $p_0 = a$ and $p_k = b$.
+  \end{definition}
+
+  Another metric on the points of $P$ is called the \textbf{nearest neighbor Geodesic} and is denoted $\dist_N$.
+  Before we can define it, we need a couple other definitions.
+
+  Given any finite set $P\subset \R^k$, there is a real-valued function $\distto_P: \R^k\to \R$ defined as $\distto_P(z) = \min_{x\in P} \|x-z\|$.
+  A path is a continuous mapping $\gamma:[0,1]\to \R^d$.
+  Let $\ourpath(a,b)$ denote the set of piecewise-$C_1$ paths from $a$ to $b$.
+  We will compute the lengths of paths relative to the distance function $\distto_P$ as follows.
+  \[
+    \len(\gamma) := \int_0^1 \distto_P(\gamma(t))\|\gamma'(t)\|dt.
+  \]
+  By considering the velocity of $\gamma$, this definition is
+  independent of the parameterization of the path.
+  \begin{definition}
+    The \textbf{nearest neighbor Geodesic} is defined as:
+  \[
+    \dist_N(a,b) := 4 \inf_{\gamma\in \ourpath(a,b)}\len(\gamma).
+  \]
+  The factor of $4$ normalizes the metrics.
+  \end{definition}
+  In particular, when $P$ has only two points $a$ and $b$, $\dist_2(a,b) = \dist_N(a,b)$.
+  This reduces to a high school calculus exercise as the minimum path $\gamma$ will be a straight line between the points and the nearest neighbor distance is
+  \[
+    \dist_N(a,b) = 4\int_0^1 \distto_P(\gamma(t))\|\gamma'(t)\|dt = 8\int_0^{\frac{1}{2}} t \|a - b\|^2 dt = \|a - b\|^2 = \dist_2(a,b).
+  \]
+
+  This observation about pairs of points makes it easy to see that the nearest neighbor distance is never greater than the edge-squared distance as proven in the following lemma.
+
+  \begin{lemma}\label{lem:dist_N_le_dist}
+    For all $s,p\in P$, we have $\dist_N(s,p)\le \dist_2(s,p)$.
+  \end{lemma}
+  \begin{proof}
+    Fix any points $s,p\in P$.
+    Let $q_0,\ldots, q_k \in P$ be such that $q_0 = s$, $q_k = p$ and
+    \[
+      \dist_2(s,p) = \sum_{i=1}^k \|q_i - q_{i-1}\|^2.
+    \]
+    Let $\psi_i(t) = tq_i + (1-t)q_{i-1}$ be the straight line segment from $q_{i-1}$ to $q_i$.
+    Observe that $\len(\psi_i) = \|q_i - q_{i-1}\|^2 / 4$, by the same argument as in the two point case.
+    Then, let $\psi$ be the concatenation of the $\psi_i$ and it follows that
+    \[
+      \dist_2(s,p) = 4 \len(\psi) \ge 4 \inf_{\gamma\in \ourpath(s,p)} \len(\gamma) = \dist_N(s,p).\qedhere
+    \]
+  \end{proof}
+  
+% section definitions (end)

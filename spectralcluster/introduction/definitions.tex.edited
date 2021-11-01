@@ -1,0 +1,77 @@
+\subsection{Definitions}\label{sec:definitions}
+To establish our Cheeger and Buser inequalities, we define new
+notions of isoperimetric constant (equivalently, sparsity), Rayleigh
+quotients, eigenvalues, eigenvectors, and sweep cuts. Appropriate
+definitions will let us establish basic spectral theory in the Lipschitz
+probability density setting.
+
+\vspace{2 mm}
+
+\begin{definition} Let $\rho$ be a probability density function with domain
+  $\mathbb{R}^d$, and let $A$ be a
+  subset of $\mathbb{R}^d$.
+
+  The \textbf{$(\alpha, \beta)$-sparsity} of the cut induced by $A$ is
+  denoted by $\rho(A)$. It is defined as $(d-1)$ dimensional integral of $\rho^\beta$ on the cut, divided
+  by the $d$ dimensional integral of $\rho^\alpha$ on the side of the
+  cut where this integral is smaller.  \end{definition}
+
+For nice smooth cuts this
+  intuitive definition is fine but a more general and precise
+  definition using total variation is given in the
+  appendix~\ref{sec:higher_dim}.
+
+  \begin{definition}
+The \textbf{$(\alpha, \beta)$-isoperimteric constant} of
+  $\rho$ is defined as the infemum of $\Phi(A)$ over all $A$.
+  \end{definition}
+
+\vspace{2 mm}
+
+\begin{definition}
+The \textbf{$(\alpha, \gamma)$-Rayleigh quotient} of $u$ with
+respect to $\rho:\Re^d \to \Re_{\geq 0}$ is:
+
+\[
+  R_{\alpha, \gamma}(u) \coloneqq \frac{\int_{\Re^d} \rho^\gamma
+  |\nabla u|^2}{\int_{\Re^d} \rho^{\alpha}|u|^2} 
+\]
+
+A \textbf{$(\alpha, \gamma)$-principal eigenvalue} of $\rho$ is
+$\lambda_2$, where:
+
+\[ \lambda_2 := \inf_{\int \rho^\alpha u = 0} R_{\alpha, \gamma}(u). \]
+
+Define a \textbf{$(\alpha, \gamma)$-principal eigenfunction} of
+$\rho$ to be a function $u$ such that $R_{\alpha, \gamma}(u) =
+\lambda_2$, if such $u$ exists.
+\end{definition}
+\vspace{2 mm}
+
+Now we define a sweep cut for a given function with respect to a
+a positive valued function supported on $\mathbb{R}^d$:
+
+\vspace{2 mm}
+\begin{definition} Let $\alpha, \beta$ be two real numbers, and $\rho$ be
+  any function from $\Re^d$ to $\Re_{\geq 0}$.
+  Let $u$ be any function from $\Re^d \to \Re$, and let $C_{t, u}$ be the cut
+  defined by the set $\{s \in \Re^d | u(s) > t\}$. 
+  
+  The \textbf{sweep-cut} algorithm
+  for $u$ with respect to $\rho$ returns the cut $C_{t,u}$ of minimum $(\alpha,
+  \beta)$ sparsity, where this sparsity is measured with respect to $\rho$.
+
+When $u$ is a $(\alpha, \gamma)$-principal eigenfunction, the sweep cut is called
+a \textbf{$(\alpha, \gamma)$-spectral sweep cut} of $\rho$.  
+\end{definition}
+
+\textbf{Additional Definitions:}
+
+A function $\rho: \Re^d \to \Re_{\geq 0}$ is
+\textbf{$L$-Lipschitz} if $|\rho(x)-\rho(y)|_2 \leq L|x-y|_2$ for
+all $x, y \in \Re^d.$
+
+A function is $\rho:\Re^d \to \Re_{\geq 0}$ is
+\textbf{$\alpha$-integrable} if $\int_{\Re^d} \rho^\alpha$ is
+well defined and finite. Throughout this paper, we assume $\rho$
+is always $\alpha$-integrable.

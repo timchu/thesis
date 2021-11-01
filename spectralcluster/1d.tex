@@ -1,0 +1,130 @@
+%!TEX root = ms.tex
+
+\section{A weighted Cheeger inequality in one dimension}
+\label{sec:one_dim}
+\begin{theorem}
+\label{thm:cheeger_1}
+Let $\Omega = (a,b)$ where $-\infty<a<b<\infty$. Let $\rho:(a,b)\to\RR_{>0}$ be Lipschitz continuous. Then,
+\begin{align*}
+\Phi(\Omega)^{2} &\leq 4\norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}^2_\infty\lambda_2(\Omega).
+\end{align*}
+In particular, when $(\alpha,\beta,\gamma) = (1,2,3)$, we have
+\begin{align*}
+\Phi(\Omega)^2\leq 4\lambda_2(\Omega).
+\end{align*}
+\end{theorem}
+\begin{proof}
+Let $w\in W^{1,2}(\Omega) \cap C^\infty(\Omega)$ be a strictly decreasing function with $\int_\Omega\rho^\alpha w\,dx = 0$.
+Let $v = w + a1$ where $a$ is chosen such that
+$\abs{\set{v<0}}_\alpha = \abs{\set{v>0}}_\alpha$.
+Note that
+\begin{align*}
+R(w) &= \frac{\int_\Omega \rho^\gamma (w')^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx}\\
+&\geq \frac{\int_\Omega \rho^\gamma (w')^2\,dx}{\int_\Omega \rho^\alpha w^2\,dx + a^2 \abs{\Omega}_\alpha}\\
+&= R(v).
+\end{align*}
+Let $\hat x\in(a,b)$ be the unique value such that $v(\hat x) = 0$. Without loss of generality, the function $u= \max(v,0)$ satisfies $R(u)\leq R(v)$ and has $u(a)= 1$.
+
+Let $g = u^2$. Noting that $g' = 2uu'$ a.e., we can apply Cauchy-Schwarz to obtain
+\begin{align*}
+\int_a^{\hat x} \rho^\beta \abs{g'}\,dx
+&= 2\int_a^{\hat x} \rho^\beta \abs{u}\abs{u'}\,dx\\
+&\leq 2\sqrt{\int_a^{\hat x} \rho^{2\beta-\alpha} (u')^2\,dx}\sqrt{\int_a^{\hat x} \rho^\alpha u^2\,dx}\\
+&\leq 2\norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty\sqrt{\int_a^{\hat x} \rho^\gamma (u')^2\,dx}\sqrt{\int_a^{\hat x} \rho^\alpha u^2\,dx}.
+\end{align*}
+Then, dividing by $\int_a^{\hat x} \rho^\alpha g\,dx$, we have
+\begin{align*}
+\frac{\int_a^{\hat x} \rho^\beta \abs{g'}\,dx}{\int_a^{\hat x} \rho^\alpha g\,dx} &\leq 2\norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty\sqrt{ R(w)}.
+\end{align*}
+By change of variables,
+\begin{align*}
+\int_a^{\hat x} \rho^\beta \abs{g'}\,dx &= \int_{0}^{1} \rho^\beta(g^{-1}(t))\,dt.
+\end{align*}
+Writing $g(x) = \int_0^{g(x)} 1\,dt$ and applying Tonelli's theorem, we rewrite the denominator
+\begin{align*}
+\int_a^{\hat x} \rho^\alpha g\,dx &= \int_{0}^{1}\abs{(a,g^{-1}(t))}_\alpha\,dt.
+\end{align*}
+Thus, by averaging, there exists some $t^*$ such that,
+\begin{align*}
+\Phi(\Omega) &\leq \frac{\rho^\beta(t^*)}{\abs{(a,t^*)}_\alpha}
+\leq \frac{\int_a^{\hat x}\rho^\beta \abs{g'}\,dx}{\int_a^{\hat x}\rho^\alpha g\,dx}
+\leq 2\norm{\rho^{\beta - \frac{\alpha+\gamma}{2}}}_\infty\sqrt{R(w)}.
+\end{align*}g
+% Applying Lemma \ref{lem:c_infty_dense} completes the proof.
+\end{proof}
+
+\begin{theorem}
+\label{thm:buser_1}
+Let $\Omega = (a,b)$ where $-\infty<a<b<\infty$. Let $\rho:(a,b)\to\RR_{>0}$ be Lipschitz continuous with Lipschitz constant $L$. Then,
+\begin{align*}
+\lambda_2(\Omega) &\leq 8\cdot (3/2)^{\gamma/\alpha} \norm{\rho^{\gamma -1 - \beta}}_\infty \max\left(4\norm{\rho^{\alpha+1-\beta}}_\infty \Phi^2(\Omega), \frac{\alpha}{\ln(3/2)}L\Phi(\Omega)\right).
+\end{align*}
+In particular, when $(\alpha,\beta,\gamma) = (1,2,3)$, we have
+\begin{align*}
+\lambda_2(\Omega) &\leq O\left(\max\left(\Phi^2(\Omega), L\Phi(\Omega)\right)\right).
+\end{align*}
+\end{theorem}
+\begin{proof}
+Let $\hat x\in(a,b)$. We will show that there exists a $u\in W^{1,2}(\Omega)$ with small Rayleigh quotient compared to $\Phi(\hat x)$.
+Let $A = (a,\hat x)$ and $B = (\hat x, b)$. Without loss of generality $\abs{A}_\alpha \leq \abs{B}_\alpha$ and hence $\Phi(\hat x) = \frac{\rho^\beta (\hat x)}{\abs{A}_\alpha}$. For notational convenience, we will write $\Phi = \Phi(\hat x)$ in this proof.
+
+Let
+\begin{align*}
+u(x) = \begin{cases}
+	\abs{A}_\alpha & a \leq x \leq \hat x\\
+	-\abs{B}_\alpha & \hat x < x\leq b.
+\end{cases}
+\end{align*}
+Let $\delta=\theta \rho(\hat x)$ where $\theta>0$ will be picked later. Define the continuous function
+\begin{align*}
+u_\delta(x) = \begin{cases}
+	\abs{A}_\alpha & a \leq x \leq x_1\\
+	\text{linear with slope }\frac{-\abs{\Omega}_\alpha}{\delta} & x_1 \leq x \leq x_2\\
+	-\abs{B}_\alpha & x_2 \leq x \leq b
+\end{cases}
+\end{align*}
+where $a\leq x_1<\hat x< x_2\leq b$ are picked such that $\int_a^b \rho^\alpha u_\delta\,dx = 0$. Note $x_2 - x_1\leq \delta$.
+
+We bound the numerator in $R(u_\delta)$ using the mean value theorem.
+\begin{align*}
+\int_a^b \rho^\gamma (u_\delta')^2\,dx  &= \frac{\abs{\Omega}_\alpha^2}{\delta^2}\int_{x_1}^{x_2}\rho^\gamma \,dx\\
+&\leq \frac{\abs{\Omega}_\alpha^2}{\delta}\rho^\gamma(\tilde x)\hspace{2em}\text{for some }\tilde x \in[x_1,x_2]\\
+&\leq \abs{\Omega}_\alpha^2\rho^{\gamma-1}(\hat x)(1+L\theta)^\gamma/\theta
+\end{align*}
+In the third line we used the Lipschitz estimate $\rho(\tilde x) \leq \rho(\hat x)(1+L\theta)$.
+We lower bound the denominator in $R(u_\delta)$ using the mean value theorem and the same Lipschitz estimate. We will also recall that $\Phi = \rho^\beta(\hat x)/\abs{A}_\alpha$.
+\begin{align*}
+\int_a^b \rho^\alpha u_\delta^2\,dx &\geq \int_a^b \rho^\alpha u^2\,dx - \int_{x_1}^{x_2}  \rho^\alpha u^2\,dx\\
+&\geq \abs{A}_\alpha\abs{B}_\alpha\abs{\Omega}_\alpha - \delta\rho^\alpha(\tilde x)\abs{B}_\alpha^2\hspace{2em}\text{for some }\tilde x \in[x_1,x_2]\\
+&\geq \abs{A}_\alpha\abs{B}_\alpha\abs{\Omega}_\alpha - \rho^{\alpha+1}(\hat x)\abs{B}_\alpha^2(1+L\theta)^\alpha\theta\\
+&\geq \abs{\Omega}_\alpha^2\left(\abs{A}_\alpha/2 - \rho^{\alpha+1}(\hat x) (1+L\theta)^\alpha \theta\right)\\
+&\geq \abs{\Omega}_\alpha^2\abs{A}_\alpha\left(1/2 - \norm{\rho^{\alpha+1-\beta}}_\infty \Phi (1+L\theta)^\alpha \theta\right)
+\end{align*}
+The parameter $\theta$ will be chosen such that the estimate of the denominator is positive.
+We combine the two bounds above.
+\begin{align*}
+R(u_\delta)
+&\leq \frac{\abs{\Omega}_\alpha^2\rho^{\gamma-1}(\hat x)(1+L\theta)^\gamma/\theta}{\abs{\Omega}_\alpha^2\abs{A}_\alpha\left(1/2 - \norm{\rho^{\alpha+1-\beta}}_\infty \Phi (1+L\theta)^\alpha \theta\right)}\\
+&= \frac{\rho^{\gamma-1-\beta}(\hat x)\Phi(1+L\theta)^\gamma/\theta}{1/2 - \norm{\rho^{\alpha+1-\beta}}_\infty \Phi (1+L\theta)^\alpha \theta}\\
+&\leq \frac{\norm{\rho^{\gamma -1 - \beta}}_\infty\Phi(1+L\theta)^\gamma/\theta}{1/2 -\norm{\rho^{\alpha + 1 - \beta}}_\infty\Phi(1+L\theta)^\alpha\theta}.
+\end{align*}
+
+We make the following choice of $\theta>0$,
+\begin{align*}
+\theta = \min\left(\frac{1}{4\Phi\norm{\rho^{\alpha+1-\beta}}_\infty}, \frac{\ln(3/2)}{\alpha L} \right).
+\end{align*}
+Then, $(1+L\theta)\leq (3/2)^{1/\alpha}$ and $\Phi\theta \leq \frac{1}{4\norm{\rho^{\alpha+1-\beta}}_\infty}$. Thus,
+\begin{align*}
+\lambda_2 &\leq R(u_\delta)\\
+&\leq 8\cdot (3/2)^{\gamma/\alpha} \norm{\rho^{\gamma -1 - \beta}}_\infty \frac{\Phi}{\theta}\\
+&= 8\cdot (3/2)^{\gamma/\alpha} \norm{\rho^{\gamma -1 - \beta}}_\infty \max\left(4\norm{\rho^{\alpha+1-\beta}}_\infty \Phi^2, \frac{\alpha}{\ln(3/2)}L\Phi\right).
+\end{align*}
+Finally, picking $\hat x$ such that $\Phi(\hat x)\to \Phi(\Omega)$ completes the proof.
+\end{proof}
+
+\begin{remark}
+Recall the example presented in Section~\ref{subsec:lipschitz_example}, i.e. $\Omega = (-1,1)$, $\rho = \abs{x}+\epsilon$. For the choice $(\alpha,\beta,\gamma) = (1,1,1)$, it was shown that $\frac{\lambda_2(\Omega)}{\Phi(\Omega)^{p}}$ diverges to infinity as $\epsilon\to 0$ for any $p>0$. This does not contradict our Theorem~\ref{thm:buser_1}, which only asserts that
+\begin{align*}
+\lambda_2(\Omega) &\lesssim \frac{1}{\epsilon}\max\left(\Phi^{2}(\Omega),\Phi(\Omega)\right).
+\end{align*}
+\end{remark}

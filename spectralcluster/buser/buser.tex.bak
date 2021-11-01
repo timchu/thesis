@@ -1,0 +1,144 @@
+%!TEX root = ms.tex
+
+\section{Buser Inequality for Probability Density Functions} \label{sec:buser}
+
+In this section the theory of functions of bounded variaion is used to
+justify certain formal calculations. The key step is to define the geometric
+quantities variationally.
+
+\begin{definition}
+  For a measurable set $A\subseteq \Re^d$ and $\rho:\Re^d \rightarrow
+  \Re_{\geq 0}$ integrable define
+  \begin{align*}
+    \abs{A}_\alpha \coloneqq \int_A \rho^\alpha(x)\,dx.
+  \end{align*}
+\end{definition}
+
+We define the weighted boundary area
+variationally~\cite{betta2008weighted,parini2011introduction}.
+
+\begin{definition}
+\label{def:betaBdy}
+For $\rho:\Re^d \rightarrow \Re_{\geq 0}$ integrable and $A\subseteq\Re^d$
+the weighted perimeter of $A$ is
+\begin{align*}
+\abs{\boundary A}_\beta \coloneqq \sup\set{
+\int_A \div(\rho^\beta (x) \phi(x))\,dx
+\smid \phi\in C_c^1(\Re^d),\, \norm{\phi}_{\infty}\leq 1}.
+\end{align*}
+\end{definition}
+
+\begin{remark}
+  This definition corresponds to the intuitive definition of the
+  boundary integral of $\rho^\beta$ when $\boundary A$ is sufficiently
+  regular.  Specifically, if $A\subseteq\Re^d$ has smooth boundary
+  and then,
+  $$
+  \abs{\boundary A}_\beta = \int_{\boundary A} \rho^\beta(x)\,d \mc H^{n-1}(x),
+  $$
+  where $\mc H^{n-1}$ denotes surface (Hausdorf) measure.
+\end{remark}
+
+\begin{definition}
+  Let $A\subseteq\Re^d$ be a set of finite perimeter such that
+  $\abs{A}_\alpha,\abs{\Re^d\setminus A}_\alpha >0$. The
+  \textit{isoperimetric ratio} of the cut induced by $A$ is
+\begin{align*}
+\Phi(A) &\coloneqq \frac{\abs{\boundary A}_\beta}
+{\min\left(\abs{A}_\alpha,\abs{\Re^d\setminus A}_\alpha\right)}
+\end{align*}
+and the \textit{isoperimetric constant} with weight $\rho$ is
+\begin{align*}
+  \Phi \coloneqq \inf_{A\subseteq \Re^d} \Phi(A).
+\end{align*}
+Here, $A$ is taken over sets of finite perimeter such that
+$\abs{A}_\alpha,\abs{\Re^d \setminus A}_\alpha>0$.
+\end{definition}
+
+\subsection{Weighted Buser-type Inequality}
+
+We now prove our weighted Buser-type inequality
+Theorem~\ref{thm:Cheeger-Buser}. We state our result in terms of
+general $(\alpha, \beta, \gamma)$.
+
+\begin{theorem}
+  \label{thm:buser_n}
+  Let $\rho: \Re^d \to \Re_{\geq 0}$ be an $L$-Lipschitz function,
+  $\lambda_2$ be a $(\alpha, \gamma)$-principal eigenvalue, and
+  $\Phi$ the $(\alpha, \beta)$ isoperimetric cut.
+
+  Then:
+  \begin{align*}
+    \lambda_2 \leq 3 \cdot 2^{\beta + 1} d \linf{\rho^{\gamma-\beta-1}}
+    \max\left(L \Phi, 2^{\beta+1}\linf{\rho^{\alpha+1-\beta}} \Phi^2 \vph\right)
+\end{align*}
+\end{theorem}
+
+We note that when setting $(\alpha, \beta, \gamma) = (1,2,3)$,
+the above expression simplifies into:
+
+\begin{align*}
+  \lambda_2 \leq 24 d 
+  \max\left(L \Phi, 8 \Phi^2 \vph\right).
+\end{align*}
+
+\input{buser/utheta-construction}
+\input{buser/key-lemma}
+
+Now we are ready to prove our main Theorem, which is the Buser
+inequality for probability densities stated in
+Theorem~\ref{thm:buser_n}.
+\begin{proof} (of Theorem \ref{thm:buser_n})
+
+Fix $A \subset \RR^d$ with $|A|_\alpha \leq |1|_\alpha / 2$ and let
+$u(x) = \chi_A(x)$ be the characteristic function of $A$. Setting 
+$\ubar$ to be the weighted average of $u$,
+\[
+\ubar 
+= \frac{\int \rho^\alpha u}{\int \rho^\alpha}
+= \frac{\int_A \rho^\alpha}{\int \rho^\alpha}
+= \frac{|A|_\alpha}{|1|_\alpha} \in [0,1/2],
+\qquad \text{ then } \qquad
+\int \rho^\alpha (u-\ubar) = 0,
+\]
+and
+  \begin{equation}\label{eqn:blah}
+\lone{\rho^\alpha(u-\ubar)} 
+= \int \rho^\alpha |u-\ubar| = 2 |A|_\alpha (1-\ubar)
+= 2 \int \rho^\alpha |u-\ubar|^2.
+  \end{equation}
+
+Since $|A|_\alpha = \lonea{u}$ and $1-\ubar \in [0,1/2]$ it follows that
+
+\begin{equation} \label{eqn:PhiA}
+  (1/2) \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha(u-\ubar)}} 
+  \leq \Phi(A) = \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha u}}
+  \leq \frac{\lone{\rho^\beta \nabla u}}{\lone{\rho^\alpha(u-\ubar)}}.
+\end{equation}
+
+In the calculations below we omit the limiting argument with smooth
+approximations of $u$ in equation \eqnref{:Aapprox} which justify
+formula involving $\nabla u$. In particular, only the $\Lone$ norm
+of $\rho^\beta |\nabla u|$ will appear in the estimates since this
+has meaning while the $\Ltwo$ norm is undefined.
+
+Next, let $u_\theta$ be the mollification of (an extension of) $u$
+given by equation \eqnref{:utheta}. Then $u_\theta(x)$ is a local
+average average of $u$ so $u_\theta(x) \geq 0$, $\linf{u_\theta} \leq
+1$ and $\linf{u-u_\theta} \leq 1$.  Letting $L$ denote the Lipschitz
+constant of $\rho$, the parameter $\theta$ will to be chosen 
+less than $1/(2L)$ so that that Lemma \ref{lem:lonetheta} is applicable
+with constant $c = 1/2$.
+
+The remainder of the proof constructs an upper bound on the numerator
+  $\int_{\bbR^d} \rho^\gamma |\nabla u_\theta|^2$ of the Rayleigh quotient
+for $u_\theta - \ubar_\theta$ by $\lone{\rho^\beta \nabla u}$ and to
+  lower bound the denominator $\int_{\bbR^d} \rho^\alpha (u_\theta -
+\ubar_\theta)^2$ by $\lone{\rho^\alpha (u-\ubar)}$. The conclusion
+of the theorem then follows from equation \eqnref{:PhiA}.
+
+\input{buser/numerator}
+\input{buser/denominator}
+\input{buser/mollifier}
+\end{proof}
+

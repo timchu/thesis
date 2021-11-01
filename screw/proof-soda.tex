@@ -1,0 +1,47 @@
+%\subsection{Equivalence} % (fold)
+\label{sec:the_proof}
+
+  Let $P\subset \R^d$ be a set of $n$ points.
+  Pick any \emph{source} point $s\in P$.
+  Order the points of $P$ as $p_1,\ldots ,p_n$ so that
+  \[
+    \dist_2(s,p_1) \le \cdots \le \dist_2(s, p_n).
+  \]
+  This will imply that $p_1 = s$.
+  It will suffice to show that for all $p_i\in P$, we have $\dist_2(s,p_i) = \dist_N(s,p_i)$.
+  There are three main steps:
+  \begin{enumerate}
+    \item We first show that when $P$ is a subset of the vertices of an axis-aligned box, $\dist = \dist_N$.  In this case, shortest paths for $\dist$ are single edges and shortest paths for $\dist_N$ are straight lines.
+    \item We then show how to lift the points from $\R^d$ to $\R^n$ by a Lipschitz map $m$ that places all the points on the vertices of a box and preserves $\dist_2(s,p)$ for all $p\in P$.
+    \item Finally, we show how the Lipschitz extension of $m$ is also Lipschitz as a function between nearest neighbor metrics.  We combine these pieces to show that $\dist \le \dist_N$.  As $\dist \ge \dist_N$ (Lemma~\ref{lem:dist_N_le_dist}), this will conclude the proof that $\dist = \dist_N$.
+  \end{enumerate}
+The key to the second step, to be elaborated in Section~\ref{sec:lifting},
+is that if you take points on a line and raise the pairwise distances to
+the $1/2$ power, you get points on a box. This is a special case of the
+general theory on screw functions developed by Von Neumann and Schoenberg,
+which asserts a far more general criterion on when functions applied to
+pairwise distances between points on a line can be embedded into Euclidean
+space~\cite{VonNeumann41}.
+  \input{screw/boxes-soda}
+  \input{screw/lifting-soda}
+  \input{screw/lip_extension-soda}
+\subsection{From Finite Sets to Finite Collections of Compact Path-Connected Bodies}
+\label{sec:bodies}
+All of our proof steps hold for finite collections of compact,
+path-connected bodies in arbitrarily large dimension. Our Lipschitz map $m$ can
+still be extended to a Lipschitz map $f$ in this setting, largely due to the
+generality of the Kirszbraun theorem. In this case, the pre-image of the
+contractive map is the set of all points belonging to some body. Meanwhile, the image is a finite set of points, the corners of a multi-dimensional box.
+Thus our construction of $m$ contracts each convex
+body into a single point, and the image of our
+compact bodies under $f$ is still a finite point set on the corners of a
+box. Therefore, the remainder of our theorem proof goes through unchanged.
+
+This result is rather remarkable: path-connected compact sets in high
+dimensional space can have extremely convoluted geometry, and the Voronoi diagrams
+on these collections (on which the nearest neighbor metric depends) can be
+massively complex.  The key is that our Lipschitz map is robust enough to
+handle objects of considerable geometric complexity.
+  
+  
+% section the_proof (end)

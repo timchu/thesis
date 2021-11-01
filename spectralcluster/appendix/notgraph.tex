@@ -1,0 +1,65 @@
+\section{Cheeger and Buser for Density Functions does not easily follow
+  from Graph or Manifold Cheeger and Buser}\label{app:notgraph}
+
+\subsection{Comments on Graph Cheeger-Buser}
+The most natural method of proving distributional Cheeger-Buser
+inequality using the graph Cheeger-Buser inequality is to
+generate a vertex and edge weighted graph approximating the distribution, and write down
+graph Cheeger-Buser. Then, one would generate a sequence of graphs with
+an increasing number of vertices. Ideally, the graph Cheeger-Buser inequality
+on these graphs would converge to a
+Cheeger-Buser inequality on the underlying distribution. This
+discretization approach follows a standard paradigm of
+approximating distributions with graphs, present in
+numerical methods, finite element methods,
+         and machine learning
+         ~\cite{TrillosRate15,TrillosVariational15,SPIELMAN2007284}.
+
+Such an approach cannot work (no matter how the
+    eigenvalues and isoperimetric cuts are defined for
+    distributions). The easiest way to see this is to attempt to execute
+    this strategy for a simple uniform distribution in $1$ dimension, on
+    the interval $[0,1]$. One would naively approximate this
+    distribution
+    with a line graph with $n$ vertices, with edge weights $w_n$ and vertex
+    weights $m_n$. Then one would take $n$ to go to infinity.
+
+    If one writes down the Cheeger and Buser inequalities for graphs in
+    this example, we get:
+    
+    \[\frac{w_n}{m_n n^2} \leq \Phi_{OPT} \leq \frac{w_n}{m_n n} \]
+
+    No matter what $m_n$ and $w_n$ are, the ratio between the upper and
+    lower bound is $n$, which diverges. Thus, either the Cheeger
+    inequality or the Buser inequality becomes meaningless: either the
+    lower bound goes to $0$ or the upper bound goes to $\infty$, or
+    both, depending on
+    how $w_n$ and $m_n$ are set.
+
+    Thus, even for the simple case of a uniform distribution on $[0,1]$
+    the natural strategy for deriving probability density Cheeger/Buser
+    from graph Cheeger/Buser fails.
+
+\subsection{Comments on Manifold Cheeger-Buser}
+Distributional Buser does not easily follow from an
+application of
+the manifold Buser inequality. We recall that manifold Buser only applies for
+    manifolds with bounded Ricci curvature. The natural way to parlay manifold Buser into
+distributional Buser on $\RR^d$ is to change the underlying metric tensor
+on $\RR^d$ to factor in the probability density function at that
+point. However, the authors are unaware of any method of doing
+this for which one can recover a meaningful Cheeger and
+Buser inequality. Moreover, it is unclear how to obtain any Ricci
+curvature bounds when we change the metric tensor.
+
+Most modern approaches to proving Buser's inequality for
+    manifolds rely on the
+Li-Yau inequality, which in turn depends on the Bochner identity
+    for manifolds on bounded Ricci
+    curvature~\cite{ledoux2004spectral}.
+The authors are unaware of a clean Bochner-like identity for
+distributions. Older techniques use Almgren's minimizing currents
+and/or Epsilon nets~\cite{Buser82}. For the former, we do not know of any
+analog for distributions. For the latter, the corresponding
+Buser inequality has a $2^{d}$ multiplicative dependence, which
+is significantly worse than our $d$ dependence.

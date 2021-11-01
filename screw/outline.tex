@@ -1,0 +1,34 @@
+\section{Outline}
+%   Definitions of the nearest neighbor metric, and of the
+%     edge-squared metric, are provided in
+%    Section~\ref{sec:definitions}.
+%
+Section~\ref{sec:NN} contains the proof of Theorem~\ref{thm:NN},
+equating the edge-squared metric and nearest neighbor metric in
+all cases. It should be noted that our proof is robust enough to handle not
+just finite point sets, but also countably infinite collections of disjoint
+path-connected, compact sets. Remarkably, there is no restriction on the convexity or
+simply-connectedness of these sets.
+
+As an example of using the nearest neighbor metric to compute intrinsic structure, Section~\ref{sec:persistence} shows how Theorem~\ref{thm:NN} allows us to compute the persistent homology of the nearest neighbor metric.
+
+Section~\ref{sec:edge-power} introduces the $p$-power metrics. We show
+that Euclidean spanners and Euclidean MSTs are special cases of
+$p$-power spanners. We show how
+clustering algorithms including $k$-means, level-set methods,
+and single linkage clustering, are special cases of
+clustering with $p$-power metrics. $p$-power metrics are identical to the
+Neighbor metric when $p=2$. This is further detailed in
+Appendix~\ref{ap:clustering-link}.
+
+Section~\ref{sec:general-spanner} outlines a proof of
+Theorem~\ref{thm:general-spanner}, and compares our spanner to new lower
+bounds on the sparsity of $(1+\eps)$-spanners of the Euclidean metric.  We
+outline a proof of Theorem~\ref{thm:distribution-spanner} in
+Section~\ref{sec:distribution-spanner} and discuss its implications.
+
+
+Conclusions and open questions are in
+Section~\ref{sec:conclusions}. Full proofs for
+Theorems~\ref{thm:distribution-spanner},~\ref{thm:general-spanner}
+are contained in the Appendix.
