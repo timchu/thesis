@@ -4,12 +4,16 @@ In this thesis, we aim to understand the principles behind existing
 machine learning methods, particularly for the task of fundamental ML
 task of clustering. We
 leverage classical ideas from computational geometry and metric embeddings to gain deeper
-insight into clustering.
+insight into machine learning methods like clustering, kernel methods,
+        natural language processing (transformers), and data mining on
+        graphs.
 
+\setcounter{section}{-1}
 \section{Quick Preliminaries: Clustering Definitions and Geometry in ML}
 
 Clustering consists of taking unlabeled data and categorizing it into different
 clusters. As an example, imagine that one measures the size and weight
+of
 $k$ different types of bacteria in a cell culture, and wants to determine
 what type of bacteria each individual measurement comes from.  This task
 is known as $k$-way clustering. 
@@ -18,7 +22,7 @@ One classical insight in machine learning is that data measurements can
 be represented as points in geometric space, and that information about
 the data set can be inferred from the geometric configuration of the
 resulting data points. For example, if one measures the size and weight
-of a single bacteria in a cell culture, one can plot this as a two
+of a single bacterium in a cell culture, one can plot this as a two
 dimensional point with $x$ coordinate equal to the size, and $y$
 coordinate equal to the weight. The representation of data as points in
 geometric space is a classical one in machine learning, and is widely
@@ -39,12 +43,12 @@ The tools in each of our explorations rely heavily on metrics and
 embeddings.  For some applications, we supplement this with insights
 from spectral graph algorithms and group theory.
 
-Part~\ref{sec:group} of this thesis is about group theory in kernels and natural language
-processing. Part~\ref{sec:ds} is about clustering with
-data-sensitive distances. Part~\ref{sec:spectral-limit} is about
+Chapter~\ref{sec:group} of this thesis is about group theory in kernels and natural language
+processing. Chapter~\ref{sec:ds} is about clustering with
+data-sensitive distances. Chapter~\ref{sec:spectral-limit} is about
 a variant of classical spectral clustering
 backed by additional mathematical principles and provable guarantees on
-cluster quality. Part~\ref{sec:sgt} is about spectral graph
+cluster quality. Chapter~\ref{sec:sgt} is about spectral graph
 theory can create fast algorithms for classical clustering methods.
 
 \section{Metric Embeddings and Group Theory in Kernels and Natural Language
@@ -74,9 +78,9 @@ theory can create fast algorithms for classical clustering methods.
   representation theory has previously been used throughout complexity theory, algorithm design,
   combinatorics, algebraic geometry, chemistry, quantum physics, and
   more. This theory is arguably the foundation of all of modern
-  algebra.
+  algebra~\cite{FH91, etingof}.
 
-  In this thesis, we will show the following results:
+  In our work, we will show the following results:
 \begin{enumerate}
     \item A function is a positive definite Manhattan kernel if and only
     if it is a completely monotone function. These kernels are widely
@@ -86,11 +90,15 @@ theory can create fast algorithms for classical clustering methods.
     Schoenberg in 1942, and serves as a Manhattan metric analog of the
     fundamental theory behind Euclidean distance kernels as pioneered by
     Smola.
-    \item A function transforms Manhattan distances to Manhattan distances if and only if it is a Bernstein function. This completes the theory of Manhattan to Manhattan metric transforms initiated by Assouad in 1980.
+    \item A function transforms Manhattan distances to Manhattan
+    distances if and only if it is a Bernstein function. This work completes the theory of Manhattan to Manhattan metric transforms initiated by Assouad in 1980.
     \item A function applied entry-wise to any square matrix of rank $r$
     always results in a matrix of rank  $< 2^{r-1}$ if and only if it is
     a polynomial of sufficiently low degree. This gives a converse to a
-    key lemma used by the polynomial method in algorithm design.
+    the polynomial method in algorithm design~\footnote{The polynomial
+      method in algorithm design states that applying a low degree
+        polynomial to the entries of a low rank matrix results in
+        another low rank matrix}.
     Moreover, this result will also illuminate the theory behind key steps of
     transformers in natural language processing.
 \end{enumerate} 
@@ -100,7 +108,7 @@ symmetries (which is widely used across physics and chemistry), with
 metric embedding results and linear algebra. To my knowledge, this is
 one of the first results that uses finite group representation theory
 with metric embeddings to understand machine learning. We elaborate on
-this in Section~\ref{sec:ker-main}.
+this in Chapter~\ref{sec:ker-main}.
 
 \section{Data-Sensitive Distances in Clustering}\label{sec:ds}
 %  Clustering is one of the most popular tasks in machine learning, ever
@@ -117,17 +125,35 @@ this in Section~\ref{sec:ker-main}.
 %  Most machine learning applications will use many more dimensions for
 %  such an embedding.
 %
- In this section, we consider a metric-based approach for clustering.  We consider a suite
+ In this chapter, we consider a metric-based approach for clustering.  We consider a suite
   of distance measures, or metrics, between data points embedded in
-  geometric space. These data metrics should ideally adapt to the shape
-  of data. Such a metric will be called \textbf{data-sensitive}. In this thesis, we explore how to efficiently compute two
-  example data-sensitive metrics: the edge-squared
+  geometric space. Ideally, these metrics should consider two
+  points in the same cluster to be close, even if their
+  Euclidean distance is long. Likewise, these metrics should consider two points in different clusters
+  to be far apart, even if their Euclidean distance is short.
+  We call metrics with this property \textbf{data-sensitive}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{images/two-moons.png}
+\caption{
+  In this picture, $A, B,$ and $C$ are data points in a two dimensional
+    data set. Data-sensitive metrics have the property that the distance
+    between $A$ and $B$ is short, while the distance between $A$ and $C$
+    is long. 
+ }
+\label{fig:spec}
+\end{figure}
+
+  In this
+  thesis, we explore how to efficiently compute two previously
+  considered data-sensitive metrics: the edge-squared
   metric~\cite{vincent03}, and
   the nearest-neighbor metric~\cite{cohen15approximating}. Computing
   these metrics efficiently allows clustering to be performed on them in
   practice.
 
-  The results we show on clustering will be:
+  The results we show on clustering are:
   \begin{enumerate}
   \item A $(1+\epsilon)$-spanner of the nearest neighbor metric, a notable example of a data sensitive
   distance, can be computed in nearly linear time in constant dimension.
@@ -140,7 +166,7 @@ this in Section~\ref{sec:ker-main}.
   efficiently, and it was not even suspected that these two metrics were
   secretly identical. For this work, we make heavy use of the Kirszbraun theorem from
   metric embedding and computational geometry, also known as the Lipschitz extension theorem. We go into detail about these results in
-  Section~\ref{sec:ds-main}.
+  Chapter~\ref{sec:ds-main}.
 
   \section{Spectral Clustering in Large
     Datasets}\label{sec:spectral-limit}
@@ -154,8 +180,9 @@ this in Section~\ref{sec:ker-main}.
 
   \begin{enumerate}
   \item Given a large set of data drawn from a well-chosen and simple Lipschitz probability
-  density, the most popular version of spectral clustering will converge to a cut of
-  the data set that defies machine learning intuition.
+  density, the most popular version of spectral clustering will converge
+  to a bad cut of the data set, with unboundedly bad sparsity
+  guarantees.
   \item Given a large data set drawn from any Lipschitz probability
   density, we present a new variant of spectral clustering that will
   converge to a cut of the data set with provable guarantees on
@@ -196,12 +223,13 @@ two pieces of relatively high volume.
 Spectral clustering itself is based on embedding data into new geometric
 spaces, and thus the use of geometric embeddings features prominently in
 our work. We will prove our variant of spectral clustering has good
-sparsity guarantees through new Cheeger and Buser inequalities on
+sparsity guarantees through new extensions of the Cheeger and Buser
+inequalities, applied to
 probability densities. Cheeger and Buser inequalities are famous
 inequalities traditionally used in the graph and manifold setting, with
 the goal of relating fundamental eigenvalues with sparsest cut in each
 of these settings. We will go into detail about spectral clustering in
-Section~\ref{sec:spec-main}
+Chapter~\ref{sec:spec-main}
 
 
 \iffalse
@@ -229,12 +257,11 @@ Cheeger and Buser inequalities apply.
   algorithms on such graphs to perform machine learning primitives such
   as clustering, semi-supervised learning, and more.
 
-  In this third part of the dissertation, we develop spectral graph
+  In Chapter~\ref{sec:sgt-main}, we develop spectral graph
   algorithms and complexity results on graphs arising from points in geometric space. Since
   data is often represented as points in geometric space, these
   results can be naturally applied to the above-mentioned machine
-  learning questions. Our results will have direct applications towards
-  speeding up certain forms of spectral clustering, semi-supervised
+  learning questions. Our results can be used to speed up certain forms of spectral clustering, semi-supervised
   learning, and more.
 
   Results we will show on geometric spectral graph theory include: 
@@ -253,7 +280,7 @@ Cheeger and Buser inequalities apply.
   the second result shows that the widely used fast-multipole method for
   computing forces between electrostatic charges in physics, has a
   run-time with unavoidable exponential dependence on dimension. We
-  elaborate on these results in Section~\ref{sec:sgt-main}.
+  elaborate on these results in Chapter~\ref{sec:sgt-main}.
   
 
 \iffalse
@@ -306,8 +333,7 @@ We put forward a new template for spectral clustering, which sidesteps
 longstanding theoretical issues with traditional spectral clustering.
 
 Traditional spectral clustering is one of the most robust and widely
-used methods of clustering data. However, it has a major theoretical
-issue. When a large number of points are drawn from a probability
+used methods of clustering data. However, it has a major drawback. When a large number of points are drawn from a probability
 density, then spectral clustering converges to something called a
 \textbf{spectral sweep cut} of the underlying density.  However, this
 spectral sweep cut can partition the probability density poorly, and

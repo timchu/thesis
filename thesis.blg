@@ -1,6 +1,11 @@
 This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
+Case mismatch error between cite keys fh91 and FH91
+---line 212 of file thesis.aux
+ : \citation{fh91
+ :               ,etingof}
+I'm skipping whatever remains of this command
 The style file: plainnat.bst
 Reallocated field_info (elt_size=4) to 13708 items from 5000.
 Database file #1: ref.bib.bib
@@ -287,7 +292,7 @@ Warning--empty booktitle in Wishart69
 Warning--empty booktitle in Yaro2017
 You've used 311 entries,
             2773 wiz_defined-function locations,
-            2318 strings with 56724 characters,
+            2319 strings with 56728 characters,
 and the built_in function-call counts, 152043 in all, are:
 = -- 14090
 > -- 7541
@@ -326,4 +331,4 @@ warning$ -- 5
 while$ -- 1420
 width$ -- 0
 write$ -- 4235
-(There were 69 error messages)
+(There were 70 error messages)

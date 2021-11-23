@@ -1,36 +1,36 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Quick Preliminaries: Clustering Definitions and Geometry in ML}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Thesis Overview}{1}{section.1.2}
-\contentsline {section}{\numberline {1.3}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{2}{section.1.3}
-\contentsline {section}{\numberline {1.4}Data-Sensitive Distances in Clustering}{3}{section.1.4}
-\contentsline {section}{\numberline {1.5}Spectral Clustering in Large Datasets}{3}{section.1.5}
-\contentsline {section}{\numberline {1.6}Spectral Graph Theory in Machine Learning}{4}{section.1.6}
+\contentsline {section}{\numberline {1.0}Quick Preliminaries: Clustering Definitions and Geometry in ML}{1}{section.1.0}
+\contentsline {section}{\numberline {1.1}Thesis Overview}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Data-Sensitive Distances in Clustering}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Spectral Clustering in Large Datasets}{4}{section.1.4}
+\contentsline {section}{\numberline {1.5}Spectral Graph Theory in Machine Learning}{5}{section.1.5}
 \contentsline {chapter}{\numberline {2}Metric Embeddings and Group Theory in Kernels and Natural Language Processing}{7}{chapter.2}
 \contentsline {section}{\numberline {2.1}Introduction}{7}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Kernel Methods}{8}{subsection.2.1.1}
-\contentsline {subsubsection}{Main Result}{9}{section*.5}
+\contentsline {subsubsection}{Main Result}{9}{section*.6}
 \contentsline {subsection}{\numberline {2.1.2}Metric Transforms}{10}{subsection.2.1.2}
-\contentsline {subsubsection}{Main Result}{11}{section*.6}
+\contentsline {subsubsection}{Main Result}{11}{section*.7}
 \contentsline {subsection}{\numberline {2.1.3}Only Polynomials Preserve Low Rank Matrices}{11}{subsection.2.1.3}
-\contentsline {paragraph}{Application to Transformers in NLP}{13}{section*.7}
-\contentsline {subsubsection}{Main Result}{13}{section*.8}
+\contentsline {paragraph}{Application to Transformers in NLP}{13}{section*.8}
+\contentsline {subsubsection}{Main Result}{13}{section*.9}
 \contentsline {section}{\numberline {2.2}Technique Overview}{14}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Key Lemma}{14}{subsection.2.2.1}
-\contentsline {paragraph}{Warm-up: $d$-dimension}{15}{section*.9}
-\contentsline {paragraph}{Proof idea: Representation Theory of the Real Hyperrectangle}{16}{section*.10}
-\contentsline {paragraph}{Related Work}{16}{section*.11}
-\contentsline {paragraph}{Use in Applications}{16}{section*.12}
+\contentsline {paragraph}{Warm-up: $d$-dimension}{15}{section*.10}
+\contentsline {paragraph}{Proof idea: Representation Theory of the Real Hyperrectangle}{16}{section*.11}
+\contentsline {paragraph}{Related Work}{16}{section*.12}
+\contentsline {paragraph}{Use in Applications}{16}{section*.13}
 \contentsline {subsection}{\numberline {2.2.2}Kernel Methods}{17}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Metric Transforms}{17}{subsection.2.2.3}
-\contentsline {paragraph}{Bernstein functions transform Manhattan to squared Euclidean}{17}{section*.13}
-\contentsline {paragraph}{Manhattan to Squared Euclidean $\Leftrightarrow $ Manhattan to Manhattan}{18}{section*.14}
+\contentsline {paragraph}{Bernstein functions transform Manhattan to squared Euclidean}{17}{section*.14}
+\contentsline {paragraph}{Manhattan to Squared Euclidean $\Leftrightarrow $ Manhattan to Manhattan}{18}{section*.15}
 \contentsline {subsection}{\numberline {2.2.4}Polynomial Method Converse}{18}{subsection.2.2.4}
-\contentsline {paragraph}{Roadmap.}{19}{section*.16}
+\contentsline {paragraph}{Roadmap.}{19}{section*.17}
 \contentsline {section}{\numberline {A}Preliminaries}{19}{section.2.1}
 \contentsline {subsection}{\numberline {A.1}Notations}{19}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {A.2}Definitions}{19}{subsection.2.1.2}
-\contentsline {paragraph}{Hyperrectangles}{20}{section*.17}
+\contentsline {paragraph}{Hyperrectangles}{20}{section*.18}
 \contentsline {subsection}{\numberline {A.3}Alternate Classifications of Completely Monotone and Bernstein Functions}{20}{subsection.2.1.3}
 \contentsline {subsection}{\numberline {A.4}Metric Hierarchies}{21}{subsection.2.1.4}
 \contentsline {subsection}{\numberline {A.5}Negative Type Metrics and Euclidean Embeddability}{21}{subsection.2.1.5}
@@ -62,9 +62,9 @@
 \contentsline {subsection}{\numberline {1.2}Definitions and Preliminaries}{40}{subsection.3.1.2}
 \contentsline {section}{\numberline {2}Outline}{41}{section.3.2}
 \contentsline {section}{\numberline {3}Exactly Computing the nearest neighbor metric}{41}{section.3.3}
-\contentsline {subsubsection}{Boxes}{42}{section*.20}
-\contentsline {subsubsection}{Lifting the points to $\mathbb {R}^n$}{44}{section*.21}
-\contentsline {subsubsection}{The Lipschitz Extension}{45}{section*.22}
+\contentsline {subsubsection}{Boxes}{42}{section*.21}
+\contentsline {subsubsection}{Lifting the points to $\mathbb {R}^n$}{44}{section*.22}
+\contentsline {subsubsection}{The Lipschitz Extension}{45}{section*.23}
 \contentsline {subsection}{\numberline {3.1}From Finite Sets to Finite Collections of Compact Path-Connected Bodies}{46}{subsection.3.3.1}
 \contentsline {section}{\numberline {4}Persistent Homology of the Nearest-neighbor Geodesic Distance}{47}{section.3.4}
 \contentsline {section}{\numberline {5}Relating the nearest neighbor metric to Euclidean MSTs, Euclidean Spanners, and More}{48}{section.3.5}
@@ -80,13 +80,13 @@
 \contentsline {section}{\numberline {I}Spanners in the Probability Density Setting: Full Proof}{54}{section.3.9}
 \contentsline {chapter}{\numberline {4}Spectral Clustering in the Limit}{57}{chapter.4}
 \contentsline {section}{\numberline {A}Introduction}{58}{section.4.1}
-\contentsline {subsubsection}{Applications}{58}{section*.25}
+\contentsline {subsubsection}{Applications}{58}{section*.26}
 \contentsline {subsection}{\numberline {A.1}Definitions}{59}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {A.2}Theorems}{60}{subsection.4.1.2}
 \contentsline {subsection}{\numberline {A.3}Past Work}{60}{subsection.4.1.3}
-\contentsline {subsubsection}{Cheeger and Buser Inequalities for Graphs and Manifolds}{60}{section*.26}
-\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{61}{section*.27}
-\contentsline {subsubsection}{Technical Contribution}{61}{section*.28}
+\contentsline {subsubsection}{Cheeger and Buser Inequalities for Graphs and Manifolds}{60}{section*.27}
+\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{61}{section*.28}
+\contentsline {subsubsection}{Technical Contribution}{61}{section*.29}
 \contentsline {section}{\numberline {B}Paper Organization}{62}{section.4.2}
 \contentsline {section}{\numberline {C}Cheeger-Buser inequalities require carefully chosen $\alpha , \beta , \gamma $}{63}{section.4.3}
 \contentsline {section}{\numberline {D}Buser Inequality for Probability Density Functions}{64}{section.4.4}
@@ -116,17 +116,17 @@
 \contentsline {chapter}{\numberline {5}Geometric Spectral Algorithms and Hardness, with Machine Learning applications}{91}{chapter.5}
 \contentsline {section}{\numberline {1}Introduction}{94}{section.5.1}
 \contentsline {subsection}{\numberline {1.1}High-dimensional results}{96}{subsection.5.1.1}
-\contentsline {subsubsection}{Multiplication}{97}{section*.33}
-\contentsline {subsubsection}{Sparsification}{97}{section*.34}
-\contentsline {subsubsection}{Laplacian solving}{99}{section*.35}
+\contentsline {subsubsection}{Multiplication}{97}{section*.34}
+\contentsline {subsubsection}{Sparsification}{97}{section*.35}
+\contentsline {subsubsection}{Laplacian solving}{99}{section*.36}
 \contentsline {subsection}{\numberline {1.2}Our Techniques}{100}{subsection.5.1.2}
-\contentsline {subsubsection}{Multiplication}{100}{section*.36}
-\contentsline {subsubsection}{Sparsification}{102}{section*.40}
+\contentsline {subsubsection}{Multiplication}{100}{section*.37}
+\contentsline {subsubsection}{Sparsification}{102}{section*.41}
 \contentsline {subsection}{\numberline {1.3}Brief summary of our results in terms of $p_f$}{104}{subsection.5.1.3}
 \contentsline {subsection}{\numberline {1.4}Summary of our Results on Examples}{105}{subsection.5.1.4}
 \contentsline {subsection}{\numberline {1.5}Other Related Work}{105}{subsection.5.1.5}
-\contentsline {paragraph}{Kernel Functions}{106}{section*.47}
-\contentsline {paragraph}{Acknowledgements}{106}{section*.48}
+\contentsline {paragraph}{Kernel Functions}{106}{section*.48}
+\contentsline {paragraph}{Acknowledgements}{106}{section*.49}
 \contentsline {section}{\numberline {2}Summary of Low Dimensional Results}{106}{section.5.2}
 \contentsline {subsection}{\numberline {2.1}Multiplication}{107}{subsection.5.2.1}
 \contentsline {subsection}{\numberline {2.2}Sparsification}{107}{subsection.5.2.2}
@@ -162,19 +162,19 @@
 \contentsline {subsection}{\numberline {7.3}Using low-effective-resistance clusters to sparsify the unweighted IP graph}{149}{subsection.5.7.3}
 \contentsline {subsection}{\numberline {7.4}Sampling data structure}{150}{subsection.5.7.4}
 \contentsline {subsection}{\numberline {7.5}Weighted IP graph sparsification}{154}{subsection.5.7.5}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{157}{section*.55}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{158}{section*.56}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{159}{section*.57}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{161}{section*.58}
-\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{162}{section*.59}
-\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{167}{section*.60}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{157}{section*.56}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{158}{section*.57}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{159}{section*.58}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{161}{section*.59}
+\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{162}{section*.60}
+\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{167}{section*.61}
 \contentsline {section}{\numberline {8}Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians}{167}{section.5.8}
 \contentsline {section}{\numberline {9}Fast Multipole Method}{177}{section.5.9}
 \contentsline {subsection}{\numberline {9.1}Overview}{177}{subsection.5.9.1}
 \contentsline {subsection}{\numberline {9.2}$\mathsf {K}(x,y) = \qopname \relax o{exp}( - \delimiter "026B30D x - y \delimiter "026B30D _2^2 ) $, Fast Gaussian transform}{178}{subsection.5.9.2}
-\contentsline {subsubsection}{Estimation}{181}{section*.63}
-\contentsline {subsubsection}{Algorithm}{185}{section*.64}
-\contentsline {subsubsection}{Result}{187}{section*.68}
+\contentsline {subsubsection}{Estimation}{181}{section*.64}
+\contentsline {subsubsection}{Algorithm}{185}{section*.65}
+\contentsline {subsubsection}{Result}{187}{section*.69}
 \contentsline {subsection}{\numberline {9.3}Generalization}{187}{subsection.5.9.3}
 \contentsline {subsection}{\numberline {9.4}$\mathsf {K}(x,y) = 1 / \delimiter "026B30D x - y \delimiter "026B30D _2^2$}{188}{subsection.5.9.4}
 \contentsline {section}{\numberline {10}Neural Tangent Kernel}{189}{section.5.10}
