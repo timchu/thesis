@@ -2,12 +2,12 @@ This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 Case mismatch error between cite keys fh91 and FH91
----line 212 of file thesis.aux
+---line 226 of file thesis.aux
  : \citation{fh91
  :               ,etingof}
 I'm skipping whatever remains of this command
 The style file: plainnat.bst
-Reallocated field_info (elt_size=4) to 13708 items from 5000.
+Reallocated field_info (elt_size=4) to 13736 items from 5000.
 Database file #1: ref.bib.bib
 Repeated entry---line 1767 of file ref.bib.bib
  : @article{borsuk48imbedding
@@ -209,6 +209,10 @@ Repeated entry---line 3934 of file ref.bib.bib
  : @article{GM98
  :              ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 3941 of file ref.bib.bib
+ : @article{d20
+ :             ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 3954 of file ref.bib.bib
  : @book{harmonic
  :               ,
@@ -290,45 +294,45 @@ Warning--empty booktitle in transformers
 Warning--empty booktitle in Stuetzle2007
 Warning--empty booktitle in Wishart69
 Warning--empty booktitle in Yaro2017
-You've used 311 entries,
+You've used 312 entries,
             2773 wiz_defined-function locations,
-            2319 strings with 56728 characters,
-and the built_in function-call counts, 152043 in all, are:
-= -- 14090
-> -- 7541
-< -- 294
-+ -- 2598
-- -- 2265
-* -- 11359
-:= -- 22324
-add.period$ -- 1082
-call.type$ -- 311
-change.case$ -- 1667
-chr.to.int$ -- 289
-cite$ -- 627
-duplicate$ -- 7639
-empty$ -- 13206
-format.name$ -- 2756
-if$ -- 33054
+            2323 strings with 56850 characters,
+and the built_in function-call counts, 152341 in all, are:
+= -- 14116
+> -- 7551
+< -- 295
++ -- 2602
+- -- 2268
+* -- 11374
+:= -- 22373
+add.period$ -- 1085
+call.type$ -- 312
+change.case$ -- 1671
+chr.to.int$ -- 290
+cite$ -- 629
+duplicate$ -- 7658
+empty$ -- 13236
+format.name$ -- 2760
+if$ -- 33116
 int.to.chr$ -- 23
 int.to.str$ -- 1
-missing$ -- 310
-newline$ -- 1653
-num.names$ -- 1252
-pop$ -- 3626
+missing$ -- 311
+newline$ -- 1658
+num.names$ -- 1256
+pop$ -- 3635
 preamble$ -- 1
-purify$ -- 1374
+purify$ -- 1377
 quote$ -- 0
-skip$ -- 5862
+skip$ -- 5875
 stack$ -- 0
-substring$ -- 6280
-swap$ -- 1445
+substring$ -- 6282
+swap$ -- 1446
 text.length$ -- 108
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 3346
+type$ -- 3357
 warning$ -- 5
-while$ -- 1420
+while$ -- 1423
 width$ -- 0
-write$ -- 4235
-(There were 70 error messages)
+write$ -- 4247
+(There were 71 error messages)

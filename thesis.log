@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  23 NOV 2021 11:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2021.9.25)  27 NOV 2021 21:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1055,18 +1055,18 @@ Chapter 1.
 (./intro.tex [1
 
 
-] [2] <images/two-moons.png, id=873, 361.35pt x 255.95625pt>
+] [2] <images/two-moons.png, id=885, 361.35pt x 255.95625pt>
 File: images/two-moons.png Graphic file (type png)
 
 <use images/two-moons.png>
-Package pdftex.def Info: images/two-moons.png used on input line 138.
-(pdftex.def)             Requested size: 368.57838pt x 261.07971pt.
+Package pdftex.def Info: images/two-moons.png used on input line 154.
+(pdftex.def)             Requested size: 276.43555pt x 195.80978pt.
  [3 <./images/two-moons.png>]
-<images/counterexample.png, id=888, 1163.34625pt x 659.46375pt>
+<images/counterexample.png, id=902, 1163.34625pt x 659.46375pt>
 File: images/counterexample.png Graphic file (type png)
 
 <use images/counterexample.png>
-Package pdftex.def Info: images/counterexample.png used on input line 202.
+Package pdftex.def Info: images/counterexample.png used on input line 218.
 (pdftex.def)             Requested size: 276.43555pt x 156.70476pt.
  [4]) [5 <./images/counterexample.png>] [6
 
@@ -1259,14 +1259,14 @@ Overfull \hbox (1.86269pt too wide) in paragraph at lines 3--11
 -ing such as ker-nels meth-ods, density-
  []
 
-[35] <screw/Figures/example.pdf, id=1587, 418.3221pt x 281.85422pt>
+[35] <screw/Figures/example.pdf, id=1596, 418.3221pt x 281.85422pt>
 File: screw/Figures/example.pdf Graphic file (type pdf)
 
 <use screw/Figures/example.pdf>
 Package pdftex.def Info: screw/Figures/example.pdf used on input line 72.
 (pdftex.def)             Requested size: 138.21777pt x 93.1283pt.
  [36] [37 <./screw/Figures/example.pdf>]
-<screw/Figures/example1.pdf, id=1720, 482.76181pt x 304.88123pt>
+<screw/Figures/example1.pdf, id=1729, 482.76181pt x 304.88123pt>
 File: screw/Figures/example1.pdf Graphic file (type pdf)
 
 <use screw/Figures/example1.pdf>
@@ -1360,7 +1360,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 4.
 
 
-<spectralcluster/images/cheeger-counterexample.png, id=2341, 926.46124pt x 572.
+<spectralcluster/images/cheeger-counterexample.png, id=2350, 926.46124pt x 572.
 1375pt>
 File: spectralcluster/images/cheeger-counterexample.png Graphic file (type png)
 
@@ -1369,7 +1369,7 @@ Package pdftex.def Info: spectralcluster/images/cheeger-counterexample.png used
  on input line 29.
 (pdftex.def)             Requested size: 180.67499pt x 111.57072pt.
 
-<spectralcluster/images/buser-counterexample.png, id=2342, 864.22874pt x 539.01
+<spectralcluster/images/buser-counterexample.png, id=2351, 864.22874pt x 539.01
 375pt>
 File: spectralcluster/images/buser-counterexample.png Graphic file (type png)
  <use spectralcluster/images/buser-counterexample.png>
@@ -1466,7 +1466,7 @@ mr/m/n/12 1)\OML/cmm/m/it/12 :
 )) (./spectralcluster/scaling.tex [75] [76]) (./spectralcluster/cheeger.tex
 [77] [78]) (./spectralcluster/spectral-sweep.tex)
 (./spectralcluster/counterexample/counterexample.tex
-<spectralcluster/images/counterexample.png, id=2560, 1163.34625pt x 659.46375pt
+<spectralcluster/images/counterexample.png, id=2569, 1163.34625pt x 659.46375pt
 >
 File: spectralcluster/images/counterexample.png Graphic file (type png)
  <use spectralcluster/images/counterexample.png>
@@ -1957,13 +1957,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [201]
-Underfull \hbox (badness 4001) in paragraph at lines 1104--1104
+Underfull \hbox (badness 4001) in paragraph at lines 1110--1110
 []\T1/ptm/m/n/12 Shunhua Jiang, Yunze Man, Zhao Song, and Danyang Zhuo.  Graph 
 neu-
  []
 
 
-Underfull \hbox (badness 8019) in paragraph at lines 1104--1104
+Underfull \hbox (badness 8019) in paragraph at lines 1110--1110
 \T1/ptm/m/n/12 ral net-work ac-cel-er-a-tion via ma-trix di-men-sion re-duc-tio
 n.  In \T1/ptm/m/it/12 Open-re-view\T1/ptm/m/n/12 .
  []
@@ -1975,7 +1975,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [203]
-Underfull \hbox (badness 7151) in paragraph at lines 1224--1224
+Underfull \hbox (badness 7151) in paragraph at lines 1230--1230
 []\T1/ptm/m/n/12 Ria Kul-shrestha.  Trans-form-ers.  https://towardsdatascience
 .com/transformers-
  []
@@ -1996,7 +1996,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [208]
-Underfull \hbox (badness 1721) in paragraph at lines 1704--1704
+Underfull \hbox (badness 1721) in paragraph at lines 1710--1710
 []\T1/ptm/m/n/12 Jonathon Shlens.  A tu-to-rial on prin-ci-pal com-po-nent anal
 -y-sis.  \T1/ptm/m/it/12 arXiv preprint
  []
@@ -2023,7 +2023,7 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 239.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: E9163EA9A4C0490C401FC7DB0582C8F4;12813.
 Package rerunfilecheck Info: File `thesis.brf' has not changed.
-(rerunfilecheck)             Checksum: 1CDDB5BE5E823C7713E4E49805A3076E;25715.
+(rerunfilecheck)             Checksum: 2C482C6EEF9C3A8D73BE1D0F83A6C38A;26011.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -2031,13 +2031,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 239.
  ) 
 Here is how much of TeX's memory you used:
- 26401 strings out of 494497
- 459364 string characters out of 6172400
- 534479 words of memory out of 5000000
- 27909 multiletter control sequences out of 15000+600000
+ 26408 strings out of 494497
+ 459426 string characters out of 6172400
+ 533508 words of memory out of 5000000
+ 27915 multiletter control sequences out of 15000+600000
  93706 words of font info for 131 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 64i,19n,60p,1912b,1049s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,19n,60p,1912b,1051s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist
@@ -2066,10 +2066,10 @@ share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive
 fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (228 pages, 1519816 bytes).
+Output written on thesis.pdf (228 pages, 1521366 bytes).
 PDF statistics:
- 5167 PDF objects out of 6186 (max. 8388607)
- 4725 compressed objects within 48 object streams
- 1228 named destinations out of 1440 (max. 500000)
+ 5180 PDF objects out of 6186 (max. 8388607)
+ 4738 compressed objects within 48 object streams
+ 1229 named destinations out of 1440 (max. 500000)
  1200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

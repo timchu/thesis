@@ -54,20 +54,34 @@ theory can create fast algorithms for classical clustering methods.
 \section{Metric Embeddings and Group Theory in Kernels and Natural Language
   Processing}\label{sec:group}
   Smola developed kernel methods in the 1990s to improve machine
-  learning performance~\cite{s96}. The key idea is that given a set of data, one
-  can use specially chosen \textbf{kernel functions} to map this data into a higher dimensional space in
+  learning performance~\cite{s96}. The key idea is that given a set of
+  data in $d$ dimensional space, one
+  can find a function $F$ to map this data into an infinite dimensional space in
   which natural clusters can be more easily discovered. Then, one can perform clustering
   methods on this new space. The key insight is that clustering in the
-  new space can be done quickly and efficiently given knowledge of the
-  kernel function. Kernel methods have been widely used ever since, and
+  new space can be done quickly and efficiently given a fast
+  computational oracle for $\langle F(x), F(y) \rangle$ for any $x, y$,
+  even when $F$ itself is not known or not computable.
+  In some settings, $F$ is designed so that an easily computable
+  function $f:\mathbb{R}^d \rightarrow \R$ satisfies $f(\|x-y\|_p) = \langle F(x), F(y) \rangle$. The set of
+  functions $f$ for which such an $F$ exists, is known as the set of
+  \textbf{positive definite $\ell_p$ kernel functions.}  When $p=2$, we
+  refer to such kernels as  \textbf{positive definite Euclidean kernels}, and
+  when $p=1$, we refer to such functions as \textbf{positive definite Manhattan
+  kernels}. The function $e^{-x^2}$ is an example of a positive definite
+  Euclidean kernel, and the function $e^{-|x|}$ is a positive definite
+  Manhattan kernel~\cite{s42, a80}.
+
+  Kernel methods have been widely used ever since their introduction by
+  Smola, and
   have seen practical applications in almost all areas of machine
   learning. They have also been shown to have deep connections to
-  neural networks.
+  neural networks~\cite{d20}.
 
   Separately, the field of natural language processing has undergone a
   revolution with the rise of deep neural networks. One of the most
   powerful neural network architectures for natural language processing is the
-  \textit{transformer}. Despite impressive
+  \textit{transformer}~\cite{transformers}. Despite impressive
   results in translation, audio transcription, and
   speech synthesis, the theory behind transformers is not well understood. 
 
@@ -83,15 +97,17 @@ theory can create fast algorithms for classical clustering methods.
   In our work, we will show the following results:
 \begin{enumerate}
     \item A function is a positive definite Manhattan kernel if and only
-    if it is a completely monotone function. These kernels are widely
+    if it is a completely monotone function. Positive definite Manhattan kernels are widely
     used across machine learning; one example is the Laplace kernel
     which is widely used in machine learning for chemistry. This
     completes the theory of Manhattan metric kernels initiated by
     Schoenberg in 1942, and serves as a Manhattan metric analog of the
-    fundamental theory behind Euclidean distance kernels as pioneered by
-    Smola.
+    fundamental theory of positive definite Euclidean kernels as pioneered by
+    Smola~\cite{s96, sow01, ss01}.
     \item A function transforms Manhattan distances to Manhattan
-    distances if and only if it is a Bernstein function. This work completes the theory of Manhattan to Manhattan metric transforms initiated by Assouad in 1980.
+    distances if and only if it is a Bernstein function. This work
+    completes the theory of Manhattan to Manhattan metric transforms
+    initiated by Assouad in 1980~\cite{a80}.
     \item A function applied entry-wise to any square matrix of rank $r$
     always results in a matrix of rank  $< 2^{r-1}$ if and only if it is
     a polynomial of sufficiently low degree. This gives a converse to a
@@ -133,9 +149,9 @@ this in Chapter~\ref{sec:ker-main}.
   to be far apart, even if their Euclidean distance is short.
   We call metrics with this property \textbf{data-sensitive}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{images/two-moons.png}
+\includegraphics[width=0.6\textwidth]{images/two-moons.png}
 \caption{
   In this picture, $A, B,$ and $C$ are data points in a two dimensional
     data set. Data-sensitive metrics have the property that the distance

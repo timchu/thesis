@@ -1,4 +1,4 @@
-\begin{thebibliography}{311}
+\begin{thebibliography}{312}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -738,6 +738,12 @@ Ilias Diakonikolas, Daniel~M. Kane, and Jelani Nelson.
   11--20, 2010.
 \newblock \doi{10.1109/FOCS.2010.8}.
 \newblock URL \url{https://doi.org/10.1109/FOCS.2010.8}.
+
+\bibitem[Domingos(2020)]{d20}
+Pedro Domingos.
+\newblock Every model learned by gradient descent is approximately a kernel
+  machine.
+\newblock \emph{arXiv preprint arXiv:2012.00152}, 2020.
 
 \bibitem[Dong et~al.(2011)Dong, Charikar, and Li]{Dong11}
 Wei Dong, Moses Charikar, and Kai Li.
