@@ -9,5 +9,5 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces The function $\rho _1$, a $1$-Lipschitz counterexample to Cheeger's inequality when $\alpha + \gamma > 2\beta $. The height of the function is $\epsilon /2$, and the length of the supporting interval is roughly $\frac {2}{\epsilon }$. \relax }}{63}{figure.caption.30}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces The function $\rho _2$, a $1$-Lispchitz counterexample to Buser's inequality when $\gamma \geq 1$ and $ \gamma - 1 < \beta $. \relax }}{63}{figure.caption.31}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces The probability density function where $\rho (x, y) = \qopname \relax m{min}(\epsilon + x, \frac {1}{n})$ for arbitrary $X, Y, n$. Here, $\rho (x,y)$ is plotted in the z axis, and $E$ is at point $(0, -Y, \epsilon )$. This function $\rho $ has bad spectral sweep cuts when $\alpha = 1, \gamma = 2$. \relax }}{80}{figure.caption.32}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces The probability density function where $\rho (x, y) = \qopname \relax m{min}(\epsilon + x, \frac {1}{n})$ for arbitrary $X, Y, n$. Here, $\rho (x,y)$ is plotted in the z axis, and $E$ is at point $(0, -Y, \epsilon )$. This function $\rho $ has bad spectral sweep cuts when $\alpha = 1, \gamma = 2$. \relax }}{79}{figure.caption.32}
 \addvspace {10\p@ }

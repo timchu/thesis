@@ -79,102 +79,102 @@
 \contentsline {subsection}{\numberline {H.1}$1+O(\delta ^2)$ spanners can be generated from a $1/\delta $ WSPD}{53}{subsection.3.8.1}
 \contentsline {section}{\numberline {I}Spanners in the Probability Density Setting: Full Proof}{54}{section.3.9}
 \contentsline {chapter}{\numberline {4}Spectral Clustering in the Limit}{57}{chapter.4}
-\contentsline {section}{\numberline {A}Introduction}{58}{section.4.1}
+\contentsline {section}{\numberline {1}Introduction}{57}{section.4.1}
 \contentsline {subsubsection}{Applications}{58}{section*.26}
-\contentsline {subsection}{\numberline {A.1}Definitions}{59}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {A.2}Theorems}{60}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {A.3}Past Work}{60}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {1.1}Definitions}{58}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {1.2}Theorems}{59}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {1.3}Past Work}{60}{subsection.4.1.3}
 \contentsline {subsubsection}{Cheeger and Buser Inequalities for Graphs and Manifolds}{60}{section*.27}
-\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{61}{section*.28}
+\contentsline {subsubsection}{Eigenvalues, Sweep Cuts, and Isoperimetry on Probability Densities}{60}{section*.28}
 \contentsline {subsubsection}{Technical Contribution}{61}{section*.29}
-\contentsline {section}{\numberline {B}Paper Organization}{62}{section.4.2}
-\contentsline {section}{\numberline {C}Cheeger-Buser inequalities require carefully chosen $\alpha , \beta , \gamma $}{63}{section.4.3}
-\contentsline {section}{\numberline {D}Buser Inequality for Probability Density Functions}{64}{section.4.4}
-\contentsline {subsection}{\numberline {D.1}Weighted Buser-type Inequality}{65}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {D.2}Proof Strategy: Mollification by Disks of Radius Proportional to $\rho $}{65}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {D.3}Key Technical Lemma: Bounding $L_1$ norm of a function with the $L_1$ norm of its mollification}{65}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {D.4}Upper Bounding the Numerator}{68}{subsection.4.4.4}
-\contentsline {subsection}{\numberline {D.5}Lower Bound on the Denominator}{71}{subsection.4.4.5}
-\contentsline {subsection}{\numberline {D.6}Bounding the Rayleigh Quotient (Proof of Theorem~\ref {thm:buser_n})}{73}{subsection.4.4.6}
-\contentsline {subsection}{\numberline {D.7}Gradient of Mollifier}{74}{subsection.4.4.7}
-\contentsline {subsection}{\numberline {D.8}Scaling}{75}{subsection.4.4.8}
-\contentsline {section}{\numberline {E}Cheeger Inequality for Probability Density Functions}{77}{section.4.5}
-\contentsline {section}{\numberline {F}Spectral Sweep Cuts have Provably Good Sparsity (proof of Theorem~\ref {thm:sweep-cut})}{79}{section.4.6}
-\contentsline {section}{\numberline {G}Problems with Existing Spectral Cut Methods}{79}{section.4.7}
-\contentsline {subsection}{\numberline {G.1}Our density function}{80}{subsection.4.7.1}
-\contentsline {subsection}{\numberline {G.2}Proof Overview}{81}{subsection.4.7.2}
-\contentsline {subsection}{\numberline {G.3}The Zero-set of a principal $(1,2)$ eigenfunction is the line $y = 0$}{81}{subsection.4.7.3}
-\contentsline {subsection}{\numberline {G.4}Any spectral sweep cut has high $(1,\beta )$ sparsity}{82}{subsection.4.7.4}
-\contentsline {section}{\numberline {H}Conclusion and Future Directions}{83}{section.4.8}
-\contentsline {section}{\numberline {G}Calculating Eigenvalues and Isoperimetry constants for Simple Examples}{84}{section.4.7}
-\contentsline {subsection}{\numberline {G.1}Notation}{84}{subsection.4.7.1}
-\contentsline {subsection}{\numberline {G.2}A Lipschitz weight}{84}{subsection.4.7.2}
-\contentsline {section}{\numberline {H}Cheeger and Buser for Density Functions does not easily follow from Graph or Manifold Cheeger and Buser}{85}{section.4.8}
-\contentsline {subsection}{\numberline {H.1}Comments on Graph Cheeger-Buser}{85}{subsection.4.8.1}
-\contentsline {subsection}{\numberline {H.2}Comments on Manifold Cheeger-Buser}{86}{subsection.4.8.2}
-\contentsline {section}{\numberline {I}A weighted Cheeger inequality in one dimension}{86}{section.4.9}
-\contentsline {chapter}{\numberline {5}Geometric Spectral Algorithms and Hardness, with Machine Learning applications}{91}{chapter.5}
-\contentsline {section}{\numberline {1}Introduction}{94}{section.5.1}
-\contentsline {subsection}{\numberline {1.1}High-dimensional results}{96}{subsection.5.1.1}
-\contentsline {subsubsection}{Multiplication}{97}{section*.34}
-\contentsline {subsubsection}{Sparsification}{97}{section*.35}
-\contentsline {subsubsection}{Laplacian solving}{99}{section*.36}
-\contentsline {subsection}{\numberline {1.2}Our Techniques}{100}{subsection.5.1.2}
-\contentsline {subsubsection}{Multiplication}{100}{section*.37}
-\contentsline {subsubsection}{Sparsification}{102}{section*.41}
-\contentsline {subsection}{\numberline {1.3}Brief summary of our results in terms of $p_f$}{104}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {1.4}Summary of our Results on Examples}{105}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {1.5}Other Related Work}{105}{subsection.5.1.5}
-\contentsline {paragraph}{Kernel Functions}{106}{section*.48}
-\contentsline {paragraph}{Acknowledgements}{106}{section*.49}
-\contentsline {section}{\numberline {2}Summary of Low Dimensional Results}{106}{section.5.2}
-\contentsline {subsection}{\numberline {2.1}Multiplication}{107}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {2.2}Sparsification}{107}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {2.3}Laplacian solving}{108}{subsection.5.2.3}
-\contentsline {section}{\numberline {3}Preliminaries}{109}{section.5.3}
-\contentsline {subsection}{\numberline {3.1}Notation}{109}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {3.2}Graph and Laplacian Notation}{109}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {3.3}Spectral Sparsification via Random Sampling}{111}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {3.4}Woodbury Identity}{111}{subsection.5.3.4}
-\contentsline {subsection}{\numberline {3.5}Tail Bounds}{112}{subsection.5.3.5}
-\contentsline {subsection}{\numberline {3.6}Fine-Grained Hypotheses}{112}{subsection.5.3.6}
-\contentsline {subsection}{\numberline {3.7}Dimensionality Reduction}{112}{subsection.5.3.7}
-\contentsline {subsection}{\numberline {3.8}Nearest Neighbor Search}{113}{subsection.5.3.8}
-\contentsline {subsection}{\numberline {3.9}Geometric Laplacian System}{114}{subsection.5.3.9}
-\contentsline {section}{\numberline {4}Equivalence of Matrix-Vector Multiplication and Solving Linear Systems}{114}{section.5.4}
-\contentsline {subsection}{\numberline {4.1}Solving Linear Systems Implies Matrix-Vector Multiplication}{116}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {4.2}Matrix-Vector Multiplication Implies Solving Linear Systems}{119}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {4.3}Lower bound for high-dimensional linear system solving}{119}{subsection.5.4.3}
-\contentsline {section}{\numberline {5}Matrix-Vector Multiplication}{120}{section.5.5}
-\contentsline {subsection}{\numberline {5.1}Equivalence between Adjacency and Laplacian Evaluation}{121}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.2}Approximate Degree}{122}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.3}`Kernel Method' Algorithms}{123}{subsection.5.5.3}
-\contentsline {subsection}{\numberline {5.4}Lower Bound in High Dimensions}{125}{subsection.5.5.4}
-\contentsline {subsection}{\numberline {5.5}Lower Bounds in Low Dimensions}{133}{subsection.5.5.5}
-\contentsline {subsection}{\numberline {5.6}Hardness of the $n$-Body Problem}{135}{subsection.5.5.6}
-\contentsline {subsection}{\numberline {5.7}Hardness of Kernel PCA}{136}{subsection.5.5.7}
-\contentsline {section}{\numberline {6}Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time}{137}{section.5.6}
-\contentsline {subsection}{\numberline {6.1}High Dimensional Sparsification}{138}{subsection.5.6.1}
-\contentsline {subsection}{\numberline {6.2}Low Dimensional Sparsification}{140}{subsection.5.6.2}
-\contentsline {section}{\numberline {7}Sparsifiers for $| \delimiter "426830A x,y \delimiter "526930B |$}{141}{section.5.7}
-\contentsline {subsection}{\numberline {7.1}Existence of large expanders in inner product graphs}{141}{subsection.5.7.1}
-\contentsline {subsection}{\numberline {7.2}Efficient algorithm for finding sets with low effective resistance diameter}{144}{subsection.5.7.2}
-\contentsline {subsection}{\numberline {7.3}Using low-effective-resistance clusters to sparsify the unweighted IP graph}{149}{subsection.5.7.3}
-\contentsline {subsection}{\numberline {7.4}Sampling data structure}{150}{subsection.5.7.4}
-\contentsline {subsection}{\numberline {7.5}Weighted IP graph sparsification}{154}{subsection.5.7.5}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{157}{section*.56}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{158}{section*.57}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{159}{section*.58}
-\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{161}{section*.59}
-\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{162}{section*.60}
-\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{167}{section*.61}
-\contentsline {section}{\numberline {8}Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians}{167}{section.5.8}
-\contentsline {section}{\numberline {9}Fast Multipole Method}{177}{section.5.9}
-\contentsline {subsection}{\numberline {9.1}Overview}{177}{subsection.5.9.1}
-\contentsline {subsection}{\numberline {9.2}$\mathsf {K}(x,y) = \qopname \relax o{exp}( - \delimiter "026B30D x - y \delimiter "026B30D _2^2 ) $, Fast Gaussian transform}{178}{subsection.5.9.2}
-\contentsline {subsubsection}{Estimation}{181}{section*.64}
-\contentsline {subsubsection}{Algorithm}{185}{section*.65}
-\contentsline {subsubsection}{Result}{187}{section*.69}
-\contentsline {subsection}{\numberline {9.3}Generalization}{187}{subsection.5.9.3}
-\contentsline {subsection}{\numberline {9.4}$\mathsf {K}(x,y) = 1 / \delimiter "026B30D x - y \delimiter "026B30D _2^2$}{188}{subsection.5.9.4}
-\contentsline {section}{\numberline {10}Neural Tangent Kernel}{189}{section.5.10}
+\contentsline {section}{\numberline {2}Paper Organization}{62}{section.4.2}
+\contentsline {section}{\numberline {3}Cheeger-Buser inequalities require carefully chosen $\alpha , \beta , \gamma $}{62}{section.4.3}
+\contentsline {section}{\numberline {4}Buser Inequality for Probability Density Functions}{63}{section.4.4}
+\contentsline {subsection}{\numberline {4.1}Weighted Buser-type Inequality}{64}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.2}Proof Strategy: Mollification by Disks of Radius Proportional to $\rho $}{64}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.3}Key Technical Lemma: Bounding $L_1$ norm of a function with the $L_1$ norm of its mollification}{65}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4}Upper Bounding the Numerator}{67}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.5}Lower Bound on the Denominator}{71}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.6}Bounding the Rayleigh Quotient (Proof of Theorem~\ref {thm:buser_n})}{73}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.7}Gradient of Mollifier}{73}{subsection.4.4.7}
+\contentsline {subsection}{\numberline {4.8}Scaling}{75}{subsection.4.4.8}
+\contentsline {section}{\numberline {5}Cheeger Inequality for Probability Density Functions}{77}{section.4.5}
+\contentsline {section}{\numberline {6}Spectral Sweep Cuts have Provably Good Sparsity (proof of Theorem~\ref {thm:sweep-cut})}{78}{section.4.6}
+\contentsline {section}{\numberline {7}Problems with Existing Spectral Cut Methods}{79}{section.4.7}
+\contentsline {subsection}{\numberline {7.1}Our density function}{80}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {7.2}Proof Overview}{80}{subsection.4.7.2}
+\contentsline {subsection}{\numberline {7.3}The Zero-set of a principal $(1,2)$ eigenfunction is the line $y = 0$}{80}{subsection.4.7.3}
+\contentsline {subsection}{\numberline {7.4}Any spectral sweep cut has high $(1,\beta )$ sparsity}{81}{subsection.4.7.4}
+\contentsline {section}{\numberline {8}Conclusion and Future Directions}{83}{section.4.8}
+\contentsline {section}{\numberline {J}Calculating Eigenvalues and Isoperimetry constants for Simple Examples}{83}{section.4.10}
+\contentsline {subsection}{\numberline {J.1}Notation}{84}{subsection.4.10.1}
+\contentsline {subsection}{\numberline {J.2}A Lipschitz weight}{84}{subsection.4.10.2}
+\contentsline {section}{\numberline {K}Cheeger and Buser for Density Functions does not easily follow from Graph or Manifold Cheeger and Buser}{84}{section.4.11}
+\contentsline {subsection}{\numberline {K.1}Comments on Graph Cheeger-Buser}{84}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {K.2}Comments on Manifold Cheeger-Buser}{85}{subsection.4.11.2}
+\contentsline {section}{\numberline {L}A weighted Cheeger inequality in one dimension}{85}{section.4.12}
+\contentsline {chapter}{\numberline {5}Geometric Spectral Algorithms and Hardness, with Machine Learning applications}{89}{chapter.5}
+\contentsline {section}{\numberline {1}Introduction}{89}{section.5.1}
+\contentsline {subsection}{\numberline {1.1}High-dimensional results}{92}{subsection.5.1.1}
+\contentsline {subsubsection}{Multiplication}{92}{section*.33}
+\contentsline {subsubsection}{Sparsification}{93}{section*.34}
+\contentsline {subsubsection}{Laplacian solving}{95}{section*.35}
+\contentsline {subsection}{\numberline {1.2}Our Techniques}{95}{subsection.5.1.2}
+\contentsline {subsubsection}{Multiplication}{95}{section*.36}
+\contentsline {subsubsection}{Sparsification}{98}{section*.40}
+\contentsline {subsection}{\numberline {1.3}Brief summary of our results in terms of $p_f$}{99}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {1.4}Summary of our Results on Examples}{101}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {1.5}Other Related Work}{101}{subsection.5.1.5}
+\contentsline {paragraph}{Kernel Functions}{102}{section*.47}
+\contentsline {paragraph}{Acknowledgements}{102}{section*.48}
+\contentsline {section}{\numberline {2}Summary of Low Dimensional Results}{102}{section.5.2}
+\contentsline {subsection}{\numberline {2.1}Multiplication}{102}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {2.2}Sparsification}{103}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {2.3}Laplacian solving}{104}{subsection.5.2.3}
+\contentsline {section}{\numberline {3}Preliminaries}{104}{section.5.3}
+\contentsline {subsection}{\numberline {3.1}Notation}{104}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {3.2}Graph and Laplacian Notation}{105}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {3.3}Spectral Sparsification via Random Sampling}{106}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {3.4}Woodbury Identity}{107}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {3.5}Tail Bounds}{108}{subsection.5.3.5}
+\contentsline {subsection}{\numberline {3.6}Fine-Grained Hypotheses}{108}{subsection.5.3.6}
+\contentsline {subsection}{\numberline {3.7}Dimensionality Reduction}{108}{subsection.5.3.7}
+\contentsline {subsection}{\numberline {3.8}Nearest Neighbor Search}{109}{subsection.5.3.8}
+\contentsline {subsection}{\numberline {3.9}Geometric Laplacian System}{110}{subsection.5.3.9}
+\contentsline {section}{\numberline {4}Equivalence of Matrix-Vector Multiplication and Solving Linear Systems}{110}{section.5.4}
+\contentsline {subsection}{\numberline {4.1}Solving Linear Systems Implies Matrix-Vector Multiplication}{112}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {4.2}Matrix-Vector Multiplication Implies Solving Linear Systems}{115}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {4.3}Lower bound for high-dimensional linear system solving}{115}{subsection.5.4.3}
+\contentsline {section}{\numberline {5}Matrix-Vector Multiplication}{116}{section.5.5}
+\contentsline {subsection}{\numberline {5.1}Equivalence between Adjacency and Laplacian Evaluation}{117}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.2}Approximate Degree}{118}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.3}`Kernel Method' Algorithms}{119}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.4}Lower Bound in High Dimensions}{121}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5}Lower Bounds in Low Dimensions}{129}{subsection.5.5.5}
+\contentsline {subsection}{\numberline {5.6}Hardness of the $n$-Body Problem}{131}{subsection.5.5.6}
+\contentsline {subsection}{\numberline {5.7}Hardness of Kernel PCA}{132}{subsection.5.5.7}
+\contentsline {section}{\numberline {6}Sparsifying Multiplicatively Lipschitz Functions in Almost Linear Time}{133}{section.5.6}
+\contentsline {subsection}{\numberline {6.1}High Dimensional Sparsification}{134}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {6.2}Low Dimensional Sparsification}{136}{subsection.5.6.2}
+\contentsline {section}{\numberline {7}Sparsifiers for $| \delimiter "426830A x,y \delimiter "526930B |$}{137}{section.5.7}
+\contentsline {subsection}{\numberline {7.1}Existence of large expanders in inner product graphs}{137}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {7.2}Efficient algorithm for finding sets with low effective resistance diameter}{140}{subsection.5.7.2}
+\contentsline {subsection}{\numberline {7.3}Using low-effective-resistance clusters to sparsify the unweighted IP graph}{145}{subsection.5.7.3}
+\contentsline {subsection}{\numberline {7.4}Sampling data structure}{146}{subsection.5.7.4}
+\contentsline {subsection}{\numberline {7.5}Weighted IP graph sparsification}{150}{subsection.5.7.5}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for unweighted IP graphs}{153}{section*.55}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on bounded-norm vectors}{154}{section*.56}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs on vectors with norms in the set $[1,2]\cup [z,2z]$ for any $z > 1$}{155}{section*.57}
+\contentsline {subsubsection}{$(\zeta ,\kappa )$-cover for weighted IP graphs with polylogarithmic dependence on norm}{157}{section*.58}
+\contentsline {subsubsection}{Desired $(\zeta ,\kappa ,\delta )$-cover}{158}{section*.59}
+\contentsline {subsubsection}{Proof of Lemma \ref {lem:inner-sparsify}}{163}{section*.60}
+\contentsline {section}{\numberline {8}Hardness of Sparsifying and Solving Non-Multiplicatively-Lipschitz Laplacians}{163}{section.5.8}
+\contentsline {section}{\numberline {9}Fast Multipole Method}{173}{section.5.9}
+\contentsline {subsection}{\numberline {9.1}Overview}{173}{subsection.5.9.1}
+\contentsline {subsection}{\numberline {9.2}$\mathsf {K}(x,y) = \qopname \relax o{exp}( - \delimiter "026B30D x - y \delimiter "026B30D _2^2 ) $, Fast Gaussian transform}{174}{subsection.5.9.2}
+\contentsline {subsubsection}{Estimation}{177}{section*.63}
+\contentsline {subsubsection}{Algorithm}{181}{section*.64}
+\contentsline {subsubsection}{Result}{183}{section*.68}
+\contentsline {subsection}{\numberline {9.3}Generalization}{183}{subsection.5.9.3}
+\contentsline {subsection}{\numberline {9.4}$\mathsf {K}(x,y) = 1 / \delimiter "026B30D x - y \delimiter "026B30D _2^2$}{184}{subsection.5.9.4}
+\contentsline {section}{\numberline {10}Neural Tangent Kernel}{185}{section.5.10}
